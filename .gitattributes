@@ -1,1 +1,2 @@
 *.tsx linguist-language=TypeScript
+*.ts.example linguist-language=TypeScript
