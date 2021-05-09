@@ -4,7 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
-	entry: './src/index.js',
+	entry: './src/index.tsx',
 	output: {
 		filename: 'bundle.js',
 	},
@@ -33,4 +33,7 @@ module.exports = {
 			patterns: [{ from: 'public/chrome' }],
 		}),
 	],
+	resolve: {
+		extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
+	},
 };
