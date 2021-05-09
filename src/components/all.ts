@@ -1,3 +1,4 @@
 import Footer from './Footer';
+import Main from './Main';
 
-export { Footer };
+export { Footer, Main };

@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/style.scss';
-import { Footer } from './components/all';
+import { Footer, Main } from './components/all';
 
-function Main() {
+function Home() {
 	return (
 		<div>
-			<div className="main">Add channels in the settings page</div>
+			<Main />
 			<Footer />
 		</div>
 	);
 }
 
-ReactDOM.render(<Main />, document.getElementById('root'));
+ReactDOM.render(<Home />, document.getElementById('root'));
