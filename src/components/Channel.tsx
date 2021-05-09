@@ -76,9 +76,6 @@ export default class Channel extends React.Component<
 						width={100}
 						height={100}></img>
 				</div>
-				<div className="channelDesc">
-					<p>{this.state.data.id}</p>
-				</div>
 			</div>
 		);
 	}

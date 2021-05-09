@@ -6,12 +6,14 @@ body {
 	min-height: 400px;
 	max-height: 600px;
 	margin: none;
+	padding-bottom: 35px;
 }
 
 footer {
 	position: fixed;
 	left: 0;
 	bottom: 0;
+	height: 35px;
 	width: 100%;
 	margin-bottom: 5px;
 	text-align: center;
@@ -38,4 +40,5 @@ footer {
 	border-radius: 5%;
 	width: 120px;
 	height: 120px;
+	margin: 10px;
 }
