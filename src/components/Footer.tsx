@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonGroup, Button, IconButton } from '@material-ui/core';
+import { ButtonGroup, Button } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
