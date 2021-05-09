@@ -3,7 +3,7 @@ module.exports = {
 		browser: true,
 		es2021: true,
 	},
-	extends: ['plugin:react/recommended', 'standard'],
+	extends: ['plugin:react/recommended', 'eslint:recommended'],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaFeatures: {
@@ -19,5 +19,6 @@ module.exports = {
 		'comma-dangle': ['error', 'always-multiline'],
 		semi: ['error', 'always'],
 		'no-unused-vars': ['warn'],
+		'space-before-function-paren': ['error', 'never'],
 	},
 };

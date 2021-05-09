@@ -17,3 +17,16 @@ footer {
 	text-align: center;
 	color: white;
 }
+
+.main {
+	text-align: center;
+	small {
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: xx-large;
+		color: gray;
+	}
+}

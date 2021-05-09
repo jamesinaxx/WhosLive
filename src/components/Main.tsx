@@ -1,9 +1,15 @@
 import React from 'react';
 
-export default function Main(props) {
+type MainProps = {
+	channels: string[];
+};
+
+export default function Main(props: MainProps) {
 	return (
 		<div className="main">
-			{props.channels ? 'Add channels in the settings page' : null}
+			<small>
+				{!props.channels ? 'Add channels in the settings page' : null}
+			</small>
 		</div>
 	);
 }
