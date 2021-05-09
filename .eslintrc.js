@@ -16,7 +16,7 @@ module.exports = {
 	rules: {
 		indent: ['error', 'tab'],
 		'no-tabs': 'off',
-		'comma-dangle': ['error', 'always-multiline'],
+		'comma-dangle': ['error', 'only-multiline'],
 		semi: ['error', 'always'],
 		'no-unused-vars': ['warn'],
 		'space-before-function-paren': ['error', 'never'],
