@@ -1,0 +1,32 @@
+body {
+	display: flex;
+	flex-direction: column;
+	min-width: 600px;
+	max-width: 800px;
+	min-height: 400px;
+	max-height: 600px;
+	margin: none;
+}
+
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	margin-bottom: 5px;
+	text-align: center;
+	color: white;
+}
+
+.main {
+	text-align: center;
+	small {
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: xx-large;
+		color: gray;
+	}
+}

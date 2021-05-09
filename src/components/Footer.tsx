@@ -6,7 +6,7 @@ import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 
 export default function Footer() {
 	return (
-		<footer>
+		<footer style={{ backgroundColor: '#FFF' }}>
 			<ButtonGroup variant="outlined" color="secondary">
 				<Button startIcon={<VideocamIcon />}>Live</Button>
 				<Button startIcon={<VideocamOffIcon />}>Offline</Button>

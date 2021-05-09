@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/style.scss';
-import { Footer, Main } from './components/all';
+import { Footer } from './components/all';
+import Live from './pages/Live';
+
+let channels = ['jamesinaxx', 'ruepa', 'kinzixx'];
 
 function Home() {
 	return (
 		<div>
-			<Main />
+			<Live channels={channels} />
 			<Footer />
 		</div>
 	);

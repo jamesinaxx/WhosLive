@@ -1,4 +1,5 @@
-import Footer from './Footer';
-import Main from './Main';
+// Global components
 
-export { Footer, Main };
+import Footer from './Footer';
+
+export { Footer };
