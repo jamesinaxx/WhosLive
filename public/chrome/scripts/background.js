@@ -8,10 +8,17 @@ function setStorage(channels) {
 	});
 }
 
-function getStorage(channels) {
-	chrome.storage.sync.get(['channels'], () => {
-		console.log('Set the channels array to ' + channels);
+function getStorage() {
+	return new Promise((resolve, reject) => {
+		chrome.storage.sync.get(['channels'], (res) => {
+			console.log('Got the channels array: ' + res.channels);
+			resolve(res.channels);
+		});
 	});
 }
+
+chrome.storage.onChanged.addListener(function () {
+	console.log('Updated storage, logged from background.js');
+});
 
 module.exports = { setStorage, getStorage };
