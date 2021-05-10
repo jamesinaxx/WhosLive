@@ -6,7 +6,6 @@ const CopyPlugin = require('copy-webpack-plugin');
  * @type {webpack.Configuration}
  */
 const config = {
-	mode: 'development',
 	entry: './src/index.tsx',
 	output: {
 		filename: 'bundle.js',
