@@ -1,5 +1,6 @@
 import React from 'react';
 import { ButtonGroup, Button, TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
@@ -8,14 +9,37 @@ import {
 	getStorage,
 } from '../../public/chrome/scripts/chromeapi.js';
 import axios from 'axios';
-
 import { client_id, token } from '../../public/config';
 
-interface IProps {
+interface FooterProps {
 	handleChange: (page: string) => void;
 }
 
-export default class Footer extends React.Component<IProps> {
+interface FooterState {
+	textVal: string;
+	textErr: boolean;
+}
+
+const UsernameTextField = withStyles({
+	root: {
+		'& input:valid + fieldset': {
+			borderColor: 'green',
+			borderWidth: 2,
+		},
+		'& input:invalid + fieldset': {
+			borderColor: 'red',
+			borderWidth: 2,
+		},
+	},
+})(TextField);
+
+export default class Footer extends React.Component<FooterProps, FooterState> {
+	constructor(props: FooterProps) {
+		super(props);
+
+		this.state = { textVal: '', textErr: false };
+	}
+
 	getFollowing(username: string) {
 		setStorage('user', username);
 
@@ -29,6 +53,10 @@ export default class Footer extends React.Component<IProps> {
 					},
 				})
 				.then((res) => {
+					if (!res.data.data.length) {
+						this.setState({ textErr: true });
+						return;
+					}
 					axios
 						.get('https://api.twitch.tv/helix/users/follows', {
 							params: {
@@ -58,7 +86,7 @@ export default class Footer extends React.Component<IProps> {
 	render() {
 		return (
 			<footer>
-				<ButtonGroup variant="outlined" color="secondary">
+				<ButtonGroup variant="outlined" color="primary">
 					<Button
 						onClick={() => this.props.handleChange('live')}
 						startIcon={<VideocamIcon />}>
@@ -69,11 +97,17 @@ export default class Footer extends React.Component<IProps> {
 						startIcon={<VideocamOffIcon />}>
 						Offline
 					</Button>
-					{/* TODO: Move to text field instead of button*/}
-					<TextField
+					<UsernameTextField
 						variant="outlined"
-						color="secondary"
-						id="usernamefield"></TextField>
+						id="usernamefield"
+						value={this.state.textVal}
+						error={this.state.textErr}
+						required
+						label="Twitch Username"
+						type="text"
+						onChange={(e) =>
+							this.setState({ textVal: e.target.value })
+						}></UsernameTextField>
 					<Button
 						onClick={() => {
 							this.getFollowing(
