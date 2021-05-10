@@ -2,7 +2,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-module.exports = {
+/**
+ * @type {webpack.Configuration}
+ */
+const config = {
 	mode: 'development',
 	entry: './src/index.tsx',
 	output: {
@@ -37,3 +40,5 @@ module.exports = {
 		extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
 	},
 };
+
+module.exports = config;
