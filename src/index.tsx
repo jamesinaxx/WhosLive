@@ -9,6 +9,8 @@ interface HomeState {
 	channels: string[];
 }
 
+// TODO Add dark mode
+
 let Component = Live;
 
 import { setStorage, getStorage } from '../public/chrome/scripts/chromeapi.js';

@@ -54,10 +54,9 @@ export default class Footer extends React.Component<FooterProps, FooterState> {
 					},
 				})
 				.then((res) => {
-					if (!res.data.data.length) {
-						this.setState({ textErr: true });
-						return;
-					}
+					if (!res.data.data.length)
+						return this.setState({ textErr: true });
+					this.setState({ textErr: false });
 					axios
 						.get('https://api.twitch.tv/helix/users/follows', {
 							params: {
