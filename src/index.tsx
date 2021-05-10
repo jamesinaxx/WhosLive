@@ -37,7 +37,7 @@ class Home extends React.Component<any, HomeState> {
 	}
 
 	render() {
-		console.log(getStorage());
+		console.log(getStorage('channels'));
 
 		switch (this.state.page) {
 			case 'live':
