@@ -11,6 +11,7 @@ interface ChannelProps {
 interface ChannelState {
 	color: string;
 	url: string;
+	hidden: boolean;
 	data: {
 		id: string;
 		type: string;
@@ -26,6 +27,7 @@ export default class Channel extends React.Component<
 
 		this.state = {
 			color: '#FFF',
+			hidden: true,
 			url: 'https://about:blank',
 			data: {
 				id: 'Loading...',
@@ -63,6 +65,7 @@ export default class Channel extends React.Component<
 				console.log(
 					'Just sent a request for the user: ' + this.props.name
 				);
+				this.setState({ hidden: false });
 				this.setState({ url: res.data.data[0].profile_image_url });
 			})
 			.catch((e) => console.error(e));
@@ -82,25 +85,25 @@ export default class Channel extends React.Component<
 	}
 
 	render() {
-		if (
-			(this.state.data !== undefined && this.props.online) ||
-			(this.state.data === undefined && !this.props.online)
-		) {
-			return (
-				<div className="channel">
-					<div
-						className="channelImage"
-						style={{ backgroundColor: this.state.color }}>
-						<img
-							onLoad={() => this.getColor(this.state.url)}
-							src={this.state.url}
-							width={100}
-							height={100}></img>
+		return (
+			<div hidden={this.state.hidden}>
+				{(this.state.data !== undefined && this.props.online) ||
+				(this.state.data === undefined && !this.props.online) ? (
+					<div className="channel">
+						<div
+							className="channelImage"
+							style={{ backgroundColor: this.state.color }}>
+							<img
+								onLoad={() => this.getColor(this.state.url)}
+								src={this.state.url}
+								width={100}
+								height={100}></img>
+						</div>
 					</div>
-				</div>
-			);
-		} else {
-			return <div>{null}</div>;
-		}
+				) : (
+					<div>{null}</div>
+				)}
+			</div>
+		);
 	}
 }
