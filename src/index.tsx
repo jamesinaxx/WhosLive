@@ -4,14 +4,14 @@ import './styles/style.scss';
 import { Footer } from './components/all';
 import Live from './pages/Live';
 import Offline from './pages/Offline';
-
-let channels = ['jamesinaxx', 'ruepa', 'kinzixx', 'ludwig'];
-
 interface HomeState {
 	page: string;
+	channels: string[];
 }
 
 let Component = Live;
+
+import { setStorage, getStorage } from '../public/chrome/scripts/background.js';
 
 class Home extends React.Component<any, HomeState> {
 	constructor(props: any) {
@@ -19,7 +19,15 @@ class Home extends React.Component<any, HomeState> {
 
 		this.state = {
 			page: 'live',
+			channels: getStorage() || [],
 		};
+
+		setStorage(this.state.channels);
+	}
+
+	updateStorage(channels: string[]) {
+		this.setState({ channels });
+		setStorage(channels);
 	}
 
 	render() {
@@ -37,7 +45,7 @@ class Home extends React.Component<any, HomeState> {
 
 		return (
 			<div>
-				<Component channels={channels} />
+				<Component channels={this.state.channels} />
 				<Footer
 					handleChange={(page: string) => {
 						this.setState({ page: page.toLowerCase() });

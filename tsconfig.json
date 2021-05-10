@@ -2,5 +2,6 @@
 	"compilerOptions": {
 		"jsx": "preserve",
 		"esModuleInterop": true
-	}
+	},
+	"typeAcquisition": { "include": ["chrome"] }
 }
