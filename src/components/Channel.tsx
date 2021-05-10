@@ -82,8 +82,10 @@ export default class Channel extends React.Component<
 	}
 
 	render() {
-		if (this.state.data !== undefined) {
-			console.log(this.state.url);
+		if (
+			(this.state.data !== undefined && this.props.online) ||
+			(this.state.data === undefined && !this.props.online)
+		) {
 			return (
 				<div className="channel">
 					<div
@@ -98,7 +100,7 @@ export default class Channel extends React.Component<
 				</div>
 			);
 		} else {
-			return <p>hehe</p>;
+			return <div>{null}</div>;
 		}
 	}
 }
