@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const { rmdirSync, existsSync } = require('fs');
 
 /**
  * @type {webpack.Configuration}
@@ -40,4 +41,9 @@ const config = {
 	},
 };
 
-module.exports = config;
+const configFunc = () => {
+	if (existsSync('./dist/')) rmdirSync('./dist/', { recursive: true });
+	return config;
+};
+
+module.exports = configFunc;
