@@ -83,6 +83,12 @@ export default class Footer extends React.Component<FooterProps, FooterState> {
 		});
 	}
 
+	componentDidMount() {
+		getStorage('user').then((res) => {
+			if (res !== undefined) this.getFollowing(res);
+		});
+	}
+
 	render() {
 		return (
 			<footer>
