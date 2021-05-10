@@ -2,17 +2,17 @@ chrome.runtime.onInstalled.addListener(() => {
 	console.log('Initialized chrome extension');
 });
 
-function setStorage(channels) {
-	chrome.storage.sync.set({ channels }, () => {
-		console.log('Set the channels array to ' + channels);
+function setStorage(key, value) {
+	chrome.storage.sync.set({ [key]: value }, () => {
+		console.log(`Set the ${key} array to ` + value);
 	});
 }
 
-function getStorage() {
+function getStorage(key) {
 	return new Promise((resolve, reject) => {
-		chrome.storage.sync.get(['channels'], (res) => {
-			console.log('Got the channels array: ' + res.channels);
-			resolve(res.channels);
+		chrome.storage.sync.get([key], (res) => {
+			console.log(`Got the ${key} array: ` + res[key]);
+			resolve(res[key]);
 		});
 	});
 }

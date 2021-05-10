@@ -25,7 +25,10 @@ export default class Footer extends React.Component<IProps> {
 			.then((res) => {
 				console.log(res.data.data);
 				console.log('Just sent a request for the user: ' + user_id);
-				setStorage(res.data.data.map((channel) => channel.to_name));
+				setStorage(
+					'channels',
+					res.data.data.map((channel) => channel.to_name)
+				);
 			})
 			.catch((e) => console.error(e));
 	}

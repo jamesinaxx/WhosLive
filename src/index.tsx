@@ -22,13 +22,17 @@ class Home extends React.Component<any, HomeState> {
 			channels: [],
 		};
 
-		getStorage().then((res) => this.setState({ channels: res || [] }));
+		getStorage('channels').then((res) => {
+			this.setState({ channels: res || [] });
+		});
 
-		setStorage(this.state.channels);
+		setStorage('channels', this.state.channels);
 
 		chrome.storage.onChanged.addListener(() => {
 			console.log('Updated storage');
-			getStorage().then((res) => this.setState({ channels: res || [] }));
+			getStorage('channels').then((res) =>
+				this.setState({ channels: res || [] })
+			);
 		});
 	}
 

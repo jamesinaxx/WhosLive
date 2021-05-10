@@ -1,2 +1,2 @@
-export function setStorage(channels: string[]): void;
-export function getStorage(): Promise<string[]>;
+export function setStorage(key: string, value: any): void;
+export function getStorage(key: string): Promise<any>;
