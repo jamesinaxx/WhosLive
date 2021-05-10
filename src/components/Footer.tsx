@@ -3,7 +3,10 @@ import { ButtonGroup, Button, TextField } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
-import { setStorage, getStorage } from '../../public/chrome/scripts/background';
+import {
+	setStorage,
+	getStorage,
+} from '../../public/chrome/scripts/chromeapi.js';
 import axios from 'axios';
 
 import { client_id, token } from '../../public/config';

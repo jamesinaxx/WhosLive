@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/style.scss';
-import { Footer } from './components/all';
+import Footer from './components/Footer';
 import Live from './pages/Live';
 import Offline from './pages/Offline';
 interface HomeState {
@@ -11,7 +11,7 @@ interface HomeState {
 
 let Component = Live;
 
-import { setStorage, getStorage } from '../public/chrome/scripts/background.js';
+import { setStorage, getStorage } from '../public/chrome/scripts/chromeapi.js';
 
 class Home extends React.Component<any, HomeState> {
 	constructor(props: any) {
@@ -28,6 +28,7 @@ class Home extends React.Component<any, HomeState> {
 
 		setStorage('channels', this.state.channels);
 
+		// eslint-disable-next-line no-undef
 		chrome.storage.onChanged.addListener(() => {
 			console.log('Updated storage');
 			getStorage('channels').then((res) =>

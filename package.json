@@ -10,6 +10,7 @@
 		"build": "webpack --mode=production"
 	},
 	"dependencies": {
+		"@types/chrome": "^0.0.138",
 		"axios": "^0.21.1",
 		"fast-average-color": "^6.4.0",
 		"prop-types": "^15.7.2",
