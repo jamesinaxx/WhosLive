@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonGroup, Button } from '@material-ui/core';
+import { ButtonGroup, Button, TextField } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
@@ -44,6 +44,7 @@ export default class Footer extends React.Component<IProps> {
 						startIcon={<VideocamOffIcon />}>
 						Offline
 					</Button>
+					{/* TODO: Move to text field instead of button*/}
 					<Button
 						onClick={() => {
 							this.getFollowing('538134305');
