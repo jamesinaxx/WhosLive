@@ -12,6 +12,7 @@ import axios from 'axios';
 import { client_id, token } from '../../public/config';
 
 interface FooterProps {
+	// eslint-disable-next-line no-unused-vars
 	handleChange: (page: string) => void;
 }
 
