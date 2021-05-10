@@ -5,7 +5,7 @@ import { Footer } from './components/all';
 import Live from './pages/Live';
 import Offline from './pages/Offline';
 
-let channels = ['jamesinaxx', 'ruepa', 'kinzixx'];
+let channels = ['jamesinaxx', 'ruepa', 'kinzixx', 'ludwig'];
 
 interface HomeState {
 	page: string;

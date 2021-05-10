@@ -10,8 +10,8 @@ interface ChannelProps {
 
 interface ChannelState {
 	color: string;
+	url: string;
 	data: {
-		profile_image_url: string;
 		id: string;
 		type: string;
 	};
@@ -26,8 +26,8 @@ export default class Channel extends React.Component<
 
 		this.state = {
 			color: '#FFF',
+			url: 'https://about:blank',
 			data: {
-				profile_image_url: 'https://about:blank',
 				id: 'Loading...',
 				type: null,
 			},
@@ -50,6 +50,22 @@ export default class Channel extends React.Component<
 				this.setState({ data: res.data.data[0] });
 			})
 			.catch((e) => console.error(e));
+
+		axios
+			.get('https://api.twitch.tv/helix/users', {
+				params: { login: this.props.name },
+				headers: {
+					'Client-Id': client_id,
+					Authorization: 'Bearer ' + token,
+				},
+			})
+			.then((res) => {
+				console.log(
+					'Just sent a request for the user: ' + this.props.name
+				);
+				this.setState({ url: res.data.data[0].profile_image_url });
+			})
+			.catch((e) => console.error(e));
 	}
 
 	getColor(url: string) {
@@ -66,22 +82,23 @@ export default class Channel extends React.Component<
 	}
 
 	render() {
-		if (!this.state.data) {
+		if (this.state.data !== undefined) {
+			console.log(this.state.url);
 			return (
 				<div className="channel">
 					<div
 						className="channelImage"
 						style={{ backgroundColor: this.state.color }}>
 						<img
-							onLoad={() =>
-								this.getColor(this.state.data.profile_image_url)
-							}
-							src={this.state.data.profile_image_url}
+							onLoad={() => this.getColor(this.state.url)}
+							src={this.state.url}
 							width={100}
 							height={100}></img>
 					</div>
 				</div>
 			);
+		} else {
+			return <p>hehe</p>;
 		}
 	}
 }
