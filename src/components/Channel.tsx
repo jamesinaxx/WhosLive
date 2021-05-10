@@ -5,6 +5,7 @@ import FastAverageColor from 'fast-average-color';
 
 interface ChannelProps {
 	name: string;
+	online: boolean;
 }
 
 interface ChannelState {
@@ -12,6 +13,7 @@ interface ChannelState {
 	data: {
 		profile_image_url: string;
 		id: string;
+		type: string;
 	};
 }
 
@@ -27,14 +29,15 @@ export default class Channel extends React.Component<
 			data: {
 				profile_image_url: 'https://about:blank',
 				id: 'Loading...',
+				type: null,
 			},
 		};
 	}
 
 	componentDidMount() {
 		axios
-			.get('https://api.twitch.tv/helix/users', {
-				params: { login: this.props.name },
+			.get('https://api.twitch.tv/helix/streams', {
+				params: { user_login: this.props.name },
 				headers: {
 					'Client-Id': client_id,
 					Authorization: 'Bearer ' + token,
@@ -63,20 +66,22 @@ export default class Channel extends React.Component<
 	}
 
 	render() {
-		return (
-			<div className="channel">
-				<div
-					className="channelImage"
-					style={{ backgroundColor: this.state.color }}>
-					<img
-						onLoad={() =>
-							this.getColor(this.state.data.profile_image_url)
-						}
-						src={this.state.data.profile_image_url}
-						width={100}
-						height={100}></img>
+		if (!this.state.data) {
+			return (
+				<div className="channel">
+					<div
+						className="channelImage"
+						style={{ backgroundColor: this.state.color }}>
+						<img
+							onLoad={() =>
+								this.getColor(this.state.data.profile_image_url)
+							}
+							src={this.state.data.profile_image_url}
+							width={100}
+							height={100}></img>
+					</div>
 				</div>
-			</div>
-		);
+			);
+		}
 	}
 }

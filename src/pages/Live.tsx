@@ -13,7 +13,7 @@ export default function Main(props: MainProps) {
 				<small>Add channels in the settings page</small>
 			) : (
 				props.channels.map((channel, i) => (
-					<Channel key={i} name={channel} />
+					<Channel key={i} online name={channel} />
 				))
 			)}
 		</div>
