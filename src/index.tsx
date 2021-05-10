@@ -23,14 +23,16 @@ class Home extends React.Component<any, HomeState> {
 		};
 
 		setStorage(this.state.channels);
-	}
 
-	updateStorage(channels: string[]) {
-		this.setState({ channels });
-		setStorage(channels);
+		chrome.storage.onChanged.addListener(() => {
+			console.log('Updated storage');
+			this.setState({ channels: getStorage() || [] });
+		});
 	}
 
 	render() {
+		console.log(getStorage());
+
 		switch (this.state.page) {
 			case 'live':
 				Component = Live;
