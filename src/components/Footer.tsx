@@ -16,7 +16,7 @@ export default class Footer extends React.Component<IProps> {
 	getFollowing(user_id: string) {
 		axios
 			.get('https://api.twitch.tv/helix/users/follows', {
-				params: { from_id: user_id },
+				params: { from_id: user_id, first: 100 },
 				headers: {
 					'Client-Id': client_id,
 					Authorization: 'Bearer ' + token,
