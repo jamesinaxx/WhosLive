@@ -8,7 +8,7 @@ function setStorage(key, value) {
 }
 
 function getStorage(key) {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		Chrome.storage.sync.get([key], (res) => {
 			console.log(`Got the ${key} array: ` + res[key]);
 			resolve(res[key]);
