@@ -4,10 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
-import {
-	setStorage,
-	getStorage,
-} from '../../public/chrome/scripts/chromeapi.js';
+import { setStorage, getStorage } from '../../public/chrome/scripts/chromeapi';
 import axios from 'axios';
 import { client_id, token } from '../../public/config';
 
@@ -84,7 +81,7 @@ export default class Footer extends React.Component<FooterProps, FooterState> {
 	}
 
 	componentDidMount() {
-		getStorage('user').then((res) => {
+		getStorage('user').then((res: string) => {
 			if (res !== undefined) this.getFollowing(res);
 			this.setState({ textVal: res });
 		});

@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-undef
+const Chrome = chrome;
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/style.scss';
@@ -13,7 +15,7 @@ interface HomeState {
 
 let Component = Live;
 
-import { setStorage, getStorage } from '../public/chrome/scripts/chromeapi.js';
+import { setStorage, getStorage } from '../public/chrome/scripts/chromeapi';
 
 class Home extends React.Component<any, HomeState> {
 	constructor(props: any) {
@@ -24,16 +26,15 @@ class Home extends React.Component<any, HomeState> {
 			channels: [],
 		};
 
-		getStorage('channels').then((res) => {
+		getStorage('channels').then((res: string[]) => {
 			this.setState({ channels: res || [] });
 		});
 
 		setStorage('channels', this.state.channels);
 
-		// eslint-disable-next-line no-undef
-		chrome.storage.onChanged.addListener(() => {
+		Chrome.storage.onChanged.addListener(() => {
 			console.log('Updated storage');
-			getStorage('channels').then((res) =>
+			getStorage('channels').then((res: string[]) =>
 				this.setState({ channels: res || [] })
 			);
 		});
