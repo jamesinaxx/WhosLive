@@ -12,6 +12,7 @@ interface HomeState {
 }
 
 // TODO Add dark mode
+// TODO Make one req at startup and refresh once per minute
 
 let Component = Live;
 
