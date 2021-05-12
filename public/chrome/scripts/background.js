@@ -10,61 +10,48 @@ chrome.storage.onChanged.addListener(async () => getChannelInfo);
 function getStorage(key) {
 	return new Promise((resolve) => {
 		chrome.storage.sync.get([key], (res) => {
-			console.log(`Got the ${key} array: ` + res[key]);
 			resolve(res[key]);
 		});
 	});
 }
 
 function setStorageLocal(key, value) {
-	chrome.storage.local.set({ [key]: value }, () => {
-		console.log(`Set the ${key} array to ` + value);
-	});
+	chrome.storage.local.set({ [key]: value }, () => {});
 }
 
 async function getChannelInfo() {
-	getStorage('user').then(async (userName) =>
-		fetch('https://api.twitch.tv/helix/users?login=' + userName, {
-			headers: {
-				'Client-Id': client_id,
-				Authorization: 'Bearer ' + token,
-			},
-		}).then(async (resa) => {
-			console.log('Made first http req to Twitch');
-			resa.json().then((resjson) => {
-				console.log(resjson);
-				fetch(
-					'https://api.twitch.tv/helix/streams/followed?user_id=' +
-						resjson.data[0].id,
-					{
-						headers: {
-							'Client-Id': client_id,
-							Authorization: 'Bearer ' + token,
-						},
-					}
-				)
-					.then(async (resb) => {
-						const json = await resb.json();
-						console.log('Made second http req to Twitch');
-						console.log(
-							'Just sent a request for the user: ' + '538134305'
-						);
+	const userId = (
+		await (
+			await fetch(
+				'https://api.twitch.tv/helix/users?login=' +
+					(await getStorage('user')),
+				{
+					headers: {
+						'Client-Id': client_id,
+						Authorization: 'Bearer ' + token,
+					},
+				}
+			)
+		).json()
+	).data[0].id;
 
-						console.log(
-							'This should be something like this idfk ' +
-								json.data
-						);
+	const resbJson = await (
+		await fetch(
+			'https://api.twitch.tv/helix/streams/followed?user_id=' + userId,
+			{
+				headers: {
+					'Client-Id': client_id,
+					Authorization: 'Bearer ' + token,
+				},
+			}
+		)
+	).json();
 
-						chrome.browserAction.setBadgeText({
-							text: json.data.length.toString(),
-						});
+	chrome.browserAction.setBadgeText({
+		text: resbJson.data.length.toString(),
+	});
 
-						setStorageLocal('channels', json.data);
-					})
-					.catch((e) => console.error(e));
-			});
-		})
-	);
+	setStorageLocal('channels', resbJson.data);
 }
 
 async function getChannelInfoInit() {
