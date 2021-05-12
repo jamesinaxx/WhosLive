@@ -9,6 +9,7 @@ interface ChannelProps {
 }
 
 interface ChannelState {
+	bgColor: string;
 	color: string;
 	url: string;
 	hidden: boolean;
@@ -26,7 +27,8 @@ export default class Channel extends React.Component<
 		super(props);
 
 		this.state = {
-			color: '#FFF',
+			bgColor: '#FFF',
+			color: '#000',
 			hidden: true,
 			url: 'https://about:blank',
 			data: {
@@ -75,11 +77,14 @@ export default class Channel extends React.Component<
 		const fac = new FastAverageColor();
 
 		if (url === 'https://about:blank')
-			return this.setState({ color: '#FFF' });
+			return this.setState({ bgColor: '#FFF' });
 
 		fac.getColorAsync(url)
 			.then((color) => {
-				this.setState({ color: color.rgba });
+				this.setState({
+					bgColor: color.rgba,
+					color: color.isLight ? '#000' : '#FFF',
+				});
 			})
 			.catch((e) => console.error(e));
 	}
@@ -94,7 +99,8 @@ export default class Channel extends React.Component<
 						<div
 							className="channelImage"
 							style={{
-								backgroundColor: this.state.color,
+								backgroundColor: this.state.bgColor,
+								color: this.state.color,
 							}}>
 							<img
 								onLoad={() => this.getColor(this.state.url)}
