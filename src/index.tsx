@@ -3,7 +3,7 @@ const Chrome = chrome;
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/style.scss';
-import Footer from './components/Footer';
+import Footer from './pages/components/Footer';
 import Live from './pages/Live';
 import Offline from './pages/Offline';
 interface HomeState {
@@ -13,7 +13,7 @@ interface HomeState {
 
 let Component = Live;
 
-import { setStorage, getStorage } from '../public/chrome/scripts/chromeapi';
+import { setStorage, getStorage } from './lib/chromeapi';
 
 class Home extends React.Component<any, HomeState> {
 	constructor(props: any) {

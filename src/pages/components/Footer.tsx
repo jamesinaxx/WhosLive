@@ -4,9 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
-import { setStorage, getStorage } from '../../public/chrome/scripts/chromeapi';
 import axios from 'axios';
-import { client_id, token } from '../../public/config';
+import { client_id, token } from '../../../public/config';
+
+import { setStorage, getStorage } from '../../lib/chromeapi';
 
 interface FooterProps {
 	// eslint-disable-next-line no-unused-vars

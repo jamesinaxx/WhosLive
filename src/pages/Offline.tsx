@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Channel from '../components/Channel';
+import Channel from './components/Channel';
 
 type MainProps = {
 	channels: string[];

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { client_id, token } from '../../public/config';
+import { client_id, token } from '../../../public/config';
 import FastAverageColor from 'fast-average-color';
 
 interface ChannelProps {
