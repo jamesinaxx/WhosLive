@@ -4,8 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
-import axios from 'axios';
-import { client_id, token } from '../../../public/config';
 
 import { setStorage, getStorage } from '../../lib/chromeapi';
 
@@ -39,51 +37,13 @@ export default class Footer extends React.Component<FooterProps, FooterState> {
 		this.state = { textVal: '', textErr: false };
 	}
 
-	getFollowing(username: string) {
+	setUser(username: string) {
 		setStorage('user', username);
-
-		getStorage('user').then((res) => {
-			axios
-				.get('https://api.twitch.tv/helix/users', {
-					params: { login: res, first: 100 },
-					headers: {
-						'Client-Id': client_id,
-						Authorization: 'Bearer ' + token,
-					},
-				})
-				.then((res) => {
-					if (!res.data.data.length)
-						return this.setState({ textErr: true });
-					this.setState({ textErr: false });
-					axios
-						.get('https://api.twitch.tv/helix/users/follows', {
-							params: {
-								from_id: res.data.data[0].id,
-								first: 100,
-							},
-							headers: {
-								'Client-Id': client_id,
-								Authorization: 'Bearer ' + token,
-							},
-						})
-						.then((res) => {
-							console.log(res.data.data);
-							console.log(
-								'Just sent a request for the user: ' + username
-							);
-							setStorage(
-								'channels',
-								res.data.data.map((channel) => channel.to_name)
-							);
-						})
-						.catch((e) => console.error(e));
-				});
-		});
 	}
 
 	componentDidMount() {
 		getStorage('user').then((res: string) => {
-			if (res !== undefined) this.getFollowing(res);
+			if (res !== undefined) this.setUser(res);
 			this.setState({ textVal: res });
 		});
 	}
@@ -115,7 +75,7 @@ export default class Footer extends React.Component<FooterProps, FooterState> {
 						}></UsernameTextField>
 					<Button
 						onClick={() => {
-							this.getFollowing(
+							this.setUser(
 								(document.getElementById(
 									'usernamefield'
 								) as HTMLInputElement).value

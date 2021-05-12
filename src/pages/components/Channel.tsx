@@ -1,11 +1,14 @@
 import React from 'react';
-import axios from 'axios';
-import { client_id, token } from '../../../public/config';
 import FastAverageColor from 'fast-average-color';
 
 interface ChannelProps {
-	name: string;
 	online: boolean;
+	data: {
+		thumbnail_url: string;
+		user_name: string;
+		game_name: string;
+		viewer_count: string;
+	};
 }
 
 interface ChannelState {
@@ -46,41 +49,6 @@ export default class Channel extends React.Component<
 		};
 	}
 
-	componentDidMount() {
-		axios
-			.get('https://api.twitch.tv/helix/streams', {
-				params: { user_login: this.props.name },
-				headers: {
-					'Client-Id': client_id,
-					Authorization: 'Bearer ' + token,
-				},
-			})
-			.then((res) => {
-				console.log(
-					'Just sent a request for the user: ' + this.props.name
-				);
-				this.setState({ data: res.data.data[0] });
-			})
-			.catch((e) => console.error(e));
-
-		axios
-			.get('https://api.twitch.tv/helix/users', {
-				params: { login: this.props.name },
-				headers: {
-					'Client-Id': client_id,
-					Authorization: 'Bearer ' + token,
-				},
-			})
-			.then((res) => {
-				console.log(
-					'Just sent a request for the user: ' + this.props.name
-				);
-				this.setState({ hidden: false });
-				this.setState({ url: res.data.data[0].profile_image_url });
-			})
-			.catch((e) => console.error(e));
-	}
-
 	getColor(url: string) {
 		const fac = new FastAverageColor();
 
@@ -92,16 +60,18 @@ export default class Channel extends React.Component<
 				this.setState({
 					bgColor: color.rgba,
 					color: color.isLight ? '#000' : '#FFF',
+					hidden: false,
 				});
 			})
 			.catch((e) => console.error(e));
 	}
 
 	render() {
+		console.log('Called render method in channels');
 		return (
 			<div hidden={this.state.hidden}>
-				{(this.state.data !== undefined && this.props.online) ||
-				(this.state.data === undefined && !this.props.online) ? (
+				{(this.props.data !== undefined && this.props.online) ||
+				(this.props.data === undefined && !this.props.online) ? (
 					<div className="channel">
 						<div className="overlay"></div>
 						{/*Open twitch channel on click*/}
@@ -112,15 +82,24 @@ export default class Channel extends React.Component<
 								color: this.state.color,
 							}}>
 							<img
-								onLoad={() => this.getColor(this.state.url)}
-								src={this.state.url}
+								onLoad={() =>
+									this.getColor(
+										this.props.data.thumbnail_url
+											.replace('{width}', '1920')
+											.replace('{height}', '1080')
+									)
+								}
+								src={this.props.data.thumbnail_url
+									.replace('{width}', '1920')
+									.replace('{height}', '1080')}
 								width={100}
 								height={100}></img>
 							<div className="channelInfo">
-								<h1>(Name)</h1>
+								<h1>{this.props.data.user_name}</h1>
 								<p>
-									(Name) is currently playing (game) (maybe
-									for viewer count?)
+									{this.props.data.user_name} is currently
+									playing {this.props.data.game_name} for{' '}
+									{this.props.data.viewer_count}
 								</p>
 							</div>
 						</div>

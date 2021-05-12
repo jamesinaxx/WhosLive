@@ -13,6 +13,11 @@ interface HomeState {
 
 let Component = Live;
 
+import ttvapi from './lib/TwitchApi';
+const TwitchApi = new ttvapi();
+
+export { TwitchApi };
+
 import { setStorage, getStorage } from './lib/chromeapi';
 
 class Home extends React.Component<any, HomeState> {
@@ -55,7 +60,7 @@ class Home extends React.Component<any, HomeState> {
 
 		return (
 			<div>
-				<Component channels={this.state.channels} />
+				<Component />
 				<Footer
 					handleChange={(page: string) => {
 						this.setState({ page: page.toLowerCase() });

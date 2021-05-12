@@ -1,21 +1,47 @@
 import React from 'react';
-
 import Channel from './components/Channel';
+import { getStorage } from '../lib/chromeapi';
 
-type MainProps = {
-	channels: string[];
-};
+export default class OfflineChannels extends React.Component<
+	{},
+	{ comp: any }
+> {
+	constructor(props: any) {
+		super(props);
+		this.state = {
+			comp: <div>{null}</div>,
+		};
+	}
 
-export default function Offline(props: MainProps) {
-	return (
-		<div className="main">
-			{!props.channels.length ? (
-				<small>Add channels in the settings page</small>
-			) : (
-				props.channels.map((channel, i) => (
-					<Channel key={i} online={false} name={channel} />
-				))
-			)}
-		</div>
-	);
+	componentDidMount() {
+		const interval = setInterval(() => {
+			getStorage('channels').then((res: any[]) => {
+				if (res === undefined) return;
+
+				clearInterval(interval);
+				console.log('Channel type be thee ' + res);
+				this.setState({
+					comp: (
+						<div className="main">
+							{!res.length ? (
+								<small>Add channels in the settings page</small>
+							) : (
+								res.map((channelData, i) => (
+									<Channel
+										key={i}
+										online={false}
+										data={channelData}
+									/>
+								))
+							)}
+						</div>
+					),
+				});
+			});
+		}, 1000);
+	}
+
+	render() {
+		return this.state.comp;
+	}
 }
