@@ -33,6 +33,7 @@ footer {
 }
 
 .channelImage {
+	transition: transform 0.2s ease-in-out;
 	img {
 		border-radius: 15px;
 		margin: 10px;
@@ -48,4 +49,7 @@ footer {
 	height: 120px;
 	margin: 10px;
 	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+	&:hover {
+		transform: translate(5px, 5px);
+	}
 }

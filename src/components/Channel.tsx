@@ -103,6 +103,7 @@ export default class Channel extends React.Component<
 				{(this.state.data !== undefined && this.props.online) ||
 				(this.state.data === undefined && !this.props.online) ? (
 					<div className="channel">
+						<div className="overlay"></div>
 						{/*Open twitch channel on click*/}
 						<div
 							className="channelImage"
