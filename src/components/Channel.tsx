@@ -90,6 +90,7 @@ export default class Channel extends React.Component<
 				{(this.state.data !== undefined && this.props.online) ||
 				(this.state.data === undefined && !this.props.online) ? (
 					<div className="channel">
+						{/*Open twitch channel on click*/}
 						<div
 							className="channelImage"
 							style={{
@@ -101,7 +102,11 @@ export default class Channel extends React.Component<
 								width={100}
 								height={100}></img>
 							<div className="channelInfo">
-								<p>Heyyyy</p>
+								<h1>(Name)</h1>
+								<p>
+									(Name) is currently playing (game) (maybe
+									for viewer count?)
+								</p>
 							</div>
 						</div>
 					</div>
