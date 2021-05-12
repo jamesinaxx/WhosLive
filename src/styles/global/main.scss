@@ -33,6 +33,7 @@ footer {
 }
 
 .channelImage {
+	user-select: none;
 	transition: transform 0.2s ease-in-out;
 	img {
 		border-radius: 15px;
