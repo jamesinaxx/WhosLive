@@ -14,8 +14,12 @@ interface ChannelState {
 	url: string;
 	hidden: boolean;
 	data: {
-		id: string;
 		type: string;
+		game_name: string;
+		viewer_count: string;
+		started_at: string;
+		user_name: string;
+		title: string;
 	};
 }
 
@@ -32,8 +36,12 @@ export default class Channel extends React.Component<
 			hidden: true,
 			url: 'https://about:blank',
 			data: {
-				id: 'Loading...',
 				type: null,
+				game_name: 'Loading...',
+				viewer_count: 'Loading...',
+				started_at: 'Loading...',
+				user_name: 'Loading...',
+				title: 'Loading...',
 			},
 		};
 	}
