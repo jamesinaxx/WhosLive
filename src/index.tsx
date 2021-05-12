@@ -11,9 +11,6 @@ interface HomeState {
 	channels: string[];
 }
 
-// TODO Add dark mode
-// TODO Make one req at startup and refresh once per minute
-
 let Component = Live;
 
 import { setStorage, getStorage } from '../public/chrome/scripts/chromeapi';
