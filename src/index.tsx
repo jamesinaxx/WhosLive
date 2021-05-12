@@ -10,11 +10,6 @@ interface HomeState {
 	channels: string[];
 }
 
-import ttvapi from './lib/TwitchApi';
-const TwitchApi = new ttvapi();
-
-export { TwitchApi };
-
 import { setStorage, getStorage } from './lib/chromeapi';
 
 class Home extends React.Component<any, HomeState> {

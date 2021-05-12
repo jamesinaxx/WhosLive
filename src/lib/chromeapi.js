@@ -31,4 +31,4 @@ function getStorageLocal(key) {
 	});
 }
 
-export { setStorage, getStorage, setStorageLocal, getStorageLocal };
+module.exports = { setStorage, getStorage, setStorageLocal, getStorageLocal };
