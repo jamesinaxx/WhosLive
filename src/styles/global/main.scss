@@ -34,6 +34,11 @@ footer {
 .channelImage {
 	img {
 		margin: 10px;
+		float: left;
+	}
+	.channelInfo {
+		float: right;
+		text-align: center;
 	}
 	border-radius: 5%;
 	width: 200px;
