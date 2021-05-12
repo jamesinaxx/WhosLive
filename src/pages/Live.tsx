@@ -2,11 +2,14 @@ import React from 'react';
 import Channel from './components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
 
-export default class LiveChannels extends React.Component<{}, { comp: any }> {
+export default class LiveChannels extends React.Component<
+	{},
+	{ channels: any[] }
+> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			comp: <div>{null}</div>,
+			channels: [],
 		};
 	}
 
@@ -16,29 +19,26 @@ export default class LiveChannels extends React.Component<{}, { comp: any }> {
 				if (res === undefined) return;
 
 				clearInterval(interval);
-				console.log('Channel type be thee ' + res);
-				this.setState({
-					comp: (
-						<div className="main">
-							{!res.length ? (
-								<small>Add channels in the settings page</small>
-							) : (
-								res.map((channelData, i) => (
-									<Channel
-										key={i}
-										online
-										data={channelData}
-									/>
-								))
-							)}
-						</div>
-					),
-				});
+				this.setState({ channels: res });
 			});
 		}, 1000);
 	}
 
+	showChannels() {
+		if (!this.state.channels === null) {
+			return <small>Add channels in the settings page</small>;
+		}
+		return (
+			<>
+				<small id="loadingChannels">Loading live channels...</small>
+				{this.state.channels.map((channelData, i) => (
+					<Channel key={i} online data={channelData} />
+				))}
+			</>
+		);
+	}
+
 	render() {
-		return this.state.comp;
+		return <div className="main">{this.showChannels()}</div>;
 	}
 }

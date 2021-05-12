@@ -9,6 +9,7 @@ interface ChannelProps {
 		user_name: string;
 		game_name: string;
 		viewer_count: string;
+		title: string;
 	};
 }
 
@@ -49,15 +50,12 @@ export default class Channel extends React.Component<
 	}
 
 	getColor(url: string) {
-		console.log('Profile image url is ' + url);
-
 		const fac = new FastAverageColor();
 
 		if (url === 'https://about:blank') return;
 
 		fac.getColorAsync(url)
 			.then((color) => {
-				console.log('We got the color');
 				this.setState({
 					bgColor: color.rgba,
 					color: color.isLight ? '#000' : '#FFF',
@@ -65,21 +63,11 @@ export default class Channel extends React.Component<
 				});
 			})
 			.catch((e) => console.error(e));
+
+		document.getElementById('loadingChannels').hidden = true;
 	}
 
 	render() {
-		console.log('Called render method in channels');
-
-		console.log(
-			this.props.data === undefined
-				? 'Props are NOT defined'
-				: 'Props are defined'
-		);
-
-		console.log('This is meant to be the ' + this.props.online + ' page');
-
-		console.log('Prof url is ' + this.state.url);
-
 		return (
 			<div className="channel" hidden={this.state.hidden}>
 				<div className="overlay"></div>
@@ -96,11 +84,16 @@ export default class Channel extends React.Component<
 						width={100}
 						height={100}></img>
 					<div className="channelInfo">
-						<h1>{this.props.data.user_name}</h1>
+						<h1>{this.props.data.title}</h1>
 						<p>
-							{this.props.data.user_name} is currently playing{' '}
-							{this.props.data.game_name} for{' '}
-							{this.props.data.viewer_count}
+							<b>{this.props.data.user_name}</b> is currently
+							playing <b>{this.props.data.game_name}</b> for{' '}
+							<b>
+								{new Intl.NumberFormat('en-US').format(
+									Number(this.props.data.viewer_count)
+								)}
+							</b>{' '}
+							viewers
 						</p>
 					</div>
 				</div>
