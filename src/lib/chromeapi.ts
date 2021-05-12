@@ -16,4 +16,19 @@ function getStorage(key) {
 	});
 }
 
-export { setStorage, getStorage };
+function setStorageLocal(key, value) {
+	Chrome.storage.local.set({ [key]: value }, () => {
+		console.log(`Set the ${key} array to ` + value);
+	});
+}
+
+function getStorageLocal(key) {
+	return new Promise((resolve) => {
+		Chrome.storage.local.get([key], (res) => {
+			console.log(`Got the ${key} array: ` + res[key]);
+			resolve(res[key]);
+		});
+	});
+}
+
+export { setStorage, getStorage, setStorageLocal, getStorageLocal };

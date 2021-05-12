@@ -2,15 +2,8 @@ import React from 'react';
 import { ButtonGroup, Button, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 
 import { setStorage, getStorage } from '../../lib/chromeapi';
-
-interface FooterProps {
-	// eslint-disable-next-line no-unused-vars
-	handleChange: (page: string) => void;
-}
 
 interface FooterState {
 	textVal: string;
@@ -30,38 +23,29 @@ const UsernameTextField = withStyles({
 	},
 })(TextField);
 
-export default class Footer extends React.Component<FooterProps, FooterState> {
-	constructor(props: FooterProps) {
+export default class Footer extends React.Component<{}, FooterState> {
+	constructor(props: {}) {
 		super(props);
 
 		this.state = { textVal: '', textErr: false };
 	}
 
 	setUser(username: string) {
+		// eslint-disable-next-line no-undef
+		chrome.storage.local.clear();
 		setStorage('user', username);
 	}
 
 	componentDidMount() {
-		getStorage('user').then((res: string) => {
-			if (res !== undefined) this.setUser(res);
-			this.setState({ textVal: res });
-		});
+		getStorage('user').then((res: string) =>
+			this.setState({ textVal: res })
+		);
 	}
 
 	render() {
 		return (
 			<footer>
 				<ButtonGroup variant="outlined" color="primary">
-					<Button
-						onClick={() => this.props.handleChange('live')}
-						startIcon={<VideocamIcon />}>
-						Live
-					</Button>
-					<Button
-						onClick={() => this.props.handleChange('offline')}
-						startIcon={<VideocamOffIcon />}>
-						Offline
-					</Button>
 					<UsernameTextField
 						variant="outlined"
 						id="usernamefield"

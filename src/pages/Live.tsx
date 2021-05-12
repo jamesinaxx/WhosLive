@@ -1,6 +1,6 @@
 import React from 'react';
 import Channel from './components/Channel';
-import { getStorage } from '../lib/chromeapi';
+import { getStorageLocal } from '../lib/chromeapi';
 
 export default class LiveChannels extends React.Component<{}, { comp: any }> {
 	constructor(props: any) {
@@ -12,7 +12,7 @@ export default class LiveChannels extends React.Component<{}, { comp: any }> {
 
 	componentDidMount() {
 		const interval = setInterval(() => {
-			getStorage('channels').then((res: any[]) => {
+			getStorageLocal('channels').then((res: any[]) => {
 				if (res === undefined) return;
 
 				clearInterval(interval);

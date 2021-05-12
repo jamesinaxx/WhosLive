@@ -5,13 +5,10 @@ import ReactDOM from 'react-dom';
 import './styles/style.scss';
 import Footer from './pages/components/Footer';
 import Live from './pages/Live';
-import Offline from './pages/Offline';
 interface HomeState {
 	page: string;
 	channels: string[];
 }
-
-let Component = Live;
 
 import ttvapi from './lib/TwitchApi';
 const TwitchApi = new ttvapi();
@@ -46,28 +43,10 @@ class Home extends React.Component<any, HomeState> {
 	render() {
 		console.log(getStorage('channels'));
 
-		switch (this.state.page) {
-			case 'live':
-				Component = Live;
-				break;
-			case 'offline':
-				Component = Offline;
-				break;
-			default:
-				Component = Live;
-				break;
-		}
-
 		return (
 			<div>
-				<Component />
-				<Footer
-					handleChange={(page: string) => {
-						this.setState({ page: page.toLowerCase() });
-						console.log('Called');
-						console.log(this.state.page);
-					}}
-				/>
+				<Live />
+				<Footer />
 			</div>
 		);
 	}
