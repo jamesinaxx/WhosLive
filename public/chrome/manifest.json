@@ -18,5 +18,5 @@
 		"scripts": ["./scripts/background.js"],
 		"persistent": true
 	},
-	"permissions": ["storage"]
+	"permissions": ["storage", "https://api.twitch.tv/"]
 }
