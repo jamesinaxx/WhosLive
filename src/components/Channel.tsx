@@ -92,12 +92,16 @@ export default class Channel extends React.Component<
 					<div className="channel">
 						<div
 							className="channelImage"
-							style={{ backgroundColor: this.state.color }}>
+							style={{
+								backgroundColor: this.state.color,
+								display: 'inline-block',
+							}}>
 							<img
 								onLoad={() => this.getColor(this.state.url)}
 								src={this.state.url}
 								width={100}
 								height={100}></img>
+							<p>Heyyyy</p>
 						</div>
 					</div>
 				) : (
