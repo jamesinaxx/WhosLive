@@ -7,6 +7,7 @@ interface ChannelProps {
 	online: boolean;
 	data: {
 		user_name: string;
+		user_login: string;
 		game_name: string;
 		viewer_count: string;
 		title: string;
@@ -69,9 +70,15 @@ export default class Channel extends React.Component<
 
 	render() {
 		return (
-			<div className="channel" hidden={this.state.hidden}>
+			<button
+				className="channel"
+				onClick={() =>
+					window.open(
+						'https://twitch.tv/' + this.props.data.user_login
+					)
+				}
+				hidden={this.state.hidden}>
 				<div className="overlay"></div>
-				{/*Open twitch channel on click*/}
 				<div
 					className="channelImage"
 					style={{
@@ -84,7 +91,15 @@ export default class Channel extends React.Component<
 						width={100}
 						height={100}></img>
 					<div className="channelInfo">
-						<h1>{this.props.data.title}</h1>
+						<h1>
+							{this.props.data.title.length > 24
+								? this.props.data.title.substring(
+										0,
+										this.props.data.title.length -
+											(this.props.data.title.length - 24)
+								  ) + '...'
+								: this.props.data.title}
+						</h1>
 						<p>
 							<b>{this.props.data.user_name}</b> is currently
 							playing <b>{this.props.data.game_name}</b> for{' '}
@@ -97,7 +112,7 @@ export default class Channel extends React.Component<
 						</p>
 					</div>
 				</div>
-			</div>
+			</button>
 		);
 	}
 }

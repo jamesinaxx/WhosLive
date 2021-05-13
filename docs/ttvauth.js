@@ -10,10 +10,18 @@ authUrl.searchParams.append('redirect_uri', redirect_uri);
 authUrl.searchParams.append('response_type', 'token');
 authUrl.searchParams.append('scope', 'user:read:follows');
 
-if (!urlParams.has('access_token')) window.open(authUrl.href);
-else {
-	console.log(window.location.hash);
-	document.body.append(
-		document.createTextNode(urlParams.get('access_token'))
-	);
+function openTwitch() {
+	window.open(authUrl.href, '_self');
 }
+
+const Button = () =>
+	!urlParams.has('access_token') ? (
+		<button onClick={openTwitch}>Authorize with Twitch</button>
+	) : (
+		<p>
+			Thank you for authorizing with Twitch! Open the extension on this
+			page to use it!
+		</p>
+	);
+
+ReactDOM.render(<Button />, document.querySelector('.root'));

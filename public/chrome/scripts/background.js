@@ -1,4 +1,5 @@
 const client_id = '6ucdumdkn0j562bf9oog38efzmx4vh';
+const token = 'qe0objx71vmvnxpxr8rud585lg9vwu';
 
 const twitchtoken = () => {
 	return new Promise((resolve) =>
@@ -32,6 +33,7 @@ function setStorageLocal(key, value) {
 }
 
 async function getChannelInfo() {
+	console.log('Updating channel info');
 	const userId = (
 		await (
 			await fetch(
@@ -65,11 +67,13 @@ async function getChannelInfo() {
 	chrome.browserAction.setTitle({ title: 'Number of people streaming: ' });
 
 	setStorageLocal('channels', resbJson.data);
+
+	console.log('Updated channel info');
 }
 
-async function getChannelInfoInit() {
+function getChannelInfoInit() {
 	getChannelInfo();
 	return setInterval(async () => getChannelInfo(), 60000);
 }
 
-if ((await twitchtoken()) !== 'unset') getChannelInfoInit();
+getChannelInfoInit();
