@@ -1,21 +1,44 @@
 import React from 'react';
+import Channel from './components/Channel';
+import { getStorageLocal } from '../lib/chromeapi';
 
-import Channel from '../components/Channel';
+export default class LiveChannels extends React.Component<
+	{},
+	{ channels: any[] }
+> {
+	constructor(props: any) {
+		super(props);
+		this.state = {
+			channels: [],
+		};
+	}
 
-type MainProps = {
-	channels: string[];
-};
+	componentDidMount() {
+		const interval = setInterval(() => {
+			getStorageLocal('channels').then((res: any[]) => {
+				if (res === undefined) return;
 
-export default function Main(props: MainProps) {
-	return (
-		<div className="main">
-			{!props.channels.length ? (
-				<small>Add channels in the settings page</small>
-			) : (
-				props.channels.map((channel, i) => (
-					<Channel key={i} online name={channel} />
-				))
-			)}
-		</div>
-	);
+				clearInterval(interval);
+				this.setState({ channels: res });
+			});
+		}, 1000);
+	}
+
+	showChannels() {
+		if (!this.state.channels === null) {
+			return <small>Add channels in the settings page</small>;
+		}
+		return (
+			<>
+				<small id="loadingChannels">Loading live channels...</small>
+				{this.state.channels.map((channelData, i) => (
+					<Channel key={i} online data={channelData} />
+				))}
+			</>
+		);
+	}
+
+	render() {
+		return <div className="main">{this.showChannels()}</div>;
+	}
 }

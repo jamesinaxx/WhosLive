@@ -1,10 +1,8 @@
 body {
 	display: flex;
 	flex-direction: column;
-	width: 600px;
-	height: 800px;
-	margin: none;
-	padding: 0px;
+	width: 550px;
+	height: 550px;
 }
 
 footer {
@@ -21,18 +19,27 @@ footer {
 .main {
 	margin-bottom: 110px;
 	text-align: center;
-	small {
-		margin: 0;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		font-size: xx-large;
-		color: gray;
-	}
+}
+
+small {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: xx-large;
+	color: gray;
+}
+
+.channel {
+	padding: 0;
+	border: none;
+	background: none;
 }
 
 .channelImage {
+	user-select: none;
+	transition: transform 0.2s ease-in-out;
 	img {
 		border-radius: 15px;
 		margin: 10px;
@@ -42,10 +49,14 @@ footer {
 		float: left;
 		margin-left: 10px;
 		text-align: center;
+		max-width: 425px;
 	}
 	border-radius: 15px;
 	width: 90vw;
 	height: 120px;
 	margin: 10px;
 	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+	&:hover {
+		transform: translate(5px, 5px);
+	}
 }

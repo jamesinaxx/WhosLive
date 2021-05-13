@@ -7,9 +7,11 @@ const { rmdirSync, existsSync } = require('fs');
  * @type {webpack.Configuration}
  */
 const config = {
-	entry: './src/index.tsx',
+	entry: {
+		bundle: './src/index.tsx',
+	},
 	output: {
-		filename: 'bundle.js',
+		filename: '[name].js',
 	},
 	devtool: 'inline-source-map',
 	module: {
@@ -33,7 +35,14 @@ const config = {
 			template: 'public/index.html',
 		}),
 		new CopyPlugin({
-			patterns: [{ from: 'public/chrome' }],
+			patterns: [
+				{ from: 'public/chrome/manifest.json' },
+				{ from: 'public/chrome/icons', to: 'icons' },
+				{
+					from: 'public/chrome/scripts/background.js',
+					to: 'scripts',
+				},
+			],
 		}),
 	],
 	resolve: {

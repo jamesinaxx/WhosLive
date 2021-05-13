@@ -1,74 +1,38 @@
-// eslint-disable-next-line no-undef
-const Chrome = chrome;
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/style.scss';
-import Footer from './components/Footer';
 import Live from './pages/Live';
-import Offline from './pages/Offline';
-interface HomeState {
-	page: string;
-	channels: string[];
-}
+import SettingsButton from './pages/components/SettingsButton';
+import { getStorage } from './lib/chromeapi';
+import NoAuthPage from './pages/NoAuth';
 
-// TODO Add dark mode
-// TODO Make one req at startup and refresh once per minute
+const client_id = '6ucdumdkn0j562bf9oog38efzmx4vh';
 
-let Component = Live;
-
-import { setStorage, getStorage } from '../public/chrome/scripts/chromeapi';
-
-class Home extends React.Component<any, HomeState> {
+class Main extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 
 		this.state = {
-			page: 'live',
-			channels: [],
+			userToken: null,
 		};
+	}
 
-		getStorage('channels').then((res: string[]) => {
-			this.setState({ channels: res || [] });
-		});
-
-		setStorage('channels', this.state.channels);
-
-		Chrome.storage.onChanged.addListener(() => {
-			console.log('Updated storage');
-			getStorage('channels').then((res: string[]) =>
-				this.setState({ channels: res || [] })
-			);
-		});
+	componentDidMount() {
+		getStorage('userToken').then((res) =>
+			this.setState({ userToken: res })
+		);
 	}
 
 	render() {
-		console.log(getStorage('channels'));
-
-		switch (this.state.page) {
-			case 'live':
-				Component = Live;
-				break;
-			case 'offline':
-				Component = Offline;
-				break;
-			default:
-				Component = Live;
-				break;
-		}
-
 		return (
 			<div>
-				<Component channels={this.state.channels} />
-				<Footer
-					handleChange={(page: string) => {
-						this.setState({ page: page.toLowerCase() });
-						console.log('Called');
-						console.log(this.state.page);
-					}}
-				/>
+				{this.state.userToken ? <Live /> : <NoAuthPage />}
+				<SettingsButton />
 			</div>
 		);
 	}
 }
 
-ReactDOM.render(<Home />, document.getElementById('root'));
+ReactDOM.render(<Main />, document.getElementById('root'));
+
+export { client_id };
