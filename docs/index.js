@@ -14,14 +14,29 @@ function openTwitch() {
 	window.open(authUrl.href, '_self');
 }
 
-const Button = () =>
-	!urlParams.has('access_token') ? (
-		<button onClick={openTwitch}>Authorize with Twitch</button>
-	) : (
-		<p>
-			Thank you for authorizing with Twitch! Open the extension on this
-			page to use it!
-		</p>
-	);
+const TwitchIcon = () => (
+	<img src="./TwitchGlitchPurple.svg" width="24px" height="24px"></img>
+);
+
+const Button = () => (
+	<div className="twitchLogin">
+		{!urlParams.has('access_token') ? (
+			<p>
+				Click here to{' '}
+				<button onClick={openTwitch}>
+					Login with Twitch{' '}
+					<i>
+						<TwitchIcon />
+					</i>
+				</button>
+			</p>
+		) : (
+			<p>
+				Thank you for authorizing with Twitch! Open the extension on
+				this page to begin using it!
+			</p>
+		)}
+	</div>
+);
 
 ReactDOM.render(<Button />, document.querySelector('.root'));
