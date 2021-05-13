@@ -1,7 +1,6 @@
 import React from 'react';
 import { ButtonGroup, Button, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import SettingsIcon from '@material-ui/icons/Settings';
 
 import { setStorage, getStorage } from '../../lib/chromeapi';
 
@@ -65,7 +64,7 @@ export default class Footer extends React.Component<{}, FooterState> {
 								) as HTMLInputElement).value
 							);
 						}}>
-						<SettingsIcon />
+						<span className="material-icons">{null}settings</span>
 					</Button>
 				</ButtonGroup>
 			</footer>
