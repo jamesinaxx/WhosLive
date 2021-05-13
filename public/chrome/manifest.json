@@ -19,6 +19,8 @@
 		"persistent": true
 	},
 	"permissions": [
+		"activeTab",
+		"tabs",
 		"storage",
 		"https://api.twitch.tv/",
 		"https://jamesinaxx.github.io/liveontwitch"

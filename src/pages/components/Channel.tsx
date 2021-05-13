@@ -1,7 +1,8 @@
 import React from 'react';
 import FastAverageColor from 'fast-average-color';
 import axios from 'axios';
-import { client_id, token } from '../../../public/config';
+import { client_id } from '../../../src/index';
+import { getStorage } from '../../lib/chromeapi';
 
 interface ChannelProps {
 	online: boolean;
@@ -35,19 +36,21 @@ export default class Channel extends React.Component<
 			url: 'https://about:blank',
 		};
 
-		axios
-			.get('https://api.twitch.tv/helix/users', {
-				params: {
-					login: this.props.data.user_name,
-				},
-				headers: {
-					'Client-Id': client_id,
-					Authorization: 'Bearer ' + token,
-				},
-			})
-			.then((res) => {
-				this.setState({ url: res.data.data[0].profile_image_url });
-			});
+		getStorage('userToken').then((token) => {
+			axios
+				.get('https://api.twitch.tv/helix/users', {
+					params: {
+						login: this.props.data.user_name,
+					},
+					headers: {
+						'Client-Id': client_id,
+						Authorization: 'Bearer ' + token,
+					},
+				})
+				.then((res) => {
+					this.setState({ url: res.data.data[0].profile_image_url });
+				});
+		});
 	}
 
 	getColor(url: string) {
@@ -70,13 +73,13 @@ export default class Channel extends React.Component<
 
 	render() {
 		return (
-			<button
-				className="channel"
+			<div
 				onClick={() =>
 					window.open(
 						'https://twitch.tv/' + this.props.data.user_login
 					)
 				}
+				className="channel"
 				hidden={this.state.hidden}>
 				<div className="overlay"></div>
 				<div
@@ -112,7 +115,7 @@ export default class Channel extends React.Component<
 						</p>
 					</div>
 				</div>
-			</button>
+			</div>
 		);
 	}
 }

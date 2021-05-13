@@ -1,5 +1,5 @@
 const client_id = '6ucdumdkn0j562bf9oog38efzmx4vh';
-const token = 'qe0objx71vmvnxpxr8rud585lg9vwu';
+const token = (await getStorage('userToken')) || 'undefined';
 
 const twitchtoken = () => {
 	return new Promise((resolve) =>

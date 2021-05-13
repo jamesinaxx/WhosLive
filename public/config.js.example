@@ -1,4 +1,0 @@
-const client_id = 'CLIENT_ID_HERE';
-const token = 'TOKEN_HERE';
-
-module.exports = { client_id, token };
