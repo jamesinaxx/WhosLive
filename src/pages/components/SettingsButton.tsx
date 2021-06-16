@@ -5,8 +5,8 @@ export default class SettingsButton extends React.Component {
 	render() {
 		return (
 			<Button
-				variant="outlined"
-				color="primary"
+				variant='outlined'
+				color='primary'
 				style={{
 					maxWidth: '30px',
 					maxHeight: '30px',
@@ -16,8 +16,9 @@ export default class SettingsButton extends React.Component {
 					top: '5px',
 					right: '5px',
 					backgroundColor: '#fff',
-				}}>
-				<span className="material-icons">{null}settings</span>
+				}}
+			>
+				<span className='material-icons'>{null}settings</span>
 			</Button>
 		);
 	}

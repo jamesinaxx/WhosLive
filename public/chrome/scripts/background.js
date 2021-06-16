@@ -1,5 +1,5 @@
 const client_id = '6ucdumdkn0j562bf9oog38efzmx4vh';
-const token = (await getStorage('userToken')) || 'undefined';
+const token = (await getStorage('twitchtoken')) || 'undefined';
 
 const twitchtoken = () => {
 	return new Promise(resolve =>
@@ -18,16 +18,10 @@ chrome.runtime.onInstalled.addListener(async () => {
 	console.log('Initialized chrome extension');
 });
 
-chrome.runtime.onMessage.addListener(async (req, sender, res) => {
-	if (req.method === 'setWhoLiveToken') {
-		await setStorage('twitchtoken', req.token);
-	}
-});
-
 chrome.storage.onChanged.addListener(async () => getChannelInfo);
 
-async function setStorage(key, value) {
-	chrome.storage.sync.set({ [key]: value }, () => {});
+async function setStorage(key, value, callback) {
+	chrome.storage.sync.set({ [key]: value }, callback(key, value));
 }
 
 async function getStorage(key) {

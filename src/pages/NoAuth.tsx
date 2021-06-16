@@ -1,37 +1,84 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { setStorage } from '../lib/chromeapi';
+import { TextField, Button } from '@material-ui/core';
+import axios from 'axios';
+import { client_id } from '..';
 
-export default function NoAuthPage() {
-	const [TabUrl, setTabUrl] = useState('');
+export default class NoAuthPage extends React.Component<
+	any,
+	{ inputValue: string; tokenError: boolean }
+> {
+	constructor(props) {
+		super(props);
 
-	chrome.tabs.query({ currentWindow: true, active: true }, (tab) => {
-		if (tab[0].url.includes('localhost:3984'))
-			setTabUrl(tab[0].url.replace('#', '?'));
-	});
+		this.state = { inputValue: '', tokenError: false };
 
-	const queryString = TabUrl.substring(TabUrl.indexOf('?'));
-	const urlParams = new URLSearchParams(queryString);
+		this.handleChange = this.handleChange.bind(this);
+		this.validateToken = this.handleChange.bind(this);
+	}
 
-	if (urlParams.has('access_token')) {
-		setStorage('userToken', urlParams.get('access_token'));
-		console.log('Pog?');
-		return (
-			<small>
-				Thank you for authorizing! Close and re-open the extension to
-				use it!
-			</small>
-		);
-	} else {
+	handleChange(event) {
+		this.setState({ inputValue: event.target.value });
+	}
+
+	validateToken() {
+		const token = this.state.inputValue;
+		console.log(token);
+
+		axios
+			.get('https://id.twitch.tv/oauth2/validate', {
+				headers: {
+					Authorization: `Oauth ${client_id}`,
+				},
+			})
+			.then(res => {
+				console.log('Finished req ' + res.data);
+				if (
+					!(
+						res.data.scopes.length !== 0 &&
+						!(res.data.scopes.length > 1) &&
+						res.data.scopes[0] === 'user:read:follows' &&
+						res.data.expires_in > 500
+					)
+				)
+					return this.setState({ tokenError: true });
+			})
+			.catch(res => {
+				console.log('Failed req ' + res);
+				this.setState({ tokenError: true });
+			});
+	}
+
+	render() {
 		return (
 			<small>
 				You are not verified! Please go to{' '}
 				<a
-					href="http://localhost:3984/docs"
-					target="_blank"
-					rel="noreferrer">
+					href='https://jamesinaxx.me/auth/twitchauth'
+					target='_blank'
+					rel='noreferrer'
+				>
 					this page
 				</a>{' '}
 				and then open this again
+				<form>
+					<TextField
+						id='twitchTokenInput'
+						name='twitchtoken'
+						value={this.state.inputValue}
+						error={this.state.tokenError}
+						onChange={this.handleChange}
+						label='Token'
+						variant='filled'
+					></TextField>
+					<Button
+						variant='contained'
+						color='primary'
+						onClick={this.validateToken}
+					>
+						Submit
+					</Button>
+				</form>
 			</small>
 		);
 	}
