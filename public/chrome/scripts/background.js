@@ -2,8 +2,8 @@ const client_id = '6ucdumdkn0j562bf9oog38efzmx4vh';
 const token = (await getStorage('userToken')) || 'undefined';
 
 const twitchtoken = () => {
-	return new Promise((resolve) =>
-		chrome.storage.sync.get(['twitchtoken'], (res) => {
+	return new Promise(resolve =>
+		chrome.storage.sync.get(['twitchtoken'], res => {
 			if (res.twitchtoken === undefined) {
 				chrome.storage.sync.set({ twitchtoken: 'unset' });
 				resolve('unset');
@@ -18,18 +18,28 @@ chrome.runtime.onInstalled.addListener(async () => {
 	console.log('Initialized chrome extension');
 });
 
+chrome.runtime.onMessage.addListener(async (req, sender, res) => {
+	if (req.method === 'setWhoLiveToken') {
+		await setStorage('twitchtoken', req.token);
+	}
+});
+
 chrome.storage.onChanged.addListener(async () => getChannelInfo);
 
-function getStorage(key) {
-	return new Promise((resolve) => {
-		chrome.storage.sync.get([key], (res) => {
+async function setStorage(key, value) {
+	chrome.storage.sync.set({ [key]: value }, () => {});
+}
+
+async function getStorage(key) {
+	return new Promise(resolve => {
+		chrome.storage.sync.get([key], res => {
 			resolve(res[key]);
 		});
 	});
 }
 
 function setStorageLocal(key, value) {
-	chrome.storage.local.set({ [key]: value }, () => {});
+	chrome.storage.local.set({ [key]: value });
 }
 
 async function getChannelInfo() {
