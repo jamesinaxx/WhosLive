@@ -1,6 +1,7 @@
 import React from 'react';
 import Channel from './components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
+import Loading from './components/Loading';
 
 export default class LiveChannels extends React.Component<
 	{},
@@ -9,7 +10,7 @@ export default class LiveChannels extends React.Component<
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			channels: [],
+			channels: null,
 		};
 	}
 
@@ -34,7 +35,7 @@ export default class LiveChannels extends React.Component<
 		}
 		return (
 			<>
-				<small id='loadingChannels'>Loading live channels...</small>
+				<Loading />
 				{this.state.channels.map((channelData, i) => (
 					<Channel key={i} online data={channelData} />
 				))}
