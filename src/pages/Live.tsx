@@ -5,13 +5,17 @@ import Loading from './components/Loading';
 
 export default class LiveChannels extends React.Component<
 	{},
-	{ channels: any[] }
+	{ channels: any[]; loading: boolean }
 > {
 	constructor(props: any) {
 		super(props);
 		this.state = {
 			channels: null,
+			loading: true,
 		};
+
+		this.doneLoading = this.doneLoading.bind(this);
+		this.showChannels = this.showChannels.bind(this);
 	}
 
 	componentDidMount() {
@@ -25,7 +29,16 @@ export default class LiveChannels extends React.Component<
 		}, 1000);
 	}
 
+	doneLoading() {
+		console.log('Done loading');
+		this.setState({ loading: false });
+	}
+
 	showChannels() {
+		if (this.state.channels === null) {
+			return <Loading />;
+		}
+
 		if (this.state.channels.length === 0) {
 			return (
 				<small>
@@ -33,11 +46,18 @@ export default class LiveChannels extends React.Component<
 				</small>
 			);
 		}
+
+		console.log(this.state.loading);
 		return (
 			<>
-				<Loading />
+				<Loading hidden={!this.state.loading} />
 				{this.state.channels.map((channelData, i) => (
-					<Channel key={i} online data={channelData} />
+					<Channel
+						key={i}
+						online
+						data={channelData}
+						doneLoading={() => this.doneLoading()}
+					/>
 				))}
 			</>
 		);

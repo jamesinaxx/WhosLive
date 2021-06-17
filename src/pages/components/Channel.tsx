@@ -13,6 +13,7 @@ interface ChannelProps {
 		viewer_count: string;
 		title: string;
 	};
+	doneLoading: () => void;
 }
 
 interface ChannelState {
@@ -51,9 +52,16 @@ export default class Channel extends React.Component<
 					this.setState({ url: res.data.data[0].profile_image_url });
 				});
 		});
+
+		this.getColor = this.getColor.bind(this);
+	}
+
+	componentDidMount() {
+		this.getColor(this.state.url);
 	}
 
 	getColor(url: string) {
+		console.log('Started loading...');
 		const fac = new FastAverageColor();
 
 		if (url === 'https://about:blank') return;
@@ -68,7 +76,9 @@ export default class Channel extends React.Component<
 			})
 			.catch(e => console.error(e));
 
-		document.getElementById('loadingChannels').hidden = true;
+		console.log('Finished loading...');
+
+		this.props.doneLoading();
 	}
 
 	render() {

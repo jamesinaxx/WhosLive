@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import styles from '../../styles/loader.module.scss';
 
-export default function Loading() {
+export default function Loading({ hidden }: { hidden?: boolean }) {
+	if (hidden === undefined) hidden = false;
+
 	useEffect(() => {
+		if (hidden) return;
 		let i = 0;
 		const colours = [
 			'#ff2400',
@@ -18,7 +21,7 @@ export default function Loading() {
 
 		function updateColor() {
 			const elems = document
-				.getElementById('loadingAnim')
+				.getElementById('loadingChannels')
 				.getElementsByTagName('div');
 
 			if (i + 1 >= colours.length) i = 0;
@@ -36,10 +39,16 @@ export default function Loading() {
 	});
 
 	return (
-		<div className={styles.lds_facebook} id='loadingAnim'>
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
+		<>
+			{hidden ? (
+				<div>{null}</div>
+			) : (
+				<div className={styles.lds_facebook} id='loadingChannels'>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			)}
+		</>
 	);
 }
