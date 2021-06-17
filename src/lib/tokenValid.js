@@ -1,11 +1,8 @@
 import axios from 'axios';
-import { Buffer } from 'buffer';
 import { setStorage } from '../lib/chromeapi';
 
 export default function validateToken(token) {
 	return new Promise(resolve => {
-		token = Buffer.from(token, 'base64').toString();
-
 		axios
 			.get('https://id.twitch.tv/oauth2/validate', {
 				headers: {
@@ -13,6 +10,8 @@ export default function validateToken(token) {
 				},
 			})
 			.then(res => {
+				console.log('Succeded to run checks', token);
+
 				if (
 					!(
 						res.data.scopes.length !== 0 &&
@@ -20,14 +19,16 @@ export default function validateToken(token) {
 						res.data.scopes[0] === 'user:read:follows' &&
 						res.data.expires_in > 500
 					)
-				)
+				) {
+					setStorage('twitchtoken', token);
+					resolve(false);
+				} else {
 					resolve(true);
-
-				setStorage('twitchtoken', token);
-				resolve(false);
+				}
 			})
 			.catch(res => {
-				resolve(true);
+				console.log('Failed to run checks', res, token);
+				resolve(false);
 			});
 	});
 }

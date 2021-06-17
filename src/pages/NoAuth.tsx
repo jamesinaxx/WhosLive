@@ -1,4 +1,5 @@
 import React from 'react';
+import { Buffer } from 'buffer';
 import { Button, Input } from '@material-ui/core';
 import { getStorage } from '../lib/chromeapi';
 import validateToken from '../lib/tokenValid';
@@ -17,6 +18,7 @@ export default class NoAuthPage extends React.Component<
 
 		this.handleChange = this.handleChange.bind(this);
 		this.keyPress = this.keyPress.bind(this);
+		this.validateTokenBased = this.validateTokenBased.bind(this);
 	}
 
 	componentDidMount() {
@@ -30,10 +32,12 @@ export default class NoAuthPage extends React.Component<
 	keyPress(e) {
 		if (e.keyCode == 13) {
 			e.preventDefault();
-			validateToken(e.target.value).then(tokenError =>
-				this.setState({ tokenError })
-			);
+			this.validateTokenBased(e.target.value);
 		}
+	}
+
+	validateTokenBased(token) {
+		validateToken(token).then(tokenError => this.setState({ tokenError }));
 	}
 
 	handleChange(event) {
@@ -69,13 +73,13 @@ export default class NoAuthPage extends React.Component<
 						color='primary'
 						disabled={!this.state.tokenError}
 						onClick={() =>
-							validateToken(
+							this.validateTokenBased(
 								(
 									document.getElementById(
 										'twitchTokenInput'
 									) as HTMLInputElement
 								).value
-							).then(tokenError => this.setState({ tokenError }))
+							)
 						}
 					>
 						Submit
