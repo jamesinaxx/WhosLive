@@ -30,7 +30,6 @@ export default class NoAuthPage extends React.Component<
 	keyPress(e) {
 		if (e.keyCode == 13) {
 			e.preventDefault();
-			console.log('value', e.target.value);
 			validateToken(e.target.value).then(tokenError =>
 				this.setState({ tokenError })
 			);

@@ -5,7 +5,6 @@ import { setStorage } from '../lib/chromeapi';
 export default function validateToken(token) {
 	return new Promise(resolve => {
 		token = Buffer.from(token, 'base64').toString();
-		console.log(token);
 
 		axios
 			.get('https://id.twitch.tv/oauth2/validate', {
@@ -14,7 +13,6 @@ export default function validateToken(token) {
 				},
 			})
 			.then(res => {
-				console.log('Finished req ' + res.data);
 				if (
 					!(
 						res.data.scopes.length !== 0 &&
@@ -29,7 +27,6 @@ export default function validateToken(token) {
 				resolve(false);
 			})
 			.catch(res => {
-				console.log('Failed req ' + res);
 				resolve(true);
 			});
 	});
