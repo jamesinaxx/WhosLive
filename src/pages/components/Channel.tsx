@@ -36,7 +36,7 @@ export default class Channel extends React.Component<
 			url: 'https://about:blank',
 		};
 
-		getStorage('userToken').then((token) => {
+		getStorage('userToken').then(token => {
 			axios
 				.get('https://api.twitch.tv/helix/users', {
 					params: {
@@ -47,7 +47,7 @@ export default class Channel extends React.Component<
 						Authorization: 'Bearer ' + token,
 					},
 				})
-				.then((res) => {
+				.then(res => {
 					this.setState({ url: res.data.data[0].profile_image_url });
 				});
 		});
@@ -59,14 +59,14 @@ export default class Channel extends React.Component<
 		if (url === 'https://about:blank') return;
 
 		fac.getColorAsync(url)
-			.then((color) => {
+			.then(color => {
 				this.setState({
 					bgColor: color.rgba,
 					color: color.isLight ? '#000' : '#FFF',
 					hidden: false,
 				});
 			})
-			.catch((e) => console.error(e));
+			.catch(e => console.error(e));
 
 		document.getElementById('loadingChannels').hidden = true;
 	}
@@ -79,21 +79,24 @@ export default class Channel extends React.Component<
 						'https://twitch.tv/' + this.props.data.user_login
 					)
 				}
-				className="channel"
-				hidden={this.state.hidden}>
-				<div className="overlay"></div>
+				className='channel'
+				hidden={this.state.hidden}
+			>
+				<div className='overlay'></div>
 				<div
-					className="channelImage"
+					className='channelImage'
 					style={{
 						backgroundColor: this.state.bgColor,
 						color: this.state.color,
-					}}>
+					}}
+				>
 					<img
 						onLoad={() => this.getColor(this.state.url)}
 						src={this.state.url}
 						width={100}
-						height={100}></img>
-					<div className="channelInfo">
+						height={100}
+					></img>
+					<div className='channelInfo'>
 						<h1>
 							{this.props.data.title.length > 24
 								? this.props.data.title.substring(

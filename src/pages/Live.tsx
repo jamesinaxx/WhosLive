@@ -30,7 +30,7 @@ export default class LiveChannels extends React.Component<
 		}
 		return (
 			<>
-				<small id="loadingChannels">Loading live channels...</small>
+				<small id='loadingChannels'>Loading live channels...</small>
 				{this.state.channels.map((channelData, i) => (
 					<Channel key={i} online data={channelData} />
 				))}
@@ -39,6 +39,6 @@ export default class LiveChannels extends React.Component<
 	}
 
 	render() {
-		return <div className="main">{this.showChannels()}</div>;
+		return <div className='main'>{this.showChannels()}</div>;
 	}
 }

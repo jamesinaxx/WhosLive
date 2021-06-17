@@ -1,8 +1,7 @@
 import React from 'react';
-import { setStorage } from '../lib/chromeapi';
-import { TextField, Button } from '@material-ui/core';
-import axios from 'axios';
-import { client_id } from '..';
+import { Button, Input } from '@material-ui/core';
+import { getStorage } from '../lib/chromeapi';
+import validateToken from '../lib/tokenValid';
 
 export default class NoAuthPage extends React.Component<
 	any,
@@ -11,42 +10,35 @@ export default class NoAuthPage extends React.Component<
 	constructor(props) {
 		super(props);
 
-		this.state = { inputValue: '', tokenError: false };
+		this.state = {
+			inputValue: '',
+			tokenError: true,
+		};
 
 		this.handleChange = this.handleChange.bind(this);
-		this.validateToken = this.handleChange.bind(this);
+		this.keyPress = this.keyPress.bind(this);
+	}
+
+	componentDidMount() {
+		getStorage('twitchtoken').then(res => {
+			validateToken(res).then(valid => {
+				this.setState({ inputValue: res, tokenError: !valid });
+			});
+		});
+	}
+
+	keyPress(e) {
+		if (e.keyCode == 13) {
+			e.preventDefault();
+			console.log('value', e.target.value);
+			validateToken(e.target.value).then(tokenError =>
+				this.setState({ tokenError })
+			);
+		}
 	}
 
 	handleChange(event) {
 		this.setState({ inputValue: event.target.value });
-	}
-
-	validateToken() {
-		const token = this.state.inputValue;
-		console.log(token);
-
-		axios
-			.get('https://id.twitch.tv/oauth2/validate', {
-				headers: {
-					Authorization: `Oauth ${client_id}`,
-				},
-			})
-			.then(res => {
-				console.log('Finished req ' + res.data);
-				if (
-					!(
-						res.data.scopes.length !== 0 &&
-						!(res.data.scopes.length > 1) &&
-						res.data.scopes[0] === 'user:read:follows' &&
-						res.data.expires_in > 500
-					)
-				)
-					return this.setState({ tokenError: true });
-			})
-			.catch(res => {
-				console.log('Failed req ' + res);
-				this.setState({ tokenError: true });
-			});
 	}
 
 	render() {
@@ -62,19 +54,30 @@ export default class NoAuthPage extends React.Component<
 				</a>{' '}
 				and then open this again
 				<form>
-					<TextField
+					<Input
+						type='text'
 						id='twitchTokenInput'
 						name='twitchtoken'
 						value={this.state.inputValue}
 						error={this.state.tokenError}
+						disabled={!this.state.tokenError}
 						onChange={this.handleChange}
-						label='Token'
-						variant='filled'
-					></TextField>
+						onKeyDown={this.keyPress}
+						placeholder='Twitch Token'
+					/>
 					<Button
 						variant='contained'
 						color='primary'
-						onClick={this.validateToken}
+						disabled={!this.state.tokenError}
+						onClick={() =>
+							validateToken(
+								(
+									document.getElementById(
+										'twitchTokenInput'
+									) as HTMLInputElement
+								).value
+							).then(tokenError => this.setState({ tokenError }))
+						}
 					>
 						Submit
 					</Button>
