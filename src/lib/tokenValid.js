@@ -20,9 +20,9 @@ export default function validateToken(token) {
 						res.data.expires_in > 500
 					)
 				) {
-					setStorage('twitchtoken', token);
 					resolve(false);
 				} else {
+					setStorage('twitchtoken', token);
 					resolve(true);
 				}
 			})

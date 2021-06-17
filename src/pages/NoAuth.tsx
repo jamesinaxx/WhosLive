@@ -37,7 +37,9 @@ export default class NoAuthPage extends React.Component<
 	}
 
 	validateTokenBased(token) {
-		validateToken(token).then(tokenError => this.setState({ tokenError }));
+		validateToken(token).then(tokenError =>
+			this.setState({ tokenError: !tokenError })
+		);
 	}
 
 	handleChange(event) {
