@@ -39,16 +39,12 @@ async function getChannelInfo() {
 	console.log('Updating channel info');
 	const userId = (
 		await (
-			await fetch(
-				'https://api.twitch.tv/helix/users?login=' +
-					(await getStorage('user')),
-				{
-					headers: {
-						'Client-Id': client_id,
-						Authorization: 'Bearer ' + (await twitchtoken()),
-					},
-				}
-			)
+			await fetch('https://api.twitch.tv/helix/users', {
+				headers: {
+					'Client-Id': client_id,
+					Authorization: 'Bearer ' + (await twitchtoken()),
+				},
+			})
 		).json()
 	).data[0].id;
 

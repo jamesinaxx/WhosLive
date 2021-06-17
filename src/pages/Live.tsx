@@ -25,8 +25,12 @@ export default class LiveChannels extends React.Component<
 	}
 
 	showChannels() {
-		if (!this.state.channels === null) {
-			return <small>Add channels in the settings page</small>;
+		if (this.state.channels.length === 0) {
+			return (
+				<small>
+					Go follow somebody and come back to see when they are live!
+				</small>
+			);
 		}
 		return (
 			<>

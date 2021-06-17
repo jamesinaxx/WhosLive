@@ -36,7 +36,7 @@ export default class Channel extends React.Component<
 			url: 'https://about:blank',
 		};
 
-		getStorage('userToken').then(token => {
+		getStorage('twitchtoken').then(token => {
 			axios
 				.get('https://api.twitch.tv/helix/users', {
 					params: {
