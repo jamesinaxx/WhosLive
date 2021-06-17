@@ -18,9 +18,14 @@ class Main extends React.Component<any, any> {
 	}
 
 	componentDidMount() {
-		getStorage('userToken').then((res) =>
-			this.setState({ userToken: res })
-		);
+		getStorage('userToken').then(res => this.setState({ userToken: res }));
+
+		// eslint-disable-next-line no-undef
+		chrome.storage.onChanged.addListener(() => {
+			getStorage('userToken').then(res =>
+				this.setState({ userToken: res })
+			);
+		});
 	}
 
 	render() {
