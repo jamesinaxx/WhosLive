@@ -2,15 +2,18 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { rmdirSync, existsSync } = require('fs');
-
 const args = process.argv.slice(2);
+
+const dev = args[0].split('=')[1] === 'development';
+
+const mode = dev ? 'development' : 'production';
 
 /**
  * @type {webpack.Configuration}
  */
 const config = {
-	mode:
-		args[0].split('=')[1] === 'development' ? 'development' : 'production',
+	mode,
+	watch: dev,
 	entry: {
 		bundle: './src/index.tsx',
 	},
@@ -56,7 +59,7 @@ const config = {
 const configFunc = () => {
 	if (existsSync('./dist/')) rmdirSync('./dist/', { recursive: true });
 
-	if (config.mode === 'development') config.devtool = 'inline-source-map';
+	if (dev) config.devtool = 'inline-source-map';
 
 	return config;
 };
