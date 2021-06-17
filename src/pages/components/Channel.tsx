@@ -92,7 +92,6 @@ export default class Channel extends React.Component<
 				className='channel'
 				hidden={this.state.hidden}
 			>
-				<div className='overlay'></div>
 				<div
 					className='channelImage'
 					style={{
