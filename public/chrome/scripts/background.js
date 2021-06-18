@@ -4,8 +4,8 @@ const twitchtoken = () => {
 	return new Promise(resolve =>
 		chrome.storage.sync.get(['twitchtoken'], res => {
 			if (res.twitchtoken === undefined) {
-				chrome.storage.sync.set({ twitchtoken: 'unset' });
-				resolve('unset');
+				chrome.storage.sync.set({ twitchtoken: undefined });
+				resolve(undefined);
 			} else {
 				resolve(res.twitchtoken);
 			}
