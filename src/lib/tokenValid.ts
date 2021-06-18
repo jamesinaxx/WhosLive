@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { setStorage } from '../lib/chromeapi';
+import { setStorage } from './chromeapi';
 
-export default function validateToken(token) {
+export default function validateToken(token: string): Promise<boolean> {
 	return new Promise(resolve => {
 		axios
 			.get('https://id.twitch.tv/oauth2/validate', {

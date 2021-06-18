@@ -3,8 +3,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { rmdirSync, existsSync } = require('fs');
+const path = require('path');
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
@@ -21,6 +23,10 @@ const config = {
 	},
 	module: {
 		rules: [
+			{
+				test: /\.json$/i,
+				type: 'asset/resource',
+			},
 			{
 				test: /\.[jt](s|sx)$/,
 				exclude: /node_modules/,
@@ -43,7 +49,9 @@ const config = {
 		}),
 		new CopyPlugin({
 			patterns: [
-				{ from: 'public/chrome/manifest.json' },
+				{
+					from: 'src/manifest.json',
+				},
 				{ from: 'public/chrome/icons', to: 'icons' },
 				{
 					from: 'public/chrome/scripts/background.js',
@@ -53,7 +61,7 @@ const config = {
 		}),
 	],
 	optimization: {
-		minimizer: [`...`, new CssMinimizerPlugin()],
+		minimizer: [`...`, new CssMinimizerPlugin(), new JsonMinimizerPlugin()],
 	},
 };
 

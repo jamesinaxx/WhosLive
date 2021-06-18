@@ -3697,6 +3697,13 @@ json-buffer@3.0.0:
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.0.tgz#5b1f397afc75d677bde8bcfc0e47e1f9a3d9a898"
   integrity sha1-Wx85evx11ne96Lz8Dkfh+aPZqJg=
 
+json-minimizer-webpack-plugin@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/json-minimizer-webpack-plugin/-/json-minimizer-webpack-plugin-3.0.0.tgz#b4ed3ead36006cabc8bb8ffc246199b5b55ce30e"
+  integrity sha512-hIYaBufapAn+GArXkLbxF37DBD6z5fj001i1KRiNt55iB5JcwhpZQaKcvaF8VCkmtMEWnwZsZ07QvC+adaHeFw==
+  dependencies:
+    schema-utils "^3.0.0"
+
 json-parse-better-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
