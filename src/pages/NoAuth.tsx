@@ -1,5 +1,4 @@
 import React from 'react';
-import { Buffer } from 'buffer';
 import { Button, Input } from '@material-ui/core';
 import { getStorage } from '../lib/chromeapi';
 import validateToken from '../lib/tokenValid';

@@ -3,6 +3,8 @@ body {
 	flex-direction: column;
 	width: 550px;
 	height: 550px;
+	background-color: #1e1f20;
+	color: honeydew;
 }
 
 footer {
@@ -14,6 +16,10 @@ footer {
 	width: 100%;
 	text-align: center;
 	background-color: white;
+}
+
+#twitchTokenInput {
+	color: honeydew;
 }
 
 .main {
@@ -28,7 +34,7 @@ small {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-size: xx-large;
-	color: gray;
+	color: rgb(179, 179, 179);
 }
 
 .channel {
@@ -60,7 +66,6 @@ small {
 	min-width: 90vw;
 	min-height: 120px;
 	margin: 10px;
-	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 	&:hover {
 		transform: translate(5px, 5px);
 	}
