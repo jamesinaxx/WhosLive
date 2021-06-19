@@ -8,6 +8,7 @@ import { getStorage, setStorage } from './lib/chromeapi';
 import NoAuthPage from './pages/NoAuth';
 import validateToken from './lib/tokenValid';
 import { Button, ButtonGroup } from '@material-ui/core';
+import Loading from './pages/components/Loading';
 
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
 
@@ -65,6 +66,10 @@ class Main extends React.Component<
 	}
 
 	render() {
+		if (this.state.userToken === undefined) {
+			return <Loading hidden={false} />;
+		}
+
 		return (
 			<div>
 				{this.state.userToken && this.state.tokenValid ? (
@@ -108,14 +113,14 @@ class Main extends React.Component<
 							<div>{null}</div>
 						)}
 						<Live />
+						<SettingsButton
+							ruSure={this.showRUSure}
+							shown={this.state.showRUSure}
+						/>
 					</>
 				) : (
 					<NoAuthPage />
 				)}
-				<SettingsButton
-					ruSure={this.showRUSure}
-					shown={this.state.showRUSure}
-				/>
 			</div>
 		);
 	}
