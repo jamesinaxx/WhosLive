@@ -15,7 +15,7 @@ export default class SettingsButton extends React.Component {
 					position: 'fixed',
 					top: '5px',
 					right: '5px',
-					backgroundColor: '#fff',
+					backgroundColor: '#000',
 				}}
 			>
 				<span className='material-icons'>{null}settings</span>

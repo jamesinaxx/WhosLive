@@ -7,17 +7,6 @@ body {
 	color: honeydew;
 }
 
-footer {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	height: 75px;
-	padding-top: 20px;
-	width: 100%;
-	text-align: center;
-	background-color: white;
-}
-
 #twitchTokenInput {
 	color: honeydew;
 }
@@ -45,7 +34,7 @@ small {
 
 .channelImage {
 	user-select: none;
-	transition: transform 0.2s ease-in-out;
+	transition: transform 100ms ease-in-out;
 	overflow: hidden;
 	img {
 		border-radius: 15px;
@@ -67,6 +56,6 @@ small {
 	min-height: 120px;
 	margin: 10px;
 	&:hover {
-		transform: translate(5px, 5px);
+		transform: scale(105%);
 	}
 }
