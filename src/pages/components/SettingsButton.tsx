@@ -1,25 +1,22 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import styles from '../../styles/layout.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-export default class SettingsButton extends React.Component {
-	render() {
-		return (
-			<Button
-				variant='outlined'
-				color='primary'
-				style={{
-					maxWidth: '30px',
-					maxHeight: '30px',
-					minWidth: '30px',
-					minHeight: '30px',
-					position: 'fixed',
-					top: '5px',
-					right: '5px',
-					backgroundColor: '#fff',
-				}}
-			>
-				<span className='material-icons'>{null}settings</span>
-			</Button>
-		);
-	}
+export default function SettingsButton({
+	ruSure,
+	shown,
+}: {
+	ruSure: () => void;
+	shown: boolean;
+}) {
+	return (
+		<button
+			className={styles.settingsButton}
+			onClick={ruSure}
+			style={{ opacity: shown ? '0%' : '100%' }}
+		>
+			<FontAwesomeIcon icon={faSignOutAlt} />
+		</button>
+	);
 }

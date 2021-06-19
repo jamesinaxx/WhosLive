@@ -37,36 +37,42 @@ function setStorageLocal(key, value) {
 
 async function getChannelInfo() {
 	console.log('Updating channel info');
-	const userId = (
-		await (
-			await fetch('https://api.twitch.tv/helix/users', {
-				headers: {
-					'Client-Id': client_id,
-					Authorization: 'Bearer ' + (await twitchtoken()),
-				},
-			})
-		).json()
-	).data[0].id;
+	try {
+		const userId = (
+			await (
+				await fetch('https://api.twitch.tv/helix/users', {
+					headers: {
+						'Client-Id': client_id,
+						Authorization: 'Bearer ' + (await twitchtoken()),
+					},
+				})
+			).json()
+		).data[0].id;
 
-	const resbJson = await (
-		await fetch(
-			'https://api.twitch.tv/helix/streams/followed?user_id=' + userId,
-			{
-				headers: {
-					'Client-Id': client_id,
-					Authorization: 'Bearer ' + (await twitchtoken()),
-				},
-			}
-		)
-	).json();
+		const resbJson = await (
+			await fetch(
+				'https://api.twitch.tv/helix/streams/followed?user_id=' +
+					userId,
+				{
+					headers: {
+						'Client-Id': client_id,
+						Authorization: 'Bearer ' + (await twitchtoken()),
+					},
+				}
+			)
+		).json();
 
-	chrome.browserAction.setBadgeText({
-		text: resbJson.data.length.toString(),
-	});
-	chrome.browserAction.setTitle({ title: 'Number of people streaming: ' });
+		chrome.browserAction.setBadgeText({
+			text: resbJson.data.length.toString(),
+		});
+		chrome.browserAction.setTitle({
+			title: 'Number of people streaming: ',
+		});
 
-	setStorageLocal('channels', resbJson.data);
-
+		setStorageLocal('channels', resbJson.data);
+	} catch (error) {
+		console.log(error);
+	}
 	console.log('Updated channel info');
 }
 

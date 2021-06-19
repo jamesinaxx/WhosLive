@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 const { rmdirSync, existsSync } = require('fs');
 
 /**
@@ -37,7 +38,7 @@ const config = {
 		}),
 		new CopyPlugin({
 			patterns: [
-				{ from: 'public/chrome/manifest.json' },
+				{ from: 'src/manifest.json' },
 				{ from: 'public/chrome/icons', to: 'icons' },
 				{
 					from: 'public/chrome/scripts/background.js',
@@ -45,6 +46,7 @@ const config = {
 				},
 			],
 		}),
+		new Dotenv({ path: './.env' }),
 	],
 	devtool: 'inline-source-map',
 	resolve: {
