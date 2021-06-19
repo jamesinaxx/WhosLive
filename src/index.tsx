@@ -7,7 +7,7 @@ import { getStorage } from './lib/chromeapi';
 import NoAuthPage from './pages/NoAuth';
 import validateToken from './lib/tokenValid';
 
-const client_id = '6ucdumdkn0j562bf9oog38efzmx4vh';
+const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
 
 class Main extends React.Component<
 	any,

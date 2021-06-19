@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
@@ -59,6 +60,7 @@ const config = {
 				},
 			],
 		}),
+		new Dotenv({ path: './.env' }),
 	],
 	optimization: {
 		minimizer: [`...`, new CssMinimizerPlugin(), new JsonMinimizerPlugin()],
