@@ -9,7 +9,9 @@ import NoAuthPage from './pages/NoAuth';
 import validateToken from './lib/tokenValid';
 import { Button, ButtonGroup } from '@material-ui/core';
 import Loading from './pages/components/Loading';
+import axios from 'axios';
 
+// eslint-disable-next-line no-undef
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
 
 class Main extends React.Component<
@@ -56,6 +58,11 @@ class Main extends React.Component<
 	}
 
 	invalidateToken() {
+		getStorage('twitchtoken').then(token => {
+			axios.post('https://id.twitch.tv/oauth2/revoke', null, {
+				params: { client_id, token },
+			});
+		});
 		setStorage('twitchtoken', '');
 		this.validateToken();
 		this.setState({
