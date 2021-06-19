@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/style.scss';
+import './styles/global.scss';
 import Live from './pages/Live';
 import SettingsButton from './pages/components/SettingsButton';
 import styles from './styles/layout.module.scss';
