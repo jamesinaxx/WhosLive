@@ -7,7 +7,24 @@
 	height: 100%;
 	backdrop-filter: blur(10px);
 	text-align: center;
-	// background-color: rgba(255, 255, 255, 0.7);
+}
+
+.noAuth {
+	text-align: center;
+	a {
+		transition: color 100ms ease-in-out;
+		color: #00ffff;
+		text-decoration: none;
+		&:hover {
+			color: #05c2c2;
+		}
+	}
+	form {
+		margin-top: 15px;
+		button {
+			margin-top: 15px;
+		}
+	}
 }
 
 .settingsButton {

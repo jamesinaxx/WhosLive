@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/layout.module.scss';
 import { Button, Input } from '@material-ui/core';
 import { getStorage } from '../lib/chromeapi';
 import validateToken from '../lib/tokenValid';
@@ -47,7 +48,7 @@ export default class NoAuthPage extends React.Component<
 
 	render() {
 		return (
-			<small>
+			<small className={styles.noAuth}>
 				You are not verified! Please go to{' '}
 				<a
 					href='https://jamesinaxx.me/auth/twitchauth'
