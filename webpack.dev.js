@@ -37,7 +37,7 @@ const config = {
 		}),
 		new CopyPlugin({
 			patterns: [
-				{ from: 'public/chrome/manifest.json' },
+				{ from: 'src/manifest.json' },
 				{ from: 'public/chrome/icons', to: 'icons' },
 				{
 					from: 'public/chrome/scripts/background.js',
