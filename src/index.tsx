@@ -39,23 +39,16 @@ class Main extends React.Component<
 		chrome.storage.onChanged.addListener(() => this.validateToken());
 	}
 
-	validateToken() {
-		getStorage('twitchtoken').then(res => {
-			console.log(
-				'this is the component mounting code thingo whatever',
-				res
-			);
-			validateToken(res).then(valid => {
-				console.log(valid);
-				if (valid) this.setState({ userToken: res, tokenValid: valid });
-				else this.setState({ userToken: null, tokenValid: valid });
-			});
-		});
-	}
+	validateToken = () =>
+		getStorage('twitchtoken').then(res =>
+			validateToken(res).then(valid =>
+				valid
+					? this.setState({ userToken: res, tokenValid: valid })
+					: this.setState({ userToken: null, tokenValid: valid })
+			)
+		);
 
-	showRUSure() {
-		this.setState({ showRUSure: true });
-	}
+	showRUSure = () => this.setState({ showRUSure: true });
 
 	invalidateToken() {
 		getStorage('twitchtoken').then(token => {
