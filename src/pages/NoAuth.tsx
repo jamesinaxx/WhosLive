@@ -68,7 +68,7 @@ export default class NoAuthPage extends React.Component<
 						onChange={this.handleChange}
 						onKeyDown={this.keyPress}
 						placeholder='Twitch Token'
-					/>
+					/>{' '}
 					<Button
 						variant='contained'
 						color='primary'
