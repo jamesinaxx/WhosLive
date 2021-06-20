@@ -1,3 +1,6 @@
+@import './variables/dark';
+@import './variables/light';
+
 body::-webkit-scrollbar {
 	width: 1em;
 }
@@ -14,12 +17,17 @@ body::-webkit-scrollbar-thumb {
 body {
 	width: 550px;
 	height: 550px;
-	background-color: #1e1f20;
-	color: honeydew;
+}
+
+.darkmode {
+	width: 100%;
+	height: 100%;
+	background-color: $backgrounddark;
+	color: $textdark;
 }
 
 #twitchTokenInput {
-	color: honeydew;
+	color: #fff;
 }
 
 .main {

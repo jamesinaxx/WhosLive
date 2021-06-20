@@ -14,9 +14,22 @@ import axios from 'axios';
 // eslint-disable-next-line no-undef
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
 
+const Container = ({
+	children,
+	colorMode,
+}: {
+	children: any;
+	colorMode: string;
+}) => <div className={`${colorMode}mode`}>{children}</div>;
+
 class Main extends React.Component<
 	any,
-	{ userToken: string; tokenValid: boolean; showRUSure: boolean }
+	{
+		userToken: string;
+		tokenValid: boolean;
+		showRUSure: boolean;
+		colorMode: string;
+	}
 > {
 	constructor(props: any) {
 		super(props);
@@ -25,6 +38,7 @@ class Main extends React.Component<
 			userToken: undefined,
 			tokenValid: true,
 			showRUSure: false,
+			colorMode: 'dark',
 		};
 
 		this.validateToken = this.validateToken.bind(this);
@@ -36,7 +50,12 @@ class Main extends React.Component<
 		this.validateToken();
 
 		// eslint-disable-next-line no-undef
-		chrome.storage.onChanged.addListener(() => this.validateToken());
+		chrome.storage.onChanged.addListener(() => {
+			this.validateToken();
+			getStorage('mode').then(colorMode => {
+				this.setState({ colorMode });
+			});
+		});
 	}
 
 	validateToken = () =>
@@ -67,11 +86,15 @@ class Main extends React.Component<
 
 	render() {
 		if (this.state.userToken === undefined) {
-			return <Loading hidden={false} />;
+			return (
+				<Container colorMode={this.state.colorMode}>
+					<Loading hidden={false} />
+				</Container>
+			);
 		}
 
 		return (
-			<div>
+			<Container colorMode={this.state.colorMode}>
 				{this.state.userToken && this.state.tokenValid ? (
 					<>
 						{this.state.showRUSure ? (
@@ -121,7 +144,7 @@ class Main extends React.Component<
 				) : (
 					<NoAuthPage />
 				)}
-			</div>
+			</Container>
 		);
 	}
 }
