@@ -45,6 +45,7 @@ small {
 
 .channelImage {
 	user-select: none;
+	cursor: pointer;
 	transition: transform 100ms ease-in-out;
 	overflow: hidden;
 	img {
