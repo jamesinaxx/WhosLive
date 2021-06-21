@@ -83,17 +83,14 @@ export default class Channel extends React.Component<
 
 	render() {
 		return (
-			<div
-				onClick={() =>
-					window.open(
-						'https://twitch.tv/' + this.props.data.user_login
-					)
-				}
-				className='channel'
-				hidden={this.state.hidden}
-			>
+			<div className='channel' hidden={this.state.hidden}>
 				<div
 					className='channelImage'
+					onClick={() =>
+						window.open(
+							'https://twitch.tv/' + this.props.data.user_login
+						)
+					}
 					style={{
 						backgroundColor: this.state.bgColor,
 						color: this.state.color,
