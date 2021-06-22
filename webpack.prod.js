@@ -7,7 +7,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { rmdirSync, existsSync } = require('fs');
-const path = require('path');
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
