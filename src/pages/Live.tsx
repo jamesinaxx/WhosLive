@@ -63,6 +63,8 @@ export default class LiveChannels extends React.Component<
 						doneLoading={() => this.doneLoading()}
 					/>
 				))}
+				{/* Placeholder so that the cards don't flow over the body limit */}
+				<div style={{ height: '5px' }} />
 			</>
 		);
 	}
