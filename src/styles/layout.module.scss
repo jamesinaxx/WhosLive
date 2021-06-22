@@ -1,3 +1,12 @@
+.main {
+	margin-bottom: 110px;
+	text-align: center;
+}
+
+.twitchTokenInput {
+	color: #fff;
+}
+
 .ruSure {
 	transition: opacity 100ms ease-in-out;
 	margin: none;
@@ -25,6 +34,52 @@
 			margin-top: 15px;
 		}
 	}
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: xx-large;
+	color: rgb(179, 179, 179);
+}
+
+.goFollow {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: xx-large;
+	color: rgb(179, 179, 179);
+}
+
+.colorModeToggle {
+	transition: background-color 100ms ease-in-out;
+	transition: transition 100ms ease-in-out;
+	transition: opacity 100ms ease-in-out;
+	max-width: 30px;
+	max-height: 30px;
+	min-width: 30px;
+	min-height: 30px;
+	position: fixed;
+	top: 5px;
+	left: 40px;
+	background-color: #3b56b8;
+	border-radius: 5px;
+	border: 5px #000;
+	text-align: center;
+	padding: 5px;
+	&:hover {
+		background-color: #4661c4;
+		transform: scale(105%);
+	}
+	&:active {
+		background-color: #5e81fd;
+		transform: scale(105%);
+	}
+	svg {
+		transform: translate(-5%, -5%);
+	}
 }
 
 .settingsButton {
@@ -37,7 +92,7 @@
 	min-height: 30px;
 	position: fixed;
 	top: 5px;
-	right: 5px;
+	left: 5px;
 	color: white;
 	background-color: #3b56b8;
 	border-radius: 5px;

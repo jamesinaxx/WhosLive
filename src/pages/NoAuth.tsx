@@ -62,6 +62,7 @@ export default class NoAuthPage extends React.Component<
 					<Input
 						type='text'
 						id='twitchTokenInput'
+						className={styles.twitchTokenInput}
 						name='twitchtoken'
 						value={this.state.inputValue}
 						error={this.state.tokenError}
