@@ -4,7 +4,7 @@ import { getStorageLocal } from '../lib/chromeapi';
 import Loading from './components/Loading';
 
 export default class LiveChannels extends React.Component<
-	{},
+	{ color: string },
 	{ channels: any[]; loading: boolean }
 > {
 	constructor(props: any) {
@@ -36,7 +36,7 @@ export default class LiveChannels extends React.Component<
 
 	showChannels() {
 		if (this.state.channels === null) {
-			return <Loading />;
+			return <Loading hidden={false} color={this.props.color} />;
 		}
 
 		if (this.state.channels.length === 0) {
@@ -50,7 +50,10 @@ export default class LiveChannels extends React.Component<
 		console.log(this.state.loading);
 		return (
 			<>
-				<Loading hidden={!this.state.loading} />
+				<Loading
+					hidden={!this.state.loading}
+					color={this.props.color}
+				/>
 				{this.state.channels.map((channelData, i) => (
 					<Channel
 						key={i}
