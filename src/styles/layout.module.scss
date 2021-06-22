@@ -3,6 +3,10 @@
 	text-align: center;
 }
 
+.twitchTokenInput {
+	color: #fff;
+}
+
 .ruSure {
 	transition: opacity 100ms ease-in-out;
 	margin: none;
@@ -30,6 +34,23 @@
 			margin-top: 15px;
 		}
 	}
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: xx-large;
+	color: rgb(179, 179, 179);
+}
+
+.goFollow {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: xx-large;
+	color: rgb(179, 179, 179);
 }
 
 .colorModeToggle {

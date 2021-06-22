@@ -42,7 +42,7 @@ export default class LiveChannels extends React.Component<
 
 		if (this.state.channels.length === 0) {
 			return (
-				<small>
+				<small className={styles.goFollow}>
 					Go follow somebody and come back to see when they are live!
 				</small>
 			);
