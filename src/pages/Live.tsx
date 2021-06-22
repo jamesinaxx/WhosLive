@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/layout.module.scss';
 import Channel from './components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
 import Loading from './components/Loading';
@@ -67,6 +68,6 @@ export default class LiveChannels extends React.Component<
 	}
 
 	render() {
-		return <div className='main'>{this.showChannels()}</div>;
+		return <div className={styles.main}>{this.showChannels()}</div>;
 	}
 }

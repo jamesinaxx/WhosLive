@@ -1,5 +1,6 @@
 import React from 'react';
 import FastAverageColor from 'fast-average-color';
+import styles from '../../styles/channel.module.scss';
 import axios from 'axios';
 import { client_id } from '../../../src/index';
 import { getStorage } from '../../lib/chromeapi';
@@ -83,7 +84,7 @@ export default class Channel extends React.Component<
 
 	render() {
 		return (
-			<div className='channel' hidden={this.state.hidden}>
+			<div className={styles.channelImage} hidden={this.state.hidden}>
 				<div
 					className='channelImage'
 					onClick={() =>
@@ -103,7 +104,7 @@ export default class Channel extends React.Component<
 						width={100}
 						height={100}
 					></img>
-					<div className='channelInfo'>
+					<div className={styles.channelInfo}>
 						<h1>
 							{this.props.data.title.length > 24
 								? this.props.data.title.substring(
