@@ -11,7 +11,9 @@ export default function Loading({ color, hidden }: LoadingProps) {
 
 	console.log('Color', color);
 
-	color = document.querySelector('body').style.color;
+	const docBody = document.querySelector('body') as HTMLBodyElement;
+
+	color = docBody.style.color;
 
 	return (
 		<>

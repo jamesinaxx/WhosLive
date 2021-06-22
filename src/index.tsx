@@ -16,14 +16,14 @@ import axios from 'axios';
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
 
 interface MainState {
-	userToken: string;
+	userToken: string | undefined;
 	tokenValid: boolean;
 	showRUSure: boolean;
 	colorMode: string;
 }
 
 class Main extends React.Component<any, MainState> {
-	constructor(props) {
+	constructor(props: any) {
 		super(props);
 
 		this.state = {
@@ -40,11 +40,13 @@ class Main extends React.Component<any, MainState> {
 	}
 
 	componentDidMount() {
+		const docBody = document.querySelector('body') as HTMLBodyElement;
+
 		this.validateToken();
 
 		getStorage('mode').then(colorMode => {
 			this.setState({ colorMode });
-			document.querySelector('body').className = this.state.colorMode;
+			docBody.className = this.state.colorMode;
 		});
 
 		// eslint-disable-next-line no-undef
@@ -52,7 +54,7 @@ class Main extends React.Component<any, MainState> {
 			this.validateToken();
 			getStorage('mode').then(colorMode => {
 				this.setState({ colorMode });
-				document.querySelector('body').className = this.state.colorMode;
+				docBody.className = this.state.colorMode;
 			});
 		});
 	}
@@ -62,7 +64,7 @@ class Main extends React.Component<any, MainState> {
 			validateToken(res).then(valid =>
 				valid
 					? this.setState({ userToken: res, tokenValid: valid })
-					: this.setState({ userToken: null, tokenValid: valid })
+					: this.setState({ userToken: undefined, tokenValid: valid })
 			)
 		);
 
@@ -90,10 +92,11 @@ class Main extends React.Component<any, MainState> {
 	}
 
 	render() {
-		document.querySelector('body').style.backgroundColor =
+		const docBody = document.querySelector('body') as HTMLBodyElement;
+
+		docBody.style.backgroundColor =
 			this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
-		document.querySelector('body').style.color =
-			this.state.colorMode === 'dark' ? '#fff' : '#000';
+		docBody.style.color = this.state.colorMode === 'dark' ? '#fff' : '#000';
 
 		if (this.state.userToken === undefined) {
 			return (

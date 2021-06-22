@@ -9,7 +9,7 @@ interface LiveProps {
 }
 
 interface LiveState {
-	channels: any[];
+	channels: any[] | null;
 	loading: boolean;
 }
 

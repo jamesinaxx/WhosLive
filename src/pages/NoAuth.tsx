@@ -10,7 +10,7 @@ interface NoAuthState {
 }
 
 export default class NoAuth extends React.Component<any, NoAuthState> {
-	constructor(props) {
+	constructor(props: any) {
 		super(props);
 
 		this.state = {
@@ -31,20 +31,26 @@ export default class NoAuth extends React.Component<any, NoAuthState> {
 		});
 	}
 
-	keyPress(e) {
-		if (e.keyCode == 13) {
-			e.preventDefault();
-			this.validateTokenBased(e.target.value);
+	keyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+		if (event.key == 'Enter') {
+			event.preventDefault();
+			this.validateTokenBased(
+				(
+					document.getElementById(
+						'twitchTokenInput'
+					) as HTMLInputElement
+				).value
+			);
 		}
 	}
 
-	validateTokenBased(token) {
+	validateTokenBased(token: string) {
 		validateToken(token).then(tokenError =>
 			this.setState({ tokenError: !tokenError })
 		);
 	}
 
-	handleChange(event) {
+	handleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		this.setState({ inputValue: event.target.value });
 	}
 
