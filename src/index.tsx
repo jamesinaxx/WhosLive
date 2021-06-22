@@ -39,7 +39,7 @@ class Main extends React.Component<
 		chrome.storage.onChanged.addListener(() => this.validateToken());
 	}
 
-	validateToken = () =>
+	validateToken() {
 		getStorage('twitchtoken').then(res =>
 			validateToken(res).then(valid =>
 				valid
@@ -47,8 +47,11 @@ class Main extends React.Component<
 					: this.setState({ userToken: null, tokenValid: valid })
 			)
 		);
+	}
 
-	showRUSure = () => this.setState({ showRUSure: true });
+	showRUSure() {
+		this.setState({ showRUSure: true });
+	}
 
 	invalidateToken() {
 		getStorage('twitchtoken').then(token => {
@@ -78,16 +81,12 @@ class Main extends React.Component<
 							<div
 								className={styles.ruSure}
 								style={{
-									opacity: this.state.showRUSure
-										? '100%'
-										: '0%',
+									opacity: '100%',
 								}}
 							>
 								<h1
 									style={{
-										opacity: this.state.showRUSure
-											? '100%'
-											: '0%',
+										opacity: '100%',
 									}}
 								>
 									Are you sure you want to invalidate the
