@@ -29,15 +29,17 @@ const DarkModeIcon = () => (
 	</svg>
 );
 
+interface SettingsButtonProps {
+	toggleColor: () => void;
+	shown: boolean;
+	mode: string;
+}
+
 export default function SettingsButton({
 	toggleColor,
 	shown,
 	mode,
-}: {
-	toggleColor: () => void;
-	shown: boolean;
-	mode: string;
-}) {
+}: SettingsButtonProps) {
 	return (
 		<button
 			className={styles.colorModeToggle}

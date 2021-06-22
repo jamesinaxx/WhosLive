@@ -4,10 +4,12 @@ import { Button, Input } from '@material-ui/core';
 import { getStorage } from '../lib/chromeapi';
 import validateToken from '../lib/tokenValid';
 
-export default class NoAuthPage extends React.Component<
-	any,
-	{ inputValue: string; tokenError: boolean }
-> {
+interface NoAuthState {
+	inputValue: string;
+	tokenError: boolean;
+}
+
+export default class NoAuth extends React.Component<any, NoAuthState> {
 	constructor(props) {
 		super(props);
 

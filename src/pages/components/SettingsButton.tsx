@@ -3,13 +3,12 @@ import styles from '../../styles/layout.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-export default function SettingsButton({
-	ruSure,
-	shown,
-}: {
+interface SettingsButtonProps {
 	ruSure: () => void;
 	shown: boolean;
-}) {
+}
+
+export default function SettingsButton({ ruSure, shown }: SettingsButtonProps) {
 	return (
 		<button
 			className={styles.settingsButton}

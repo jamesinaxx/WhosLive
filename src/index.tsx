@@ -15,16 +15,15 @@ import axios from 'axios';
 // eslint-disable-next-line no-undef
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
 
-class Main extends React.Component<
-	any,
-	{
-		userToken: string;
-		tokenValid: boolean;
-		showRUSure: boolean;
-		colorMode: string;
-	}
-> {
-	constructor(props: any) {
+interface MainState {
+	userToken: string;
+	tokenValid: boolean;
+	showRUSure: boolean;
+	colorMode: string;
+}
+
+class Main extends React.Component<any, MainState> {
+	constructor(props) {
 		super(props);
 
 		this.state = {
