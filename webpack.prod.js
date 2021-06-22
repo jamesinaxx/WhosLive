@@ -17,7 +17,8 @@ const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const config = {
 	mode: 'production',
 	entry: {
-		bundle: './src/index.tsx',
+		index: './src/index.tsx',
+		'scripts/background': './src/scripts/background.js',
 	},
 	output: {
 		filename: '[name].js',
