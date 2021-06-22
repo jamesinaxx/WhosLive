@@ -76,9 +76,24 @@ async function getChannelInfo() {
 	console.log('Updated channel info');
 }
 
-function getChannelInfoInit() {
+function init() {
+	setStorage(
+		'mode',
+		window.matchMedia &&
+			window.matchMedia('(prefers-color-scheme: dark)').matches
+			? 'dark'
+			: 'light'
+	);
+
+	window
+		.matchMedia('(prefers-color-scheme: dark)')
+		.addEventListener('change', e => {
+			const newColorScheme = e.matches ? 'dark' : 'light';
+
+			setStorage('mode', newColorScheme);
+		});
 	getChannelInfo();
 	return setInterval(async () => getChannelInfo(), 60000);
 }
 
-getChannelInfoInit();
+init();
