@@ -64,7 +64,7 @@ class Main extends React.Component<any, MainState> {
 			validateToken(res).then(valid =>
 				valid
 					? this.setState({ userToken: res, tokenValid: valid })
-					: this.setState({ userToken: undefined, tokenValid: valid })
+					: this.setState({ userToken: 'invalid', tokenValid: valid })
 			)
 		);
 

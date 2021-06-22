@@ -10,8 +10,6 @@ export default function validateToken(token: string): Promise<boolean> {
 				},
 			})
 			.then(res => {
-				console.log('Succeded to run checks', token);
-
 				if (
 					!(
 						res.data.scopes.length !== 0 &&
@@ -26,8 +24,7 @@ export default function validateToken(token: string): Promise<boolean> {
 					resolve(true);
 				}
 			})
-			.catch(res => {
-				console.log('Failed to run checks', res, token);
+			.catch(() => {
 				resolve(false);
 			});
 	});
