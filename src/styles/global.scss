@@ -12,6 +12,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 body {
+	transition: background 100ms ease-in-out;
 	width: 550px;
 	height: 550px;
 }
