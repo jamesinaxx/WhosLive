@@ -106,11 +106,11 @@ export default class Channel extends React.Component<
 					></img>
 					<div className={styles.channelInfo}>
 						<h1>
-							{this.props.data.title.length > 40
+							{this.props.data.title.length > 24
 								? this.props.data.title.substring(
 										0,
 										this.props.data.title.length -
-											(this.props.data.title.length - 37)
+											(this.props.data.title.length - 21)
 								  ) + '...'
 								: this.props.data.title}
 						</h1>

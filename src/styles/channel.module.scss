@@ -7,12 +7,14 @@
 .channel {
 	user-select: none;
 	transition: transform 100ms ease-in-out;
+	padding: 10px;
 	img {
 		border-radius: 15px;
 		margin: 10px;
 		float: left;
 	}
 	.channelInfo {
+		vertical-align: middle;
 		text-align: center;
 		margin-left: 100px;
 		max-width: 425px;
