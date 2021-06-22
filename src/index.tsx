@@ -78,16 +78,12 @@ class Main extends React.Component<
 							<div
 								className={styles.ruSure}
 								style={{
-									opacity: this.state.showRUSure
-										? '100%'
-										: '0%',
+									opacity: '100%',
 								}}
 							>
 								<h1
 									style={{
-										opacity: this.state.showRUSure
-											? '100%'
-											: '0%',
+										opacity: '100%',
 									}}
 								>
 									Are you sure you want to invalidate the
