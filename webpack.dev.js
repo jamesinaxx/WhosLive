@@ -11,7 +11,8 @@ const config = {
 	mode: 'development',
 	watch: true,
 	entry: {
-		bundle: './src/index.tsx',
+		index: './src/index.tsx',
+		'scripts/background': './src/scripts/background.js',
 	},
 	output: {
 		filename: '[name].js',
@@ -34,7 +35,7 @@ const config = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: 'public/index.html',
+			template: 'src/index.html',
 		}),
 		new CopyPlugin({
 			patterns: [
