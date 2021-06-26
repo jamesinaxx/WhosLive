@@ -12,8 +12,7 @@ const config = {
 	watch: true,
 	entry: {
 		index: './src/index.tsx',
-		'scripts/background': './src/scripts/background.ts',
-	},
+  },
 	output: {
 		filename: '[name].js',
 	},
@@ -40,11 +39,11 @@ const config = {
 		new CopyPlugin({
 			patterns: [
 				{ from: 'src/manifest.json' },
-				{ from: 'src/icons', to: 'icons' },
-				// {
-				// 	from: 'src/scripts/background.js',
-				// 	to: 'scripts',
-				// },
+				{ from: 'public/icons', to: 'icons' },
+				{
+					from: 'public/scripts/background.js',
+					to: 'scripts',
+				},
 			],
 		}),
 		new Dotenv({ path: './.env' }),
