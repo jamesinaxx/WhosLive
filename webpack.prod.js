@@ -17,7 +17,6 @@ const config = {
 	mode: 'production',
 	entry: {
 		index: './src/index.tsx',
-		'scripts/background': './src/scripts/background.ts',
 	},
 	output: {
 		filename: '[name].js',
@@ -46,7 +45,7 @@ const config = {
 		new MiniCssExtractPlugin(),
 		new ESLintPlugin({ extensions }),
 		new HtmlWebpackPlugin({
-			template: 'src/index.html',
+			template: 'public/index.html',
 		}),
 		new CopyPlugin({
 			patterns: [

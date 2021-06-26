@@ -12,7 +12,6 @@ const config = {
 	watch: true,
 	entry: {
 		index: './src/index.tsx',
-		'scripts/background': './src/scripts/background.ts',
 	},
 	output: {
 		filename: '[name].js',
@@ -35,7 +34,7 @@ const config = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: 'src/index.html',
+			template: 'public/index.html',
 		}),
 		new CopyPlugin({
 			patterns: [
