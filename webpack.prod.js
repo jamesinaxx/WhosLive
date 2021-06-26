@@ -45,7 +45,7 @@ const config = {
 		new MiniCssExtractPlugin(),
 		new ESLintPlugin({ extensions }),
 		new HtmlWebpackPlugin({
-			template: 'public/index.html',
+			template: 'src/index.html',
 		}),
 		new CopyPlugin({
 			patterns: [
