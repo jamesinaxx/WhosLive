@@ -59,7 +59,7 @@ class Main extends React.Component<any, MainState> {
 		});
 	}
 
-	validateToken = () =>
+	validateToken() {
 		getStorage('twitchtoken').then(res =>
 			validateToken(res).then(valid =>
 				valid
@@ -67,8 +67,11 @@ class Main extends React.Component<any, MainState> {
 					: this.setState({ userToken: 'invalid', tokenValid: valid })
 			)
 		);
+	}
 
-	showRUSure = () => this.setState({ showRUSure: true });
+	showRUSure() {
+		this.setState({ showRUSure: true });
+	}
 
 	invalidateToken() {
 		getStorage('twitchtoken').then(token => {
