@@ -17,7 +17,6 @@ const config = {
 	mode: 'production',
 	entry: {
 		index: './src/index.tsx',
-		'scripts/background': './src/scripts/background.ts',
 	},
 	output: {
 		filename: '[name].js',
@@ -53,11 +52,11 @@ const config = {
 				{
 					from: 'src/manifest.json',
 				},
-				{ from: 'src/icons', to: 'icons' },
-				// {
-				// 	from: 'public/chrome/scripts/background.js',
-				// 	to: 'scripts',
-				// },
+				{ from: 'public/icons', to: 'icons' },
+				{
+					from: 'public/scripts/background.js',
+					to: 'scripts',
+				},
 			],
 		}),
 		new Dotenv({ path: './.env' }),
