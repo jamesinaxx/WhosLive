@@ -4,10 +4,16 @@ import Channel from './components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
 import Loading from './components/Loading';
 
-export default class LiveChannels extends React.Component<
-	{ color: string },
-	{ channels: any[]; loading: boolean }
-> {
+interface LiveProps {
+	color: string;
+}
+
+interface LiveState {
+	channels: any[] | null;
+	loading: boolean;
+}
+
+export default class Live extends React.Component<LiveProps, LiveState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -63,6 +69,8 @@ export default class LiveChannels extends React.Component<
 						doneLoading={() => this.doneLoading()}
 					/>
 				))}
+				{/* Placeholder so that the cards don't flow over the body limit */}
+				<div style={{ height: '5px' }} />
 			</>
 		);
 	}

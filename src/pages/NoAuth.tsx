@@ -4,11 +4,13 @@ import { Button, Input } from '@material-ui/core';
 import { getStorage } from '../lib/chromeapi';
 import validateToken from '../lib/tokenValid';
 
-export default class NoAuthPage extends React.Component<
-	any,
-	{ inputValue: string; tokenError: boolean }
-> {
-	constructor(props) {
+interface NoAuthState {
+	inputValue: string;
+	tokenError: boolean;
+}
+
+export default class NoAuth extends React.Component<any, NoAuthState> {
+	constructor(props: any) {
 		super(props);
 
 		this.state = {
@@ -29,20 +31,26 @@ export default class NoAuthPage extends React.Component<
 		});
 	}
 
-	keyPress(e) {
-		if (e.keyCode == 13) {
-			e.preventDefault();
-			this.validateTokenBased(e.target.value);
+	keyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+		if (event.key == 'Enter') {
+			event.preventDefault();
+			this.validateTokenBased(
+				(
+					document.getElementById(
+						'twitchTokenInput'
+					) as HTMLInputElement
+				).value
+			);
 		}
 	}
 
-	validateTokenBased(token) {
+	validateTokenBased(token: string) {
 		validateToken(token).then(tokenError =>
 			this.setState({ tokenError: !tokenError })
 		);
 	}
 
-	handleChange(event) {
+	handleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		this.setState({ inputValue: event.target.value });
 	}
 

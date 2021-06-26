@@ -1,10 +1,12 @@
+// eslint-disable-next-line no-undef
+const Chrome = chrome;
 const client_id = '6ucdumdkn0j562bf9oog38efzmx4vh';
 
 const twitchtoken = () => {
 	return new Promise(resolve =>
-		chrome.storage.sync.get(['twitchtoken'], res => {
+		Chrome.storage.sync.get(['twitchtoken'], res => {
 			if (res.twitchtoken === undefined) {
-				chrome.storage.sync.set({ twitchtoken: undefined });
+				Chrome.storage.sync.set({ twitchtoken: undefined });
 				resolve(undefined);
 			} else {
 				resolve(res.twitchtoken);
@@ -13,26 +15,26 @@ const twitchtoken = () => {
 	);
 };
 
-chrome.runtime.onInstalled.addListener(async () => {
-	console.log('Initialized chrome extension');
+Chrome.runtime.onInstalled.addListener(async () => {
+	console.log('Initialized Chrome extension');
 });
 
-chrome.storage.onChanged.addListener(async () => getChannelInfo);
+Chrome.storage.onChanged.addListener(async () => getChannelInfo);
 
-async function setStorage(key, value, callback) {
-	chrome.storage.sync.set({ [key]: value }, callback(key, value));
+async function setStorage(key: string, value: string, callback?: () => void) {
+	Chrome.storage.sync.set({ [key]: value }, callback);
 }
 
-async function getStorage(key) {
+async function getStorage(key: string) {
 	return new Promise(resolve => {
-		chrome.storage.sync.get([key], res => {
+		Chrome.storage.sync.get([key], res => {
 			resolve(res[key]);
 		});
 	});
 }
 
-function setStorageLocal(key, value) {
-	chrome.storage.local.set({ [key]: value });
+function setStorageLocal(key: string, value: any) {
+	Chrome.storage.local.set({ [key]: value });
 }
 
 async function getChannelInfo() {
@@ -62,10 +64,10 @@ async function getChannelInfo() {
 			)
 		).json();
 
-		chrome.browserAction.setBadgeText({
+		Chrome.browserAction.setBadgeText({
 			text: resbJson.data.length.toString(),
 		});
-		chrome.browserAction.setTitle({
+		Chrome.browserAction.setTitle({
 			title: 'Number of people streaming: ',
 		});
 

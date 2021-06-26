@@ -11,7 +11,8 @@ const config = {
 	mode: 'development',
 	watch: true,
 	entry: {
-		bundle: './src/index.tsx',
+		index: './src/index.tsx',
+		'scripts/background': './src/scripts/background.ts',
 	},
 	output: {
 		filename: '[name].js',
@@ -34,16 +35,16 @@ const config = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: 'public/index.html',
+			template: 'src/index.html',
 		}),
 		new CopyPlugin({
 			patterns: [
 				{ from: 'src/manifest.json' },
-				{ from: 'public/chrome/icons', to: 'icons' },
-				{
-					from: 'public/chrome/scripts/background.js',
-					to: 'scripts',
-				},
+				{ from: 'src/icons', to: 'icons' },
+				// {
+				// 	from: 'src/scripts/background.js',
+				// 	to: 'scripts',
+				// },
 			],
 		}),
 		new Dotenv({ path: './.env' }),
