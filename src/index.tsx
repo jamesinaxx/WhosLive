@@ -95,6 +95,7 @@ class Main extends React.Component<any, MainState> {
 	}
 
 	render() {
+		if (this.state.showRUSure) window.scrollTo(0, 0);
 		const docBody = document.querySelector('body') as HTMLBodyElement;
 
 		docBody.style.backgroundColor =
@@ -110,8 +111,12 @@ class Main extends React.Component<any, MainState> {
 			);
 		}
 
+		window.addEventListener('scroll', () => {
+			if (this.state.showRUSure) window.scrollTo(0, 0);
+		});
+
 		return (
-			<>
+			<div>
 				{this.state.userToken && this.state.tokenValid ? (
 					<>
 						{this.state.showRUSure ? (
@@ -168,7 +173,7 @@ class Main extends React.Component<any, MainState> {
 				) : (
 					<NoAuthPage />
 				)}
-			</>
+			</div>
 		);
 	}
 }
