@@ -7,7 +7,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { rmdirSync, existsSync } = require('fs');
-const path = require('path');
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
@@ -53,9 +52,9 @@ const config = {
 				{
 					from: 'src/manifest.json',
 				},
-				{ from: 'public/chrome/icons', to: 'icons' },
+				{ from: 'public/icons', to: 'icons' },
 				{
-					from: 'public/chrome/scripts/background.js',
+					from: 'public/scripts/background.js',
 					to: 'scripts',
 				},
 			],
