@@ -12,7 +12,7 @@ const config = {
 	watch: true,
 	entry: {
 		index: './src/index.tsx',
-		'scripts/background': './src/scripts/background.js',
+		'scripts/background': './src/scripts/background.ts',
 	},
 	output: {
 		filename: '[name].js',
