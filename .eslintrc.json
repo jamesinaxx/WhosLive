@@ -28,7 +28,7 @@
 		"comma-dangle": ["error", "only-multiline"],
 		"semi": ["error", "always"],
 		"no-unused-vars": ["warn"],
-		"space-before-function-paren": ["error", "never"],
+		"space-before-function-paren": ["off", "never"],
 		"no-mixed-spaces-and-tabs": ["warn", "smart-tabs"]
 	}
 }
