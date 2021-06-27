@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/layout.module.scss';
-import { Button, Input } from '@material-ui/core';
+import { Button, TextField, Paper } from '@material-ui/core';
 import { getStorage } from '../lib/chromeapi';
 import validateToken from '../lib/tokenValid';
 
@@ -9,8 +9,12 @@ interface NoAuthState {
 	tokenError: boolean;
 }
 
-export default class NoAuth extends React.Component<any, NoAuthState> {
-	constructor(props: any) {
+interface NoAuthProps {
+	colorMode?: string;
+}
+
+export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
+	constructor(props: NoAuthProps) {
 		super(props);
 
 		this.state = {
@@ -65,12 +69,22 @@ export default class NoAuth extends React.Component<any, NoAuthState> {
 				>
 					this page
 				</a>{' '}
-				and then open this again
-				<form>
-					<Input
-						type='text'
+				and copy and paste the token here
+				<Paper
+					elevation={3}
+					component='form'
+					className={styles.form}
+					style={{
+						background:
+							this.props.colorMode === 'dark'
+								? '#161617'
+								: '#F0F0FF',
+					}}
+				>
+					<TextField
 						id='twitchTokenInput'
-						className={styles.twitchTokenInput}
+						variant='outlined'
+						required
 						name='twitchtoken'
 						value={this.state.inputValue}
 						error={this.state.tokenError}
@@ -78,6 +92,16 @@ export default class NoAuth extends React.Component<any, NoAuthState> {
 						onChange={this.handleChange}
 						onKeyDown={this.keyPress}
 						placeholder='Twitch Token'
+						color='primary'
+						InputProps={{
+							style: {
+								transition: 'color 100ms ease-in-out',
+								color:
+									this.props.colorMode === 'dark'
+										? '#fff'
+										: '#000',
+							},
+						}}
 					/>{' '}
 					<Button
 						variant='contained'
@@ -95,7 +119,7 @@ export default class NoAuth extends React.Component<any, NoAuthState> {
 					>
 						Submit
 					</Button>
-				</form>
+				</Paper>
 			</small>
 		);
 	}
