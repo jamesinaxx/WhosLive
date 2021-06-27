@@ -163,6 +163,7 @@ class Main extends React.Component<any, MainState> {
 						<SettingsButton
 							ruSure={this.showRUSure}
 							shown={this.state.showRUSure}
+							colorMode={this.state.colorMode}
 						/>
 					</>
 				) : (

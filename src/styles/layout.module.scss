@@ -54,17 +54,14 @@
 	color: rgb(179, 179, 179);
 }
 
-.colorModeToggle {
-	transition: background-color 100ms ease-in-out;
-	transition: transition 100ms ease-in-out;
-	transition: opacity 100ms ease-in-out;
+@mixin control-button {
+	transition: all 100ms ease-in-out;
 	max-width: 30px;
 	max-height: 30px;
 	min-width: 30px;
 	min-height: 30px;
 	position: fixed;
 	top: 5px;
-	left: 5px;
 	background-color: #3b56b8;
 	border-radius: 5px;
 	border: 5px #000;
@@ -79,31 +76,20 @@
 		transform: scale(105%);
 	}
 	svg {
+		transition: color 100ms ease-in-out;
+		transition: opacity 100ms ease-in-out;
+	}
+}
+
+.colorModeToggle {
+	@include control-button;
+	left: 5px;
+	svg {
 		transform: translate(-5%, -5%);
 	}
 }
 
 .settingsButton {
-	transition: background-color 100ms ease-in-out;
-	transition: transition 100ms ease-in-out;
-	transition: opacity 100ms ease-in-out;
-	max-width: 30px;
-	max-height: 30px;
-	min-width: 30px;
-	min-height: 30px;
-	position: fixed;
-	top: 5px;
+	@include control-button;
 	left: 40px;
-	color: white;
-	background-color: #3b56b8;
-	border-radius: 5px;
-	border: 5px #000;
-	&:hover {
-		background-color: #4661c4;
-		transform: scale(105%);
-	}
-	&:active {
-		background-color: #5e81fd;
-		transform: scale(105%);
-	}
 }
