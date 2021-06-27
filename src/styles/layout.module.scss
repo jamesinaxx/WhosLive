@@ -3,10 +3,6 @@
 	text-align: center;
 }
 
-.twitchTokenInput {
-	color: #fff;
-}
-
 .ruSure {
 	transition: opacity 100ms ease-in-out;
 	margin: none;
@@ -16,6 +12,11 @@
 	height: 100%;
 	backdrop-filter: blur(10px);
 	text-align: center;
+}
+
+.form {
+	transition: background 100ms ease-in-out !important;
+	padding: 15px;
 }
 
 .noAuth {
@@ -63,7 +64,7 @@
 	min-height: 30px;
 	position: fixed;
 	top: 5px;
-	left: 40px;
+	left: 5px;
 	background-color: #3b56b8;
 	border-radius: 5px;
 	border: 5px #000;
@@ -92,7 +93,7 @@
 	min-height: 30px;
 	position: fixed;
 	top: 5px;
-	left: 5px;
+	left: 40px;
 	color: white;
 	background-color: #3b56b8;
 	border-radius: 5px;
