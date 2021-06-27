@@ -19,6 +19,16 @@
 	padding: 15px;
 }
 
+@mixin smolText {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: xx-large;
+	color: rgb(179, 179, 179);
+}
+
 .noAuth {
 	text-align: center;
 	a {
@@ -35,23 +45,11 @@
 			margin-top: 15px;
 		}
 	}
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: xx-large;
-	color: rgb(179, 179, 179);
+	@include smolText();
 }
 
 .goFollow {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: xx-large;
-	color: rgb(179, 179, 179);
+	@include smolText();
 }
 
 @mixin control-button($left) {

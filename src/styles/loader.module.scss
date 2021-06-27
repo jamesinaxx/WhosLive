@@ -1,5 +1,13 @@
 // I did not write this code... I "stole" it off a template loaders website
 
+@mixin animationChild($delay, $top, $left) {
+	animation-delay: $delay;
+	&:after {
+		top: $top;
+		left: $left;
+	}
+}
+
 .lds_roller {
 	display: inline-block;
 	position: absolute;
@@ -21,60 +29,28 @@
 			margin: -4px 0 0 -4px;
 		}
 		&:nth-child(1) {
-			animation-delay: -0.036s;
-			&:after {
-				top: 63px;
-				left: 63px;
-			}
+			@include animationChild(-0.036s, 63px, 63px);
 		}
 		&:nth-child(2) {
-			animation-delay: -0.072s;
-			&:after {
-				top: 68px;
-				left: 56px;
-			}
+			@include animationChild(-72ms, 68px, 56px);
 		}
 		&:nth-child(3) {
-			animation-delay: -0.108s;
-			&:after {
-				top: 71px;
-				left: 48px;
-			}
+			@include animationChild(-108ms, 71px, 48px);
 		}
 		&:nth-child(4) {
-			animation-delay: -0.144s;
-			&:after {
-				top: 72px;
-				left: 40px;
-			}
+			@include animationChild(-144ms, 72px, 40px);
 		}
 		&:nth-child(5) {
-			animation-delay: -0.18s;
-			&:after {
-				top: 71px;
-				left: 32px;
-			}
+			@include animationChild(-180ms, 71px, 32px);
 		}
 		&:nth-child(6) {
-			animation-delay: -0.216s;
-			&:after {
-				top: 68px;
-				left: 24px;
-			}
+			@include animationChild(-216ms, 68px, 24px);
 		}
 		&:nth-child(7) {
-			animation-delay: -0.252s;
-			&:after {
-				top: 63px;
-				left: 17px;
-			}
+			@include animationChild(-252ms, 63px, 17px);
 		}
 		&:nth-child(8) {
-			animation-delay: -0.288s;
-			&:after {
-				top: 56px;
-				left: 12px;
-			}
+			@include animationChild(-288ms, 56px, 12px);
 		}
 	}
 }
