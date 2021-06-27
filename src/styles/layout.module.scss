@@ -54,14 +54,13 @@
 	color: rgb(179, 179, 179);
 }
 
-@mixin control-button {
+@mixin control-button($left) {
 	transition: all 100ms ease-in-out;
-	max-width: 30px;
-	max-height: 30px;
-	min-width: 30px;
-	min-height: 30px;
+	width: 30px;
+	height: 30px;
 	position: fixed;
 	top: 5px;
+	left: $left;
 	background-color: #3b56b8;
 	border-radius: 5px;
 	border: 5px #000;
@@ -82,14 +81,12 @@
 }
 
 .colorModeToggle {
-	@include control-button;
-	left: 5px;
+	@include control-button(5px);
 	svg {
 		transform: translate(-5%, -5%);
 	}
 }
 
 .settingsButton {
-	@include control-button;
-	left: 40px;
+	@include control-button(40px);
 }
