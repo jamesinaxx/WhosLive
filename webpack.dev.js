@@ -12,7 +12,7 @@ const config = {
 	watch: true,
 	entry: {
 		index: './src/index.tsx',
-  },
+	},
 	output: {
 		filename: '[name].js',
 	},

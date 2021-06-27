@@ -1,4 +1,4 @@
-'use-strict';
+'use strict';
 const client_id = '6ucdumdkn0j562bf9oog38efzmx4vh';
 
 const twitchtoken = () => {
