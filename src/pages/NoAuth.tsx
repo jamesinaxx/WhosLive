@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from '../styles/layout.module.scss';
 import { Button, TextField, Paper } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { getStorage } from '../lib/chromeapi';
 import validateToken from '../lib/tokenValid';
 
