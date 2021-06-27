@@ -163,16 +163,17 @@ class Main extends React.Component<any, MainState> {
 						<SettingsButton
 							ruSure={this.showRUSure}
 							shown={this.state.showRUSure}
-						/>
-						<ColorModeToggle
-							toggleColor={this.toggleColorMode}
-							shown={this.state.showRUSure}
-							mode={this.state.colorMode}
+							colorMode={this.state.colorMode}
 						/>
 					</>
 				) : (
-					<NoAuthPage />
+					<NoAuthPage colorMode={this.state.colorMode} />
 				)}
+				<ColorModeToggle
+					toggleColor={this.toggleColorMode}
+					shown={this.state.showRUSure}
+					mode={this.state.colorMode}
+				/>
 			</div>
 		);
 	}
