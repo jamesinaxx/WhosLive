@@ -112,7 +112,8 @@ export default class Channel extends React.Component<
 						onLoad={() => this.getColor(this.state.url)}
 						src={this.state.url}
 						width={100}
-						height={100}></img>
+						height={100}
+					/>
 					<div className={styles.channelInfo}>
 						<h1>{this.getTitle(title)}</h1>
 						<p>
