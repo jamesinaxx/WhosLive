@@ -1,69 +1,19 @@
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { merge } = require('webpack-merge');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const { rmdirSync, existsSync } = require('fs');
-
-const extensions = ['.js', '.jsx', '.ts', '.tsx'];
+const common = require('./webpack.common');
 
 /**
  * @type {webpack.Configuration}
  */
 const config = {
 	mode: 'production',
-	entry: {
-		index: './src/index.tsx',
-	},
-	output: {
-		filename: '[name].js',
-	},
-	module: {
-		rules: [
-			{
-				test: /\.json$/i,
-				type: 'asset/resource',
-			},
-			{
-				test: /\.[jt](s|sx)$/,
-				exclude: /node_modules/,
-				use: ['babel-loader'],
-			},
-			{
-				test: /\.s[ac]ss$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-			},
-		],
-	},
-	resolve: {
-		extensions,
-	},
-	plugins: [
-		new MiniCssExtractPlugin(),
-		new ESLintPlugin({ extensions }),
-		new HtmlWebpackPlugin({
-			template: 'src/index.html',
-		}),
-		new CopyPlugin({
-			patterns: [
-				{
-					from: 'manifest.json',
-				},
-				{ from: 'public/icons', to: 'icons' },
-				{
-					from: 'public/scripts/background.js',
-					to: 'scripts',
-				},
-			],
-		}),
-		new Dotenv({ path: './.env' }),
-	],
+	plugins: [new ESLintPlugin({ extensions: ['.js', '.jsx', '.ts', '.tsx'] })],
 	optimization: {
 		minimizer: [`...`, new CssMinimizerPlugin(), new JsonMinimizerPlugin()],
 	},
 };
 
-module.exports = config;
+module.exports = merge(common, config);
