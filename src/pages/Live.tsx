@@ -56,7 +56,6 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 			);
 		}
 
-		console.log(this.state.loading);
 		return (
 			<>
 				<Loading

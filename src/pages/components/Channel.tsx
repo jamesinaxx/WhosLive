@@ -93,13 +93,8 @@ export default class Channel extends React.Component<
 	}
 
 	render() {
-		const {
-			title,
-			user_name,
-			user_login,
-			viewer_count,
-			game_name,
-		} = this.props.data;
+		const { title, user_name, user_login, viewer_count, game_name } =
+			this.props.data;
 
 		return (
 			<div className={styles.channelDiv} hidden={this.state.hidden}>
