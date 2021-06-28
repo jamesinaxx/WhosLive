@@ -27,8 +27,7 @@ export default function Loading({ color, hidden }: LoadingProps) {
 			) : (
 				<div
 					className={styles.lds_roller + ' lds_rollerDivs'}
-					id='loadingChannels'
-				>
+					id='loadingChannels'>
 					{divs.map((_val, i) => (
 						<div key={i} />
 					))}

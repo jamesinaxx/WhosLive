@@ -16,8 +16,7 @@ export default function Error404() {
 				<a
 					href='https://twitch.tv/jamesinaxx'
 					target='_blank'
-					rel='noreferrer'
-				>
+					rel='noreferrer'>
 					this website
 				</a>
 				.
@@ -28,8 +27,7 @@ export default function Error404() {
 				<a
 					href='https://github.com/jamesinaxx/NowLive/issues'
 					target='_blank'
-					rel='noreferrer'
-				>
+					rel='noreferrer'>
 					here{' '}
 					<FontAwesomeIcon
 						icon={faGithub}

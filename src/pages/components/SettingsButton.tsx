@@ -21,8 +21,7 @@ export default function SettingsButton({
 			style={{
 				opacity: shown ? '0%' : '100%',
 				color: (colorMode || 'dark') === 'dark' ? '#fff' : '#000',
-			}}
-		>
+			}}>
 			<FontAwesomeIcon icon={faSignOutAlt} />
 		</button>
 	);

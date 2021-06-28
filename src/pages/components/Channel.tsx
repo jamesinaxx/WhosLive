@@ -93,8 +93,13 @@ export default class Channel extends React.Component<
 	}
 
 	render() {
-		const { title, user_name, user_login, viewer_count, game_name } =
-			this.props.data;
+		const {
+			title,
+			user_name,
+			user_login,
+			viewer_count,
+			game_name,
+		} = this.props.data;
 
 		return (
 			<div className={styles.channelDiv} hidden={this.state.hidden}>
@@ -107,14 +112,12 @@ export default class Channel extends React.Component<
 						backgroundColor: this.state.bgColor,
 						color: this.state.color,
 						boxShadow: '0 0 10px ' + this.state.bgColor,
-					}}
-				>
+					}}>
 					<img
 						onLoad={() => this.getColor(this.state.url)}
 						src={this.state.url}
 						width={100}
-						height={100}
-					></img>
+						height={100}></img>
 					<div className={styles.channelInfo}>
 						<h1>{this.getTitle(title)}</h1>
 						<p>

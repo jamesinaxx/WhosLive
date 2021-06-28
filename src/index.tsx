@@ -172,13 +172,11 @@ class Main extends React.Component<any, MainState> {
 								className={styles.ruSure}
 								style={{
 									opacity: '100%',
-								}}
-							>
+								}}>
 								<h1
 									style={{
 										opacity: '100%',
-									}}
-								>
+									}}>
 									Are you sure you want to invalidate the
 									Twitch token?{' '}
 								</h1>
@@ -192,8 +190,7 @@ class Main extends React.Component<any, MainState> {
 											this.setState({
 												showRUSure: false,
 											})
-										}
-									>
+										}>
 										No
 									</Button>
 								</ButtonGroup>
