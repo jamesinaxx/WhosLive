@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 export default function Error404() {
+	console.log(document.body.style.backgroundColor);
+
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.failedHeader}>Failed to connect to Twitch</h1>
@@ -28,7 +30,17 @@ export default function Error404() {
 					target='_blank'
 					rel='noreferrer'
 				>
-					here <FontAwesomeIcon icon={faGithub} />
+					here{' '}
+					<FontAwesomeIcon
+						icon={faGithub}
+						style={{
+							color:
+								document.body.style.backgroundColor ===
+								'rgb(255, 255, 255)'
+									? '#000'
+									: '#fff',
+						}}
+					/>
 				</a>
 			</p>
 		</div>

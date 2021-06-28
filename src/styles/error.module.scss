@@ -5,19 +5,17 @@
 
 .failedHeader {
 	font-size: 7vw;
+	color: rgb(199, 33, 33);
 }
 
 .description {
 	font-size: 3vw;
 	a {
 		transition: color 100ms ease-in-out;
-		color: #00ffff;
+		color: #05d1d1;
 		text-decoration: none;
-		path {
-			color: white;
-		}
 		&:hover {
-			color: #05c2c2;
+			color: #048585;
 		}
 	}
 }

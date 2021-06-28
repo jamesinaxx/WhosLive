@@ -102,7 +102,7 @@ class Main extends React.Component<any, MainState> {
 	checkConnection(): Promise<connectionType> {
 		return new Promise((resolve, reject) => {
 			axios
-				.get('https://twitch.tv', { timeout: 100 })
+				.get('https://twitch.tv', { timeout: 1000 })
 				.catch((error: any) => {
 					reject([false, error]);
 				})
