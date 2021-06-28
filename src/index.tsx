@@ -11,6 +11,7 @@ import validateToken from './lib/tokenValid';
 import { Button, ButtonGroup } from '@material-ui/core';
 import Loading from './pages/components/Loading';
 import axios from 'axios';
+import Error404 from './pages/404';
 
 // eslint-disable-next-line no-undef
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
@@ -20,7 +21,10 @@ interface MainState {
 	tokenValid: boolean;
 	showRUSure: boolean;
 	colorMode: string;
+	connected: true | false | null;
 }
+
+type connectionType = [boolean, any?];
 
 class Main extends React.Component<any, MainState> {
 	constructor(props: any) {
@@ -31,6 +35,7 @@ class Main extends React.Component<any, MainState> {
 			tokenValid: true,
 			showRUSure: false,
 			colorMode: 'dark',
+			connected: null,
 		};
 
 		this.validateToken = this.validateToken.bind(this);
@@ -94,6 +99,19 @@ class Main extends React.Component<any, MainState> {
 		});
 	}
 
+	checkConnection(): Promise<connectionType> {
+		return new Promise((resolve, reject) => {
+			axios
+				.get('https://twitch.tv', { timeout: 100 })
+				.catch((error: any) => {
+					reject([false, error]);
+				})
+				.then(res => {
+					resolve([true, res]);
+				});
+		});
+	}
+
 	render() {
 		if (this.state.showRUSure) window.scrollTo(0, 0);
 		const docBody = document.querySelector('body') as HTMLBodyElement;
@@ -102,7 +120,37 @@ class Main extends React.Component<any, MainState> {
 			this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
 		docBody.style.color = this.state.colorMode === 'dark' ? '#fff' : '#000';
 
-		if (this.state.userToken === undefined) {
+		if (this.state.connected === false) {
+			return (
+				<>
+					<Error404 />
+					<ColorModeToggle
+						toggleColor={this.toggleColorMode}
+						shown={this.state.showRUSure}
+						mode={this.state.colorMode}
+					/>
+				</>
+			);
+		}
+
+		if (
+			this.state.userToken === undefined ||
+			this.state.connected === null
+		) {
+			if (this.state.connected === null) {
+				this.checkConnection()
+					.then((res: connectionType) => {
+						this.setState({ connected: res[0] });
+						console.log(
+							'Failed to connect to twitch with error',
+							res[1]
+						);
+					})
+					.catch((res: connectionType) => {
+						this.setState({ connected: res[0] });
+					});
+			}
+
 			return (
 				<Loading
 					hidden={false}
