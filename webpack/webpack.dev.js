@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const { rmdirSync, existsSync } = require('fs');
+const { join, resolve } = require('path');
 
 /**
  * @type {webpack.Configuration}
@@ -11,7 +11,7 @@ const config = {
 	mode: 'development',
 	watch: true,
 	entry: {
-		index: './src/index.tsx',
+		index: resolve(__dirname, '..', 'src/index.tsx'),
 	},
 	output: {
 		filename: '[name].js',
@@ -46,7 +46,7 @@ const config = {
 				},
 			],
 		}),
-		new Dotenv({ path: './.env' }),
+		new Dotenv({ path: resolve(__dirname, '..', '.env') }),
 	],
 	devtool: 'inline-source-map',
 	resolve: {
@@ -54,10 +54,4 @@ const config = {
 	},
 };
 
-const configFunc = () => {
-	if (existsSync('./dist/')) rmdirSync('./dist/', { recursive: true });
-
-	return config;
-};
-
-module.exports = configFunc;
+module.exports = config;

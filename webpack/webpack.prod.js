@@ -66,9 +66,4 @@ const config = {
 	},
 };
 
-const configFunc = () => {
-	if (existsSync('./dist/')) rmdirSync('./dist/', { recursive: true });
-	return config;
-};
-
-module.exports = configFunc;
+module.exports = config;
