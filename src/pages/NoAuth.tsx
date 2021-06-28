@@ -39,11 +39,9 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 		if (event.key == 'Enter') {
 			event.preventDefault();
 			this.validateTokenBased(
-				(
-					document.getElementById(
-						'twitchTokenInput'
-					) as HTMLInputElement
-				).value
+				(document.getElementById(
+					'twitchTokenInput'
+				) as HTMLInputElement).value
 			);
 		}
 	}
@@ -65,8 +63,7 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 				<a
 					href='https://jamesinaxx.me/auth/twitchauth'
 					target='_blank'
-					rel='noreferrer'
-				>
+					rel='noreferrer'>
 					this page
 				</a>{' '}
 				and copy and paste the token here
@@ -79,8 +76,7 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 							this.props.colorMode === 'dark'
 								? '#161617'
 								: '#F0F0FF',
-					}}
-				>
+					}}>
 					<TextField
 						id='twitchTokenInput'
 						variant='outlined'
@@ -109,14 +105,11 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 						disabled={!this.state.tokenError}
 						onClick={() =>
 							this.validateTokenBased(
-								(
-									document.getElementById(
-										'twitchTokenInput'
-									) as HTMLInputElement
-								).value
+								(document.getElementById(
+									'twitchTokenInput'
+								) as HTMLInputElement).value
 							)
-						}
-					>
+						}>
 						Submit
 					</Button>
 				</Paper>

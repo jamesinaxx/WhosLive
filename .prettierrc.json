@@ -1,6 +1,6 @@
 {
 	"endOfLine": "auto",
-	"jsxBracketSameLine": false,
+	"jsxBracketSameLine": true,
 	"singleQuote": true,
 	"tabWidth": 4,
 	"useTabs": true,

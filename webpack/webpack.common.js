@@ -1,34 +1,36 @@
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const { rmdirSync, existsSync } = require('fs');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { resolve } = require('path');
 
 /**
  * @type {webpack.Configuration}
  */
 const config = {
-	mode: 'development',
-	watch: true,
 	entry: {
-		index: './src/index.tsx',
+		index: resolve(__dirname, '..', 'src/index.tsx'),
 	},
 	output: {
 		filename: '[name].js',
 	},
+	resolve: {
+		extensions: ['.js', '.jsx', '.ts', '.tsx'],
+	},
 	module: {
 		rules: [
-			// First Rule
+			{
+				test: /\.json$/i,
+				type: 'asset/resource',
+			},
 			{
 				test: /\.[jt](s|sx)$/,
 				exclude: /node_modules/,
 				use: ['babel-loader'],
 			},
-
-			// Second Rule
 			{
 				test: /\.s[ac]ss$/,
-				use: ['style-loader', 'css-loader', 'sass-loader'],
+				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
 			},
 		],
 	},
@@ -38,26 +40,16 @@ const config = {
 		}),
 		new CopyPlugin({
 			patterns: [
-				{ from: 'src/manifest.json' },
+				{ from: 'manifest.json' },
 				{ from: 'public/icons', to: 'icons' },
 				{
 					from: 'public/scripts/background.js',
-					to: 'scripts',
 				},
 			],
 		}),
-		new Dotenv({ path: './.env' }),
+		new Dotenv({ path: resolve(__dirname, '..', '.env') }),
+		new MiniCssExtractPlugin(),
 	],
-	devtool: 'inline-source-map',
-	resolve: {
-		extensions: ['.js', '.jsx', '.ts', '.tsx'],
-	},
 };
 
-const configFunc = () => {
-	if (existsSync('./dist/')) rmdirSync('./dist/', { recursive: true });
-
-	return config;
-};
-
-module.exports = configFunc;
+module.exports = config;

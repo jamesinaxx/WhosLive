@@ -15,6 +15,8 @@ export default function Loading({ color, hidden }: LoadingProps) {
 
 	color = docBody.style.color;
 
+	const divs: string[] = new Array(8).fill('');
+
 	return (
 		<>
 			<style>{`.lds_rollerDivs div:after {
@@ -25,16 +27,10 @@ export default function Loading({ color, hidden }: LoadingProps) {
 			) : (
 				<div
 					className={styles.lds_roller + ' lds_rollerDivs'}
-					id='loadingChannels'
-				>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
+					id='loadingChannels'>
+					{divs.map((_val, i) => (
+						<div key={i} />
+					))}
 				</div>
 			)}
 		</>

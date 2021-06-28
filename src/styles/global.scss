@@ -1,3 +1,5 @@
+// Scrollbar changes
+// TODO Add better light mode vs dark mode scroll bars
 body::-webkit-scrollbar {
 	width: 1em;
 }
@@ -12,7 +14,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 body {
-	transition: background 100ms ease-in-out;
-	width: 550px;
+	transition: background 100ms ease-in-out; // Transition so dark mode -> light mode is slightly less jarring
+	width: 550px; // Width and height to cap extension size at max
 	height: 550px;
 }

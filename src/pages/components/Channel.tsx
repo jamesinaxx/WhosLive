@@ -62,7 +62,7 @@ export default class Channel extends React.Component<
 	}
 
 	getColor(url: string) {
-		console.log('Started loading...');
+		console.log(`Started loading channel: ${this.props.data.user_name}`);
 		const fac = new FastAverageColor();
 
 		if (url === 'https://about:blank') return;
@@ -77,50 +77,51 @@ export default class Channel extends React.Component<
 			})
 			.catch(e => console.error(e));
 
-		console.log('Finished loading...');
+		console.log(`Finished loading channel: ${this.props.data.user_name}`);
 
 		this.props.doneLoading();
 	}
 
+	getTitle(ogTitle: string): string {
+		if (ogTitle.length > 24)
+			return (
+				ogTitle.substring(0, ogTitle.length - (ogTitle.length - 21)) +
+				'...'
+			);
+
+		return ogTitle;
+	}
+
 	render() {
+		const { title, user_name, user_login, viewer_count, game_name } =
+			this.props.data;
+
 		return (
 			<div className={styles.channelDiv} hidden={this.state.hidden}>
 				<div
 					className={styles.channel}
 					onClick={() =>
-						window.open(
-							'https://twitch.tv/' + this.props.data.user_login
-						)
+						window.open('https://twitch.tv/' + user_login)
 					}
 					style={{
 						backgroundColor: this.state.bgColor,
 						color: this.state.color,
 						boxShadow: '0 0 10px ' + this.state.bgColor,
-					}}
-				>
+					}}>
 					<img
 						onLoad={() => this.getColor(this.state.url)}
 						src={this.state.url}
 						width={100}
-						height={100}
-					></img>
+						height={100}></img>
 					<div className={styles.channelInfo}>
-						<h1>
-							{this.props.data.title.length > 24
-								? this.props.data.title.substring(
-										0,
-										this.props.data.title.length -
-											(this.props.data.title.length - 21)
-								  ) + '...'
-								: this.props.data.title}
-						</h1>
+						<h1>{this.getTitle(title)}</h1>
 						<p>
-							<b>{this.props.data.user_name}</b> is currently
-							playing <b>{this.props.data.game_name}</b> for{' '}
+							<b>{user_name}</b> is currently playing{' '}
+							<b>{game_name}</b> for{' '}
 							<b>
-								{new Intl.NumberFormat('en-US').format(
-									Number(this.props.data.viewer_count)
-								)}
+								{new Intl.NumberFormat(
+									navigator.language
+								).format(Number(viewer_count))}
 							</b>{' '}
 							viewers
 						</p>
