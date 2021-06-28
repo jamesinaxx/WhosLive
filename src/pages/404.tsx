@@ -17,7 +17,7 @@ export default function Error404() {
 					href='https://twitch.tv/jamesinaxx'
 					target='_blank'
 					rel='noreferrer'>
-					this website
+					Twitch
 				</a>
 				.
 				<br />
