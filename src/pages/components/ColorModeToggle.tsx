@@ -1,6 +1,26 @@
 import React from 'react';
 import styles from '../../styles/layout.module.scss';
-import ColorToggleIcon from './Icons';
+import { DarkModeIcon, LightModeIcon } from './Icons';
+
+interface ToggleProps {
+	icon: string;
+}
+
+function ColorToggleIcon({ icon }: ToggleProps) {
+	return (
+		<>
+			<LightModeIcon
+				style={{
+					opacity: icon === 'light' ? '100%' : '0%',
+					position: 'absolute',
+				}}
+			/>
+			<DarkModeIcon
+				style={{ opacity: icon === 'dark' ? '100%' : '0%' }}
+			/>
+		</>
+	);
+}
 
 interface SettingsButtonProps {
 	toggleColor: () => void;
