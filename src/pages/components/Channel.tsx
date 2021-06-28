@@ -119,9 +119,9 @@ export default class Channel extends React.Component<
 							<b>{user_name}</b> is currently playing{' '}
 							<b>{game_name}</b> for{' '}
 							<b>
-								{new Intl.NumberFormat('en-US').format(
-									Number(viewer_count)
-								)}
+								{new Intl.NumberFormat(
+									navigator.language
+								).format(Number(viewer_count))}
 							</b>{' '}
 							viewers
 						</p>

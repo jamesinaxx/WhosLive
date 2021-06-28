@@ -63,10 +63,10 @@ async function getChannelInfo() {
 			)
 		).json();
 
-		chrome.browserAction.setBadgeText({
+		chrome.action.setBadgeText({
 			text: resbJson.data.length.toString(),
 		});
-		chrome.browserAction.setTitle({
+		chrome.action.setTitle({
 			title: 'Number of people streaming: ',
 		});
 
