@@ -44,7 +44,6 @@ const config = {
 				{ from: 'public/icons', to: 'icons' },
 				{
 					from: 'public/scripts/background.js',
-					to: 'scripts',
 				},
 			],
 		}),

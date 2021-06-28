@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../styles/error.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import openLink from '../lib/openLink';
 
 export default function Error404() {
 	console.log(document.body.style.backgroundColor);
@@ -25,9 +26,12 @@ export default function Error404() {
 				If everything works fine then there is a bug with the extension.
 				Please report this{' '}
 				<a
-					href='https://github.com/jamesinaxx/NowLive/issues'
-					target='_blank'
-					rel='noreferrer'>
+					onClick={event => {
+						openLink(
+							event,
+							'https://github.com/jamesinaxx/NowLive/issues'
+						);
+					}}>
 					here{' '}
 					<FontAwesomeIcon
 						icon={faGithub}
