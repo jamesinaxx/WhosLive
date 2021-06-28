@@ -1,8 +1,9 @@
 {
-	"name": "whoslive",
+	"name": "nowlive",
+	"displayName": "Now Live",
 	"version": "1.0.0",
 	"main": "index.js",
-	"repository": "https://github.com/jamesinaxx/whoslive",
+	"repository": "https://github.com/jamesinaxx/NowLive",
 	"author": "jamesinaxx",
 	"license": "MIT",
 	"scripts": {
