@@ -70,8 +70,12 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 						doneLoading={() => this.doneLoading()}
 					/>
 				))}
-				{/* Placeholder so that the cards don't flow over the body limit */}
-				<div style={{ height: '5px' }} />
+				<div
+					/* Placeholder so that the cards don't flow over the body limit */
+					style={{
+						height: '5px',
+					}}
+				/>
 			</>
 		);
 	}
