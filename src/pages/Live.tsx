@@ -49,7 +49,9 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		if (this.state.channels.length === 0) {
 			return (
 				<small className={styles.goFollow}>
-					Go follow somebody and come back to see when they are live!
+					You do not currently follow anybody who is live :(
+					<br />
+					Go follow some people to see when they are live!
 				</small>
 			);
 		}
