@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import FastAverageColor from 'fast-average-color';
 import styles from '@styles/channel.module.scss';
 import axios from 'axios';
@@ -97,7 +97,23 @@ export default class Channel extends React.Component<
 			this.props.data;
 
 		return (
-			<div className={styles.channelDiv} hidden={this.state.hidden}>
+			<div
+				className={styles.channelDiv}
+				hidden={this.state.hidden}
+				onMouseEnter={e => {
+					(
+						document.getElementById(
+							`titleSpan${user_login}`
+						) as HTMLSpanElement
+					).hidden = false;
+				}}
+				onMouseLeave={e => {
+					(
+						document.getElementById(
+							`titleSpan${user_login}`
+						) as HTMLSpanElement
+					).hidden = true;
+				}}>
 				<div
 					className={styles.channel}
 					onClick={() =>
@@ -128,6 +144,9 @@ export default class Channel extends React.Component<
 						</p>
 					</div>
 				</div>
+				<span hidden={true} id={`titleSpan${user_login}`}>
+					{title}
+				</span>
 			</div>
 		);
 	}
