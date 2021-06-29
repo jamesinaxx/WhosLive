@@ -104,12 +104,8 @@ export default class Channel extends React.Component<
 			<div
 				className={styles.channelDiv}
 				hidden={this.state.hidden}
-				onMouseEnter={() => {
-					titleElem.hidden = false;
-				}}
-				onMouseLeave={() => {
-					titleElem.hidden = true;
-				}}>
+				onMouseEnter={() => (titleElem.hidden = false)}
+				onMouseLeave={() => (titleElem.hidden = true)}>
 				<div
 					className={styles.channel}
 					onClick={() =>
