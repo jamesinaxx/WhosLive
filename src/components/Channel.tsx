@@ -96,8 +96,16 @@ export default class Channel extends React.Component<
 		const { title, user_name, user_login, viewer_count, game_name } =
 			this.props.data;
 
+		const titleElem = document.getElementById(
+			`titleSpan${user_login}`
+		) as HTMLSpanElement;
+
 		return (
-			<div className={styles.channelDiv} hidden={this.state.hidden}>
+			<div
+				className={styles.channelDiv}
+				hidden={this.state.hidden}
+				onMouseEnter={() => (titleElem.hidden = false)}
+				onMouseLeave={() => (titleElem.hidden = true)}>
 				<div
 					className={styles.channel}
 					onClick={() =>
@@ -128,6 +136,9 @@ export default class Channel extends React.Component<
 						</p>
 					</div>
 				</div>
+				<span hidden={true} id={`titleSpan${user_login}`}>
+					{title}
+				</span>
 			</div>
 		);
 	}
