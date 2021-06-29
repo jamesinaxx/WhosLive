@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import FastAverageColor from 'fast-average-color';
 import styles from '@styles/channel.module.scss';
 import axios from 'axios';
@@ -96,23 +96,19 @@ export default class Channel extends React.Component<
 		const { title, user_name, user_login, viewer_count, game_name } =
 			this.props.data;
 
+		const titleElem = document.getElementById(
+			`titleSpan${user_login}`
+		) as HTMLSpanElement;
+
 		return (
 			<div
 				className={styles.channelDiv}
 				hidden={this.state.hidden}
-				onMouseEnter={e => {
-					(
-						document.getElementById(
-							`titleSpan${user_login}`
-						) as HTMLSpanElement
-					).hidden = false;
+				onMouseEnter={() => {
+					titleElem.hidden = false;
 				}}
-				onMouseLeave={e => {
-					(
-						document.getElementById(
-							`titleSpan${user_login}`
-						) as HTMLSpanElement
-					).hidden = true;
+				onMouseLeave={() => {
+					titleElem.hidden = true;
 				}}>
 				<div
 					className={styles.channel}
