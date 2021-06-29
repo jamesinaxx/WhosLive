@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from '../styles/layout.module.scss';
-import Channel from './components/Channel';
-import { getStorageLocal } from '../lib/chromeapi';
-import Loading from './components/Loading';
+import styles from '@styles/layout.module.scss';
+import Channel from '@components/Channel';
+import { getStorageLocal } from '@lib/chromeapi';
+import Loading from '@components/Loading';
 
 interface LiveProps {
 	color: string;
@@ -49,12 +49,13 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		if (this.state.channels.length === 0) {
 			return (
 				<small className={styles.goFollow}>
-					Go follow somebody and come back to see when they are live!
+					You do not currently follow anybody who is live :(
+					<br />
+					Go follow some people to see when they are live!
 				</small>
 			);
 		}
 
-		console.log(this.state.loading);
 		return (
 			<>
 				<Loading
@@ -69,8 +70,12 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 						doneLoading={() => this.doneLoading()}
 					/>
 				))}
-				{/* Placeholder so that the cards don't flow over the body limit */}
-				<div style={{ height: '5px' }} />
+				<div
+					/* Placeholder so that the cards don't flow over the body limit */
+					style={{
+						height: '5px',
+					}}
+				/>
 			</>
 		);
 	}

@@ -1,0 +1,28 @@
+{
+	"manifest_version": 2,
+
+	"name": "Live On Twitch",
+	"description": "This extension is a starting point to create a real Chrome extension",
+	"version": "0.0.1",
+
+	"browser_action": {
+		"default_popup": "index.html",
+		"default_title": "See who is online"
+	},
+	"icons": {
+		"16": "./icons/16.png",
+		"48": "./icons/48.png",
+		"128": "./icons/128.png"
+	},
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": true
+	},
+	"permissions": [
+		"activeTab",
+		"tabs",
+		"storage",
+		"*://api.twitch.tv/*",
+		"*://*.twitch.tv/*"
+	]
+}

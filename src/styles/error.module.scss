@@ -1,0 +1,22 @@
+.container {
+	text-align: center;
+	padding: 50px;
+}
+
+.failedHeader {
+	font-size: 7vw;
+	// TODO Find a better error red
+	color: rgb(199, 33, 33);
+}
+
+.description {
+	font-size: 3vw;
+	a {
+		transition: color 100ms ease-in-out;
+		color: #05d1d1;
+		text-decoration: none;
+		&:hover {
+			color: #048585;
+		}
+	}
+}

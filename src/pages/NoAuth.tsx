@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from '../styles/layout.module.scss';
+import styles from '@styles/layout.module.scss';
 import { Button, TextField, Paper } from '@material-ui/core';
-import { getStorage } from '../lib/chromeapi';
-import validateToken from '../lib/tokenValid';
+import { getStorage } from '@lib/chromeapi';
+import validateToken from '@lib/tokenValid';
 
 interface NoAuthState {
 	inputValue: string;
@@ -65,8 +65,7 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 				<a
 					href='https://jamesinaxx.me/auth/twitchauth'
 					target='_blank'
-					rel='noreferrer'
-				>
+					rel='noreferrer'>
 					this page
 				</a>{' '}
 				and copy and paste the token here
@@ -79,8 +78,7 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 							this.props.colorMode === 'dark'
 								? '#161617'
 								: '#F0F0FF',
-					}}
-				>
+					}}>
 					<TextField
 						id='twitchTokenInput'
 						variant='outlined'
@@ -115,8 +113,7 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 									) as HTMLInputElement
 								).value
 							)
-						}
-					>
+						}>
 						Submit
 					</Button>
 				</Paper>
