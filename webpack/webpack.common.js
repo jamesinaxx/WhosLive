@@ -3,7 +3,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const { dirname } = require('path/posix');
 
 /**
  * @type {webpack.Configuration}
