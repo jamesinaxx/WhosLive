@@ -3,7 +3,7 @@ import FastAverageColor from 'fast-average-color';
 import styles from '@styles/channel.module.scss';
 import axios from 'axios';
 import { client_id } from '../index';
-import { getStorage } from '../lib/chromeapi';
+import { getStorage } from '@lib/chromeapi';
 
 interface ChannelProps {
 	online: boolean;

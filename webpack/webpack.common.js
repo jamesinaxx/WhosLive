@@ -3,6 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const { dirname } = require('path/posix');
 
 /**
  * @type {webpack.Configuration}
@@ -20,6 +21,9 @@ const config = {
 			'@': path.resolve(__dirname, '..', 'src'),
 			'@styles': path.resolve(__dirname, '..', 'src/styles'),
 			'@components': path.resolve(__dirname, '..', 'src/components'),
+			'@lib': path.resolve(__dirname, '..', 'src/lib'),
+			'@pages': path.resolve(__dirname, '..', 'src/pages'),
+			'@public': path.resolve(__dirname, '..', 'public'),
 		},
 	},
 	module: {

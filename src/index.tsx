@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '@styles/global.scss';
-import Live from './pages/Live';
+import Live from '@pages/Live';
 import SettingsButton from '@components/SettingsButton';
 import ColorModeToggle from '@components/ColorModeToggle';
 import styles from '@styles/layout.module.scss';
-import { getStorage, setStorage } from './lib/chromeapi';
-import NoAuthPage from './pages/NoAuth';
-import validateToken from './lib/tokenValid';
+import { getStorage, setStorage } from '@lib/chromeapi';
+import NoAuthPage from '@pages/NoAuth';
+import validateToken from '@lib/tokenValid';
 import { Button, ButtonGroup } from '@material-ui/core';
 import Loading from '@components/Loading';
 import axios from 'axios';
-import Error404 from './pages/404';
+import Error404 from '@pages/404';
 
 // eslint-disable-next-line no-undef
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;

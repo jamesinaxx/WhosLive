@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '@styles/layout.module.scss';
 import { Button, TextField, Paper } from '@material-ui/core';
-import { getStorage } from '../lib/chromeapi';
-import validateToken from '../lib/tokenValid';
+import { getStorage } from '@lib/chromeapi';
+import validateToken from '@lib/tokenValid';
 
 interface NoAuthState {
 	inputValue: string;
