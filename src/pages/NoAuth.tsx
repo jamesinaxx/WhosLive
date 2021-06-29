@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from '../styles/layout.module.scss';
+import styles from '@styles/layout.module.scss';
 import { Button, TextField, Paper } from '@material-ui/core';
-import { getStorage } from '../lib/chromeapi';
-import validateToken from '../lib/tokenValid';
+import { getStorage } from '@lib/chromeapi';
+import validateToken from '@lib/tokenValid';
 
 interface NoAuthState {
 	inputValue: string;
@@ -39,9 +39,11 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 		if (event.key == 'Enter') {
 			event.preventDefault();
 			this.validateTokenBased(
-				(document.getElementById(
-					'twitchTokenInput'
-				) as HTMLInputElement).value
+				(
+					document.getElementById(
+						'twitchTokenInput'
+					) as HTMLInputElement
+				).value
 			);
 		}
 	}
@@ -105,9 +107,11 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 						disabled={!this.state.tokenError}
 						onClick={() =>
 							this.validateTokenBased(
-								(document.getElementById(
-									'twitchTokenInput'
-								) as HTMLInputElement).value
+								(
+									document.getElementById(
+										'twitchTokenInput'
+									) as HTMLInputElement
+								).value
 							)
 						}>
 						Submit

@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from '../styles/layout.module.scss';
-import Channel from './components/Channel';
-import { getStorageLocal } from '../lib/chromeapi';
-import Loading from './components/Loading';
+import styles from '@styles/layout.module.scss';
+import Channel from '@components/Channel';
+import { getStorageLocal } from '@lib/chromeapi';
+import Loading from '@components/Loading';
 
 interface LiveProps {
 	color: string;
