@@ -1,9 +1,9 @@
 import React from 'react';
 import FastAverageColor from 'fast-average-color';
-import styles from '../../styles/channel.module.scss';
+import styles from '@styles/channel.module.scss';
 import axios from 'axios';
-import { client_id } from '../../../src/index';
-import { getStorage } from '../../lib/chromeapi';
+import { client_id } from '../index';
+import { getStorage } from '../lib/chromeapi';
 
 interface ChannelProps {
 	online: boolean;

@@ -2,20 +2,25 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { resolve } = require('path');
+const path = require('path');
 
 /**
  * @type {webpack.Configuration}
  */
 const config = {
 	entry: {
-		index: resolve(__dirname, '..', 'src/index.tsx'),
+		index: path.resolve(__dirname, '..', 'src/index.tsx'),
 	},
 	output: {
 		filename: '[name].js',
 	},
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx'],
+		alias: {
+			'@': path.resolve(__dirname, '..', 'src'),
+			'@styles': path.resolve(__dirname, '..', 'src/styles'),
+			'@components': path.resolve(__dirname, '..', 'src/components'),
+		},
 	},
 	module: {
 		rules: [
@@ -47,7 +52,7 @@ const config = {
 				},
 			],
 		}),
-		new Dotenv({ path: resolve(__dirname, '..', '.env') }),
+		new Dotenv({ path: path.resolve(__dirname, '..', '.env') }),
 		new MiniCssExtractPlugin(),
 	],
 };
