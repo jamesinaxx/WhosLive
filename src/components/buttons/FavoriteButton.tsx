@@ -4,15 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as starFilled } from '@fortawesome/free-solid-svg-icons';
 import { faStar as star } from '@fortawesome/free-regular-svg-icons';
 
-interface FavouriteButtonProps {
+interface FavoriteButtonProps {
 	favorite: boolean;
 	setFavorite: () => void;
 }
 
-export default function FavouriteButton({
+export default function FavoriteButton({
 	favorite,
 	setFavorite,
-}: FavouriteButtonProps) {
+}: FavoriteButtonProps) {
 	return (
 		<button className={styles.faveButton} onClick={() => setFavorite()}>
 			<FontAwesomeIcon
