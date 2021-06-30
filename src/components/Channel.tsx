@@ -23,7 +23,7 @@ interface ChannelState {
 	color: string;
 	url: string;
 	hidden: boolean;
-	favourite: boolean;
+	favorite: boolean;
 }
 
 export default class Channel extends React.Component<
@@ -38,7 +38,7 @@ export default class Channel extends React.Component<
 			color: '#000',
 			hidden: true,
 			url: 'https://about:blank',
-			favourite: false,
+			favorite: false,
 		};
 
 		getStorage('twitchtoken').then(token => {
@@ -110,9 +110,9 @@ export default class Channel extends React.Component<
 				onMouseEnter={() => (titleElem.hidden = false)}
 				onMouseLeave={() => (titleElem.hidden = true)}>
 				<FavouriteButton
-					favourite={this.state.favourite}
-					setFavourite={() =>
-						this.setState({ favourite: !this.state.favourite })
+					favorite={this.state.favorite}
+					setFavorite={() =>
+						this.setState({ favorite: !this.state.favorite })
 					}
 				/>
 				<div

@@ -5,16 +5,16 @@ import { faStar as starFilled } from '@fortawesome/free-solid-svg-icons';
 import { faStar as star } from '@fortawesome/free-regular-svg-icons';
 
 interface FavouriteButtonProps {
-	favourite: boolean;
-	setFavourite: () => void;
+	favorite: boolean;
+	setFavorite: () => void;
 }
 
 export default function FavouriteButton({
-	favourite,
-	setFavourite,
+	favorite,
+	setFavorite,
 }: FavouriteButtonProps) {
 	return (
-		<button className={styles.faveButton} onClick={() => setFavourite()}>
+		<button className={styles.faveButton} onClick={() => setFavorite()}>
 			<FontAwesomeIcon
 				className={styles.faveIcon}
 				id='faveIcon'
@@ -25,7 +25,7 @@ export default function FavouriteButton({
 					el.style.transform = 'scale(125%)';
 					setTimeout(() => (el.style.transform = 'scale(100%)'), 100);
 				}}
-				icon={favourite ? starFilled : star}
+				icon={favorite ? starFilled : star}
 			/>
 		</button>
 	);
