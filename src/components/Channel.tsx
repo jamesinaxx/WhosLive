@@ -109,24 +109,24 @@ export default class Channel extends React.Component<
 				hidden={this.state.hidden}
 				onMouseEnter={() => (titleElem.hidden = false)}
 				onMouseLeave={() => (titleElem.hidden = true)}>
-				<FavoriteButton
-					favorite={this.state.favorite}
-					setFavorite={() =>
-						this.setState({ favorite: !this.state.favorite })
-					}
-				/>
 				<div
 					className={styles.channel}
-					onClick={() =>
-						window.open('https://twitch.tv/' + user_login)
-					}
 					style={{
 						backgroundColor: this.state.bgColor,
 						color: this.state.color,
 						boxShadow: '0 0 10px ' + this.state.bgColor,
 					}}>
+					<FavoriteButton
+						favorite={this.state.favorite}
+						setFavorite={() =>
+							this.setState({ favorite: !this.state.favorite })
+						}
+					/>
 					<img
 						onLoad={() => this.getColor(this.state.url)}
+						onClick={() =>
+							window.open('https://twitch.tv/' + user_login)
+						}
 						src={this.state.url}
 						width={100}
 						height={100}

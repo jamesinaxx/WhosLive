@@ -3,14 +3,30 @@
 	border: none;
 	background: none;
 	.channel {
-		cursor: pointer;
+		.faveButton {
+			position: absolute;
+			border: none;
+			background: none;
+			cursor: pointer;
+			right: 20px;
+			top: 20px;
+		}
+
+		.faveIcon {
+			color: #ffd700;
+			transition: transform 100ms ease-in-out;
+		}
 		user-select: none;
-		transition: transform 100ms ease-in-out;
 		padding: 10px;
 		img {
+			transition: transform 100ms ease-in-out;
 			border-radius: 15px;
 			margin: 10px;
 			float: left;
+			cursor: pointer;
+			&:hover {
+				transform: scale(110%);
+			}
 		}
 		.channelInfo {
 			vertical-align: middle;
@@ -24,8 +40,5 @@
 		width: 90vw;
 		height: 120px;
 		margin: 10px;
-		&:hover {
-			transform: scale(102%);
-		}
 	}
 }
