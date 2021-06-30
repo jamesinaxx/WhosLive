@@ -9,18 +9,14 @@ interface SettingsButtonProps {
 	colorMode?: string;
 }
 
-export default function SettingsButton({
-	ruSure,
-	shown,
-	colorMode,
-}: SettingsButtonProps) {
+export default function SettingsButton({ ruSure, shown }: SettingsButtonProps) {
 	return (
 		<button
 			className={styles.settingsButton}
 			onClick={ruSure}
 			style={{
 				opacity: shown ? '0%' : '100%',
-				color: (colorMode || 'dark') === 'dark' ? '#fff' : '#000',
+				color: '#fff',
 			}}>
 			<FontAwesomeIcon icon={faSignOutAlt} />
 		</button>
