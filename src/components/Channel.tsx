@@ -4,7 +4,7 @@ import styles from '@styles/channel.module.scss';
 import axios from 'axios';
 import { client_id } from '@/index';
 import { getStorage } from '@lib/chromeapi';
-import FavouriteButton from '@/components/buttons/FavoriteButton';
+import FavoriteButton from '@/components/buttons/FavoriteButton';
 
 interface ChannelProps {
 	online: boolean;
@@ -109,7 +109,7 @@ export default class Channel extends React.Component<
 				hidden={this.state.hidden}
 				onMouseEnter={() => (titleElem.hidden = false)}
 				onMouseLeave={() => (titleElem.hidden = true)}>
-				<FavouriteButton
+				<FavoriteButton
 					favorite={this.state.favorite}
 					setFavorite={() =>
 						this.setState({ favorite: !this.state.favorite })
