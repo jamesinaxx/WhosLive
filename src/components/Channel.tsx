@@ -136,9 +136,13 @@ export default class Channel extends React.Component<
 						</p>
 					</div>
 				</div>
-				<span hidden={true} id={`titleSpan${user_login}`}>
-					{title}
-				</span>
+				{title.length > 24 ? (
+					<span hidden={true} id={`titleSpan${user_login}`}>
+						{title}
+					</span>
+				) : (
+					<div />
+				)}
 			</div>
 		);
 	}
