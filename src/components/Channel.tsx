@@ -4,7 +4,7 @@ import styles from '@styles/channel.module.scss';
 import axios from 'axios';
 import { client_id } from '@/index';
 import { getStorage } from '@lib/chromeapi';
-import FavouriteButton from '@components/buttons/FavouriteButton';
+import FavouriteButton from '@/components/buttons/FavoriteButton';
 
 interface ChannelProps {
 	online: boolean;
