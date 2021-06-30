@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '@styles/layout.module.scss';
-import { DarkModeIcon, LightModeIcon } from './Icons';
+import { DarkModeIcon, LightModeIcon } from '@components/Icons';
 
 interface ToggleProps {
 	icon: string;

@@ -2,16 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@styles/global.scss';
 import Live from '@pages/Live';
-import SettingsButton from '@components/SettingsButton';
-import ColorModeToggle from '@components/ColorModeToggle';
-import styles from '@styles/layout.module.scss';
+import LogoutButton from '@/components/buttons/LogoutButton';
+import ColorModeToggle from '@/components/buttons/ColorModeToggle';
 import { getStorage, setStorage } from '@lib/chromeapi';
 import NoAuthPage from '@pages/NoAuth';
 import validateToken from '@lib/tokenValid';
-import { Button, ButtonGroup } from '@material-ui/core';
 import Loading from '@components/Loading';
 import axios from 'axios';
 import Error404 from '@pages/404';
+import InvalidateToken from './components/InvalidateToken';
 
 // eslint-disable-next-line no-undef
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
@@ -112,13 +111,18 @@ class Main extends React.Component<any, MainState> {
 		});
 	}
 
-	render() {
-		if (this.state.showRUSure) window.scrollTo(0, 0);
+	setColours() {
 		const docBody = document.querySelector('body') as HTMLBodyElement;
 
 		docBody.style.backgroundColor =
 			this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
 		docBody.style.color = this.state.colorMode === 'dark' ? '#fff' : '#000';
+	}
+
+	render() {
+		if (this.state.showRUSure) window.scrollTo(0, 0);
+
+		this.setColours();
 
 		if (this.state.connected === false) {
 			return (
@@ -168,33 +172,15 @@ class Main extends React.Component<any, MainState> {
 				{this.state.userToken && this.state.tokenValid ? (
 					<>
 						{this.state.showRUSure ? (
-							<div
-								className={styles.ruSure}
-								style={{
-									opacity: '100%',
-								}}>
-								<h1
-									style={{
-										opacity: '100%',
-									}}>
-									Are you sure you want to invalidate the
-									Twitch token?{' '}
-								</h1>
-								<ButtonGroup variant='contained'>
-									<Button onClick={this.invalidateToken}>
-										Yes
-									</Button>
-									<Button
-										color='primary'
-										onClick={() =>
-											this.setState({
-												showRUSure: false,
-											})
-										}>
-										No
-									</Button>
-								</ButtonGroup>
-							</div>
+							<InvalidateToken
+								show={() => {
+									document.body.style.overflow = '';
+									this.setState({
+										showRUSure: false,
+									});
+								}}
+								invalidateToken={this.invalidateToken}
+							/>
 						) : (
 							<div>{null}</div>
 						)}
@@ -205,7 +191,7 @@ class Main extends React.Component<any, MainState> {
 									: '#000'
 							}
 						/>
-						<SettingsButton
+						<LogoutButton
 							ruSure={this.showRUSure}
 							shown={this.state.showRUSure}
 							colorMode={this.state.colorMode}
