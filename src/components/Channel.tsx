@@ -3,7 +3,7 @@ import FastAverageColor from 'fast-average-color';
 import styles from '@styles/channel.module.scss';
 import axios from 'axios';
 import { client_id } from '@/index';
-import { getStorage } from '@lib/chromeapi';
+import { getStorage, setStorage } from '@lib/chromeapi';
 import FavoriteButton from '@/components/buttons/FavoriteButton';
 
 interface ChannelProps {
@@ -58,6 +58,7 @@ export default class Channel extends React.Component<
 		});
 
 		this.getColor = this.getColor.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
 	}
 
 	componentDidMount() {
@@ -95,6 +96,41 @@ export default class Channel extends React.Component<
 		return ogTitle;
 	}
 
+	addStreamer() {
+		getStorage('favorites').then((res: string[] | undefined) => {
+			if (typeof res !== 'object') {
+				setStorage('favorites', [this.props.data.user_login]);
+			} else {
+				setStorage('favorites', res.push(this.props.data.user_login));
+			}
+		});
+	}
+
+	removeStreamer() {
+		getStorage('favorites').then((res: string[] | undefined) => {
+			if (res === undefined) return;
+			else
+				setStorage('favorites', () => {
+					const index = res.indexOf(this.props.data.user_login);
+					if (index > -1) {
+						return res.splice(index, 1);
+					}
+				});
+		});
+	}
+
+	toggleFavorite() {
+		if (!this.state.favorite) {
+			this.addStreamer();
+		} else {
+			this.removeStreamer();
+		}
+
+		getStorage('favorites').then(res => console.log(res));
+
+		this.setState({ favorite: !this.state.favorite });
+	}
+
 	render() {
 		const { title, user_name, user_login, viewer_count, game_name } =
 			this.props.data;
@@ -118,9 +154,7 @@ export default class Channel extends React.Component<
 					}}>
 					<FavoriteButton
 						favorite={this.state.favorite}
-						setFavorite={() =>
-							this.setState({ favorite: !this.state.favorite })
-						}
+						setFavorite={this.toggleFavorite}
 					/>
 					<img
 						onLoad={() => this.getColor(this.state.url)}
