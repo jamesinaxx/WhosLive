@@ -5,6 +5,17 @@
 	text-align: center;
 }
 
+.faveButton {
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.faveIcon {
+	color: #ffd700;
+	transition: transform 100ms ease-in-out;
+}
+
 .ruSure {
 	transition: opacity 100ms ease-in-out;
 	margin: none;

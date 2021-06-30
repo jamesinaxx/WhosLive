@@ -2,13 +2,15 @@ import React from 'react';
 import styles from '@styles/layout.module.scss';
 import { ButtonGroup, Button } from '@material-ui/core';
 
+interface InvalidateTokenProps {
+	show: any;
+	invalidateToken: any;
+}
+
 export default function InvalidateToken({
 	show,
 	invalidateToken,
-}: {
-	show: any;
-	invalidateToken: any;
-}) {
+}: InvalidateTokenProps) {
 	document.body.style.overflow = 'hidden';
 
 	return (

@@ -10,7 +10,7 @@ import validateToken from '@lib/tokenValid';
 import Loading from '@components/Loading';
 import axios from 'axios';
 import Error404 from '@pages/404';
-import InvalidateToken from './components/InvalidateToken';
+import InvalidateToken from '@components/InvalidateToken';
 
 // eslint-disable-next-line no-undef
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
