@@ -9,13 +9,14 @@
 			border: none;
 			background: none;
 			cursor: pointer;
-			right: 20px;
-			top: 20px;
-		}
-
-		.faveIcon {
-			color: #ffd700;
-			transition: transform 100ms ease-in-out;
+			right: 10px;
+			top: 10px;
+			.faveIcon {
+				width: 1.5em;
+				height: 1.5em;
+				color: #ffd700;
+				transition: transform 100ms ease-in-out;
+			}
 		}
 		user-select: none;
 		padding: 10px;
