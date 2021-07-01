@@ -119,6 +119,15 @@ class Main extends React.Component<any, MainState> {
 		docBody.style.color = this.state.colorMode === 'dark' ? '#fff' : '#000';
 	}
 
+	// getFaves(): string[] {
+	// 	getStorage('favorites').then(res => {
+	// 		if (res === undefined) {
+	// 		}
+	// 	});
+
+	// 	return [];
+	// }
+
 	render() {
 		if (this.state.showRUSure) window.scrollTo(0, 0);
 
