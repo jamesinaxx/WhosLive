@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '@styles/loader.module.scss';
+import { print } from '@/lib/print';
 
 interface LoadingProps {
 	color: string;
@@ -9,7 +10,7 @@ interface LoadingProps {
 export default function Loading({ color, hidden }: LoadingProps) {
 	if (hidden === undefined) hidden = false;
 
-	console.log('Color', color);
+	print('Color', color);
 
 	const docBody = document.querySelector('body') as HTMLBodyElement;
 

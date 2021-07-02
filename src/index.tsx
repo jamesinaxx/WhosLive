@@ -11,6 +11,7 @@ import Loading from '@components/Loading';
 import axios from 'axios';
 import Error404 from '@pages/404';
 import InvalidateToken from '@components/InvalidateToken';
+import { print } from '@lib/print';
 
 // eslint-disable-next-line no-undef
 const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
@@ -154,10 +155,7 @@ class Main extends React.Component<any, MainState> {
 				this.checkConnection()
 					.then((res: connectionType) => {
 						this.setState({ connected: res[0] });
-						console.log(
-							'Failed to connect to twitch with error',
-							res[1]
-						);
+						print('Failed to connect to twitch with error', res[1]);
 					})
 					.catch((res: connectionType) => {
 						this.setState({ connected: res[0] });

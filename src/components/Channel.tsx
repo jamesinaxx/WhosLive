@@ -5,6 +5,7 @@ import axios from 'axios';
 import { client_id } from '@/index';
 import { getStorage, setStorage } from '@lib/chromeapi';
 import FavoriteButton from '@/components/buttons/FavoriteButton';
+import { print, printError } from '@/lib/print';
 
 interface ChannelProps {
 	online: boolean;
@@ -66,7 +67,7 @@ export default class Channel extends React.Component<
 	}
 
 	getColor(url: string) {
-		console.log(`Started loading channel: ${this.props.data.user_name}`);
+		print(`Started loading channel: ${this.props.data.user_name}`);
 		const fac = new FastAverageColor();
 
 		if (url === 'https://about:blank') return;
@@ -79,9 +80,9 @@ export default class Channel extends React.Component<
 					hidden: false,
 				});
 			})
-			.catch(e => console.error(e));
+			.catch(e => printError(e));
 
-		console.log(`Finished loading channel: ${this.props.data.user_name}`);
+		print(`Finished loading channel: ${this.props.data.user_name}`);
 
 		this.props.doneLoading();
 	}
@@ -126,7 +127,7 @@ export default class Channel extends React.Component<
 			this.removeStreamer();
 		}
 
-		getStorage('favorites').then(res => console.log(res));
+		getStorage('favorites').then(res => print(res));
 
 		this.setState({ favorite: !this.state.favorite });
 	}

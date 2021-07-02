@@ -1,4 +1,5 @@
 import React from 'react';
+import { print } from '@lib/print';
 
 /**
  *
@@ -20,8 +21,8 @@ export default function openLink(
 	features?: string | undefined,
 	replace?: boolean | undefined
 ) {
-	console.log('clicked');
-	console.log(event.button);
+	print('clicked');
+	print(event.button);
 	window.chrome.tabs.getCurrent().then(tab => {
 		if (tab.url === undefined) {
 			window.open(url, target || '_self', features, replace);
