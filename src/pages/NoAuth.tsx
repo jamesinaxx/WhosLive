@@ -1,14 +1,9 @@
 import React from 'react';
 import styles from '@styles/layout.module.scss';
 import { Button, TextField, Paper } from '@material-ui/core';
-import { getStorage, setStorageLocal } from '@lib/chromeapi';
+import { getStorage, getChannelInfo } from '@lib/chromeapi';
 import validateToken from '@lib/tokenValid';
-import { client_id } from '@/index';
-import axios from 'axios';
-import 'regenerator-runtime/runtime';
-
-// eslint-disable-next-line no-undef
-const Chrome = chrome;
+import { client_id } from '@';
 
 interface NoAuthState {
 	inputValue: string;
@@ -32,7 +27,6 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 		this.keyPress = this.keyPress.bind(this);
 		this.validateTokenBased = this.validateTokenBased.bind(this);
 		this.updateChannelsArray = this.updateChannelsArray.bind(this);
-		this.getChannelInfo = this.getChannelInfo.bind(this);
 	}
 
 	componentDidMount() {
@@ -67,51 +61,15 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 		this.setState({ inputValue: event.target.value });
 	}
 
-	// TODO This is temporary until I figure out how to run background.js through a compiler
-	async getChannelInfo() {
-		console.log('Updating channel info');
-		try {
-			const userId = await (
-				await axios.get('https://api.twitch.tv/helix/users', {
-					headers: {
-						'Client-Id': client_id,
-						Authorization: 'Bearer ' + this.state.inputValue,
-					},
-				})
-			).data.data[0].id;
-
-			const resbJson = await (
-				await axios.get(
-					'https://api.twitch.tv/helix/streams/followed?user_id=' +
-						userId,
-					{
-						headers: {
-							'Client-Id': client_id,
-							Authorization: 'Bearer ' + this.state.inputValue,
-						},
-					}
-				)
-			).data;
-
-			Chrome.browserAction.setBadgeText({
-				text: resbJson.data.length.toString(),
-			});
-			Chrome.browserAction.setTitle({
-				title: 'Number of people streaming: ',
-			});
-
-			setStorageLocal('channels', resbJson.data);
-		} catch (error) {
-			console.log(error);
-		}
-		console.log('Updated channel info');
+	async getToken() {
+		return this.state.inputValue || undefined;
 	}
 
 	updateChannelsArray() {
 		const interval = setInterval(() => {
 			if (this.state.tokenError) return;
 
-			this.getChannelInfo();
+			getChannelInfo(client_id, this.getToken);
 
 			clearInterval(interval);
 		});
