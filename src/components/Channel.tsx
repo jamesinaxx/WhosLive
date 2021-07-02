@@ -110,12 +110,15 @@ export default class Channel extends React.Component<
 		getStorage('favorites').then((res: string[] | undefined) => {
 			if (res === undefined) return;
 			else
-				setStorage('favorites', () => {
-					const index = res.indexOf(this.props.data.user_login);
-					if (index > -1) {
-						return res.splice(index, 1);
-					}
-				});
+				setStorage(
+					'favorites',
+					(() => {
+						const index = res.indexOf(this.props.data.user_login);
+						if (index > -1) {
+							return res.splice(index, 1);
+						}
+					})()
+				);
 		});
 	}
 

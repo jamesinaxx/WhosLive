@@ -3,7 +3,17 @@ import axios from 'axios';
 // eslint-disable-next-line no-undef
 const Chrome = chrome;
 
-function setStorage(key: string, value: any): void {
+function setStorage(
+	key: string,
+	value:
+		| string
+		| number
+		| boolean
+		| string[]
+		| number[]
+		| boolean[]
+		| undefined
+): void {
 	Chrome.storage.sync.set({ [key]: value }, () => {
 		console.log(`Set ${key} in synced chrome storage`);
 	});
@@ -18,7 +28,17 @@ function getStorage(key: string): Promise<any> {
 	});
 }
 
-function setStorageLocal(key: string, value: any): void {
+function setStorageLocal(
+	key: string,
+	value:
+		| string
+		| number
+		| boolean
+		| string[]
+		| number[]
+		| boolean[]
+		| undefined
+): void {
 	Chrome.storage.local.set({ [key]: value }, () => {
 		console.log(`Set ${key} in local chrome storage`);
 	});
