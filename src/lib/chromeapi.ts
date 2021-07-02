@@ -1,17 +1,18 @@
-import { print } from '@lib/print';
+import axios from 'axios';
+
 // eslint-disable-next-line no-undef
 const Chrome = chrome;
 
 function setStorage(key: string, value: any): void {
 	Chrome.storage.sync.set({ [key]: value }, () => {
-		print(`Set ${key} in synced chrome storage`);
+		console.log(`Set ${key} in synced chrome storage`);
 	});
 }
 
 function getStorage(key: string): Promise<any> {
 	return new Promise(resolve => {
 		Chrome.storage.sync.get([key], res => {
-			print(`Got ${key} from synced chrome storage`);
+			console.log(`Got ${key} from synced chrome storage`);
 			resolve(res[key]);
 		});
 	});
@@ -19,17 +20,65 @@ function getStorage(key: string): Promise<any> {
 
 function setStorageLocal(key: string, value: any): void {
 	Chrome.storage.local.set({ [key]: value }, () => {
-		print(`Set ${key} in local chrome storage`);
+		console.log(`Set ${key} in local chrome storage`);
 	});
 }
 
 function getStorageLocal(key: string): Promise<any> {
 	return new Promise(resolve => {
 		Chrome.storage.local.get([key], res => {
-			print(`Got ${key} from local chrome storage`);
+			console.log(`Got ${key} from local chrome storage`);
 			resolve(res[key]);
 		});
 	});
 }
 
-export { setStorage, getStorage, setStorageLocal, getStorageLocal };
+async function getChannelInfo(
+	client_id: string,
+	twitchtoken: () => Promise<string | undefined>
+) {
+	console.log('Updating channel info');
+	try {
+		const userId = (
+			await axios.get('https://api.twitch.tv/helix/users', {
+				headers: {
+					'Client-Id': client_id,
+					Authorization: 'Bearer ' + (await twitchtoken()),
+				},
+			})
+		).data.data[0].id;
+
+		const resbJson = (
+			await axios.get(
+				'https://api.twitch.tv/helix/streams/followed?user_id=' +
+					userId,
+				{
+					headers: {
+						'Client-Id': client_id,
+						Authorization: 'Bearer ' + (await twitchtoken()),
+					},
+				}
+			)
+		).data;
+
+		Chrome.browserAction.setBadgeText({
+			text: resbJson.data.length.toString(),
+		});
+		Chrome.browserAction.setTitle({
+			title: 'Number of people streaming: ',
+		});
+
+		setStorageLocal('channels', resbJson.data);
+	} catch (error) {
+		console.log(error);
+	}
+	console.log('Updated channel info');
+}
+
+export {
+	setStorage,
+	getStorage,
+	setStorageLocal,
+	getStorageLocal,
+	getChannelInfo,
+};

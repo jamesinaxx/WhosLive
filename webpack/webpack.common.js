@@ -10,6 +10,7 @@ const path = require('path');
 const config = {
 	entry: {
 		index: path.resolve(__dirname, '..', 'src/index.tsx'),
+		background: path.resolve(__dirname, '..', 'src/scripts/background.ts'),
 	},
 	output: {
 		filename: '[name].js',
@@ -53,9 +54,9 @@ const config = {
 			patterns: [
 				{ from: 'manifest.json' },
 				{ from: 'public/icons', to: 'icons' },
-				{
-					from: 'public/scripts/background.js',
-				},
+				// {
+				// 	from: 'public/scripts/background.js',
+				// },
 			],
 		}),
 		new Dotenv({ path: path.resolve(__dirname, '..', '.env') }),

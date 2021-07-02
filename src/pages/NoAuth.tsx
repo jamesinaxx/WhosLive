@@ -5,7 +5,6 @@ import { getStorage, setStorageLocal } from '@lib/chromeapi';
 import validateToken from '@lib/tokenValid';
 import { client_id } from '@/index';
 import axios from 'axios';
-// import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 // eslint-disable-next-line no-undef

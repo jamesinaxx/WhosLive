@@ -10,7 +10,7 @@ interface LoadingProps {
 export default function Loading({ color, hidden }: LoadingProps) {
 	if (hidden === undefined) hidden = false;
 
-	print('Color', color);
+	console.log('Color', color);
 
 	const docBody = document.querySelector('body') as HTMLBodyElement;
 

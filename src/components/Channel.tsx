@@ -67,7 +67,7 @@ export default class Channel extends React.Component<
 	}
 
 	getColor(url: string) {
-		print(`Started loading channel: ${this.props.data.user_name}`);
+		console.log(`Started loading channel: ${this.props.data.user_name}`);
 		const fac = new FastAverageColor();
 
 		if (url === 'https://about:blank') return;
@@ -82,7 +82,7 @@ export default class Channel extends React.Component<
 			})
 			.catch(e => printError(e));
 
-		print(`Finished loading channel: ${this.props.data.user_name}`);
+		console.log(`Finished loading channel: ${this.props.data.user_name}`);
 
 		this.props.doneLoading();
 	}
@@ -127,7 +127,7 @@ export default class Channel extends React.Component<
 			this.removeStreamer();
 		}
 
-		getStorage('favorites').then(res => print(res));
+		getStorage('favorites').then(res => console.log(res));
 
 		this.setState({ favorite: !this.state.favorite });
 	}
