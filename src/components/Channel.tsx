@@ -5,7 +5,6 @@ import axios from 'axios';
 import { client_id } from '@/index';
 import { getStorage, setStorage } from '@lib/chromeapi';
 import FavoriteButton from '@/components/buttons/FavoriteButton';
-import { print, printError } from '@/lib/print';
 
 interface ChannelProps {
 	online: boolean;
@@ -80,7 +79,7 @@ export default class Channel extends React.Component<
 					hidden: false,
 				});
 			})
-			.catch(e => printError(e));
+			.catch(e => console.error(e));
 
 		console.log(`Finished loading channel: ${this.props.data.user_name}`);
 

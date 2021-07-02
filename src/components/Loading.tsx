@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '@styles/loader.module.scss';
-import { print } from '@/lib/print';
 
 interface LoadingProps {
 	color: string;
