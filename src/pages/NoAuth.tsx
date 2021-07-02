@@ -70,7 +70,7 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 		const interval = setInterval(() => {
 			if (this.state.tokenError) return;
 
-			getChannelInfo(client_id as string, this.getToken);
+			getChannelInfo(client_id || '', this.getToken);
 
 			clearInterval(interval);
 		});
