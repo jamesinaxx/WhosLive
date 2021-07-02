@@ -4,6 +4,7 @@ import { Button, TextField, Paper } from '@material-ui/core';
 import { getStorage, getChannelInfo } from '@lib/chromeapi';
 import validateToken from '@lib/tokenValid';
 import { client_id } from '@/index';
+import 'regenerator-runtime/runtime';
 
 interface NoAuthState {
 	inputValue: string;
@@ -69,7 +70,7 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 		const interval = setInterval(() => {
 			if (this.state.tokenError) return;
 
-			getChannelInfo(client_id, this.getToken);
+			getChannelInfo(client_id as string, this.getToken);
 
 			clearInterval(interval);
 		});
