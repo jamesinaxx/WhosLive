@@ -3,6 +3,7 @@ import styles from '@styles/layout.module.scss';
 import Channel from '@components/Channel';
 import { getStorageLocal } from '@lib/chromeapi';
 import Loading from '@components/Loading';
+import { print } from '@/lib/print';
 
 interface LiveProps {
 	color: string;
@@ -37,7 +38,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 	}
 
 	doneLoading() {
-		console.log('Done loading');
+		print('Done loading');
 		this.setState({ loading: false });
 	}
 

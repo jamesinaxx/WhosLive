@@ -3,9 +3,10 @@ import styles from '@styles/error.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import openLink from '@lib/openLink';
+import { print } from '@/lib/print';
 
 export default function Error404() {
-	console.log(document.body.style.backgroundColor);
+	print(document.body.style.backgroundColor);
 
 	return (
 		<div className={styles.container}>
