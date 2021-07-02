@@ -68,6 +68,7 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 		this.setState({ inputValue: event.target.value });
 	}
 
+	// TODO This is temporary until I figure out how to run background.js through a compiler
 	async getChannelInfo() {
 		console.log('Updating channel info');
 		try {
