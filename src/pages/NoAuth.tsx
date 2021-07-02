@@ -3,7 +3,7 @@ import styles from '@styles/layout.module.scss';
 import { Button, TextField, Paper } from '@material-ui/core';
 import { getStorage, getChannelInfo } from '@lib/chromeapi';
 import validateToken from '@lib/tokenValid';
-import { client_id } from '@';
+import { client_id } from '@/index';
 
 interface NoAuthState {
 	inputValue: string;
