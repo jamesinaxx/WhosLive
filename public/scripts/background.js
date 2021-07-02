@@ -1,7 +1,7 @@
 'use strict';
 const client_id = '6ucdumdkn0j562bf9oog38efzmx4vh';
 
-const twitchtoken = () => {
+function twitchtoken() {
 	return new Promise(resolve =>
 		chrome.storage.sync.get(['twitchtoken'], res => {
 			if (res.twitchtoken === undefined) {
@@ -12,10 +12,10 @@ const twitchtoken = () => {
 			}
 		})
 	);
-};
+}
 
 chrome.runtime.onInstalled.addListener(async () => {
-	console.log('Initialized chrome extension');
+	console.log('Installed Now Live');
 });
 
 chrome.storage.onChanged.addListener(async () => getChannelInfo);
@@ -77,9 +77,7 @@ async function getChannelInfo() {
 	console.log('Updated channel info');
 }
 
-function init() {
+(function () {
 	getChannelInfo();
 	return setInterval(async () => getChannelInfo(), 60000);
-}
-
-init();
+});
