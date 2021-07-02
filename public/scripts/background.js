@@ -15,7 +15,8 @@ function twitchtoken() {
 }
 
 chrome.runtime.onInstalled.addListener(async () => {
-	console.log('Installed Now Live');
+	setStorage('mode', 'dark', () => {});
+	console.log('Initialized Now Live');
 });
 
 chrome.storage.onChanged.addListener(async () => getChannelInfo);
