@@ -80,4 +80,4 @@ async function getChannelInfo() {
 (function () {
 	getChannelInfo();
 	return setInterval(async () => getChannelInfo(), 60000);
-});
+})();
