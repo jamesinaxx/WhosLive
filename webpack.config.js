@@ -2,9 +2,7 @@ const devConfig = require('./webpack/webpack.dev');
 const prodConfig = require('./webpack/webpack.prod');
 const { rmdirSync, existsSync } = require('fs');
 
-const mode = process.argv[3];
-
-const configFunc = () => {
+const configFunc = (env, { mode }) => {
 	if (existsSync('./dist/')) rmdirSync('./dist/', { recursive: true });
 
 	if (mode === 'development') return devConfig;
