@@ -106,7 +106,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 					/>
 				))}
 				<div
-					/* Placeholder so that the cards don't flow over the body limit */
+					/* Placeholder so the channel cards don't flow beyond the viewport */
 					style={{
 						height: '5px',
 					}}
