@@ -12,6 +12,7 @@ import axios from 'axios';
 import Error404 from '@pages/404';
 import InvalidateToken from '@components/InvalidateToken';
 import dayjs from 'dayjs';
+import Layout from './components/Layout';
 const client_id = process.env.CLIENTID;
 
 interface MainState {
@@ -37,28 +38,25 @@ class Main extends React.Component<any, MainState> {
 		};
 
 		this.validateToken = this.validateToken.bind(this);
-		this.showRUSure = this.showRUSure.bind(this);
 		this.invalidateToken = this.invalidateToken.bind(this);
 		this.toggleColorMode = this.toggleColorMode.bind(this);
 	}
 
 	componentDidMount() {
-		const docBody = document.querySelector('body') as HTMLBodyElement;
-
 		this.validateToken();
 
-		getStorage('mode').then(colorMode => {
-			this.setState({ colorMode });
-			docBody.className = this.state.colorMode;
-		});
+		this.setColor();
 
-		// eslint-disable-next-line no-undef
 		chrome.storage.onChanged.addListener(() => {
 			this.validateToken();
-			getStorage('mode').then(colorMode => {
-				this.setState({ colorMode });
-				docBody.className = this.state.colorMode;
-			});
+			this.setColor();
+		});
+	}
+
+	setColor() {
+		getStorage('mode').then(colorMode => {
+			this.setState({ colorMode });
+			document.body.className = this.state.colorMode;
 		});
 	}
 
@@ -70,10 +68,6 @@ class Main extends React.Component<any, MainState> {
 					: this.setState({ userToken: 'invalid', tokenValid: valid })
 			)
 		);
-	}
-
-	showRUSure() {
-		this.setState({ showRUSure: true });
 	}
 
 	invalidateToken() {
@@ -143,15 +137,10 @@ class Main extends React.Component<any, MainState> {
 				this.checkConnection()
 					.then((res: connectionType) => {
 						this.setState({ connected: res[0] });
-						console.log(
-							res[0]
-								? 'Succeeded'
-								: 'Failed' + ' to connect to twitch',
-							res[1]
-						);
 					})
 					.catch((res: connectionType) => {
 						this.setState({ connected: res[0] });
+						console.log('Failed to connect to twitch', res[1]);
 					});
 			}
 
@@ -163,7 +152,10 @@ class Main extends React.Component<any, MainState> {
 		});
 
 		return (
-			<div>
+			<Layout
+				toggleColor={this.toggleColorMode}
+				mode={this.state.colorMode}
+				shown={this.state.showRUSure}>
 				{this.state.userToken && this.state.tokenValid ? (
 					<>
 						{this.state.showRUSure ? (
@@ -181,7 +173,7 @@ class Main extends React.Component<any, MainState> {
 						)}
 						<Live color={color} />
 						<LogoutButton
-							ruSure={this.showRUSure}
+							ruSure={() => this.setState({ showRUSure: true })}
 							shown={this.state.showRUSure}
 							colorMode={this.state.colorMode}
 						/>
@@ -189,12 +181,7 @@ class Main extends React.Component<any, MainState> {
 				) : (
 					<NoAuthPage colorMode={this.state.colorMode} />
 				)}
-				<ColorModeToggle
-					toggleColor={this.toggleColorMode}
-					shown={this.state.showRUSure}
-					mode={this.state.colorMode}
-				/>
-			</div>
+			</Layout>
 		);
 	}
 }

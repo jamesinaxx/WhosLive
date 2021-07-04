@@ -3,17 +3,17 @@ import styles from '@styles/layout.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-regular-svg-icons';
 
-interface SettingsButtonProps {
+interface ColorToggleProps {
 	toggleColor: () => void;
 	shown: boolean;
 	mode: string;
 }
 
-export default function SettingsButton({
+export default function ColorToggle({
 	toggleColor,
 	shown,
 	mode,
-}: SettingsButtonProps) {
+}: ColorToggleProps) {
 	return (
 		<button
 			className={styles.colorModeToggle}
