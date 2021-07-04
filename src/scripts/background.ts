@@ -1,15 +1,12 @@
-// eslint-disable-next-line no-undef
-const Chrome = chrome;
-// eslint-disable-next-line no-undef
-const client_id = process.env.CLIENTID;
+const client_id = process.env.CLIENTID || '';
 import 'regenerator-runtime/runtime';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
 
 function twitchtoken(): Promise<string | undefined> {
 	return new Promise(resolve =>
-		Chrome.storage.sync.get(['twitchtoken'], res => {
+		chrome.storage.sync.get(['twitchtoken'], res => {
 			if (res.twitchtoken === undefined) {
-				Chrome.storage.sync.set({ twitchtoken: undefined });
+				chrome.storage.sync.set({ twitchtoken: undefined });
 				resolve(undefined);
 			} else {
 				resolve(res.twitchtoken);
@@ -18,12 +15,12 @@ function twitchtoken(): Promise<string | undefined> {
 	);
 }
 
-Chrome.runtime.onInstalled.addListener(async () => {
+chrome.runtime.onInstalled.addListener(async () => {
 	setStorage('mode', 'dark');
 	console.log('Initialized Now Live');
 });
 
-Chrome.storage.onChanged.addListener(async () =>
+chrome.storage.onChanged.addListener(async () =>
 	getChannelInfo(client_id, twitchtoken)
 );
 

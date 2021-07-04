@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-// eslint-disable-next-line no-undef
-const Chrome = chrome;
-
 function setStorage(
 	key: string,
 	value:
@@ -14,14 +11,14 @@ function setStorage(
 		| boolean[]
 		| undefined
 ): void {
-	Chrome.storage.sync.set({ [key]: value }, () => {
+	chrome.storage.sync.set({ [key]: value }, () => {
 		console.log(`Set ${key} in synced chrome storage`);
 	});
 }
 
 function getStorage(key: string): Promise<any> {
 	return new Promise(resolve => {
-		Chrome.storage.sync.get([key], res => {
+		chrome.storage.sync.get([key], res => {
 			console.log(`Got ${key} from synced chrome storage`);
 			resolve(res[key]);
 		});
@@ -39,14 +36,14 @@ function setStorageLocal(
 		| boolean[]
 		| undefined
 ): void {
-	Chrome.storage.local.set({ [key]: value }, () => {
+	chrome.storage.local.set({ [key]: value }, () => {
 		console.log(`Set ${key} in local chrome storage`);
 	});
 }
 
 function getStorageLocal(key: string): Promise<any> {
 	return new Promise(resolve => {
-		Chrome.storage.local.get([key], res => {
+		chrome.storage.local.get([key], res => {
 			console.log(`Got ${key} from local chrome storage`);
 			resolve(res[key]);
 		});
@@ -81,11 +78,35 @@ async function getChannelInfo(
 			)
 		).data;
 
-		Chrome.browserAction.setBadgeText({
-			text: resbJson.data.length.toString(),
+		const streamingNow: string | null =
+			resbJson.data.length.toString() === 0
+				? null
+				: resbJson.data.length.toString();
+
+		chrome.browserAction.setBadgeText({
+			text: streamingNow || undefined,
 		});
-		Chrome.browserAction.setTitle({
-			title: 'Number of people streaming: ',
+
+		if (streamingNow) {
+			if (Number(streamingNow) > 1) {
+				chrome.browserAction.setTitle({
+					title: `There are ${streamingNow} people streaming right now`,
+				});
+			} else {
+				chrome.browserAction.setTitle({
+					title: `There is one person streaming right now`,
+				});
+			}
+		} else {
+			chrome.browserAction.setTitle({
+				title: `There is nobody streaming right now`,
+			});
+		}
+
+		chrome.browserAction.setTitle({
+			title: `There ${
+				streamingNow ? resbJson.data.length.toString() : 'no'
+			} streaming right now`,
 		});
 
 		setStorageLocal('channels', resbJson.data);
