@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '@styles/layout.module.scss';
 import Channel from '@components/Channel';
-import { getStorageLocal } from '@lib/chromeapi';
+import { getStorage, getStorageLocal } from '@lib/chromeapi';
 import Loading from '@components/Loading';
 
 interface LiveProps {
@@ -10,6 +10,7 @@ interface LiveProps {
 
 interface LiveState {
 	channels: any[] | null;
+	faveChannels: any[] | null | undefined;
 	loading: boolean;
 }
 
@@ -19,6 +20,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		this.state = {
 			channels: null,
 			loading: true,
+			faveChannels: null,
 		};
 
 		this.doneLoading = this.doneLoading.bind(this);
@@ -46,6 +48,20 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 			return <Loading hidden={false} color={this.props.color} />;
 		}
 
+		if (
+			this.state.faveChannels === null ||
+			this.state.faveChannels === undefined
+		) {
+			getStorage('favorites').then((res: string[]) => {
+				this.setState({
+					faveChannels: this.state.channels?.filter(channel =>
+						res.includes(channel.user_login)
+					),
+				});
+			});
+			return <Loading hidden={false} color={this.props.color} />;
+		}
+
 		if (this.state.channels.length === 0) {
 			return (
 				<small className={styles.goFollow}>
@@ -62,6 +78,14 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 					hidden={!this.state.loading}
 					color={this.props.color}
 				/>
+				{this.state.faveChannels.map((channelData, i) => (
+					<Channel
+						key={i}
+						online
+						data={channelData}
+						doneLoading={() => this.doneLoading()}
+					/>
+				))}
 				{this.state.channels.map((channelData, i) => (
 					<Channel
 						key={i}

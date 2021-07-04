@@ -98,6 +98,7 @@ export default class Channel extends React.Component<
 
 	addStreamer() {
 		getStorage('favorites').then((res: string[] | undefined) => {
+			console.log('Old faves', res);
 			if (typeof res !== 'object') {
 				setStorage('favorites', [this.props.data.user_login]);
 			} else {
@@ -108,6 +109,7 @@ export default class Channel extends React.Component<
 
 	removeStreamer() {
 		getStorage('favorites').then((res: string[] | undefined) => {
+			console.log('Old faves', res);
 			if (res === undefined) return;
 			else
 				setStorage(
@@ -115,7 +117,9 @@ export default class Channel extends React.Component<
 					(() => {
 						const index = res.indexOf(this.props.data.user_login);
 						if (index > -1) {
-							return res.splice(index, 1);
+							const removed = res;
+							removed.splice(index, 1);
+							return removed;
 						}
 					})()
 				);
