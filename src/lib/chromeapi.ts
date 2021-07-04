@@ -78,17 +78,14 @@ async function getChannelInfo(
 			)
 		).data;
 
-		const streamingNow: string | null =
-			resbJson.data.length.toString() === 0
-				? null
-				: resbJson.data.length.toString();
+		const streamingNow: number = Number(resbJson.data.length.toString());
 
 		chrome.browserAction.setBadgeText({
-			text: streamingNow || undefined,
+			text: (streamingNow || undefined)?.toString(),
 		});
 
-		if (streamingNow) {
-			if (Number(streamingNow) > 1) {
+		if (streamingNow !== 0) {
+			if (streamingNow > 1) {
 				chrome.browserAction.setTitle({
 					title: `There are ${streamingNow} people streaming right now`,
 				});
@@ -102,12 +99,6 @@ async function getChannelInfo(
 				title: `There is nobody streaming right now`,
 			});
 		}
-
-		chrome.browserAction.setTitle({
-			title: `There ${
-				streamingNow ? resbJson.data.length.toString() : 'no'
-			} streaming right now`,
-		});
 
 		setStorageLocal('channels', resbJson.data);
 	} catch (error) {
