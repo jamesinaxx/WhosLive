@@ -118,6 +118,7 @@ class Main extends React.Component<any, MainState> {
 	}
 
 	render() {
+		console.log('Re-rendered');
 		if (this.state.showRUSure) window.scrollTo(0, 0);
 
 		this.setColours();
