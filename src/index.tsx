@@ -11,8 +11,6 @@ import Loading from '@components/Loading';
 import axios from 'axios';
 import Error404 from '@pages/404';
 import InvalidateToken from '@components/InvalidateToken';
-
-// eslint-disable-next-line no-undef
 const client_id = process.env.CLIENTID;
 
 interface MainState {
@@ -101,7 +99,7 @@ class Main extends React.Component<any, MainState> {
 	checkConnection(): Promise<connectionType> {
 		return new Promise((resolve, reject) => {
 			axios
-				.get('https://twitch.tv', { timeout: 1000 })
+				.get('https://twitch.tv', { timeout: 10000 })
 				.catch((error: any) => {
 					reject([false, error]);
 				})
