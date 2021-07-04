@@ -118,12 +118,6 @@ class Main extends React.Component<any, MainState> {
 	}
 
 	render() {
-		getStorage('favorites').then(res => {
-			const el = document.createElement('p');
-			el.innerHTML = res;
-			document.body.appendChild(el);
-		});
-
 		if (this.state.showRUSure) window.scrollTo(0, 0);
 
 		this.setColours();
