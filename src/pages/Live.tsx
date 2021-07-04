@@ -70,7 +70,10 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 			return <Loading hidden={false} color={this.props.color} />;
 		}
 
-		if (this.state.channels.length === 0) {
+		if (
+			this.state.channels.length === 0 &&
+			this.state.faveChannels.length === 0
+		) {
 			return (
 				<small className={styles.goFollow}>
 					You do not follow anybody who is currently live
