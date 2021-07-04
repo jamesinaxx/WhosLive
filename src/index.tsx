@@ -18,8 +18,8 @@ interface MainState {
 	userToken: string | undefined;
 	tokenValid: boolean;
 	showRUSure: boolean;
-	colorMode: string;
-	connected: true | false | null;
+	colorMode: 'light' | 'dark';
+	connected: boolean | null;
 }
 
 type connectionType = [boolean, any?];
