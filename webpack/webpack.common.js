@@ -1,7 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 /**
@@ -40,10 +39,6 @@ const config = {
 				exclude: /node_modules/,
 				use: ['babel-loader'],
 			},
-			{
-				test: /\.s[ac]ss$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-			},
 		],
 	},
 	plugins: [
@@ -60,7 +55,6 @@ const config = {
 			],
 		}),
 		new Dotenv({ path: path.resolve(__dirname, '..', '.env') }),
-		new MiniCssExtractPlugin(),
 	],
 };
 

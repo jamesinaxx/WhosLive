@@ -8,6 +8,14 @@ const common = require('./webpack.common');
 const config = {
 	mode: 'development',
 	watch: true,
+	module: {
+		rules: [
+			{
+				test: /\.s[ac]ss$/,
+				use: ['style-loader', 'css-loader', 'sass-loader'],
+			},
+		],
+	},
 	devtool: 'inline-source-map',
 };
 
