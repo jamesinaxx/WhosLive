@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
 const Chrome = chrome;
 // eslint-disable-next-line no-undef
-const client_id = process.env.CLIENTID || process.env.DEVCLIENTID || '';
+const client_id = process.env.CLIENTID;
 import 'regenerator-runtime/runtime';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
 
