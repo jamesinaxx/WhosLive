@@ -49,9 +49,6 @@ const config = {
 			patterns: [
 				{ from: 'manifest.json' },
 				{ from: 'public/icons', to: 'icons' },
-				// {
-				// 	from: 'public/scripts/background.js',
-				// },
 			],
 		}),
 		new Dotenv({ path: path.resolve(__dirname, '..', '.env') }),
