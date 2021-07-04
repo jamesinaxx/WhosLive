@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setStorage } from './chromeapi';
+import { setStorage } from '@lib/chromeapi';
 
 export default function validateToken(token: string): Promise<boolean> {
 	return new Promise(resolve => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent } from 'react';
 
 /**
  *
@@ -14,7 +14,7 @@ import React from 'react';
 
 // Literally just a function that allows me to write opening link code once and call it as many times as I like
 export default function openLink(
-	event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+	event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
 	url: string,
 	target?: string | undefined,
 	features?: string | undefined,
