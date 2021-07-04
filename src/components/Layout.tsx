@@ -16,12 +16,12 @@ export default function Layout({
 }: LayoutProps) {
 	return (
 		<div>
+			{children}
 			<ColorModeToggle
 				toggleColor={toggleColor}
 				shown={shown}
 				mode={mode}
 			/>
-			{children}
 		</div>
 	);
 }
