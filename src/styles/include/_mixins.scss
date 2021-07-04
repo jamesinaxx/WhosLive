@@ -3,6 +3,7 @@ $buttonHover: darken($buttonColor, 5%);
 $buttonClicked: darken($buttonColor, 10%);
 
 @mixin control-button($left) {
+	color: #fff;
 	transition: all 100ms ease-in-out;
 	width: 30px;
 	height: 30px;

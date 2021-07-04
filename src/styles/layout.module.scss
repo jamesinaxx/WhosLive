@@ -47,9 +47,6 @@
 
 .colorModeToggle {
 	@include control-button(5px);
-	svg {
-		transform: translate(-5%, -5%);
-	}
 }
 
 .settingsButton {
