@@ -4,6 +4,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 const common = require('./webpack.common');
 
 /**
@@ -22,6 +23,7 @@ const config = {
 	plugins: [
 		new ESLintPlugin({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
 		new MiniCssExtractPlugin(),
+		new Dotenv({ path: path.resolve(__dirname, '..', '.env') }),
 	],
 	optimization: {
 		minimizer: [`...`, new CssMinimizerPlugin(), new JsonMinimizerPlugin()],
