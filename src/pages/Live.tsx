@@ -25,6 +25,27 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 
 		this.doneLoading = this.doneLoading.bind(this);
 		this.showChannels = this.showChannels.bind(this);
+
+		chrome.storage.onChanged.addListener(() => {
+			getStorageLocal('channels').then((res: any[]) =>
+				this.setState({ channels: res })
+			);
+			getStorage('favorites').then((res: string[]) => {
+				this.setState({
+					faveChannels: this.state.channels?.filter(channel => {
+						if (typeof res === 'object')
+							return res.includes(channel.user_login);
+						return false;
+					}),
+					channels:
+						this.state.channels?.filter(channel => {
+							if (typeof res === 'object')
+								return !res.includes(channel.user_login);
+							return !false;
+						}) || [],
+				});
+			});
+		});
 	}
 
 	componentDidMount() {
