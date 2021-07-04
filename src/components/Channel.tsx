@@ -103,11 +103,9 @@ export default class Channel extends React.Component<
 	addStreamer() {
 		getStorage('favorites').then((res: string[] | undefined) => {
 			console.log('Old faves', res);
-			if (typeof res !== 'object') {
-				setStorage('favorites', [this.props.data.user_login]);
-			} else {
-				setStorage('favorites', res.push(this.props.data.user_login));
-			}
+			const newArray = typeof res === 'object' ? res : [];
+			newArray.push(this.props.data.user_login);
+			setStorage('favorites', newArray);
 		});
 	}
 
