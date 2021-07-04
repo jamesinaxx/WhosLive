@@ -11,6 +11,7 @@ import Loading from '@components/Loading';
 import axios from 'axios';
 import Error404 from '@pages/404';
 import InvalidateToken from '@components/InvalidateToken';
+import dayjs from 'dayjs';
 const client_id = process.env.CLIENTID;
 
 interface MainState {
@@ -110,7 +111,7 @@ class Main extends React.Component<any, MainState> {
 	}
 
 	render() {
-		console.log('Re-rendered');
+		console.log(`[${dayjs().format('HH:mm:ss')}] Re-rendered`);
 		if (this.state.showRUSure) window.scrollTo(0, 0);
 
 		const color = this.state.colorMode === 'dark' ? '#fff' : '#000';
@@ -143,7 +144,9 @@ class Main extends React.Component<any, MainState> {
 					.then((res: connectionType) => {
 						this.setState({ connected: res[0] });
 						console.log(
-							'Failed to connect to twitch with error',
+							res[0]
+								? 'Succeeded'
+								: 'Failed' + ' to connect to twitch',
 							res[1]
 						);
 					})
