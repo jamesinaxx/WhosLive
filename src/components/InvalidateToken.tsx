@@ -14,15 +14,8 @@ export default function InvalidateToken({
 	document.body.style.overflow = 'hidden';
 
 	return (
-		<div
-			className={styles.ruSure}
-			style={{
-				opacity: '100%',
-			}}>
-			<h1
-				style={{
-					opacity: '100%',
-				}}>
+		<div className={styles.ruSure}>
+			<h1>
 				Are you sure you want to logout of Twitch?
 				<br />
 				To continue using Now Live you will have to log in again{' '}
