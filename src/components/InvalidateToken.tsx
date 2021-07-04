@@ -16,7 +16,7 @@ export default function InvalidateToken({
 	return (
 		<div className={styles.ruSure}>
 			<h1>
-				Are you sure you want to logout of Twitch?
+				Are you sure you want to sign out?
 				<br />
 				To continue using Now Live you will have to log in again{' '}
 			</h1>
