@@ -118,14 +118,12 @@ class Main extends React.Component<any, MainState> {
 
 		if (this.state.connected === false) {
 			return (
-				<>
+				<Layout
+					toggleColor={this.toggleColorMode}
+					mode={this.state.colorMode}
+					shown={this.state.showRUSure}>
 					<Error404 />
-					<ColorModeToggle
-						toggleColor={this.toggleColorMode}
-						shown={this.state.showRUSure}
-						mode={this.state.colorMode}
-					/>
-				</>
+				</Layout>
 			);
 		}
 
