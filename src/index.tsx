@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import '@styles/global.scss';
 import Live from '@pages/Live';
 import LogoutButton from '@/components/buttons/LogoutButton';
-import ColorModeToggle from '@/components/buttons/ColorModeToggle';
 import { getStorage, setStorage } from '@lib/chromeapi';
 import NoAuthPage from '@pages/NoAuth';
 import validateToken from '@lib/tokenValid';
