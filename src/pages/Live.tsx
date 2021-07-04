@@ -54,9 +54,17 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		) {
 			getStorage('favorites').then((res: string[]) => {
 				this.setState({
-					faveChannels: this.state.channels?.filter(channel =>
-						res.includes(channel.user_login)
-					),
+					faveChannels: this.state.channels?.filter(channel => {
+						if (typeof res === 'object')
+							return res.includes(channel.user_login);
+						return false;
+					}),
+					channels:
+						this.state.channels?.filter(channel => {
+							if (typeof res === 'object')
+								return !res.includes(channel.user_login);
+							return !false;
+						}) || [],
 				});
 			});
 			return <Loading hidden={false} color={this.props.color} />;
@@ -82,6 +90,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 						key={i}
 						online
 						data={channelData}
+						fave
 						doneLoading={() => this.doneLoading()}
 					/>
 				))}

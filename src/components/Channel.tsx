@@ -15,6 +15,7 @@ interface ChannelProps {
 		viewer_count: string;
 		title: string;
 	};
+	fave?: boolean;
 	doneLoading: () => void;
 }
 
@@ -63,6 +64,9 @@ export default class Channel extends React.Component<
 
 	componentDidMount() {
 		this.getColor(this.state.url);
+		this.setState({
+			favorite: this.props.fave || false,
+		});
 	}
 
 	getColor(url: string) {
