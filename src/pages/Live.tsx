@@ -65,7 +65,8 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		if (this.state.channels.length === 0) {
 			return (
 				<small className={styles.goFollow}>
-					You do not follow anybody who is currently live :(
+					You do not follow anybody who is currently live
+					<img src='https://cdn.frankerfacez.com/emoticon/425196/4' />
 				</small>
 			);
 		}
