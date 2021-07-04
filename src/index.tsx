@@ -109,19 +109,17 @@ class Main extends React.Component<any, MainState> {
 		});
 	}
 
-	setColours() {
-		const docBody = document.querySelector('body') as HTMLBodyElement;
-
-		docBody.style.backgroundColor =
-			this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
-		docBody.style.color = this.state.colorMode === 'dark' ? '#fff' : '#000';
-	}
-
 	render() {
 		console.log('Re-rendered');
 		if (this.state.showRUSure) window.scrollTo(0, 0);
 
-		this.setColours();
+		const color = this.state.colorMode === 'dark' ? '#fff' : '#000';
+		const bgColor = this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
+
+		const docBody = document.querySelector('body') as HTMLBodyElement;
+
+		docBody.style.backgroundColor = bgColor;
+		docBody.style.color = color;
 
 		if (this.state.connected === false) {
 			return (
@@ -154,12 +152,7 @@ class Main extends React.Component<any, MainState> {
 					});
 			}
 
-			return (
-				<Loading
-					hidden={false}
-					color={this.state.colorMode === 'dark' ? '#fff' : '#000'}
-				/>
-			);
+			return <Loading hidden={false} color={color} />;
 		}
 
 		window.addEventListener('scroll', () => {
@@ -183,13 +176,7 @@ class Main extends React.Component<any, MainState> {
 						) : (
 							<div>{null}</div>
 						)}
-						<Live
-							color={
-								this.state.colorMode === 'dark'
-									? '#fff'
-									: '#000'
-							}
-						/>
+						<Live color={color} />
 						<LogoutButton
 							ruSure={this.showRUSure}
 							shown={this.state.showRUSure}

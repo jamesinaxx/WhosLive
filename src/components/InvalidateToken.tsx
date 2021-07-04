@@ -23,7 +23,9 @@ export default function InvalidateToken({
 				style={{
 					opacity: '100%',
 				}}>
-				Are you sure you want to invalidate the Twitch token?{' '}
+				Are you sure you want to logout of Twitch?
+				<br />
+				To continue using Now Live you will have to log in again{' '}
 			</h1>
 			<ButtonGroup variant='contained'>
 				<Button onClick={invalidateToken}>Yes</Button>
