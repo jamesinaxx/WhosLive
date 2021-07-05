@@ -71,11 +71,8 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 	}
 
 	showChannels() {
-		if (this.state.channels === null) {
-			return <Loading hidden={false} color={this.props.color} />;
-		}
-
 		if (
+			this.state.channels === null ||
 			this.state.faveChannels === null ||
 			this.state.faveChannels === undefined
 		) {
@@ -98,7 +95,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		}
 
 		return (
-			<>
+			<div>
 				<Loading
 					hidden={!this.state.loading}
 					color={this.props.color}
@@ -126,7 +123,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 						height: '5px',
 					}}
 				/>
-			</>
+			</div>
 		);
 	}
 
