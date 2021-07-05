@@ -27,25 +27,30 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		this.showChannels = this.showChannels.bind(this);
 
 		chrome.storage.onChanged.addListener(() => {
-			getStorageLocal('channels').then((res: any[]) =>
-				this.setState({ channels: res })
-			);
-			getStorage('favorites').then((res: string[]) => {
-				this.setState({
-					faveChannels: this.state.channels?.filter(channel => {
-						if (typeof res === 'object')
-							return res.includes(channel.user_login);
-						return false;
-					}),
-					channels:
-						this.state.channels?.filter(channel => {
-							if (typeof res === 'object')
-								return !res.includes(channel.user_login);
-							return !false;
-						}) || [],
-				});
-			});
+			this.updateChannels();
 		});
+	}
+
+	async updateChannels() {
+		const allChannels: any[] = await getStorageLocal('channels');
+		const faveChannels: string[] = await (async () => {
+			const faves = await getStorage('favorites');
+			return allChannels.filter(channel => {
+				if (typeof faves === 'object')
+					return faves.includes(channel.user_login);
+				return false;
+			});
+		})();
+		const channels: any[] = await (async () => {
+			const faves = await getStorage('favorites');
+			return allChannels.filter(channel => {
+				if (typeof faves === 'object')
+					return !faves.includes(channel.user_login);
+				return true;
+			});
+		})();
+
+		this.setState({ channels, faveChannels });
 	}
 
 	componentDidMount() {
@@ -73,21 +78,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 			this.state.faveChannels === null ||
 			this.state.faveChannels === undefined
 		) {
-			getStorage('favorites').then((res: string[]) => {
-				this.setState({
-					faveChannels: this.state.channels?.filter(channel => {
-						if (typeof res === 'object')
-							return res.includes(channel.user_login);
-						return false;
-					}),
-					channels:
-						this.state.channels?.filter(channel => {
-							if (typeof res === 'object')
-								return !res.includes(channel.user_login);
-							return !false;
-						}) || [],
-				});
-			});
+			this.updateChannels();
 			return <Loading hidden={false} color={this.props.color} />;
 		}
 
@@ -98,7 +89,9 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 			return (
 				<small className={styles.goFollow}>
 					You do not follow anybody who is currently live
-					<img src='https://cdn.frankerfacez.com/emoticon/425196/4' />
+					<img
+						src='https://cdn.frankerfacez.com/emoticon/425196/4' /* Sadge emote from FFZ */
+					/>
 				</small>
 			);
 		}
