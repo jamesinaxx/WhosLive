@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import styles from '@styles/layout.module.scss';
 import Channel from '@components/Channel';

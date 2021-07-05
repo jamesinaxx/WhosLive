@@ -1,5 +1,5 @@
-const client_id = process.env.CLIENTID || '';
 import 'regenerator-runtime/runtime';
+const client_id = process.env.CLIENTID || '';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
 
 function twitchtoken(): Promise<string | undefined> {
