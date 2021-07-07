@@ -9,6 +9,7 @@ const config = {
 	entry: {
 		index: path.resolve(__dirname, '..', 'src/index.tsx'),
 		background: path.resolve(__dirname, '..', 'src/scripts/background.ts'),
+		webcheck: path.resolve(__dirname, '..', 'src/scripts/webcheck.ts'),
 	},
 	output: {
 		filename: '[name].js',

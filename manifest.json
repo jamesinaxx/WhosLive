@@ -24,5 +24,11 @@
 		"storage",
 		"*://api.twitch.tv/*",
 		"*://*.twitch.tv/*"
+	],
+	"content_scripts": [
+		{
+			"matches": ["*://localhost/*"],
+			"js": ["webcheck.js"]
+		}
 	]
 }

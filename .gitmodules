@@ -1,0 +1,3 @@
+[submodule "NowLiveWeb"]
+	path = NowLiveWeb
+	url = http://github.com/jamesinaxx/NowLiveWeb.git
