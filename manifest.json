@@ -27,7 +27,7 @@
 	],
 	"content_scripts": [
 		{
-			"matches": ["*://localhost/*"],
+			"matches": ["https://nowlive.jamesinaxx.me/*"],
 			"js": ["webcheck.js"]
 		}
 	]
