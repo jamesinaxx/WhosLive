@@ -81,7 +81,7 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 			<small className={styles.noAuth}>
 				You are not verified! Please go to{' '}
 				<a
-					href='https://jamesinaxx.me/auth/twitchauth'
+					href='https://nowlive.jamesinaxx.me/auth/'
 					target='_blank'
 					rel='noreferrer'>
 					this page
