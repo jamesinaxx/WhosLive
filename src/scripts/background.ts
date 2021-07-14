@@ -1,9 +1,6 @@
 import 'regenerator-runtime/runtime';
 const client_id = process.env.CLIENTID || '';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
-import 'regenerator-runtime/runtime';
-
-chrome.alarms.create({ delayInMinutes: 1 });
 
 async function twitchtoken(): Promise<string | undefined> {
 	return new Promise(resolve =>
@@ -17,6 +14,8 @@ async function twitchtoken(): Promise<string | undefined> {
 		})
 	);
 }
+
+chrome.alarms.create({ delayInMinutes: 1 });
 
 chrome.runtime.onInstalled.addListener(async () => {
 	setStorage('mode', 'dark');

@@ -17,7 +17,7 @@
 	"background": {
 		"service_worker": "background.js"
 	},
-	"permissions": ["activeTab", "tabs", "storage"],
+	"permissions": ["activeTab", "tabs", "storage", "alarms"],
 	"host_permissions": ["*://api.twitch.tv/*", "*://*.twitch.tv/*"],
 	"content_scripts": [
 		{
