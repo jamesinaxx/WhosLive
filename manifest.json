@@ -15,8 +15,7 @@
 		"128": "./icons/128.png"
 	},
 	"background": {
-		"scripts": ["background.js"],
-		"persistent": true
+		"service_worker": ["background.js"]
 	},
 	"permissions": ["activeTab", "tabs", "storage"],
 	"host_permissions": ["*://api.twitch.tv/*", "*://*.twitch.tv/*"],
