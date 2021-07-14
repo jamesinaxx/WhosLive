@@ -24,5 +24,11 @@
 		"storage",
 		"*://api.twitch.tv/*",
 		"*://*.twitch.tv/*"
+	],
+	"content_scripts": [
+		{
+			"matches": ["https://nowlive.jamesinaxx.me/*"],
+			"js": ["webcheck.js"]
+		}
 	]
 }

@@ -2,26 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@styles/global.scss';
 import Live from '@pages/Live';
-import SettingsButton from '@components/SettingsButton';
-import ColorModeToggle from '@components/ColorModeToggle';
-import styles from '@styles/layout.module.scss';
+import LogoutButton from '@/components/buttons/LogoutButton';
 import { getStorage, setStorage } from '@lib/chromeapi';
 import NoAuthPage from '@pages/NoAuth';
 import validateToken from '@lib/tokenValid';
-import { Button, ButtonGroup } from '@material-ui/core';
 import Loading from '@components/Loading';
 import axios from 'axios';
 import Error404 from '@pages/404';
-
-// eslint-disable-next-line no-undef
-const client_id = process.env.DEVCLIENTID || process.env.CLIENTID;
+import InvalidateToken from '@components/InvalidateToken';
+import dayjs from 'dayjs';
+import Layout from './components/Layout';
+const client_id = process.env.CLIENTID;
 
 interface MainState {
 	userToken: string | undefined;
 	tokenValid: boolean;
 	showRUSure: boolean;
-	colorMode: string;
-	connected: true | false | null;
+	colorMode: 'light' | 'dark';
+	connected: boolean | null;
 }
 
 type connectionType = [boolean, any?];
@@ -39,28 +37,25 @@ class Main extends React.Component<any, MainState> {
 		};
 
 		this.validateToken = this.validateToken.bind(this);
-		this.showRUSure = this.showRUSure.bind(this);
 		this.invalidateToken = this.invalidateToken.bind(this);
 		this.toggleColorMode = this.toggleColorMode.bind(this);
 	}
 
 	componentDidMount() {
-		const docBody = document.querySelector('body') as HTMLBodyElement;
-
 		this.validateToken();
 
-		getStorage('mode').then(colorMode => {
-			this.setState({ colorMode });
-			docBody.className = this.state.colorMode;
-		});
+		this.setColor();
 
-		// eslint-disable-next-line no-undef
 		chrome.storage.onChanged.addListener(() => {
 			this.validateToken();
-			getStorage('mode').then(colorMode => {
-				this.setState({ colorMode });
-				docBody.className = this.state.colorMode;
-			});
+			this.setColor();
+		});
+	}
+
+	setColor() {
+		getStorage('mode').then(colorMode => {
+			this.setState({ colorMode });
+			document.body.className = this.state.colorMode;
 		});
 	}
 
@@ -72,10 +67,6 @@ class Main extends React.Component<any, MainState> {
 					: this.setState({ userToken: 'invalid', tokenValid: valid })
 			)
 		);
-	}
-
-	showRUSure() {
-		this.setState({ showRUSure: true });
 	}
 
 	invalidateToken() {
@@ -102,7 +93,7 @@ class Main extends React.Component<any, MainState> {
 	checkConnection(): Promise<connectionType> {
 		return new Promise((resolve, reject) => {
 			axios
-				.get('https://twitch.tv', { timeout: 1000 })
+				.get('https://twitch.tv', { timeout: 10000 })
 				.catch((error: any) => {
 					reject([false, error]);
 				})
@@ -113,23 +104,25 @@ class Main extends React.Component<any, MainState> {
 	}
 
 	render() {
+		console.log(`[${dayjs().format('HH:mm:ss')}] Re-rendered`);
 		if (this.state.showRUSure) window.scrollTo(0, 0);
+
+		const color = this.state.colorMode === 'dark' ? '#fff' : '#000';
+		const bgColor = this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
+
 		const docBody = document.querySelector('body') as HTMLBodyElement;
 
-		docBody.style.backgroundColor =
-			this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
-		docBody.style.color = this.state.colorMode === 'dark' ? '#fff' : '#000';
+		docBody.style.backgroundColor = bgColor;
+		docBody.style.color = color;
 
 		if (this.state.connected === false) {
 			return (
-				<>
+				<Layout
+					toggleColor={this.toggleColorMode}
+					mode={this.state.colorMode}
+					shown={this.state.showRUSure}>
 					<Error404 />
-					<ColorModeToggle
-						toggleColor={this.toggleColorMode}
-						shown={this.state.showRUSure}
-						mode={this.state.colorMode}
-					/>
-				</>
+				</Layout>
 			);
 		}
 
@@ -141,22 +134,14 @@ class Main extends React.Component<any, MainState> {
 				this.checkConnection()
 					.then((res: connectionType) => {
 						this.setState({ connected: res[0] });
-						console.log(
-							'Failed to connect to twitch with error',
-							res[1]
-						);
 					})
 					.catch((res: connectionType) => {
 						this.setState({ connected: res[0] });
+						console.log('Failed to connect to twitch', res[1]);
 					});
 			}
 
-			return (
-				<Loading
-					hidden={false}
-					color={this.state.colorMode === 'dark' ? '#fff' : '#000'}
-				/>
-			);
+			return <Loading hidden={false} color={color} />;
 		}
 
 		window.addEventListener('scroll', () => {
@@ -164,49 +149,28 @@ class Main extends React.Component<any, MainState> {
 		});
 
 		return (
-			<div>
+			<Layout
+				toggleColor={this.toggleColorMode}
+				mode={this.state.colorMode}
+				shown={this.state.showRUSure}>
 				{this.state.userToken && this.state.tokenValid ? (
 					<>
 						{this.state.showRUSure ? (
-							<div
-								className={styles.ruSure}
-								style={{
-									opacity: '100%',
-								}}>
-								<h1
-									style={{
-										opacity: '100%',
-									}}>
-									Are you sure you want to invalidate the
-									Twitch token?{' '}
-								</h1>
-								<ButtonGroup variant='contained'>
-									<Button onClick={this.invalidateToken}>
-										Yes
-									</Button>
-									<Button
-										color='primary'
-										onClick={() =>
-											this.setState({
-												showRUSure: false,
-											})
-										}>
-										No
-									</Button>
-								</ButtonGroup>
-							</div>
+							<InvalidateToken
+								show={() => {
+									document.body.style.overflow = '';
+									this.setState({
+										showRUSure: false,
+									});
+								}}
+								invalidateToken={this.invalidateToken}
+							/>
 						) : (
 							<div>{null}</div>
 						)}
-						<Live
-							color={
-								this.state.colorMode === 'dark'
-									? '#fff'
-									: '#000'
-							}
-						/>
-						<SettingsButton
-							ruSure={this.showRUSure}
+						<Live color={color} />
+						<LogoutButton
+							ruSure={() => this.setState({ showRUSure: true })}
 							shown={this.state.showRUSure}
 							colorMode={this.state.colorMode}
 						/>
@@ -214,12 +178,7 @@ class Main extends React.Component<any, MainState> {
 				) : (
 					<NoAuthPage colorMode={this.state.colorMode} />
 				)}
-				<ColorModeToggle
-					toggleColor={this.toggleColorMode}
-					shown={this.state.showRUSure}
-					mode={this.state.colorMode}
-				/>
-			</div>
+			</Layout>
 		);
 	}
 }

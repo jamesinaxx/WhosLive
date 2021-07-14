@@ -1,8 +1,10 @@
 import React from 'react';
 import styles from '@styles/layout.module.scss';
 import { Button, TextField, Paper } from '@material-ui/core';
-import { getStorage } from '@lib/chromeapi';
+import { getStorage, getChannelInfo } from '@lib/chromeapi';
 import validateToken from '@lib/tokenValid';
+import { client_id } from '@/index';
+import 'regenerator-runtime/runtime';
 
 interface NoAuthState {
 	inputValue: string;
@@ -25,9 +27,11 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 		this.handleChange = this.handleChange.bind(this);
 		this.keyPress = this.keyPress.bind(this);
 		this.validateTokenBased = this.validateTokenBased.bind(this);
+		this.updateChannelsArray = this.updateChannelsArray.bind(this);
 	}
 
 	componentDidMount() {
+		this.updateChannelsArray();
 		getStorage('twitchtoken').then(res => {
 			validateToken(res).then(valid => {
 				this.setState({ inputValue: res, tokenError: !valid });
@@ -58,12 +62,26 @@ export default class NoAuth extends React.Component<NoAuthProps, NoAuthState> {
 		this.setState({ inputValue: event.target.value });
 	}
 
+	async getToken() {
+		return this.state.inputValue || undefined;
+	}
+
+	updateChannelsArray() {
+		const interval = setInterval(() => {
+			if (this.state.tokenError) return;
+
+			getChannelInfo(client_id || '', this.getToken);
+
+			clearInterval(interval);
+		});
+	}
+
 	render() {
 		return (
 			<small className={styles.noAuth}>
 				You are not verified! Please go to{' '}
 				<a
-					href='https://jamesinaxx.me/auth/twitchauth'
+					href='https://nowlive.jamesinaxx.me/auth/'
 					target='_blank'
 					rel='noreferrer'>
 					this page

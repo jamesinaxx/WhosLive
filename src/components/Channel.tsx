@@ -2,8 +2,9 @@ import React from 'react';
 import FastAverageColor from 'fast-average-color';
 import styles from '@styles/channel.module.scss';
 import axios from 'axios';
-import { client_id } from '../index';
-import { getStorage } from '@lib/chromeapi';
+import { client_id } from '@/index';
+import { getStorage, setStorage } from '@lib/chromeapi';
+// import FavoriteButton from '@/components/buttons/FavoriteButton';
 
 interface ChannelProps {
 	online: boolean;
@@ -14,6 +15,7 @@ interface ChannelProps {
 		viewer_count: string;
 		title: string;
 	};
+	fave?: boolean;
 	doneLoading: () => void;
 }
 
@@ -22,6 +24,7 @@ interface ChannelState {
 	color: string;
 	url: string;
 	hidden: boolean;
+	favorite: boolean;
 }
 
 export default class Channel extends React.Component<
@@ -36,6 +39,7 @@ export default class Channel extends React.Component<
 			color: '#000',
 			hidden: true,
 			url: 'https://about:blank',
+			favorite: false,
 		};
 
 		getStorage('twitchtoken').then(token => {
@@ -55,10 +59,14 @@ export default class Channel extends React.Component<
 		});
 
 		this.getColor = this.getColor.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
 	}
 
 	componentDidMount() {
 		this.getColor(this.state.url);
+		// this.setState({
+		// 	favorite: this.props.fave || false,
+		// });
 	}
 
 	getColor(url: string) {
@@ -92,6 +100,46 @@ export default class Channel extends React.Component<
 		return ogTitle;
 	}
 
+	addStreamer() {
+		getStorage('favorites').then((res: string[] | undefined) => {
+			console.log('Old faves', res);
+			const newArray = typeof res === 'object' ? res : [];
+			newArray.push(this.props.data.user_login);
+			setStorage('favorites', newArray);
+		});
+	}
+
+	removeStreamer() {
+		getStorage('favorites').then((res: string[] | undefined) => {
+			console.log('Old faves', res);
+			if (res === undefined) return;
+			else
+				setStorage(
+					'favorites',
+					(() => {
+						const index = res.indexOf(this.props.data.user_login);
+						if (index > -1) {
+							const removed = res;
+							removed.splice(index, 1);
+							return removed;
+						}
+					})()
+				);
+		});
+	}
+
+	toggleFavorite() {
+		if (!this.state.favorite) {
+			this.addStreamer();
+		} else {
+			this.removeStreamer();
+		}
+
+		getStorage('favorites').then(res => console.log(res));
+
+		this.setState({ favorite: !this.state.favorite });
+	}
+
 	render() {
 		const { title, user_name, user_login, viewer_count, game_name } =
 			this.props.data;
@@ -108,16 +156,20 @@ export default class Channel extends React.Component<
 				onMouseLeave={() => (titleElem.hidden = true)}>
 				<div
 					className={styles.channel}
-					onClick={() =>
-						window.open('https://twitch.tv/' + user_login)
-					}
 					style={{
 						backgroundColor: this.state.bgColor,
 						color: this.state.color,
 						boxShadow: '0 0 10px ' + this.state.bgColor,
 					}}>
+					{/* <FavoriteButton
+						favorite={this.state.favorite}
+						setFavorite={this.toggleFavorite}
+					/> */}
 					<img
 						onLoad={() => this.getColor(this.state.url)}
+						onClick={() =>
+							window.open('https://twitch.tv/' + user_login)
+						}
 						src={this.state.url}
 						width={100}
 						height={100}

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setStorage } from './chromeapi';
+import { setStorage } from '@lib/chromeapi';
 
 export default function validateToken(token: string): Promise<boolean> {
 	return new Promise(resolve => {
@@ -11,17 +11,15 @@ export default function validateToken(token: string): Promise<boolean> {
 			})
 			.then(res => {
 				if (
-					!(
-						res.data.scopes.length !== 0 &&
-						!(res.data.scopes.length > 1) &&
-						res.data.scopes[0] === 'user:read:follows' &&
-						res.data.expires_in > 500
-					)
+					res.data.scopes.length !== 0 &&
+					!(res.data.scopes.length > 1) &&
+					res.data.scopes[0] === 'user:read:follows' &&
+					res.data.expires_in > 500
 				) {
-					resolve(false);
-				} else {
 					setStorage('twitchtoken', token);
 					resolve(true);
+				} else {
+					resolve(false);
 				}
 			})
 			.catch(() => {
