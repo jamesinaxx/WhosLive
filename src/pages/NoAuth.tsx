@@ -12,7 +12,7 @@ export default function NoAuth() {
 				rel='noreferrer'>
 				this page
 			</a>{' '}
-			log in with Twitch and then come back here.
+			, log in with Twitch, and then come back here.
 		</small>
 	);
 }
