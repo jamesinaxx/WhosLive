@@ -7,7 +7,13 @@ const result = hash.split('&').reduce((res: any, item) => {
 	return res;
 }, {});
 
-// window.location.hash = '';
+function removeHash() {
+	history.pushState(
+		'',
+		document.title,
+		window.location.pathname + window.location.search
+	);
+}
 
 chrome.runtime.sendMessage(
 	{
@@ -15,7 +21,9 @@ chrome.runtime.sendMessage(
 		token: result.access_token,
 	},
 	(res: [string, boolean]) => {
-		const [_msg, success] = res;
+		const success = res[1];
+
+		removeHash();
 
 		if (authEl !== null && authEl !== undefined && !success) {
 			authEl.innerHTML =
