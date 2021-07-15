@@ -28,20 +28,22 @@ chrome.storage.onChanged.addListener(async () => {
 });
 
 chrome.runtime.onMessage.addListener((message, _sender, res) => {
-	if (typeof message === 'object') {
-		if (message.name !== undefined && message.token !== undefined) {
-			validateToken(message.token).then(isValid => {
-				if (isValid) {
-					res(['Received valid token: ' + message.token, true]);
-				} else {
-					res(['Received invalid token: ' + message.token, false]);
-				}
-			});
-		} else {
-			res(['Received message object: ' + message, false]);
-		}
+	if (
+		typeof message === 'object' &&
+		message.name === 'NowLiveAuthToken' &&
+		typeof message.token === 'string'
+	) {
+		console.log(message.token);
+		validateToken(message.token).then(isValid => {
+			console.log(isValid);
+			if (isValid) {
+				res(['Received valid token: ' + message.token, true]);
+			} else {
+				res(['Received invalid token: ' + message.token, false]);
+			}
+		});
 	} else {
-		res(['Received message object: ' + message, false]);
+		res(['Received invalid message object: ' + message, false]);
 	}
 	return true;
 });
