@@ -27,7 +27,11 @@ chrome.storage.onChanged.addListener(async () =>
 );
 
 chrome.runtime.onMessage.addListener(async message => {
-	console.log(message);
+	if (typeof message === 'object') {
+		if (message.name !== undefined && message.token !== undefined) {
+			setStorage('token', message.token);
+		}
+	}
 });
 
 (async () => {
