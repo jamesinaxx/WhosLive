@@ -1,6 +1,7 @@
 import 'regenerator-runtime/runtime';
 const client_id = process.env.CLIENTID || '';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
+import validateToken from '@/lib/tokenValid';
 
 async function twitchtoken(): Promise<string | undefined> {
 	return new Promise(resolve =>
@@ -29,7 +30,8 @@ chrome.storage.onChanged.addListener(async () =>
 chrome.runtime.onMessage.addListener(async message => {
 	if (typeof message === 'object') {
 		if (message.name !== undefined && message.token !== undefined) {
-			setStorage('token', message.token);
+			console.log(message.token);
+			await validateToken(message.token);
 		}
 	}
 });
