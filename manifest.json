@@ -25,7 +25,7 @@
 			"js": ["webcheck.js"]
 		},
 		{
-			"matches": ["*://nowlive.jamesinaxx.me/auth/*"],
+			"matches": ["*://nowlive.jamesinaxx.me/auth/callback"],
 			"js": ["authcheck.js"]
 		}
 	]

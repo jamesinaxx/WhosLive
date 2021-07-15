@@ -7,7 +7,7 @@ const result = hash.split('&').reduce((res: any, item) => {
 	return res;
 }, {});
 
-console.log(result);
+window.location.hash = '';
 
 const authParent = authEl?.parentElement?.parentElement;
 
