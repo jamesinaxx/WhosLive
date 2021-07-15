@@ -1,20 +1,17 @@
-import axios from 'axios';
 import { setStorage } from '@lib/chromeapi';
 
 export default function validateToken(token: string): Promise<boolean> {
 	return new Promise(resolve => {
-		axios
-			.get('https://id.twitch.tv/oauth2/validate', {
-				headers: {
-					Authorization: `OAuth ${token}`,
-				},
-			})
-			.then(res => {
+		fetch('https://id.twitch.tv/oauth2/validate', {
+			headers: {
+				Authorization: `OAuth ${token}`,
+			},
+		})
+			.then(async resBody => {
+				const res = await resBody.json();
 				if (
-					res.data.scopes.length !== 0 &&
-					!(res.data.scopes.length > 1) &&
-					res.data.scopes[0] === 'user:read:follows' &&
-					res.data.expires_in > 500
+					res.scopes.includes('user:read:follows') &&
+					res.expires_in > 500
 				) {
 					setStorage('twitchtoken', token);
 					resolve(true);
@@ -22,7 +19,8 @@ export default function validateToken(token: string): Promise<boolean> {
 					resolve(false);
 				}
 			})
-			.catch(() => {
+			.catch(err => {
+				console.log(err);
 				resolve(false);
 			});
 	});
