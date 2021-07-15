@@ -2,7 +2,6 @@ import React from 'react';
 import styles from '@styles/error.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import openLink from '@lib/openLink';
 
 const Error404 = () => (
 	<div className={styles.container}>
@@ -21,13 +20,7 @@ const Error404 = () => (
 			<br />
 			If Twitch loads fine, then there is a bug with Now Live. Please
 			report this{' '}
-			<a
-				onClick={event => {
-					openLink(
-						event,
-						'https://github.com/jamesinaxx/NowLive/issues'
-					);
-				}}>
+			<a href='https://github.com/jamesinaxx/NowLive/issues'>
 				here{' '}
 				<FontAwesomeIcon
 					icon={faGithub}

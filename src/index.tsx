@@ -176,7 +176,7 @@ class Main extends React.Component<any, MainState> {
 						/>
 					</>
 				) : (
-					<NoAuthPage colorMode={this.state.colorMode} />
+					<NoAuthPage />
 				)}
 			</Layout>
 		);

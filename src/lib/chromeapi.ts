@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 function setStorage(
 	key: string,
 	value:
@@ -57,16 +55,18 @@ async function getChannelInfo(
 	console.log('Updating channel info');
 	try {
 		const userId = (
-			await axios.get('https://api.twitch.tv/helix/users', {
-				headers: {
-					'Client-Id': client_id,
-					Authorization: 'Bearer ' + (await twitchtoken()),
-				},
-			})
-		).data.data[0].id;
+			await (
+				await fetch('https://api.twitch.tv/helix/users', {
+					headers: {
+						'Client-Id': client_id,
+						Authorization: 'Bearer ' + (await twitchtoken()),
+					},
+				})
+			).json()
+		).data[0].id;
 
-		const resbJson = (
-			await axios.get(
+		const res = await (
+			await fetch(
 				'https://api.twitch.tv/helix/streams/followed?user_id=' +
 					userId,
 				{
@@ -76,31 +76,31 @@ async function getChannelInfo(
 					},
 				}
 			)
-		).data;
+		).json();
 
-		const streamingNow: number = Number(resbJson.data.length.toString());
+		const streamingNow = Number(res.data.length.toString());
 
-		chrome.browserAction.setBadgeText({
-			text: (streamingNow || undefined)?.toString(),
+		chrome.action.setBadgeText({
+			text: streamingNow.toString(),
 		});
 
 		if (streamingNow !== 0) {
 			if (streamingNow > 1) {
-				chrome.browserAction.setTitle({
+				chrome.action.setTitle({
 					title: `There are ${streamingNow} people streaming right now`,
 				});
 			} else {
-				chrome.browserAction.setTitle({
+				chrome.action.setTitle({
 					title: `There is one person streaming right now`,
 				});
 			}
 		} else {
-			chrome.browserAction.setTitle({
+			chrome.action.setTitle({
 				title: `There is nobody streaming right now`,
 			});
 		}
 
-		setStorageLocal('channels', resbJson.data);
+		setStorageLocal('channels', res.data);
 	} catch (error) {
 		console.log(error);
 	}
