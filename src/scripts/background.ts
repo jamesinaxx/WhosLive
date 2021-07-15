@@ -27,21 +27,23 @@ chrome.storage.onChanged.addListener(async () => {
 	getChannelInfo(client_id, twitchtoken);
 });
 
-chrome.runtime.onMessage.addListener(async (message, _sender, res) => {
+chrome.runtime.onMessage.addListener((message, _sender, res) => {
 	if (typeof message === 'object') {
 		if (message.name !== undefined && message.token !== undefined) {
-			const isValid = await validateToken(message.token);
-			if (isValid) {
-				res(['Received valid token: ' + message.token, false]);
-			} else {
-				res(['Received invalid token: ' + message.token, false]);
-			}
+			validateToken(message.token).then(isValid => {
+				if (isValid) {
+					res(['Received valid token: ' + message.token, true]);
+				} else {
+					res(['Received invalid token: ' + message.token, false]);
+				}
+			});
 		} else {
 			res(['Received message object: ' + message, false]);
 		}
 	} else {
 		res(['Received message object: ' + message, false]);
 	}
+	return true;
 });
 
 (async () => {

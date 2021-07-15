@@ -24,6 +24,7 @@ chrome.runtime.sendMessage(
 				? '<h1>Thank you :) Re-open NowLive to start using it</h1>'
 				: '<h1>We tried to send the token, but something went wrong... Please let me know <a href="https://github.com/jamesinaxx/NowLive/issues">here</a></h1>';
 		}
-		console.log(`Received ${msg} in response to message`);
+		console.log(res);
+		console.log(msg);
 	}
 );
