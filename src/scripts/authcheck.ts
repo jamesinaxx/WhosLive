@@ -1,4 +1,4 @@
-const authEl = document.getElementById('NowLiveAuthTokenElement');
+const authEl = document.getElementById('NowLiveAuthText');
 console.log('Initialized content script');
 const hash = window.location.hash.substr(1);
 const result = hash.split('&').reduce((res: any, item) => {
@@ -7,9 +7,7 @@ const result = hash.split('&').reduce((res: any, item) => {
 	return res;
 }, {});
 
-window.location.hash = '';
-
-const authParent = authEl?.parentElement?.parentElement;
+// window.location.hash = '';
 
 chrome.runtime.sendMessage(
 	{
@@ -19,10 +17,9 @@ chrome.runtime.sendMessage(
 	(res: [string, boolean]) => {
 		const [msg, success] = res;
 
-		if (authParent !== null && authParent !== undefined) {
-			authParent.innerHTML = success
-				? '<h1>Thank you :) Re-open NowLive to start using it</h1>'
-				: '<h1>We tried to send the token, but something went wrong... Please let me know <a href="https://github.com/jamesinaxx/NowLive/issues">here</a></h1>';
+		if (authEl !== null && authEl !== undefined && !success) {
+			authEl.innerHTML =
+				'<p style="color: red">We tried to send the token, but something went wrong... Please let me know <a href="https://github.com/jamesinaxx/NowLive/issues" style="color: #05d1d1">here</a></p>';
 		}
 		console.log(res);
 		console.log(msg);
