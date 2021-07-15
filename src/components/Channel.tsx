@@ -70,7 +70,6 @@ export default class Channel extends React.Component<
 	}
 
 	getColor(url: string) {
-		console.log(`Started loading channel: ${this.props.data.user_name}`);
 		const fac = new FastAverageColor();
 
 		if (url === 'https://about:blank') return;
@@ -84,8 +83,6 @@ export default class Channel extends React.Component<
 				});
 			})
 			.catch(e => console.error(e));
-
-		console.log(`Finished loading channel: ${this.props.data.user_name}`);
 
 		this.props.doneLoading();
 	}

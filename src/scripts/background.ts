@@ -33,9 +33,7 @@ chrome.runtime.onMessage.addListener((message, _sender, res) => {
 		message.name === 'NowLiveAuthToken' &&
 		typeof message.token === 'string'
 	) {
-		console.log(message.token);
 		validateToken(message.token).then(isValid => {
-			console.log(isValid);
 			if (isValid) {
 				res(['Received valid token: ' + message.token, true]);
 			} else {
