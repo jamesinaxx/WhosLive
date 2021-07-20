@@ -80,24 +80,18 @@ async function getChannelInfo(
 
 		const streamingNow = Number(res.data.length.toString());
 
-		chrome.action.setBadgeText({
-			text: streamingNow.toString(),
-		});
-
 		if (streamingNow !== 0) {
-			if (streamingNow > 1) {
-				chrome.action.setTitle({
-					title: `There are ${streamingNow} people streaming right now`,
-				});
-			} else {
-				chrome.action.setTitle({
-					title: `There is one person streaming right now`,
-				});
-			}
+			chrome.action.setTitle({
+				title: `There are ${streamingNow} people streaming right now`,
+			});
+			chrome.action.setBadgeText({
+				text: streamingNow.toString(),
+			});
 		} else {
 			chrome.action.setTitle({
 				title: `There is nobody streaming right now`,
 			});
+			chrome.action.setBadgeText({ text: '' });
 		}
 
 		setStorageLocal('channels', res.data);

@@ -11,7 +11,7 @@ export default function NoAuth() {
 				target='_blank'
 				rel='noreferrer'>
 				this page
-			</a>{' '}
+			</a>
 			, log in with Twitch, and then come back here.
 		</small>
 	);
