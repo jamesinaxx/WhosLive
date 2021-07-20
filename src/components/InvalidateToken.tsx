@@ -4,7 +4,7 @@ import { ButtonGroup, Button } from '@material-ui/core';
 
 interface InvalidateTokenProps {
 	show: any;
-	invalidateToken: any;
+	invalidateToken: () => void;
 }
 
 export default function InvalidateToken({
