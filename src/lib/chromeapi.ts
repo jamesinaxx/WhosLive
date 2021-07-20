@@ -1,10 +1,10 @@
-function setStorage(key: string, value: any): void {
+export function setStorage(key: string, value: any): void {
 	chrome.storage.sync.set({ [key]: value }, () => {
 		console.log(`Set ${key} in synced chrome storage`);
 	});
 }
 
-function getStorage(key: string): Promise<any> {
+export function getStorage(key: string): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.sync.get([key], res => {
 			console.log(`Got ${key} from synced chrome storage`);
@@ -13,13 +13,13 @@ function getStorage(key: string): Promise<any> {
 	});
 }
 
-function setStorageLocal(key: string, value: any): void {
+export function setStorageLocal(key: string, value: any): void {
 	chrome.storage.local.set({ [key]: value }, () => {
 		console.log(`Set ${key} in local chrome storage`);
 	});
 }
 
-function getStorageLocal(key: string): Promise<any> {
+export function getStorageLocal(key: string): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.local.get([key], res => {
 			console.log(`Got ${key} from local chrome storage`);
@@ -28,8 +28,15 @@ function getStorageLocal(key: string): Promise<any> {
 	});
 }
 
-async function getChannelInfo(client_id: string) {
+export async function getChannelInfo(client_id: string) {
 	console.log('Updating channel info');
+	if ((await getStorage('twitchtoken')) === undefined) {
+		chrome.action.setTitle({
+			title: `Please verify Now Live`,
+		});
+		chrome.action.setBadgeText({ text: '' });
+		console.log('Token is undefined');
+	}
 	try {
 		const userId = (
 			await (
@@ -79,11 +86,3 @@ async function getChannelInfo(client_id: string) {
 	}
 	console.log('Updated channel info');
 }
-
-export {
-	setStorage,
-	getStorage,
-	setStorageLocal,
-	getStorageLocal,
-	getChannelInfo,
-};
