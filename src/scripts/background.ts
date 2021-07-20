@@ -3,19 +3,6 @@ const client_id = process.env.CLIENTID || '';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
 import validateToken from '@/lib/tokenValid';
 
-async function twitchtoken(): Promise<string | undefined> {
-	return new Promise(resolve =>
-		chrome.storage.sync.get(['twitchtoken'], async res => {
-			if (res.twitchtoken === undefined) {
-				chrome.storage.sync.set({ twitchtoken: undefined });
-				resolve(undefined);
-			} else {
-				resolve(res.twitchtoken);
-			}
-		})
-	);
-}
-
 chrome.alarms.create('NowLiveRefresh', { delayInMinutes: 1 });
 
 chrome.runtime.onInstalled.addListener(async () => {
@@ -24,7 +11,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 chrome.storage.onChanged.addListener(async () => {
-	getChannelInfo(client_id, twitchtoken);
+	getChannelInfo(client_id);
 });
 
 chrome.runtime.onMessage.addListener((message, _sender, res) => {
@@ -47,10 +34,10 @@ chrome.runtime.onMessage.addListener((message, _sender, res) => {
 });
 
 (async () => {
-	getChannelInfo(client_id, twitchtoken);
+	getChannelInfo(client_id);
 	chrome.alarms.onAlarm.addListener(async alarm => {
 		if (alarm.name === 'NowLiveRefresh') {
-			getChannelInfo(client_id, twitchtoken);
+			getChannelInfo(client_id);
 		}
 	});
 })();

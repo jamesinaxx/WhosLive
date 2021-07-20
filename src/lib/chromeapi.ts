@@ -1,14 +1,4 @@
-function setStorage(
-	key: string,
-	value:
-		| string
-		| number
-		| boolean
-		| string[]
-		| number[]
-		| boolean[]
-		| undefined
-): void {
+function setStorage(key: string, value: any): void {
 	chrome.storage.sync.set({ [key]: value }, () => {
 		console.log(`Set ${key} in synced chrome storage`);
 	});
@@ -23,17 +13,7 @@ function getStorage(key: string): Promise<any> {
 	});
 }
 
-function setStorageLocal(
-	key: string,
-	value:
-		| string
-		| number
-		| boolean
-		| string[]
-		| number[]
-		| boolean[]
-		| undefined
-): void {
+function setStorageLocal(key: string, value: any): void {
 	chrome.storage.local.set({ [key]: value }, () => {
 		console.log(`Set ${key} in local chrome storage`);
 	});
@@ -48,10 +28,7 @@ function getStorageLocal(key: string): Promise<any> {
 	});
 }
 
-async function getChannelInfo(
-	client_id: string,
-	twitchtoken: () => Promise<string | undefined>
-) {
+async function getChannelInfo(client_id: string) {
 	console.log('Updating channel info');
 	try {
 		const userId = (
@@ -59,7 +36,8 @@ async function getChannelInfo(
 				await fetch('https://api.twitch.tv/helix/users', {
 					headers: {
 						'Client-Id': client_id,
-						Authorization: 'Bearer ' + (await twitchtoken()),
+						Authorization:
+							'Bearer ' + (await getStorage('twitchtoken')),
 					},
 				})
 			).json()
@@ -72,7 +50,8 @@ async function getChannelInfo(
 				{
 					headers: {
 						'Client-Id': client_id,
-						Authorization: 'Bearer ' + (await twitchtoken()),
+						Authorization:
+							'Bearer ' + (await getStorage('twitchtoken')),
 					},
 				}
 			)
