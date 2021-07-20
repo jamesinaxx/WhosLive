@@ -1,10 +1,10 @@
-export function setStorage(key: string, value: any): void {
+export async function setStorage(key: string, value: any): Promise<void> {
 	chrome.storage.sync.set({ [key]: value }, () => {
 		console.log(`Set ${key} in synced chrome storage`);
 	});
 }
 
-export function getStorage(key: string): Promise<any> {
+export async function getStorage(key: string): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.sync.get([key], res => {
 			console.log(`Got ${key} from synced chrome storage`);
@@ -13,13 +13,13 @@ export function getStorage(key: string): Promise<any> {
 	});
 }
 
-export function setStorageLocal(key: string, value: any): void {
+export async function setStorageLocal(key: string, value: any): Promise<void> {
 	chrome.storage.local.set({ [key]: value }, () => {
 		console.log(`Set ${key} in local chrome storage`);
 	});
 }
 
-export function getStorageLocal(key: string): Promise<any> {
+export async function getStorageLocal(key: string): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.local.get([key], res => {
 			console.log(`Got ${key} from local chrome storage`);
