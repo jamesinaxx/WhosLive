@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import '@styles/global.scss';
 import Live from '@pages/Live';
 import LogoutButton from '@/components/buttons/LogoutButton';
-import { getStorage, setStorage } from '@lib/chromeapi';
+import { getChannelInfo, getStorage, setStorage } from '@lib/chromeapi';
 import NoAuthPage from '@pages/NoAuth';
 import validateToken from '@lib/tokenValid';
 import Loading from '@components/Loading';
@@ -12,7 +12,7 @@ import Error404 from '@pages/404';
 import InvalidateToken from '@components/InvalidateToken';
 import dayjs from 'dayjs';
 import Layout from './components/Layout';
-const client_id = process.env.CLIENTID;
+const client_id = process.env.CLIENTID || '';
 
 interface MainState {
 	userToken: string | undefined;
@@ -82,6 +82,7 @@ class Main extends React.Component<any, MainState> {
 			userToken: undefined,
 			tokenValid: false,
 		});
+		return getChannelInfo(client_id);
 	}
 
 	toggleColorMode() {
