@@ -29,13 +29,14 @@ export function getStorageLocal(key: string): Promise<any> {
 }
 
 export async function getChannelInfo(client_id: string) {
-	console.log('Updating channel info');
-	if ((await getStorage('twitchtoken')) === undefined) {
+	const token = await getStorage('twitchtoken');
+	console.debug('Updating channel info');
+	if (!token) {
 		chrome.action.setTitle({
 			title: `Please verify Now Live`,
 		});
 		chrome.action.setBadgeText({ text: '' });
-		console.log('Token is undefined');
+		return console.debug('Token is undefined');
 	}
 	try {
 		const userId = (
@@ -43,8 +44,7 @@ export async function getChannelInfo(client_id: string) {
 				await fetch('https://api.twitch.tv/helix/users', {
 					headers: {
 						'Client-Id': client_id,
-						Authorization:
-							'Bearer ' + (await getStorage('twitchtoken')),
+						Authorization: 'Bearer ' + token,
 					},
 				})
 			).json()
@@ -57,8 +57,7 @@ export async function getChannelInfo(client_id: string) {
 				{
 					headers: {
 						'Client-Id': client_id,
-						Authorization:
-							'Bearer ' + (await getStorage('twitchtoken')),
+						Authorization: 'Bearer ' + token,
 					},
 				}
 			)
@@ -82,7 +81,7 @@ export async function getChannelInfo(client_id: string) {
 
 		setStorageLocal('channels', res.data);
 	} catch (error) {
-		console.log(error);
+		console.debug(error);
 	}
-	console.log('Updated channel info');
+	console.debug('Updated channel info');
 }

@@ -19,8 +19,7 @@ export default function validateToken(token: string): Promise<boolean> {
 					resolve(false);
 				}
 			})
-			.catch(err => {
-				console.log(err);
+			.catch(() => {
 				resolve(false);
 			});
 	});
