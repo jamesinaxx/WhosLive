@@ -1,3 +1,5 @@
+import { client_id } from '@lib/lib';
+
 export async function setStorage(key: string, value: any): Promise<void> {
 	chrome.storage.sync.set({ [key]: value }, () => {
 		console.log(`Set ${key} in synced chrome storage`);
@@ -28,7 +30,7 @@ export async function getStorageLocal(key: string): Promise<any> {
 	});
 }
 
-export async function getChannelInfo(client_id: string) {
+export async function getChannelInfo() {
 	const token = await getStorage('twitchtoken');
 	console.debug('Updating channel info');
 	if (!token) {

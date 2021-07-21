@@ -1,5 +1,4 @@
 import 'regenerator-runtime/runtime';
-const client_id = process.env.CLIENTID || '';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
 import validateToken from '@/lib/tokenValid';
 
@@ -11,7 +10,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 chrome.storage.onChanged.addListener(async () => {
-	getChannelInfo(client_id);
+	getChannelInfo();
 });
 
 chrome.runtime.onMessage.addListener((message, _sender, res) => {
@@ -34,10 +33,10 @@ chrome.runtime.onMessage.addListener((message, _sender, res) => {
 });
 
 (async () => {
-	getChannelInfo(client_id);
+	getChannelInfo();
 	chrome.alarms.onAlarm.addListener(async alarm => {
 		if (alarm.name === 'NowLiveRefresh') {
-			getChannelInfo(client_id);
+			getChannelInfo();
 		}
 	});
 })();

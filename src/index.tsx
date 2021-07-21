@@ -12,7 +12,7 @@ import Error404 from '@pages/404';
 import InvalidateToken from '@components/InvalidateToken';
 import dayjs from 'dayjs';
 import Layout from './components/Layout';
-const client_id = process.env.CLIENTID || '';
+import { client_id } from '@lib/lib';
 
 interface MainState {
 	userToken: string | undefined;
@@ -82,7 +82,7 @@ class Main extends React.Component<any, MainState> {
 			userToken: undefined,
 			tokenValid: false,
 		});
-		return getChannelInfo(client_id);
+		return getChannelInfo();
 	}
 
 	toggleColorMode() {
@@ -184,6 +184,4 @@ class Main extends React.Component<any, MainState> {
 	}
 }
 
-ReactDOM.render(<Main />, document.getElementById('root'));
-
-export { client_id };
+ReactDOM.render(<Main />, document.body);

@@ -2,7 +2,7 @@ import React from 'react';
 import FastAverageColor from 'fast-average-color';
 import styles from '@styles/channel.module.scss';
 import axios from 'axios';
-import { client_id } from '@/index';
+import { client_id } from '@lib/lib';
 import { getStorage, setStorage } from '@lib/chromeapi';
 // import FavoriteButton from '@/components/buttons/FavoriteButton';
 
@@ -42,47 +42,43 @@ export default class Channel extends React.Component<
 			favorite: false,
 		};
 
-		getStorage('twitchtoken').then(token => {
-			axios
-				.get('https://api.twitch.tv/helix/users', {
-					params: {
-						login: this.props.data.user_name,
-					},
-					headers: {
-						'Client-Id': client_id,
-						Authorization: 'Bearer ' + token,
-					},
-				})
-				.then(res => {
-					this.setState({ url: res.data.data[0].profile_image_url });
-				});
-		});
+		getStorage('twitchtoken').then(async token =>
+			this.setState({
+				url: (
+					await axios.get('https://api.twitch.tv/helix/users', {
+						params: {
+							login: this.props.data.user_name,
+						},
+						headers: {
+							'Client-Id': client_id,
+							Authorization: 'Bearer ' + token,
+						},
+					})
+				).data.data[0].profile_image_url,
+			})
+		);
 
 		this.getColor = this.getColor.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 	}
 
 	componentDidMount() {
-		this.getColor(this.state.url);
 		// this.setState({
 		// 	favorite: this.props.fave || false,
 		// });
 	}
 
-	getColor(url: string) {
+	async getColor(url: string) {
 		const fac = new FastAverageColor();
 
 		if (url === 'https://about:blank') return;
 
-		fac.getColorAsync(url)
-			.then(color => {
-				this.setState({
-					bgColor: color.rgb,
-					color: color.isLight ? '#000' : '#FFF',
-					hidden: false,
-				});
-			})
-			.catch(e => console.error(e));
+		const color = await fac.getColorAsync(url);
+		this.setState({
+			bgColor: color.rgb,
+			color: color.isLight ? '#000' : '#FFF',
+			hidden: false,
+		});
 
 		this.props.doneLoading();
 		return fac.destroy();
@@ -98,7 +94,7 @@ export default class Channel extends React.Component<
 		return ogTitle;
 	}
 
-	addStreamer() {
+	async addStreamer() {
 		getStorage('favorites').then((res: string[] | undefined) => {
 			console.log('Old faves', res);
 			const newArray = typeof res === 'object' ? res : [];
@@ -107,7 +103,7 @@ export default class Channel extends React.Component<
 		});
 	}
 
-	removeStreamer() {
+	async removeStreamer() {
 		getStorage('favorites').then((res: string[] | undefined) => {
 			console.log('Old faves', res);
 			if (res === undefined) return;
@@ -126,7 +122,7 @@ export default class Channel extends React.Component<
 		});
 	}
 
-	toggleFavorite() {
+	async toggleFavorite() {
 		if (!this.state.favorite) {
 			this.addStreamer();
 		} else {
