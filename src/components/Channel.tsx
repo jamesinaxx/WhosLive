@@ -77,7 +77,7 @@ export default class Channel extends React.Component<
 		fac.getColorAsync(url)
 			.then(color => {
 				this.setState({
-					bgColor: color.rgba,
+					bgColor: color.rgb,
 					color: color.isLight ? '#000' : '#FFF',
 					hidden: false,
 				});
@@ -85,12 +85,13 @@ export default class Channel extends React.Component<
 			.catch(e => console.error(e));
 
 		this.props.doneLoading();
+		return fac.destroy();
 	}
 
 	getTitle(ogTitle: string): string {
-		if (ogTitle.length > 24)
+		if (ogTitle.length > 28)
 			return (
-				ogTitle.substring(0, ogTitle.length - (ogTitle.length - 21)) +
+				ogTitle.substring(0, ogTitle.length - (ogTitle.length - 25)) +
 				'...'
 			);
 
