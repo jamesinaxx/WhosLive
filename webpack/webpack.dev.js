@@ -19,7 +19,7 @@ const config = {
 		],
 	},
 	devtool: 'inline-source-map',
-	plugins: [new Dotenv({ path: path.resolve(__dirname, '..', '.dev.env') })],
+	plugins: [new Dotenv({ path: path.resolve(__dirname, '..', '.env.dev') })],
 };
 
 module.exports = merge(common, config);
