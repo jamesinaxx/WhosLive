@@ -53,14 +53,14 @@ class Main extends React.Component<any, MainState> {
 	}
 
 	setColor() {
-		getStorage('mode').then(colorMode => {
+		getStorage('NowLive:Storage:Color').then(colorMode => {
 			this.setState({ colorMode });
 			document.body.className = this.state.colorMode;
 		});
 	}
 
 	validateToken() {
-		getStorage('twitchtoken').then(res =>
+		getStorage('NowLive:Storage:Token').then(res =>
 			validateToken(res).then(valid =>
 				valid
 					? this.setState({ userToken: res, tokenValid: valid })
@@ -70,12 +70,12 @@ class Main extends React.Component<any, MainState> {
 	}
 
 	invalidateToken() {
-		getStorage('twitchtoken').then(token => {
+		getStorage('NowLive:Storage:Token').then(token => {
 			axios.post('https://id.twitch.tv/oauth2/revoke', null, {
 				params: { client_id, token },
 			});
 		});
-		setStorage('twitchtoken', '');
+		setStorage('NowLive:Storage:Token', '');
 		this.validateToken();
 		this.setState({
 			showRUSure: false,
@@ -85,10 +85,13 @@ class Main extends React.Component<any, MainState> {
 		return getChannelInfo();
 	}
 
-	toggleColorMode() {
-		getStorage('mode').then(colorMode => {
-			setStorage('mode', colorMode === 'light' ? 'dark' : 'light');
-		});
+	async toggleColorMode() {
+		setStorage(
+			'NowLive:Storage:Color',
+			(await getStorage('NowLive:Storage:Color')) === 'light'
+				? 'dark'
+				: 'light'
+		);
 	}
 
 	checkConnection(): Promise<connectionType> {

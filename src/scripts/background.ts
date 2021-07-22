@@ -2,7 +2,14 @@ import 'regenerator-runtime/runtime';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
 import validateToken from '@lib/tokenValid';
 
-chrome.alarms.create('NowLiveRefresh', { delayInMinutes: 1 });
+chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
+
+getChannelInfo();
+chrome.alarms.onAlarm.addListener(async alarm => {
+	if (alarm.name === 'NowLive:Refresh') {
+		getChannelInfo();
+	}
+});
 
 chrome.runtime.onInstalled.addListener(async () => {
 	setStorage('mode', 'dark');
@@ -22,14 +29,10 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
 
 	if (
 		typeof message === 'object' &&
-		message.name === 'NowLiveAuthToken' &&
+		message.name === 'NowLive:Storage:Token' &&
 		typeof message.token === 'string'
 	) {
 		validateToken(message.token).then(isValid => {
-			console.log('fdoigjhiufdjgiufdhgiufhgiufdhguidfhgiudfhgi');
-			console.log(sender);
-			console.log(sender.url);
-			console.log();
 			if (isValid) {
 				res(['Received valid token: ' + message.token, true]);
 			} else {
@@ -41,12 +44,3 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
 	}
 	return true;
 });
-
-(async () => {
-	getChannelInfo();
-	chrome.alarms.onAlarm.addListener(async alarm => {
-		if (alarm.name === 'NowLiveRefresh') {
-			getChannelInfo();
-		}
-	});
-})();

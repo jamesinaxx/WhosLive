@@ -13,7 +13,7 @@ export default function validateToken(token: string): Promise<boolean> {
 					res.scopes.includes('user:read:follows') &&
 					res.expires_in > 500
 				) {
-					setStorage('twitchtoken', token);
+					setStorage('NowLive:Storage:Token', token);
 					resolve(true);
 				} else {
 					resolve(false);

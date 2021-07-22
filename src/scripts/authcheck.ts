@@ -17,7 +17,7 @@ history.pushState(
 
 chrome.runtime.sendMessage(
 	{
-		name: 'NowLiveAuthToken',
+		name: 'NowLive:Storage:Token',
 		token: hashResult.access_token,
 	},
 	(res: [string, boolean]) => {

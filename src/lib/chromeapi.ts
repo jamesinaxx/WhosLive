@@ -6,7 +6,9 @@ export async function setStorage(key: string, value: any): Promise<void> {
 	});
 }
 
-export async function getStorage(key: 'twitchtoken' | string): Promise<any> {
+export async function getStorage(
+	key: 'NowLive:Storage:Token' | string
+): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.sync.get([key], res => {
 			console.log(`Got ${key} from synced chrome storage`);
@@ -21,7 +23,9 @@ export async function setStorageLocal(key: string, value: any): Promise<void> {
 	});
 }
 
-export async function getStorageLocal(key: 'channels' | string): Promise<any> {
+export async function getStorageLocal(
+	key: 'NowLive:Storage:Channels' | string
+): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.local.get([key], res => {
 			console.log(`Got ${key} from local chrome storage`);
@@ -31,7 +35,7 @@ export async function getStorageLocal(key: 'channels' | string): Promise<any> {
 }
 
 export async function getChannelInfo() {
-	const token = await getStorage('twitchtoken');
+	const token = await getStorage('NowLive:Storage:Token');
 	console.debug('Updating channel info');
 	if (!token) {
 		chrome.action.setTitle({
@@ -81,7 +85,7 @@ export async function getChannelInfo() {
 			chrome.action.setBadgeText({ text: '' });
 		}
 
-		setStorageLocal('channels', res.data);
+		setStorageLocal('NowLive:Storage:Channels', res.data);
 	} catch (error) {
 		console.error(error);
 	}

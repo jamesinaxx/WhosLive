@@ -33,7 +33,9 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 	}
 
 	async updateChannels() {
-		const allChannels: any[] = await getStorageLocal('channels');
+		const allChannels: any[] = await getStorageLocal(
+			'NowLive:Storage:Channels'
+		);
 		const faveChannels: string[] = await (async () => {
 			const faves = await getStorage('favorites');
 			return allChannels.filter(channel => {
@@ -56,7 +58,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 
 	componentDidMount() {
 		const interval = setInterval(() => {
-			getStorageLocal('channels').then((res: any[]) => {
+			getStorageLocal('NowLive:Storage:Channels').then((res: any[]) => {
 				if (res === undefined) return;
 
 				clearInterval(interval);

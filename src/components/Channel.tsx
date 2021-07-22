@@ -42,7 +42,7 @@ export default class Channel extends React.Component<
 			favorite: false,
 		};
 
-		getStorage('twitchtoken').then(async token =>
+		getStorage('NowLive:Storage:Token').then(async token =>
 			this.setState({
 				url: (
 					await axios.get('https://api.twitch.tv/helix/users', {
