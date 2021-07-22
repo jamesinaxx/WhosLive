@@ -1,9 +1,6 @@
 import React from 'react';
 import FastAverageColor from 'fast-average-color';
 import styles from '@styles/Channel.module.scss';
-import axios from 'axios';
-import { client_id } from '@lib/lib';
-import { getStorage } from '@lib/chromeapi';
 
 interface ChannelProps {
 	online: boolean;
@@ -13,6 +10,7 @@ interface ChannelProps {
 		game_name: string;
 		viewer_count: string;
 		title: string;
+		thumbnail_url: string;
 	};
 	doneLoading: () => void;
 }
@@ -20,7 +18,6 @@ interface ChannelProps {
 interface ChannelState {
 	bgColor: string;
 	color: string;
-	url: string;
 	hidden: boolean;
 }
 
@@ -35,34 +32,19 @@ export default class Channel extends React.Component<
 			bgColor: '#FFF',
 			color: '#000',
 			hidden: true,
-			url: 'https://about:blank',
 		};
-
-		getStorage('NowLive:Storage:Token').then(async token =>
-			this.setState({
-				url: (
-					await axios.get('https://api.twitch.tv/helix/users', {
-						params: {
-							login: this.props.data.user_name,
-						},
-						headers: {
-							'Client-Id': client_id,
-							Authorization: 'Bearer ' + token,
-						},
-					})
-				).data.data[0].profile_image_url,
-			})
-		);
 
 		this.getColor = this.getColor.bind(this);
 	}
 
-	async getColor(url: string) {
+	async getColor() {
 		const fac = new FastAverageColor();
 
-		if (url === 'https://about:blank') return;
-
-		const color = await fac.getColorAsync(url);
+		const color = await fac.getColorAsync(
+			this.props.data.thumbnail_url
+				.replace('{width}', '128')
+				.replace('{height}', '72')
+		);
 		this.setState({
 			bgColor: color.rgb,
 			color: color.isLight ? '#000' : '#FFF',
@@ -97,8 +79,20 @@ export default class Channel extends React.Component<
 	}
 
 	render() {
-		const { title, user_name, user_login, viewer_count, game_name } =
-			this.props.data;
+		const {
+			title,
+			user_name,
+			user_login,
+			viewer_count,
+			game_name,
+			thumbnail_url,
+		} = this.props.data;
+
+		const thumbnailUrl = thumbnail_url
+			.replace('{width}', '128')
+			.replace('{height}', '72');
+
+		console.log(thumbnailUrl);
 
 		return (
 			<div
@@ -114,13 +108,13 @@ export default class Channel extends React.Component<
 						boxShadow: '0 0 10px ' + this.state.bgColor,
 					}}>
 					<img
-						onLoad={() => this.getColor(this.state.url)}
+						onLoad={() => this.getColor()}
 						onClick={() =>
 							window.open('https://twitch.tv/' + user_login)
 						}
-						src={this.state.url}
-						width={100}
-						height={100}
+						src={thumbnailUrl}
+						width={128}
+						height={72}
 					/>
 					<div className={styles.channelInfo}>
 						<h1>{this.getTitle(title)}</h1>
