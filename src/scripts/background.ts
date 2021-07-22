@@ -4,13 +4,6 @@ import validateToken from '@lib/tokenValid';
 
 chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 
-getChannelInfo();
-chrome.alarms.onAlarm.addListener(async alarm => {
-	if (alarm.name === 'NowLive:Refresh') {
-		getChannelInfo();
-	}
-});
-
 chrome.runtime.onInstalled.addListener(async () => {
 	setStorage('mode', 'dark');
 	console.log('Initialized Now Live');
@@ -44,3 +37,15 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
 	}
 	return true;
 });
+
+function init() {
+	console.log('Initialized background script');
+	getChannelInfo();
+	chrome.alarms.onAlarm.addListener(alarm => {
+		if (alarm.name === 'NowLive:Refresh') {
+			getChannelInfo();
+		}
+	});
+}
+
+init();
