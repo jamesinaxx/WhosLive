@@ -83,20 +83,29 @@ export default class Channel extends React.Component<
 		return ogTitle;
 	}
 
+	async toggleTitleShown(enter: boolean) {
+		try {
+			const titleElem = document.getElementById(
+				`titleSpan${this.props.data.user_login}`
+			) as HTMLSpanElement;
+
+			if (enter) titleElem.hidden = false;
+			else titleElem.hidden = true;
+		} catch (e) {
+			console.debug('Fix this james...', e);
+		}
+	}
+
 	render() {
 		const { title, user_name, user_login, viewer_count, game_name } =
 			this.props.data;
-
-		const titleElem = document.getElementById(
-			`titleSpan${user_login}`
-		) as HTMLSpanElement;
 
 		return (
 			<div
 				className={styles.channelDiv}
 				hidden={this.state.hidden}
-				onMouseEnter={() => (titleElem.hidden = false)}
-				onMouseLeave={() => (titleElem.hidden = true)}>
+				onMouseEnter={() => this.toggleTitleShown(true)}
+				onMouseLeave={() => this.toggleTitleShown(false)}>
 				<div
 					className={styles.channel}
 					style={{
