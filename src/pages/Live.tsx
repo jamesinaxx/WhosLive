@@ -31,27 +31,9 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 	}
 
 	async updateChannels() {
-		const allChannels: any[] = await getStorageLocal(
-			'NowLive:Storage:Channels'
-		);
-		const faveChannels: string[] = await (async () => {
-			const faves = await getStorage('favorites');
-			return allChannels.filter(channel => {
-				if (typeof faves === 'object')
-					return faves.includes(channel.user_login);
-				return false;
-			});
-		})();
-		const channels: any[] = await (async () => {
-			const faves = await getStorage('favorites');
-			return allChannels.filter(channel => {
-				if (typeof faves === 'object')
-					return !faves.includes(channel.user_login);
-				return true;
-			});
-		})();
-
-		this.setState({ channels, faveChannels });
+		this.setState({
+			channels: await getStorageLocal('NowLive:Storage:Channels'),
+		});
 	}
 
 	componentDidMount() {
