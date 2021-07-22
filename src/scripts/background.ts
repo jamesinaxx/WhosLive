@@ -1,4 +1,4 @@
-import 'regenerator-runtime/runtime';
+import 'regenerator-runtime';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
 import validateToken from '@lib/tokenValid';
 

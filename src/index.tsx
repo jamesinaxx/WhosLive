@@ -52,34 +52,36 @@ class Main extends React.Component<any, MainState> {
 		});
 	}
 
-	setColor() {
-		getStorage('NowLive:Storage:Color').then(colorMode => {
-			this.setState({ colorMode });
-			document.body.className = this.state.colorMode;
+	async setColor() {
+		const colorMode = await getStorage('NowLive:Storage:Color');
+		this.setState({ colorMode });
+		document.body.className = this.state.colorMode;
+	}
+
+	async validateToken() {
+		const res = await getStorage('NowLive:Storage:Token');
+		const valid = await validateToken(res);
+
+		this.setState({
+			userToken: valid ? res : 'invalid',
+			tokenValid: valid,
 		});
 	}
 
-	validateToken() {
-		getStorage('NowLive:Storage:Token').then(res =>
-			validateToken(res).then(valid =>
-				valid
-					? this.setState({ userToken: res, tokenValid: valid })
-					: this.setState({ userToken: 'invalid', tokenValid: valid })
-			)
-		);
-	}
-
-	invalidateToken() {
-		getStorage('NowLive:Storage:Token').then(token => {
+	async invalidateToken() {
+		const token = await getStorage('NowLive:Storage:Token');
+		try {
 			axios.post('https://id.twitch.tv/oauth2/revoke', null, {
 				params: { client_id, token },
 			});
-		});
-		setStorage('NowLive:Storage:Token', '');
-		this.validateToken();
+			setStorage('NowLive:Storage:Token', '');
+		} catch (error) {
+			console.log(error);
+		}
+
 		this.setState({
 			showRUSure: false,
-			userToken: undefined,
+			userToken: 'invalid',
 			tokenValid: false,
 		});
 		return getChannelInfo();
@@ -94,17 +96,15 @@ class Main extends React.Component<any, MainState> {
 		);
 	}
 
-	checkConnection(): Promise<connectionType> {
-		return new Promise((resolve, reject) => {
-			axios
-				.get('https://twitch.tv', { timeout: 10000 })
-				.catch((error: any) => {
-					reject([false, error]);
-				})
-				.then(res => {
-					resolve([true, res]);
-				});
-		});
+	async checkConnection(): Promise<connectionType> {
+		try {
+			const res = await axios.get('https://twitch.tv', {
+				timeout: 10000,
+			});
+			return [true, res];
+		} catch (error) {
+			return [false, error];
+		}
 	}
 
 	render() {
