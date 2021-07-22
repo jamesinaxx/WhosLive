@@ -27,9 +27,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		this.doneLoading = this.doneLoading.bind(this);
 		this.showChannels = this.showChannels.bind(this);
 
-		chrome.storage.onChanged.addListener(() => {
-			this.updateChannels();
-		});
+		chrome.storage.onChanged.addListener(this.updateChannels);
 	}
 
 	async updateChannels() {
