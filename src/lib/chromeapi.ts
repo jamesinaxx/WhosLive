@@ -83,7 +83,7 @@ export async function getChannelInfo() {
 
 		setStorageLocal('channels', res.data);
 	} catch (error) {
-		console.debug(error);
+		console.error(error);
 	}
 	console.debug('Updated channel info');
 }
