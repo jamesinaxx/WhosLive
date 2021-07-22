@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@styles/error.module.scss';
+import styles from '@styles/Error.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 

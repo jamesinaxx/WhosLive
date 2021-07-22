@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@styles/layout.module.scss';
+import styles from '@styles/Layout.module.scss';
 
 export default function NoAuth() {
 	return (

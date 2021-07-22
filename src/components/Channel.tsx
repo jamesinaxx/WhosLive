@@ -1,6 +1,6 @@
 import React from 'react';
 import FastAverageColor from 'fast-average-color';
-import styles from '@styles/channel.module.scss';
+import styles from '@styles/Channel.module.scss';
 import axios from 'axios';
 import { client_id } from '@lib/lib';
 import { getStorage } from '@lib/chromeapi';

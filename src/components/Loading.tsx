@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@styles/loader.module.scss';
+import styles from '@styles/Loader.module.scss';
 
 interface LoadingProps {
 	color: string;
