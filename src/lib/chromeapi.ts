@@ -6,7 +6,7 @@ export async function setStorage(key: string, value: any): Promise<void> {
 	});
 }
 
-export async function getStorage(key: string): Promise<any> {
+export async function getStorage(key: 'twitchtoken' | string): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.sync.get([key], res => {
 			console.log(`Got ${key} from synced chrome storage`);
@@ -21,7 +21,7 @@ export async function setStorageLocal(key: string, value: any): Promise<void> {
 	});
 }
 
-export async function getStorageLocal(key: string): Promise<any> {
+export async function getStorageLocal(key: 'channels' | string): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.local.get([key], res => {
 			console.log(`Got ${key} from local chrome storage`);
