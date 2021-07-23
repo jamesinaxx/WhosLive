@@ -61,9 +61,9 @@ export default class Channel extends React.Component<
 	}
 
 	getTitle(ogTitle: string): string {
-		if (ogTitle.length > 28)
+		if (ogTitle.length > 25)
 			return (
-				ogTitle.substring(0, ogTitle.length - (ogTitle.length - 25)) +
+				ogTitle.substring(0, ogTitle.length - (ogTitle.length - 22)) +
 				'...'
 			);
 
@@ -131,7 +131,7 @@ export default class Channel extends React.Component<
 					</div>
 				</div>
 				<span hidden={true} id={`titleSpan${user_login}`}>
-					{title.length > 28 ? title : ''}
+					{title.length > 25 ? title : ''}
 				</span>
 			</div>
 		);
