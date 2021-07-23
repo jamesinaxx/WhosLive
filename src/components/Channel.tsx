@@ -69,7 +69,9 @@ export default class Channel extends React.Component<
 		try {
 			const titleElem = document.getElementById(
 				`titleSpan${this.props.data.user_login}`
-			) as HTMLSpanElement;
+			);
+
+			if (titleElem === null) return;
 
 			if (enter) titleElem.hidden = false;
 			else titleElem.hidden = true;
@@ -91,8 +93,6 @@ export default class Channel extends React.Component<
 		const thumbnailUrl = thumbnail_url
 			.replace('{width}', '128')
 			.replace('{height}', '72');
-
-		console.log(thumbnailUrl);
 
 		return (
 			<div
@@ -130,9 +130,9 @@ export default class Channel extends React.Component<
 						</p>
 					</div>
 				</div>
-				{title.length > 24 ? (
+				{title.length > 28 ? (
 					<span hidden={true} id={`titleSpan${user_login}`}>
-						{title}
+						{title.length > 28 ? title : ''}
 					</span>
 				) : (
 					<div />

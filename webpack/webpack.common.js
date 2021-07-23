@@ -45,6 +45,8 @@ const config = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
+			minify: true,
+			inject: false,
 		}),
 		new CopyPlugin({
 			patterns: [
