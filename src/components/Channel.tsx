@@ -45,8 +45,10 @@ export default class Channel extends React.Component<
 				.replace('{width}', '128')
 				.replace('{height}', '72')
 		);
+
 		this.setState({
-			bgColor: color.rgb,
+			bgColor:
+				'rgba' + color.rgb.substring(3, color.rgb.length - 1) + ',0.5)',
 			color: color.isLight ? '#000' : '#FFF',
 		});
 

@@ -47,7 +47,6 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 	}
 
 	doneLoading() {
-		console.log(this.state.doneLoading + 1, this.state.channels?.length);
 		this.setState({ doneLoading: this.state.doneLoading + 1 });
 	}
 
