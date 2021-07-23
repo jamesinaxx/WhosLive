@@ -40,16 +40,20 @@ export default class Channel extends React.Component<
 	async getColor() {
 		const fac = new FastAverageColor();
 
-		const color = await fac.getColorAsync(
+		const facColor = await fac.getColorAsync(
 			this.props.data.thumbnail_url
 				.replace('{width}', '128')
 				.replace('{height}', '72')
 		);
 
+		let bgColor =
+			'rgba' +
+			facColor.rgb.substring(3, facColor.rgb.length - 1) +
+			',0.7)';
+
 		this.setState({
-			bgColor:
-				'rgba' + color.rgb.substring(3, color.rgb.length - 1) + ',0.5)',
-			color: color.isLight ? '#000' : '#FFF',
+			bgColor,
+			color: facColor.isLight ? '#000' : '#FFF',
 		});
 
 		fac.destroy();
