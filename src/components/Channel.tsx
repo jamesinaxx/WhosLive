@@ -74,9 +74,6 @@ export default class Channel extends React.Component<
 		if (titleElem === null) return;
 
 		titleElem.hidden = event.type === 'mouseleave';
-
-		// if (event.type === 'mouseenter') titleElem.hidden = false;
-		// else titleElem.hidden = true;
 	}
 
 	render() {
