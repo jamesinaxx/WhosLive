@@ -1,10 +1,6 @@
 import React from 'react';
 import FastAverageColor from 'fast-average-color';
-import styles from '@styles/channel.module.scss';
-import axios from 'axios';
-import { client_id } from '@/index';
-import { getStorage, setStorage } from '@lib/chromeapi';
-// import FavoriteButton from '@/components/buttons/FavoriteButton';
+import styles from '@styles/Channel.module.scss';
 
 interface ChannelProps {
 	online: boolean;
@@ -14,17 +10,15 @@ interface ChannelProps {
 		game_name: string;
 		viewer_count: string;
 		title: string;
+		thumbnail_url: string;
 	};
-	fave?: boolean;
 	doneLoading: () => void;
 }
 
 interface ChannelState {
 	bgColor: string;
 	color: string;
-	url: string;
 	hidden: boolean;
-	favorite: boolean;
 }
 
 export default class Channel extends React.Component<
@@ -38,119 +32,74 @@ export default class Channel extends React.Component<
 			bgColor: '#FFF',
 			color: '#000',
 			hidden: true,
-			url: 'https://about:blank',
-			favorite: false,
 		};
 
-		getStorage('twitchtoken').then(token => {
-			axios
-				.get('https://api.twitch.tv/helix/users', {
-					params: {
-						login: this.props.data.user_name,
-					},
-					headers: {
-						'Client-Id': client_id,
-						Authorization: 'Bearer ' + token,
-					},
-				})
-				.then(res => {
-					this.setState({ url: res.data.data[0].profile_image_url });
-				});
-		});
-
 		this.getColor = this.getColor.bind(this);
-		this.toggleFavorite = this.toggleFavorite.bind(this);
 	}
 
-	componentDidMount() {
-		this.getColor(this.state.url);
-		// this.setState({
-		// 	favorite: this.props.fave || false,
-		// });
-	}
-
-	getColor(url: string) {
+	async getColor() {
 		const fac = new FastAverageColor();
 
-		if (url === 'https://about:blank') return;
-
-		fac.getColorAsync(url)
-			.then(color => {
-				this.setState({
-					bgColor: color.rgba,
-					color: color.isLight ? '#000' : '#FFF',
-					hidden: false,
-				});
-			})
-			.catch(e => console.error(e));
+		const color = await fac.getColorAsync(
+			this.props.data.thumbnail_url
+				.replace('{width}', '128')
+				.replace('{height}', '72')
+		);
+		this.setState({
+			bgColor: color.rgb,
+			color: color.isLight ? '#000' : '#FFF',
+			hidden: false,
+		});
 
 		this.props.doneLoading();
+		return fac.destroy();
 	}
 
 	getTitle(ogTitle: string): string {
-		if (ogTitle.length > 24)
+		if (ogTitle.length > 28)
 			return (
-				ogTitle.substring(0, ogTitle.length - (ogTitle.length - 21)) +
+				ogTitle.substring(0, ogTitle.length - (ogTitle.length - 25)) +
 				'...'
 			);
 
 		return ogTitle;
 	}
 
-	addStreamer() {
-		getStorage('favorites').then((res: string[] | undefined) => {
-			console.log('Old faves', res);
-			const newArray = typeof res === 'object' ? res : [];
-			newArray.push(this.props.data.user_login);
-			setStorage('favorites', newArray);
-		});
-	}
+	async toggleTitleShown(enter: boolean) {
+		try {
+			const titleElem = document.getElementById(
+				`titleSpan${this.props.data.user_login}`
+			) as HTMLSpanElement;
 
-	removeStreamer() {
-		getStorage('favorites').then((res: string[] | undefined) => {
-			console.log('Old faves', res);
-			if (res === undefined) return;
-			else
-				setStorage(
-					'favorites',
-					(() => {
-						const index = res.indexOf(this.props.data.user_login);
-						if (index > -1) {
-							const removed = res;
-							removed.splice(index, 1);
-							return removed;
-						}
-					})()
-				);
-		});
-	}
-
-	toggleFavorite() {
-		if (!this.state.favorite) {
-			this.addStreamer();
-		} else {
-			this.removeStreamer();
+			if (enter) titleElem.hidden = false;
+			else titleElem.hidden = true;
+		} catch (e) {
+			console.debug('Fix this james...', e);
 		}
-
-		getStorage('favorites').then(res => console.log(res));
-
-		this.setState({ favorite: !this.state.favorite });
 	}
 
 	render() {
-		const { title, user_name, user_login, viewer_count, game_name } =
-			this.props.data;
+		const {
+			title,
+			user_name,
+			user_login,
+			viewer_count,
+			game_name,
+			thumbnail_url,
+		} = this.props.data;
 
-		const titleElem = document.getElementById(
-			`titleSpan${user_login}`
-		) as HTMLSpanElement;
+		const thumbnailUrl = thumbnail_url
+			.replace('{width}', '128')
+			.replace('{height}', '72');
+
+		console.log(thumbnailUrl);
 
 		return (
 			<div
 				className={styles.channelDiv}
 				hidden={this.state.hidden}
-				onMouseEnter={() => (titleElem.hidden = false)}
-				onMouseLeave={() => (titleElem.hidden = true)}>
+				onMouseEnter={() => this.toggleTitleShown(true)}
+				onMouseLeave={() => this.toggleTitleShown(false)}>
 				<div
 					className={styles.channel}
 					style={{
@@ -158,18 +107,14 @@ export default class Channel extends React.Component<
 						color: this.state.color,
 						boxShadow: '0 0 10px ' + this.state.bgColor,
 					}}>
-					{/* <FavoriteButton
-						favorite={this.state.favorite}
-						setFavorite={this.toggleFavorite}
-					/> */}
 					<img
-						onLoad={() => this.getColor(this.state.url)}
+						onLoad={() => this.getColor()}
 						onClick={() =>
 							window.open('https://twitch.tv/' + user_login)
 						}
-						src={this.state.url}
-						width={100}
-						height={100}
+						src={thumbnailUrl}
+						width={128}
+						height={72}
 					/>
 					<div className={styles.channelInfo}>
 						<h1>{this.getTitle(title)}</h1>

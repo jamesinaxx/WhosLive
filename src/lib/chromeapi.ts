@@ -1,20 +1,14 @@
-function setStorage(
-	key: string,
-	value:
-		| string
-		| number
-		| boolean
-		| string[]
-		| number[]
-		| boolean[]
-		| undefined
-): void {
+import { client_id } from '@lib/lib';
+
+export async function setStorage(key: string, value: any): Promise<void> {
 	chrome.storage.sync.set({ [key]: value }, () => {
 		console.log(`Set ${key} in synced chrome storage`);
 	});
 }
 
-function getStorage(key: string): Promise<any> {
+export async function getStorage(
+	key: 'NowLive:Storage:Token' | string
+): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.sync.get([key], res => {
 			console.log(`Got ${key} from synced chrome storage`);
@@ -23,23 +17,15 @@ function getStorage(key: string): Promise<any> {
 	});
 }
 
-function setStorageLocal(
-	key: string,
-	value:
-		| string
-		| number
-		| boolean
-		| string[]
-		| number[]
-		| boolean[]
-		| undefined
-): void {
+export async function setStorageLocal(key: string, value: any): Promise<void> {
 	chrome.storage.local.set({ [key]: value }, () => {
 		console.log(`Set ${key} in local chrome storage`);
 	});
 }
 
-function getStorageLocal(key: string): Promise<any> {
+export async function getStorageLocal(
+	key: 'NowLive:Storage:Channels' | string
+): Promise<any> {
 	return new Promise(resolve => {
 		chrome.storage.local.get([key], res => {
 			console.log(`Got ${key} from local chrome storage`);
@@ -48,18 +34,23 @@ function getStorageLocal(key: string): Promise<any> {
 	});
 }
 
-async function getChannelInfo(
-	client_id: string,
-	twitchtoken: () => Promise<string | undefined>
-) {
-	console.log('Updating channel info');
+export async function getChannelInfo() {
+	const token = await getStorage('NowLive:Storage:Token');
+	console.debug('Updating channel info');
+	if (!token) {
+		chrome.action.setTitle({
+			title: `Please verify Now Live`,
+		});
+		chrome.action.setBadgeText({ text: '' });
+		return console.debug('Token is undefined');
+	}
 	try {
 		const userId = (
 			await (
 				await fetch('https://api.twitch.tv/helix/users', {
 					headers: {
 						'Client-Id': client_id,
-						Authorization: 'Bearer ' + (await twitchtoken()),
+						Authorization: 'Bearer ' + token,
 					},
 				})
 			).json()
@@ -72,7 +63,7 @@ async function getChannelInfo(
 				{
 					headers: {
 						'Client-Id': client_id,
-						Authorization: 'Bearer ' + (await twitchtoken()),
+						Authorization: 'Bearer ' + token,
 					},
 				}
 			)
@@ -94,17 +85,9 @@ async function getChannelInfo(
 			chrome.action.setBadgeText({ text: '' });
 		}
 
-		setStorageLocal('channels', res.data);
+		setStorageLocal('NowLive:Storage:Channels', res.data);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 	}
-	console.log('Updated channel info');
+	console.debug('Updated channel info');
 }
-
-export {
-	setStorage,
-	getStorage,
-	setStorageLocal,
-	getStorageLocal,
-	getChannelInfo,
-};

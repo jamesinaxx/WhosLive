@@ -4,20 +4,6 @@
 	background: none;
 	position: relative;
 	.channel {
-		.faveButton {
-			position: absolute;
-			border: none;
-			background: none;
-			cursor: pointer;
-			right: 10px;
-			top: 10px;
-			.faveIcon {
-				width: 1.5em;
-				height: 1.5em;
-				color: #ffd700;
-				transition: transform 100ms ease-in-out;
-			}
-		}
 		user-select: none;
 		padding: 10px;
 		img {
@@ -40,7 +26,7 @@
 		}
 		border-radius: 15px;
 		width: 90vw;
-		height: 120px;
+		height: 92px;
 		margin: 10px;
 	}
 }

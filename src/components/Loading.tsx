@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@styles/loader.module.scss';
+import styles from '@styles/Loader.module.scss';
 
 interface LoadingProps {
 	color: string;
@@ -14,7 +14,7 @@ export default function Loading({ color, hidden }: LoadingProps) {
 	const circles: string[] = new Array(8).fill('');
 
 	return (
-		<>
+		<div>
 			<style>{`.lds_rollerDivs div:after {
 				background: ${color};
 			}`}</style>
@@ -29,6 +29,6 @@ export default function Loading({ color, hidden }: LoadingProps) {
 					))}
 				</div>
 			)}
-		</>
+		</div>
 	);
 }

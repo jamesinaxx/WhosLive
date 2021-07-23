@@ -1,22 +1,8 @@
-import 'regenerator-runtime/runtime';
-const client_id = process.env.CLIENTID || '';
+import 'regenerator-runtime';
 import { setStorage, getChannelInfo } from '@lib/chromeapi';
-import validateToken from '@/lib/tokenValid';
+import validateToken from '@lib/tokenValid';
 
-async function twitchtoken(): Promise<string | undefined> {
-	return new Promise(resolve =>
-		chrome.storage.sync.get(['twitchtoken'], async res => {
-			if (res.twitchtoken === undefined) {
-				chrome.storage.sync.set({ twitchtoken: undefined });
-				resolve(undefined);
-			} else {
-				resolve(res.twitchtoken);
-			}
-		})
-	);
-}
-
-chrome.alarms.create('NowLiveRefresh', { delayInMinutes: 1 });
+chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 
 chrome.runtime.onInstalled.addListener(async () => {
 	setStorage('mode', 'dark');
@@ -24,13 +10,19 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 chrome.storage.onChanged.addListener(async () => {
-	getChannelInfo(client_id, twitchtoken);
+	getChannelInfo();
 });
 
-chrome.runtime.onMessage.addListener((message, _sender, res) => {
+chrome.runtime.onMessage.addListener((message, sender, res) => {
+	if (
+		sender.url?.split('#')[0] !==
+		'https://nowlive.jamesinaxx.me/auth/callback'
+	)
+		return;
+
 	if (
 		typeof message === 'object' &&
-		message.name === 'NowLiveAuthToken' &&
+		message.name === 'NowLive:Storage:Token' &&
 		typeof message.token === 'string'
 	) {
 		validateToken(message.token).then(isValid => {
@@ -46,11 +38,14 @@ chrome.runtime.onMessage.addListener((message, _sender, res) => {
 	return true;
 });
 
-(async () => {
-	getChannelInfo(client_id, twitchtoken);
-	chrome.alarms.onAlarm.addListener(async alarm => {
-		if (alarm.name === 'NowLiveRefresh') {
-			getChannelInfo(client_id, twitchtoken);
+function init() {
+	console.log('Initialized background script');
+	getChannelInfo();
+	chrome.alarms.onAlarm.addListener(alarm => {
+		if (alarm.name === 'NowLive:Refresh') {
+			getChannelInfo();
 		}
 	});
-})();
+}
+
+init();

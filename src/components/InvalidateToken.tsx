@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from '@styles/layout.module.scss';
+import styles from '@styles/Layout.module.scss';
 import { ButtonGroup, Button } from '@material-ui/core';
 
 interface InvalidateTokenProps {
 	show: any;
-	invalidateToken: any;
+	invalidateToken: () => void;
 }
 
 export default function InvalidateToken({

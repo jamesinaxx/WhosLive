@@ -32,6 +32,8 @@
 		"semi": ["error", "always"],
 		"no-unused-vars": ["warn"],
 		"space-before-function-paren": ["off", "never"],
-		"no-mixed-spaces-and-tabs": ["warn", "smart-tabs"]
+		"no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
+		"no-redeclare": "off",
+		"@typescript-eslint/no-redeclare": ["error"]
 	}
 }

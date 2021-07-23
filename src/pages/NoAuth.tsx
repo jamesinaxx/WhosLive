@@ -1,6 +1,5 @@
 import React from 'react';
-import styles from '@styles/layout.module.scss';
-import 'regenerator-runtime/runtime';
+import styles from '@styles/Layout.module.scss';
 
 export default function NoAuth() {
 	return (

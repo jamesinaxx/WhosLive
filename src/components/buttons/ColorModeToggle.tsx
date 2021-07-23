@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@styles/layout.module.scss';
+import styles from '@styles/Layout.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-regular-svg-icons';
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import '@styles/global.scss';
 import Live from '@pages/Live';
 import LogoutButton from '@/components/buttons/LogoutButton';
-import { getStorage, setStorage } from '@lib/chromeapi';
+import { getChannelInfo, getStorage, setStorage } from '@lib/chromeapi';
 import NoAuthPage from '@pages/NoAuth';
 import validateToken from '@lib/tokenValid';
 import Loading from '@components/Loading';
@@ -12,7 +12,7 @@ import Error404 from '@pages/404';
 import InvalidateToken from '@components/InvalidateToken';
 import dayjs from 'dayjs';
 import Layout from './components/Layout';
-const client_id = process.env.CLIENTID;
+import { client_id } from '@lib/lib';
 
 interface MainState {
 	userToken: string | undefined;
@@ -52,55 +52,59 @@ class Main extends React.Component<any, MainState> {
 		});
 	}
 
-	setColor() {
-		getStorage('mode').then(colorMode => {
-			this.setState({ colorMode });
-			document.body.className = this.state.colorMode;
+	async setColor() {
+		const colorMode = await getStorage('NowLive:Storage:Color');
+		this.setState({ colorMode });
+		document.body.className = this.state.colorMode;
+	}
+
+	async validateToken() {
+		const res = await getStorage('NowLive:Storage:Token');
+		const valid = await validateToken(res);
+
+		this.setState({
+			userToken: valid ? res : 'invalid',
+			tokenValid: valid,
 		});
 	}
 
-	validateToken() {
-		getStorage('twitchtoken').then(res =>
-			validateToken(res).then(valid =>
-				valid
-					? this.setState({ userToken: res, tokenValid: valid })
-					: this.setState({ userToken: 'invalid', tokenValid: valid })
-			)
-		);
-	}
-
-	invalidateToken() {
-		getStorage('twitchtoken').then(token => {
+	async invalidateToken() {
+		const token = await getStorage('NowLive:Storage:Token');
+		try {
 			axios.post('https://id.twitch.tv/oauth2/revoke', null, {
 				params: { client_id, token },
 			});
-		});
-		setStorage('twitchtoken', '');
-		this.validateToken();
+			setStorage('NowLive:Storage:Token', '');
+		} catch (error) {
+			console.log(error);
+		}
+
 		this.setState({
 			showRUSure: false,
-			userToken: undefined,
+			userToken: 'invalid',
 			tokenValid: false,
 		});
+		return getChannelInfo();
 	}
 
-	toggleColorMode() {
-		getStorage('mode').then(colorMode => {
-			setStorage('mode', colorMode === 'light' ? 'dark' : 'light');
-		});
+	async toggleColorMode() {
+		setStorage(
+			'NowLive:Storage:Color',
+			(await getStorage('NowLive:Storage:Color')) === 'light'
+				? 'dark'
+				: 'light'
+		);
 	}
 
-	checkConnection(): Promise<connectionType> {
-		return new Promise((resolve, reject) => {
-			axios
-				.get('https://twitch.tv', { timeout: 10000 })
-				.catch((error: any) => {
-					reject([false, error]);
-				})
-				.then(res => {
-					resolve([true, res]);
-				});
-		});
+	async checkConnection(): Promise<connectionType> {
+		try {
+			const res = await axios.get('https://twitch.tv', {
+				timeout: 10000,
+			});
+			return [true, res];
+		} catch (error) {
+			return [false, error];
+		}
 	}
 
 	render() {
@@ -183,6 +187,4 @@ class Main extends React.Component<any, MainState> {
 	}
 }
 
-ReactDOM.render(<Main />, document.getElementById('root'));
-
-export { client_id };
+ReactDOM.render(<Main />, document.body);
