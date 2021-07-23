@@ -44,7 +44,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		});
 	}
 
-	async doneLoading() {
+	doneLoading() {
 		this.setState({ loading: false });
 	}
 
