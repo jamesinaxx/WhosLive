@@ -13,12 +13,12 @@ interface ChannelProps {
 		thumbnail_url: string;
 	};
 	doneLoading: () => void;
+	hidden: boolean;
 }
 
 interface ChannelState {
 	bgColor: string;
 	color: string;
-	hidden: boolean;
 }
 
 export default class Channel extends React.Component<
@@ -31,7 +31,6 @@ export default class Channel extends React.Component<
 		this.state = {
 			bgColor: '#FFF',
 			color: '#000',
-			hidden: true,
 		};
 
 		this.getColor = this.getColor.bind(this);
@@ -49,11 +48,10 @@ export default class Channel extends React.Component<
 		this.setState({
 			bgColor: color.rgb,
 			color: color.isLight ? '#000' : '#FFF',
-			hidden: false,
 		});
 
-		this.props.doneLoading();
-		return fac.destroy();
+		fac.destroy();
+		return this.props.doneLoading();
 	}
 
 	getTitle(ogTitle: string): string {
@@ -93,7 +91,7 @@ export default class Channel extends React.Component<
 		return (
 			<div
 				className={styles.channelDiv}
-				hidden={this.state.hidden}
+				hidden={this.props.hidden}
 				onMouseEnter={this.toggleTitleShown}
 				onMouseLeave={this.toggleTitleShown}>
 				<div
