@@ -13,12 +13,12 @@ interface ChannelProps {
 		thumbnail_url: string;
 	};
 	doneLoading: () => void;
+	hidden: boolean;
 }
 
 interface ChannelState {
 	bgColor: string;
 	color: string;
-	hidden: boolean;
 }
 
 export default class Channel extends React.Component<
@@ -31,51 +31,53 @@ export default class Channel extends React.Component<
 		this.state = {
 			bgColor: '#FFF',
 			color: '#000',
-			hidden: true,
 		};
 
 		this.getColor = this.getColor.bind(this);
+		this.toggleTitleShown = this.toggleTitleShown.bind(this);
 	}
 
 	async getColor() {
 		const fac = new FastAverageColor();
 
-		const color = await fac.getColorAsync(
+		const facColor = await fac.getColorAsync(
 			this.props.data.thumbnail_url
 				.replace('{width}', '128')
 				.replace('{height}', '72')
 		);
+
+		let bgColor =
+			'rgba' +
+			facColor.rgb.substring(3, facColor.rgb.length - 1) +
+			',0.7)';
+
 		this.setState({
-			bgColor: color.rgb,
-			color: color.isLight ? '#000' : '#FFF',
-			hidden: false,
+			bgColor,
+			color: facColor.isLight ? '#000' : '#FFF',
 		});
 
-		this.props.doneLoading();
-		return fac.destroy();
+		fac.destroy();
+		return this.props.doneLoading();
 	}
 
 	getTitle(ogTitle: string): string {
-		if (ogTitle.length > 28)
+		if (ogTitle.length > 25)
 			return (
-				ogTitle.substring(0, ogTitle.length - (ogTitle.length - 25)) +
+				ogTitle.substring(0, ogTitle.length - (ogTitle.length - 22)) +
 				'...'
 			);
 
 		return ogTitle;
 	}
 
-	async toggleTitleShown(enter: boolean) {
-		try {
-			const titleElem = document.getElementById(
-				`titleSpan${this.props.data.user_login}`
-			) as HTMLSpanElement;
+	toggleTitleShown(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+		const titleElem = document.getElementById(
+			`titleSpan${this.props.data.user_login}`
+		);
 
-			if (enter) titleElem.hidden = false;
-			else titleElem.hidden = true;
-		} catch (e) {
-			console.debug('Fix this james...', e);
-		}
+		if (titleElem === null) return;
+
+		titleElem.hidden = event.type === 'mouseleave';
 	}
 
 	render() {
@@ -92,14 +94,12 @@ export default class Channel extends React.Component<
 			.replace('{width}', '128')
 			.replace('{height}', '72');
 
-		console.log(thumbnailUrl);
-
 		return (
 			<div
 				className={styles.channelDiv}
-				hidden={this.state.hidden}
-				onMouseEnter={() => this.toggleTitleShown(true)}
-				onMouseLeave={() => this.toggleTitleShown(false)}>
+				hidden={this.props.hidden}
+				onMouseEnter={this.toggleTitleShown}
+				onMouseLeave={this.toggleTitleShown}>
 				<div
 					className={styles.channel}
 					style={{
@@ -130,13 +130,9 @@ export default class Channel extends React.Component<
 						</p>
 					</div>
 				</div>
-				{title.length > 24 ? (
-					<span hidden={true} id={`titleSpan${user_login}`}>
-						{title}
-					</span>
-				) : (
-					<div />
-				)}
+				<span hidden={true} id={`titleSpan${user_login}`}>
+					{title.length > 25 ? title : ''}
+				</span>
 			</div>
 		);
 	}

@@ -36,6 +36,7 @@ export async function getStorageLocal(
 
 export async function getChannelInfo() {
 	const token = await getStorage('NowLive:Storage:Token');
+	console.log('Token:', token);
 	console.debug('Updating channel info');
 	if (!token) {
 		chrome.action.setTitle({

@@ -10,22 +10,24 @@ interface LiveProps {
 }
 
 interface LiveState {
-	channels: any[] | null;
-	loading: boolean;
+	channels: any[] | null | undefined;
+	doneLoading: number;
 }
 
 export default class Live extends React.Component<LiveProps, LiveState> {
 	constructor(props: any) {
 		super(props);
+
 		this.state = {
 			channels: null,
-			loading: true,
+			doneLoading: 0,
 		};
 
 		this.doneLoading = this.doneLoading.bind(this);
 		this.showChannels = this.showChannels.bind(this);
 
 		chrome.storage.onChanged.addListener(this.updateChannels);
+		this.updateChannels;
 	}
 
 	componentDidMount() {
@@ -44,12 +46,12 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		});
 	}
 
-	async doneLoading() {
-		this.setState({ loading: false });
+	doneLoading() {
+		this.setState({ doneLoading: this.state.doneLoading + 1 });
 	}
 
 	showChannels() {
-		if (this.state.channels === null) {
+		if (this.state.channels === null || this.state.channels === undefined) {
 			this.updateChannels();
 			return <Loading hidden={false} color={this.props.color} />;
 		}
@@ -68,7 +70,9 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 		return (
 			<div>
 				<Loading
-					hidden={!this.state.loading}
+					hidden={
+						this.state.doneLoading === this.state.channels.length
+					}
 					color={this.props.color}
 				/>
 				{this.state.channels.map((channelData, i) => (
@@ -76,7 +80,12 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 						key={i}
 						online
 						data={channelData}
-						doneLoading={() => this.doneLoading()}
+						/* I really shouldn't have to cast but here we are */
+						hidden={
+							this.state.doneLoading !==
+							(this.state.channels as any[]).length
+						}
+						doneLoading={this.doneLoading}
 					/>
 				))}
 				<div
