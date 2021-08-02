@@ -1,5 +1,5 @@
 import 'regenerator-runtime';
-import { setStorage, getChannelInfo, getStorage } from '@lib/chromeapi';
+import { setStorage, getChannelInfo } from '@lib/chromeapi';
 import validateToken from '@lib/tokenValid';
 
 chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
@@ -43,7 +43,6 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
 async function init() {
 	console.log('Initialized background script');
 	getChannelInfo();
-	console.log(await getStorage('NowLive:Storage:Color'));
 	chrome.alarms.onAlarm.addListener(alarm => {
 		if (alarm.name === 'NowLive:Refresh') {
 			getChannelInfo();
