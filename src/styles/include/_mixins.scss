@@ -3,41 +3,41 @@ $buttonHover: darken($buttonColor, 5%);
 $buttonClicked: darken($buttonColor, 10%);
 
 @mixin control-button($left) {
-	color: #fff;
-	transition: all 100ms ease-in-out;
-	width: 30px;
-	height: 30px;
-	position: fixed;
-	top: 5px;
-	left: $left;
-	background-color: $buttonColor;
-	box-shadow: 0 0 10px $buttonColor;
-	border-radius: 5px;
-	border: 5px #000;
-	text-align: center;
-	padding: 5px;
-	&:hover {
-		background-color: $buttonHover;
-		box-shadow: 0 0 10px $buttonHover;
-		transform: scale(105%);
-	}
-	&:active {
-		background-color: $buttonClicked;
-		box-shadow: 0 0 10px $buttonClicked;
-		transform: scale(105%);
-	}
-	svg {
-		transition: color 100ms ease-in-out;
-		transition: opacity 100ms ease-in-out;
-	}
+  color: #fff;
+  transition: all 100ms ease-in-out;
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  top: 5px;
+  left: $left;
+  background-color: $buttonColor;
+  box-shadow: 0 0 10px $buttonColor;
+  border-radius: 5px;
+  border: 5px #000;
+  text-align: center;
+  padding: 5px;
+  &:hover {
+    background-color: $buttonHover;
+    box-shadow: 0 0 10px $buttonHover;
+    transform: scale(105%);
+  }
+  &:active {
+    background-color: $buttonClicked;
+    box-shadow: 0 0 10px $buttonClicked;
+    transform: scale(105%);
+  }
+  svg {
+    transition: color 100ms ease-in-out;
+    transition: opacity 100ms ease-in-out;
+  }
 }
 
 @mixin smolText() {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: xx-large;
-	color: rgb(179, 179, 179);
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: xx-large;
+  color: rgb(179, 179, 179);
 }

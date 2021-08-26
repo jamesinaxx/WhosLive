@@ -1,95 +1,103 @@
 import 'regenerator-runtime';
 import React from 'react';
-import styles from '@styles/Layout.module.scss';
-import Channel from '@components/Channel';
-import { getStorageLocal } from '@lib/chromeapi';
-import Loading from '@components/Loading';
+import styles from '../styles/Layout.module.scss';
+import Channel from '../components/Channel';
+import { getStorageLocal } from '../lib/chromeapi';
+import Loading from '../components/Loading';
 
 interface LiveProps {
-	color: string;
+  color: string;
 }
 
 interface LiveState {
-	channels: any[] | null;
-	loading: boolean;
+  channels: any[] | null | undefined;
+  doneLoading: number;
 }
 
 export default class Live extends React.Component<LiveProps, LiveState> {
-	constructor(props: any) {
-		super(props);
-		this.state = {
-			channels: null,
-			loading: true,
-		};
+  constructor(props: any) {
+    super(props);
 
-		this.doneLoading = this.doneLoading.bind(this);
-		this.showChannels = this.showChannels.bind(this);
+    this.state = {
+      channels: null,
+      doneLoading: 0,
+    };
 
-		chrome.storage.onChanged.addListener(this.updateChannels);
-	}
+    this.doneLoading = this.doneLoading.bind(this);
+    this.showChannels = this.showChannels.bind(this);
+    this.updateChannels = this.updateChannels.bind(this);
 
-	componentDidMount() {
-		const interval = setInterval(() => {
-			getStorageLocal('NowLive:Storage:Channels').then((res: any[]) => {
-				if (res === undefined) return;
-				clearInterval(interval);
-				this.setState({ channels: res });
-			});
-		}, 1000);
-	}
+    chrome.storage.onChanged.addListener(this.updateChannels);
+    this.updateChannels();
+  }
 
-	async updateChannels() {
-		this.setState({
-			channels: await getStorageLocal('NowLive:Storage:Channels'),
-		});
-	}
+  componentDidMount() {
+    const interval = setInterval(() => {
+      getStorageLocal('NowLive:Storage:Channels').then((res: any[]) => {
+        if (res === undefined) return;
+        clearInterval(interval);
+        this.setState({ channels: res });
+      });
+    }, 1000);
+  }
 
-	async doneLoading() {
-		this.setState({ loading: false });
-	}
+  async updateChannels() {
+    this.setState({
+      channels: await getStorageLocal('NowLive:Storage:Channels'),
+    });
+  }
 
-	showChannels() {
-		if (this.state.channels === null) {
-			this.updateChannels();
-			return <Loading hidden={false} color={this.props.color} />;
-		}
+  doneLoading() {
+    this.setState(oldState => ({ doneLoading: oldState.doneLoading + 1 }));
+  }
 
-		if (this.state.channels.length === 0) {
-			return (
-				<small className={styles.goFollow}>
-					You do not follow anybody who is currently live
-					<img
-						src='https://cdn.frankerfacez.com/emoticon/425196/4' /* Sadge emote from FFZ */
-					/>
-				</small>
-			);
-		}
+  showChannels() {
+    if (this.state.channels === null || this.state.channels === undefined) {
+      this.updateChannels();
+      return <Loading hidden={false} color={this.props.color} />;
+    }
 
-		return (
-			<div>
-				<Loading
-					hidden={!this.state.loading}
-					color={this.props.color}
-				/>
-				{this.state.channels.map((channelData, i) => (
-					<Channel
-						key={i}
-						online
-						data={channelData}
-						doneLoading={() => this.doneLoading()}
-					/>
-				))}
-				<div
-					/* Placeholder so the channel cards don't flow beyond the viewport */
-					style={{
-						height: '5px',
-					}}
-				/>
-			</div>
-		);
-	}
+    if (this.state.channels.length === 0) {
+      return (
+        <small className={styles.goFollow}>
+          You do not follow anybody who is currently live
+          <img
+            src="https://cdn.frankerfacez.com/emoticon/425196/4"
+            alt="Sadge Emote from FFZ"
+          />
+        </small>
+      );
+    }
 
-	render() {
-		return <div className={styles.main}>{this.showChannels()}</div>;
-	}
+    return (
+      <div>
+        <Loading
+          hidden={this.state.doneLoading === this.state.channels.length}
+          color={this.props.color}
+        />
+        {this.state.channels.map(channelData => (
+          <Channel
+            online
+            key={channelData.id}
+            data={channelData}
+            /* I really shouldn't have to cast but here we are */
+            hidden={
+              this.state.doneLoading !== (this.state.channels as any[]).length
+            }
+            doneLoading={this.doneLoading}
+          />
+        ))}
+        <div
+          /* Placeholder so the channel cards don't flow beyond the viewport */
+          style={{
+            height: '5px',
+          }}
+        />
+      </div>
+    );
+  }
+
+  render() {
+    return <div className={styles.main}>{this.showChannels()}</div>;
+  }
 }
