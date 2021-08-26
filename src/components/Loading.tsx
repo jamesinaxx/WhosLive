@@ -1,31 +1,30 @@
 import React from 'react';
-import styles from '@styles/Loader.module.scss';
+import styles from '../styles/Loader.module.scss';
 
 interface LoadingProps {
-  color: string;
+  // color: string;
   hidden: boolean;
 }
 
-export default function Loading({ color, hidden }: LoadingProps) {
+export default function Loading({ hidden }: LoadingProps) {
   const docBody = document.querySelector('body') as HTMLBodyElement;
 
-  color = docBody.style.color;
+  const bodyColor = docBody.style.color;
 
   const circles: string[] = new Array(8).fill('');
 
   return (
     <div>
-      <style>{`.lds_rollerDivs div:after {
-				background: ${color};
-			}`}</style>
+      <style>{`.lds_rollerDivs div:after {background: ${bodyColor};}`}</style>
       {hidden ? (
         <div>{null}</div>
       ) : (
         <div
-          className={styles.lds_roller + ' lds_rollerDivs'}
-          id='loadingChannels'>
-          {circles.map((_val, i) => (
-            <div key={i} />
+          className={`${styles.lds_roller} lds_rollerDivs`}
+          id="loadingChannels"
+        >
+          {circles.map(() => (
+            <div />
           ))}
         </div>
       )}

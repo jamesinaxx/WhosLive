@@ -3,14 +3,6 @@
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "strict": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@styles/*": ["src/styles/*"],
-      "@lib/*": ["src/lib/*"],
-      "@pages/*": ["src/pages/*"],
-      "@public/*": ["public/*"]
-    }
+    "baseUrl": "./src"
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from '@styles/Layout.module.scss';
 import { ButtonGroup, Button } from '@material-ui/core';
+import styles from '../styles/Layout.module.scss';
 
 interface InvalidateTokenProps {
   show: any;
@@ -20,9 +20,9 @@ export default function InvalidateToken({
         <br />
         To continue using Now Live you will have to log in again{' '}
       </h1>
-      <ButtonGroup variant='contained'>
+      <ButtonGroup variant="contained">
         <Button onClick={invalidateToken}>Yes</Button>
-        <Button color='primary' onClick={show}>
+        <Button color="primary" onClick={show}>
           No
         </Button>
       </ButtonGroup>

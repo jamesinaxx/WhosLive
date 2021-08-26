@@ -4,12 +4,12 @@ console.log('Initialized content script from Now Live');
 const authEl = document.getElementById('NowLiveAuthText');
 const hash = window.location.hash.substr(1);
 const hashResult = hash.split('&').reduce((res: any, item) => {
-  var parts = item.split('=');
-  res[parts[0]] = parts[1];
+  const [key, value] = item.split('=');
+  res[key] = value;
   return res;
 }, {});
 
-history.pushState(
+window.history.pushState(
   '',
   document.title,
   window.location.pathname + window.location.search,

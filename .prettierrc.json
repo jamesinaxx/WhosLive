@@ -1,9 +1,9 @@
 {
   "endOfLine": "lf",
-  "jsxBracketSameLine": true,
+  "jsxBracketSameLine": false,
   "trailingComma": "all",
   "singleQuote": true,
   "arrowParens": "avoid",
-  "jsxSingleQuote": true,
+  "jsxSingleQuote": false,
   "vueIndentScriptAndStyle": true
 }

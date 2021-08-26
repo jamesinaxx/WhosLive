@@ -1,4 +1,4 @@
-import { client_id } from '@lib/lib';
+import { clientId } from './lib';
 
 export async function setStorage(key: string, value: any): Promise<void> {
   chrome.storage.sync.set({ [key]: value }, () => {
@@ -34,7 +34,7 @@ export async function getStorageLocal(
   });
 }
 
-export async function getChannelInfo() {
+export async function getChannelInfo(): Promise<void> {
   const token = await getStorage('NowLive:Storage:Token');
   console.log('Token:', token);
   console.debug('Updating channel info');
@@ -50,8 +50,8 @@ export async function getChannelInfo() {
       await (
         await fetch('https://api.twitch.tv/helix/users', {
           headers: {
-            'Client-Id': client_id,
-            Authorization: 'Bearer ' + token,
+            'Client-Id': clientId,
+            Authorization: `Bearer ${token}`,
           },
         })
       ).json()
@@ -59,11 +59,11 @@ export async function getChannelInfo() {
 
     const res = await (
       await fetch(
-        'https://api.twitch.tv/helix/streams/followed?user_id=' + userId,
+        `https://api.twitch.tv/helix/streams/followed?user_id=${userId}`,
         {
           headers: {
-            'Client-Id': client_id,
-            Authorization: 'Bearer ' + token,
+            'Client-Id': clientId,
+            Authorization: `Bearer ${token}`,
           },
         },
       )
@@ -89,5 +89,5 @@ export async function getChannelInfo() {
   } catch (error) {
     console.error(error);
   }
-  console.debug('Updated channel info');
+  return console.debug('Updated channel info');
 }

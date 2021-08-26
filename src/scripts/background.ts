@@ -1,6 +1,6 @@
 import 'regenerator-runtime';
-import { setStorage, getChannelInfo } from '@lib/chromeapi';
-import validateToken from '@lib/tokenValid';
+import { setStorage, getChannelInfo } from '../lib/chromeapi';
+import validateToken from '../lib/tokenValid';
 
 chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 
@@ -18,8 +18,9 @@ chrome.storage.onChanged.addListener(async () => {
 chrome.runtime.onMessage.addListener((message, sender, res) => {
   if (
     sender.url?.split('#')[0] !== 'https://nowlive.jamesinaxx.me/auth/callback'
-  )
-    return;
+  ) {
+    return false;
+  }
 
   if (
     typeof message === 'object' &&
@@ -28,23 +29,23 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
   ) {
     validateToken(message.token).then(isValid => {
       if (isValid) {
-        res(['Received valid token: ' + message.token, true]);
+        res([`Received valid token: ${message.token}`, true]);
       } else {
-        res(['Received invalid token: ' + message.token, false]);
+        res([`Received invalid token: ${message.token}`, false]);
       }
     });
   } else {
-    res(['Received invalid message object: ' + message, false]);
+    res([`Received invalid message object: ${message}`, false]);
   }
   return true;
 });
 
 async function init() {
   console.log('Initialized background script');
-  getChannelInfo();
-  chrome.alarms.onAlarm.addListener(alarm => {
+  await getChannelInfo();
+  chrome.alarms.onAlarm.addListener(async alarm => {
     if (alarm.name === 'NowLive:Refresh') {
-      getChannelInfo();
+      await getChannelInfo();
     }
   });
 }

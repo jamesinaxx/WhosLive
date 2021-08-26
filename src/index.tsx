@@ -1,18 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '@styles/global.scss';
-import Live from '@pages/Live';
-import LogoutButton from '@/components/buttons/LogoutButton';
-import { getChannelInfo, getStorage, setStorage } from '@lib/chromeapi';
-import NoAuthPage from '@pages/NoAuth';
-import validateToken from '@lib/tokenValid';
-import Loading from '@components/Loading';
+import './styles/global.scss';
 import axios from 'axios';
-import Error404 from '@pages/404';
-import InvalidateToken from '@components/InvalidateToken';
 import dayjs from 'dayjs';
+import Live from './pages/Live';
+import { getChannelInfo, getStorage, setStorage } from './lib/chromeapi';
+import NoAuthPage from './pages/NoAuth';
+import validateToken from './lib/tokenValid';
+import Loading from './components/Loading';
+import Error404 from './pages/404';
+import InvalidateToken from './components/InvalidateToken';
+import {
+  clientId,
+  connectionType,
+  checkConnection,
+  toggleColorMode,
+} from './lib/lib';
 import Layout from './components/Layout';
-import { client_id } from '@lib/lib';
+import LogoutButton from './components/buttons/LogoutButton';
 
 interface MainState {
   userToken: string | undefined;
@@ -21,8 +26,6 @@ interface MainState {
   colorMode: 'light' | 'dark';
   connected: boolean | null;
 }
-
-type connectionType = [boolean, any?];
 
 class Main extends React.Component<any, MainState> {
   constructor(props: any) {
@@ -38,7 +41,6 @@ class Main extends React.Component<any, MainState> {
 
     this.validateToken = this.validateToken.bind(this);
     this.invalidateToken = this.invalidateToken.bind(this);
-    this.toggleColorMode = this.toggleColorMode.bind(this);
   }
 
   componentDidMount() {
@@ -72,7 +74,7 @@ class Main extends React.Component<any, MainState> {
     const token = await getStorage('NowLive:Storage:Token');
     try {
       axios.post('https://id.twitch.tv/oauth2/revoke', null, {
-        params: { client_id, token },
+        params: { clientId, token },
       });
       setStorage('NowLive:Storage:Token', '');
     } catch (error) {
@@ -85,26 +87,6 @@ class Main extends React.Component<any, MainState> {
       tokenValid: false,
     });
     return getChannelInfo();
-  }
-
-  async toggleColorMode() {
-    setStorage(
-      'NowLive:Storage:Color',
-      (await getStorage('NowLive:Storage:Color')) === 'light'
-        ? 'dark'
-        : 'light',
-    );
-  }
-
-  async checkConnection(): Promise<connectionType> {
-    try {
-      const res = await axios.get('https://twitch.tv', {
-        timeout: 10000,
-      });
-      return [true, res];
-    } catch (error) {
-      return [false, error];
-    }
   }
 
   render() {
@@ -122,9 +104,10 @@ class Main extends React.Component<any, MainState> {
     if (this.state.connected === false) {
       return (
         <Layout
-          toggleColor={this.toggleColorMode}
+          toggleColor={toggleColorMode}
           mode={this.state.colorMode}
-          shown={this.state.showRUSure}>
+          shown={this.state.showRUSure}
+        >
           <Error404 />
         </Layout>
       );
@@ -132,7 +115,7 @@ class Main extends React.Component<any, MainState> {
 
     if (this.state.userToken === undefined || this.state.connected === null) {
       if (this.state.connected === null) {
-        this.checkConnection()
+        checkConnection()
           .then((res: connectionType) => {
             this.setState({ connected: res[0] });
           })
@@ -151,9 +134,10 @@ class Main extends React.Component<any, MainState> {
 
     return (
       <Layout
-        toggleColor={this.toggleColorMode}
+        toggleColor={toggleColorMode}
         mode={this.state.colorMode}
-        shown={this.state.showRUSure}>
+        shown={this.state.showRUSure}
+      >
         {this.state.userToken && this.state.tokenValid ? (
           <>
             {this.state.showRUSure ? (
@@ -173,7 +157,6 @@ class Main extends React.Component<any, MainState> {
             <LogoutButton
               ruSure={() => this.setState({ showRUSure: true })}
               shown={this.state.showRUSure}
-              colorMode={this.state.colorMode}
             />
           </>
         ) : (

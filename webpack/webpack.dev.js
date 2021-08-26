@@ -1,7 +1,7 @@
 const { merge } = require('webpack-merge');
 const Dotenv = require('dotenv-webpack');
-const common = require('./webpack.common');
 const path = require('path');
+const common = require('./webpack.common');
 
 /**
  * @type {import('webpack').Configuration}

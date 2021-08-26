@@ -1,9 +1,9 @@
 import 'regenerator-runtime';
 import React from 'react';
-import styles from '@styles/Layout.module.scss';
-import Channel from '@components/Channel';
-import { getStorageLocal } from '@lib/chromeapi';
-import Loading from '@components/Loading';
+import styles from '../styles/Layout.module.scss';
+import Channel from '../components/Channel';
+import { getStorageLocal } from '../lib/chromeapi';
+import Loading from '../components/Loading';
 
 interface LiveProps {
   color: string;
@@ -25,9 +25,10 @@ export default class Live extends React.Component<LiveProps, LiveState> {
 
     this.doneLoading = this.doneLoading.bind(this);
     this.showChannels = this.showChannels.bind(this);
+    this.updateChannels = this.updateChannels.bind(this);
 
     chrome.storage.onChanged.addListener(this.updateChannels);
-    this.updateChannels;
+    this.updateChannels();
   }
 
   componentDidMount() {
@@ -47,7 +48,7 @@ export default class Live extends React.Component<LiveProps, LiveState> {
   }
 
   doneLoading() {
-    this.setState({ doneLoading: this.state.doneLoading + 1 });
+    this.setState(oldState => ({ doneLoading: oldState.doneLoading + 1 }));
   }
 
   showChannels() {
@@ -61,7 +62,8 @@ export default class Live extends React.Component<LiveProps, LiveState> {
         <small className={styles.goFollow}>
           You do not follow anybody who is currently live
           <img
-            src='https://cdn.frankerfacez.com/emoticon/425196/4' /* Sadge emote from FFZ */
+            src="https://cdn.frankerfacez.com/emoticon/425196/4"
+            alt="Sadge Emote from FFZ"
           />
         </small>
       );
@@ -73,10 +75,10 @@ export default class Live extends React.Component<LiveProps, LiveState> {
           hidden={this.state.doneLoading === this.state.channels.length}
           color={this.props.color}
         />
-        {this.state.channels.map((channelData, i) => (
+        {this.state.channels.map(channelData => (
           <Channel
-            key={i}
             online
+            key={channelData.id}
             data={channelData}
             /* I really shouldn't have to cast but here we are */
             hidden={

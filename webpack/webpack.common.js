@@ -17,12 +17,6 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
-      '@': path.resolve(__dirname, '..', 'src'),
-      '@styles': path.resolve(__dirname, '..', 'src/styles'),
-      '@components': path.resolve(__dirname, '..', 'src/components'),
-      '@lib': path.resolve(__dirname, '..', 'src/lib'),
-      '@pages': path.resolve(__dirname, '..', 'src/pages'),
-      '@public': path.resolve(__dirname, '..', 'public'),
       react: 'preact/compat',
       'react-dom/test-utils': 'preact/test-utils',
       'react-dom': 'preact/compat',

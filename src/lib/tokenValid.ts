@@ -1,4 +1,4 @@
-import { setStorage } from '@lib/chromeapi';
+import { setStorage } from './chromeapi';
 
 export default async function validateToken(token: string): Promise<boolean> {
   try {
@@ -13,9 +13,8 @@ export default async function validateToken(token: string): Promise<boolean> {
     if (res.scopes.includes('user:read:follows') && res.expires_in > 500) {
       setStorage('NowLive:Storage:Token', token);
       return true;
-    } else {
-      return false;
     }
+    return false;
   } catch (e) {
     return false;
   }

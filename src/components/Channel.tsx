@@ -1,6 +1,8 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import FastAverageColor from 'fast-average-color';
-import styles from '@styles/Channel.module.scss';
+import styles from '../styles/Channel.module.scss';
+import { getTitle } from '../lib/lib';
 
 interface ChannelProps {
   online: boolean;
@@ -46,8 +48,10 @@ export default class Channel extends React.Component<
         .replace('{height}', '72'),
     );
 
-    let bgColor =
-      'rgba' + facColor.rgb.substring(3, facColor.rgb.length - 1) + ',0.7)';
+    const bgColor = `rgba${facColor.rgb.substring(
+      3,
+      facColor.rgb.length - 1,
+    )},0.7)`;
 
     this.setState({
       bgColor,
@@ -56,15 +60,6 @@ export default class Channel extends React.Component<
 
     fac.destroy();
     return this.props.doneLoading();
-  }
-
-  getTitle(ogTitle: string): string {
-    if (ogTitle.length > 25)
-      return (
-        ogTitle.substring(0, ogTitle.length - (ogTitle.length - 22)) + '...'
-      );
-
-    return ogTitle;
   }
 
   toggleTitleShown(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -96,23 +91,26 @@ export default class Channel extends React.Component<
         className={styles.channelDiv}
         hidden={this.props.hidden}
         onMouseEnter={this.toggleTitleShown}
-        onMouseLeave={this.toggleTitleShown}>
+        onMouseLeave={this.toggleTitleShown}
+      >
         <div
           className={styles.channel}
           style={{
             backgroundColor: this.state.bgColor,
             color: this.state.color,
-            boxShadow: '0 0 10px ' + this.state.bgColor,
-          }}>
+            boxShadow: `0 0 10px${this.state.bgColor}`,
+          }}
+        >
           <img
-            onLoad={() => this.getColor()}
-            onClick={() => window.open('https://twitch.tv/' + user_login)}
+            onLoad={this.getColor}
+            onClick={() => window.open(`https://twitch.tv/${user_login}`)}
+            alt={`${user_name} stream thumbnail`}
             src={thumbnailUrl}
             width={128}
             height={72}
           />
           <div className={styles.channelInfo}>
-            <h1>{this.getTitle(title)}</h1>
+            <h1>{getTitle(title)}</h1>
             <p>
               <b>{user_name}</b> is currently playing <b>{game_name}</b> for{' '}
               <b>
@@ -124,7 +122,7 @@ export default class Channel extends React.Component<
             </p>
           </div>
         </div>
-        <span hidden={true} id={`titleSpan${user_login}`}>
+        <span hidden id={`titleSpan${user_login}`}>
           {title.length > 25 ? title : ''}
         </span>
       </div>
