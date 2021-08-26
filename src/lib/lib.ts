@@ -32,3 +32,13 @@ export function getTitle(oldTitle: string): string {
 
   return oldTitle;
 }
+
+interface Obj {
+  [key: string]: string;
+}
+
+export function objToParams(obj: Obj): string {
+  return `?${Object.entries(obj)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&')}`;
+}

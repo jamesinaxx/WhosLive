@@ -98,7 +98,7 @@ export default class Channel extends React.Component<
           style={{
             backgroundColor: this.state.bgColor,
             color: this.state.color,
-            boxShadow: `0 0 10px${this.state.bgColor}`,
+            boxShadow: `0 0 10px ${this.state.bgColor}`,
           }}
         >
           <img

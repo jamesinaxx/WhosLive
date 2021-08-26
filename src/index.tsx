@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/global.scss';
-import axios from 'axios';
 import dayjs from 'dayjs';
 import Live from './pages/Live';
 import { getChannelInfo, getStorage, setStorage } from './lib/chromeapi';
@@ -15,6 +14,7 @@ import {
   connectionType,
   checkConnection,
   toggleColorMode,
+  objToParams,
 } from './lib/lib';
 import Layout from './components/Layout';
 import LogoutButton from './components/buttons/LogoutButton';
@@ -73,9 +73,12 @@ class Main extends React.Component<any, MainState> {
   async invalidateToken() {
     const token = await getStorage('NowLive:Storage:Token');
     try {
-      axios.post('https://id.twitch.tv/oauth2/revoke', null, {
-        params: { clientId, token },
-      });
+      fetch(
+        `https://id.twitch.tv/oauth2/revoke${objToParams({ clientId, token })}`,
+        {
+          method: 'POST',
+        },
+      );
       setStorage('NowLive:Storage:Token', '');
     } catch (error) {
       console.log(error);
@@ -125,7 +128,7 @@ class Main extends React.Component<any, MainState> {
           });
       }
 
-      return <Loading hidden={false} color={color} />;
+      return <Loading hidden={false} />;
     }
 
     window.addEventListener('scroll', () => {
