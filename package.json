@@ -9,9 +9,9 @@
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "fmt": "prettier --write ./src/*/** --ignore-path .gitignore",
-    "lint": "eslint ./src/**/* --ignore-path .gitignore",
-    "lint:fix": "eslint ./src/**/* --ignore-path .gitignore --fix"
+    "fmt": "prettier --write ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore",
+    "lint": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore",
+    "lint:fix": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",

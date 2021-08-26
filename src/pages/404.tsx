@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from '../styles/Error.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import styles from '../styles/Error.module.scss';
 
 export default function Error404() {
   return (
