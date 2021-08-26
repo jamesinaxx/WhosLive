@@ -36,7 +36,6 @@ export default class Channel extends React.Component<
     };
 
     this.getColor = this.getColor.bind(this);
-    this.toggleTitleShown = this.toggleTitleShown.bind(this);
   }
 
   async getColor() {
@@ -62,16 +61,6 @@ export default class Channel extends React.Component<
     return this.props.doneLoading();
   }
 
-  toggleTitleShown(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    const titleElem = document.getElementById(
-      `titleSpan${this.props.data.user_login}`,
-    );
-
-    if (titleElem === null) return;
-
-    titleElem.hidden = event.type === 'mouseleave';
-  }
-
   render() {
     const {
       title,
@@ -88,10 +77,9 @@ export default class Channel extends React.Component<
 
     return (
       <div
+        title={title}
         className={styles.channelDiv}
         hidden={this.props.hidden}
-        onMouseEnter={this.toggleTitleShown}
-        onMouseLeave={this.toggleTitleShown}
       >
         <div
           className={styles.channel}
@@ -122,9 +110,6 @@ export default class Channel extends React.Component<
             </p>
           </div>
         </div>
-        <span hidden id={`titleSpan${user_login}`}>
-          {title.length > 25 ? title : ''}
-        </span>
       </div>
     );
   }
