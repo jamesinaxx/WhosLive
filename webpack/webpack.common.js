@@ -18,17 +18,7 @@ const config = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
-    rules: [
-      {
-        test: /\.json$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.[jt](s|sx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-      },
-    ],
+    rules: require('./webpack.rules'),
   },
   plugins: [
     new HtmlWebpackPlugin({

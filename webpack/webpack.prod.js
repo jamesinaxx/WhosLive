@@ -13,14 +13,6 @@ const mb = 1048576;
  */
 const config = {
   mode: 'production',
-  module: {
-    rules: [
-      {
-        test: /\.s[ac]ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-    ],
-  },
   plugins: [new Dotenv({ path: path.resolve(__dirname, '..', '.env') })],
   optimization: {
     minimizer: ['...', new CssMinimizerPlugin(), new JsonMinimizerPlugin()],
