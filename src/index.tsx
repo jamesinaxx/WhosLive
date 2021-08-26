@@ -15,176 +15,173 @@ import Layout from './components/Layout';
 import { client_id } from '@lib/lib';
 
 interface MainState {
-	userToken: string | undefined;
-	tokenValid: boolean;
-	showRUSure: boolean;
-	colorMode: 'light' | 'dark';
-	connected: boolean | null;
+  userToken: string | undefined;
+  tokenValid: boolean;
+  showRUSure: boolean;
+  colorMode: 'light' | 'dark';
+  connected: boolean | null;
 }
 
 type connectionType = [boolean, any?];
 
 class Main extends React.Component<any, MainState> {
-	constructor(props: any) {
-		super(props);
+  constructor(props: any) {
+    super(props);
 
-		this.state = {
-			userToken: undefined,
-			tokenValid: true,
-			showRUSure: false,
-			colorMode: 'dark',
-			connected: null,
-		};
+    this.state = {
+      userToken: undefined,
+      tokenValid: true,
+      showRUSure: false,
+      colorMode: 'dark',
+      connected: null,
+    };
 
-		this.validateToken = this.validateToken.bind(this);
-		this.invalidateToken = this.invalidateToken.bind(this);
-		this.toggleColorMode = this.toggleColorMode.bind(this);
-	}
+    this.validateToken = this.validateToken.bind(this);
+    this.invalidateToken = this.invalidateToken.bind(this);
+    this.toggleColorMode = this.toggleColorMode.bind(this);
+  }
 
-	componentDidMount() {
-		this.validateToken();
+  componentDidMount() {
+    this.validateToken();
 
-		this.setColor();
+    this.setColor();
 
-		chrome.storage.onChanged.addListener(() => {
-			this.validateToken();
-			this.setColor();
-		});
-	}
+    chrome.storage.onChanged.addListener(() => {
+      this.validateToken();
+      this.setColor();
+    });
+  }
 
-	async setColor() {
-		const colorMode = await getStorage('NowLive:Storage:Color');
-		this.setState({ colorMode });
-		document.body.className = this.state.colorMode;
-	}
+  async setColor() {
+    const colorMode = await getStorage('NowLive:Storage:Color');
+    this.setState({ colorMode });
+    document.body.className = this.state.colorMode;
+  }
 
-	async validateToken() {
-		const res = await getStorage('NowLive:Storage:Token');
-		const valid = await validateToken(res);
+  async validateToken() {
+    const res = await getStorage('NowLive:Storage:Token');
+    const valid = await validateToken(res);
 
-		this.setState({
-			userToken: valid ? res : 'invalid',
-			tokenValid: valid,
-		});
-	}
+    this.setState({
+      userToken: valid ? res : 'invalid',
+      tokenValid: valid,
+    });
+  }
 
-	async invalidateToken() {
-		const token = await getStorage('NowLive:Storage:Token');
-		try {
-			axios.post('https://id.twitch.tv/oauth2/revoke', null, {
-				params: { client_id, token },
-			});
-			setStorage('NowLive:Storage:Token', '');
-		} catch (error) {
-			console.log(error);
-		}
+  async invalidateToken() {
+    const token = await getStorage('NowLive:Storage:Token');
+    try {
+      axios.post('https://id.twitch.tv/oauth2/revoke', null, {
+        params: { client_id, token },
+      });
+      setStorage('NowLive:Storage:Token', '');
+    } catch (error) {
+      console.log(error);
+    }
 
-		this.setState({
-			showRUSure: false,
-			userToken: 'invalid',
-			tokenValid: false,
-		});
-		return getChannelInfo();
-	}
+    this.setState({
+      showRUSure: false,
+      userToken: 'invalid',
+      tokenValid: false,
+    });
+    return getChannelInfo();
+  }
 
-	async toggleColorMode() {
-		setStorage(
-			'NowLive:Storage:Color',
-			(await getStorage('NowLive:Storage:Color')) === 'light'
-				? 'dark'
-				: 'light'
-		);
-	}
+  async toggleColorMode() {
+    setStorage(
+      'NowLive:Storage:Color',
+      (await getStorage('NowLive:Storage:Color')) === 'light'
+        ? 'dark'
+        : 'light',
+    );
+  }
 
-	async checkConnection(): Promise<connectionType> {
-		try {
-			const res = await axios.get('https://twitch.tv', {
-				timeout: 10000,
-			});
-			return [true, res];
-		} catch (error) {
-			return [false, error];
-		}
-	}
+  async checkConnection(): Promise<connectionType> {
+    try {
+      const res = await axios.get('https://twitch.tv', {
+        timeout: 10000,
+      });
+      return [true, res];
+    } catch (error) {
+      return [false, error];
+    }
+  }
 
-	render() {
-		console.log(`[${dayjs().format('HH:mm:ss')}] Re-rendered`);
-		if (this.state.showRUSure) window.scrollTo(0, 0);
+  render() {
+    console.log(`[${dayjs().format('HH:mm:ss')}] Re-rendered`);
+    if (this.state.showRUSure) window.scrollTo(0, 0);
 
-		const color = this.state.colorMode === 'dark' ? '#fff' : '#000';
-		const bgColor = this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
+    const color = this.state.colorMode === 'dark' ? '#fff' : '#000';
+    const bgColor = this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
 
-		const docBody = document.querySelector('body') as HTMLBodyElement;
+    const docBody = document.querySelector('body') as HTMLBodyElement;
 
-		docBody.style.backgroundColor = bgColor;
-		docBody.style.color = color;
+    docBody.style.backgroundColor = bgColor;
+    docBody.style.color = color;
 
-		if (this.state.connected === false) {
-			return (
-				<Layout
-					toggleColor={this.toggleColorMode}
-					mode={this.state.colorMode}
-					shown={this.state.showRUSure}>
-					<Error404 />
-				</Layout>
-			);
-		}
+    if (this.state.connected === false) {
+      return (
+        <Layout
+          toggleColor={this.toggleColorMode}
+          mode={this.state.colorMode}
+          shown={this.state.showRUSure}>
+          <Error404 />
+        </Layout>
+      );
+    }
 
-		if (
-			this.state.userToken === undefined ||
-			this.state.connected === null
-		) {
-			if (this.state.connected === null) {
-				this.checkConnection()
-					.then((res: connectionType) => {
-						this.setState({ connected: res[0] });
-					})
-					.catch((res: connectionType) => {
-						this.setState({ connected: res[0] });
-						console.log('Failed to connect to twitch', res[1]);
-					});
-			}
+    if (this.state.userToken === undefined || this.state.connected === null) {
+      if (this.state.connected === null) {
+        this.checkConnection()
+          .then((res: connectionType) => {
+            this.setState({ connected: res[0] });
+          })
+          .catch((res: connectionType) => {
+            this.setState({ connected: res[0] });
+            console.log('Failed to connect to twitch', res[1]);
+          });
+      }
 
-			return <Loading hidden={false} color={color} />;
-		}
+      return <Loading hidden={false} color={color} />;
+    }
 
-		window.addEventListener('scroll', () => {
-			if (this.state.showRUSure) window.scrollTo(0, 0);
-		});
+    window.addEventListener('scroll', () => {
+      if (this.state.showRUSure) window.scrollTo(0, 0);
+    });
 
-		return (
-			<Layout
-				toggleColor={this.toggleColorMode}
-				mode={this.state.colorMode}
-				shown={this.state.showRUSure}>
-				{this.state.userToken && this.state.tokenValid ? (
-					<>
-						{this.state.showRUSure ? (
-							<InvalidateToken
-								show={() => {
-									document.body.style.overflow = '';
-									this.setState({
-										showRUSure: false,
-									});
-								}}
-								invalidateToken={this.invalidateToken}
-							/>
-						) : (
-							<div>{null}</div>
-						)}
-						<Live color={color} />
-						<LogoutButton
-							ruSure={() => this.setState({ showRUSure: true })}
-							shown={this.state.showRUSure}
-							colorMode={this.state.colorMode}
-						/>
-					</>
-				) : (
-					<NoAuthPage />
-				)}
-			</Layout>
-		);
-	}
+    return (
+      <Layout
+        toggleColor={this.toggleColorMode}
+        mode={this.state.colorMode}
+        shown={this.state.showRUSure}>
+        {this.state.userToken && this.state.tokenValid ? (
+          <>
+            {this.state.showRUSure ? (
+              <InvalidateToken
+                show={() => {
+                  document.body.style.overflow = '';
+                  this.setState({
+                    showRUSure: false,
+                  });
+                }}
+                invalidateToken={this.invalidateToken}
+              />
+            ) : (
+              <div>{null}</div>
+            )}
+            <Live color={color} />
+            <LogoutButton
+              ruSure={() => this.setState({ showRUSure: true })}
+              shown={this.state.showRUSure}
+              colorMode={this.state.colorMode}
+            />
+          </>
+        ) : (
+          <NoAuthPage />
+        )}
+      </Layout>
+    );
+  }
 }
 
 ReactDOM.render(<Main />, document.body);

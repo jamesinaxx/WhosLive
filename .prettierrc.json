@@ -1,10 +1,9 @@
 {
-	"endOfLine": "auto",
-	"jsxBracketSameLine": true,
-	"singleQuote": true,
-	"tabWidth": 4,
-	"useTabs": true,
-	"arrowParens": "avoid",
-	"jsxSingleQuote": true,
-	"vueIndentScriptAndStyle": true
+  "endOfLine": "lf",
+  "jsxBracketSameLine": true,
+  "trailingComma": "all",
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "jsxSingleQuote": true,
+  "vueIndentScriptAndStyle": true
 }

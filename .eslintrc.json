@@ -1,39 +1,35 @@
 {
-	"env": {
-		"browser": true,
-		"es2021": true,
-		"node": true,
-		"webextensions": true,
-		"es6": true
-	},
-	"extends": ["plugin:react/recommended", "eslint:recommended"],
-	"parser": "@typescript-eslint/parser",
-	"parserOptions": {
-		"ecmaFeatures": {
-			"jsx": true
-		},
-		"ecmaVersion": 12,
-		"sourceType": "module"
-	},
-	"plugins": ["react", "@typescript-eslint"],
-	"rules": {
-		"no-restricted-imports": [
-			"error",
-			{
-				"patterns": [
-					"@material-ui/*/*/*",
-					"!@material-ui/core/test-utils/*"
-				]
-			}
-		],
-		"indent": ["off", "tab"],
-		"no-tabs": "off",
-		"comma-dangle": ["error", "only-multiline"],
-		"semi": ["error", "always"],
-		"no-unused-vars": ["warn"],
-		"space-before-function-paren": ["off", "never"],
-		"no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
-		"no-redeclare": "off",
-		"@typescript-eslint/no-redeclare": ["error"]
-	}
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "webextensions": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb", "eslint:recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": ["@material-ui/*/*/*", "!@material-ui/core/test-utils/*"]
+      }
+    ],
+    // "indent": ["off", "tab"],
+    "no-tabs": "off",
+    "comma-dangle": ["error", "always"],
+    "semi": ["error", "always"],
+    "no-unused-vars": ["warn"],
+    "space-before-function-paren": ["off", "never"],
+    "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
+    "no-redeclare": "off",
+    "@typescript-eslint/no-redeclare": ["error"]
+  }
 }

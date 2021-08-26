@@ -9,19 +9,19 @@ const path = require('path');
  * @type {import('webpack').Configuration}
  */
 const config = {
-	mode: 'production',
-	module: {
-		rules: [
-			{
-				test: /\.s[ac]ss$/,
-				use: ['style-loader', 'css-loader', 'sass-loader'],
-			},
-		],
-	},
-	plugins: [new Dotenv({ path: path.resolve(__dirname, '..', '.env') })],
-	optimization: {
-		minimizer: [`...`, new CssMinimizerPlugin(), new JsonMinimizerPlugin()],
-	},
+  mode: 'production',
+  module: {
+    rules: [
+      {
+        test: /\.s[ac]ss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
+  plugins: [new Dotenv({ path: path.resolve(__dirname, '..', '.env') })],
+  optimization: {
+    minimizer: [`...`, new CssMinimizerPlugin(), new JsonMinimizerPlugin()],
+  },
 };
 
 module.exports = merge(common, config);
