@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -7,7 +6,7 @@ const common = require('./webpack.common');
 const path = require('path');
 
 /**
- * @type {webpack.Configuration}
+ * @type {import('webpack').Configuration}
  */
 const config = {
 	mode: 'production',
