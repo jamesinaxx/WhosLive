@@ -4,7 +4,7 @@ Easily check who is live on Twitch with 1 click!
 
 
 
-<img src="file:///C:/1dev/Extensions/NowLive/NowLive/public/screenshots/Dark%20Resized.jpg" title="" alt="" width="615">
+<img title="" src="https://raw.githubusercontent.com/jamesinaxx/NowLive/public/public/screenshots/Dark.jpg" alt="" width="500">
 
 
 
