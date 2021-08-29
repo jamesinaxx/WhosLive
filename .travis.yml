@@ -1,0 +1,8 @@
+language: node_js
+node_js: lts/*
+jobs:
+  include:
+    - stage: Build
+      install: 'yarn --immutable'
+      scala:
+        - 'yarn build'
