@@ -4,5 +4,4 @@ jobs:
   include:
     - stage: Build
       install: 'yarn --immutable'
-      scala:
-        - 'yarn build'
+      script: 'yarn build'
