@@ -9,11 +9,22 @@
   text-align: center;
 }
 
+.confirmButton {
+  @include mixins.confirmButton();
+  border-radius: 100%, 0px, 0px, 100%;
+}
+
+.dismissButton {
+  @include mixins.confirmButton();
+  border-radius: 0px, 100%, 100%, 0px;
+}
+
 .ruSure {
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   z-index: 1;
   transition: opacity 100ms ease-in-out;
-  margin: none;
-  padding: none;
   position: fixed;
   width: 550px;
   height: 550px;
@@ -53,9 +64,9 @@
 }
 
 .colorModeToggle {
-  @include mixins.control-button(5px);
+  @include mixins.controlButton(5px);
 }
 
 .settingsButton {
-  @include mixins.control-button(40px);
+  @include mixins.controlButton(40px);
 }

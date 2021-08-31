@@ -1,4 +1,3 @@
-import { ButtonGroup, Button } from '@material-ui/core';
 import styles from '../styles/Layout.module.scss';
 
 interface InvalidateTokenProps {
@@ -13,14 +12,23 @@ export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
       <h1>
         Are you sure you want to sign out?
         <br />
-        To continue using Now Live you will have to log in again{' '}
+        To continue using Now Live you will have to log in again
       </h1>
-      <ButtonGroup variant="contained">
-        <Button onClick={() => onChoice(true)}>Yes</Button>
-        <Button color="primary" onClick={() => onChoice(false)}>
-          No
-        </Button>
-      </ButtonGroup>
+      {/* <br style={{ width: '100vw' }} /> */}
+      <button
+        type="button"
+        onClick={() => onChoice(true)}
+        className={styles.confirmButton}
+      >
+        Yes
+      </button>
+      <button
+        type="button"
+        onClick={() => onChoice(false)}
+        className={styles.dismissButton}
+      >
+        No
+      </button>
     </div>
   );
 }
