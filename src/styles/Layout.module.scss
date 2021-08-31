@@ -1,4 +1,4 @@
-@import './include/mixins';
+@use './include/mixins';
 
 .main {
   margin-bottom: 110px;
@@ -41,17 +41,17 @@
       margin-top: 15px;
     }
   }
-  @include smolText();
+  @include mixins.smolText();
 }
 
 .goFollow {
-  @include smolText();
+  @include mixins.smolText();
 }
 
 .colorModeToggle {
-  @include control-button(5px);
+  @include mixins.control-button(5px);
 }
 
 .settingsButton {
-  @include control-button(40px);
+  @include mixins.control-button(40px);
 }
