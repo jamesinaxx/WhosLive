@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable camelcase */ // The properties are named with snake_case because thats how the Twitch api works
 import React from 'react';
 import FastAverageColor from 'fast-average-color';
 import styles from '../styles/Channel.module.scss';

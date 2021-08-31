@@ -37,15 +37,11 @@ const config = {
     'comma-dangle': ['error', 'always-multiline'],
     semi: ['error', 'always'],
     'no-unused-vars': ['warn'],
-    'no-redeclare': 'off',
-    '@typescript-eslint/no-redeclare': ['error'],
     'react/jsx-filename-extension': [
       2,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
     'import/extensions': 'off',
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['error'],
     'no-console': 'off',
     'react/destructuring-assignment': 'off',
     'operator-linebreak': [
@@ -56,6 +52,12 @@ const config = {
     'arrow-parens': ['error', 'as-needed'],
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
+    // Fixes issues with Typescript overloads
+    'no-redeclare': 'off',
+    '@typescript-eslint/no-redeclare': ['error'],
+    // Fixes an issue where React was "used before it was defined" which is incorrect
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
   },
 };
 
