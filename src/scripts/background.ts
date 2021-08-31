@@ -4,18 +4,16 @@ import validateToken from '../lib/validateToken';
 
 chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 
-async function onInstalled() {
-  setStorage('NowLive:Storage:Color', 'dark');
+chrome.runtime.onInstalled.addListener(async () => {
+  await setStorage('NowLive:Storage:Color', 'dark');
   console.log('Initialized Now Live');
-}
-
-chrome.runtime.onInstalled.addListener(onInstalled);
-
-chrome.storage.onChanged.addListener(async () => {
-  getChannelInfo();
 });
 
-chrome.runtime.onMessage.addListener((message, sender, res) => {
+chrome.storage.onChanged.addListener(async changes => {
+  if ('NowLive:Storage:Token' in changes) await getChannelInfo();
+});
+
+chrome.runtime.onMessage.addListener(async (message, sender, res) => {
   if (
     sender.url?.split('#')[0] !== 'https://nowlive.jamesinaxx.me/auth/callback'
   ) {
@@ -27,27 +25,22 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
     message.name === 'NowLive:Storage:Token' &&
     typeof message.token === 'string'
   ) {
-    validateToken(message.token).then(isValid => {
-      if (isValid) {
-        res([`Received valid token: ${message.token}`, true]);
-      } else {
-        res([`Received invalid token: ${message.token}`, false]);
-      }
-    });
+    if (await validateToken(message.token)) {
+      res([`Received valid token: ${message.token}`, true]);
+    } else {
+      res([`Received invalid token: ${message.token}`, false]);
+    }
   } else {
     res([`Received invalid message object: ${message}`, false]);
   }
   return true;
 });
 
-async function init() {
-  console.log('Initialized background script');
+(async () => {
   await getChannelInfo();
   chrome.alarms.onAlarm.addListener(async alarm => {
     if (alarm.name === 'NowLive:Refresh') {
       await getChannelInfo();
     }
   });
-}
-
-init();
+})();
