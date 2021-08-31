@@ -10,6 +10,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "fmt": "prettier --write ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
+    "fmt:check": "prettier --check ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
     "lint": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore",
     "lint:fix": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore --fix"
   },
