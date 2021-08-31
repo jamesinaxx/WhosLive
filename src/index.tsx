@@ -43,14 +43,14 @@ class Main extends Component<any, MainState> {
     this.invalidateToken = this.invalidateToken.bind(this);
   }
 
-  componentDidMount() {
-    this.validateToken();
+  async componentDidMount() {
+    await this.validateToken();
 
-    this.setColor();
+    await this.setColor();
 
-    chrome.storage.onChanged.addListener(() => {
-      this.validateToken();
-      this.setColor();
+    chrome.storage.onChanged.addListener(async () => {
+      await this.validateToken();
+      await this.setColor();
     });
   }
 
