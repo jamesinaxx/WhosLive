@@ -2956,13 +2956,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.10.6":
-  version: 1.10.6
-  resolution: "dayjs@npm:1.10.6"
-  checksum: a79af6d19cf1e3aefc231e480037b37df50701e8d0cdbe1736fc6665b7045a159777215c5c8dd42ede7dd3c4c4f4a174d4ddd5bffca51df2a4ba0e0e25a6163c
-  languageName: node
-  linkType: hard
-
 "debug@npm:4, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1":
   version: 4.3.2
   resolution: "debug@npm:4.3.2"
@@ -5118,7 +5111,6 @@ fsevents@~2.3.2:
     copy-webpack-plugin: 9.0.1
     css-loader: 6.2.0
     css-minimizer-webpack-plugin: 3.0.2
-    dayjs: ^1.10.6
     dotenv-webpack: 7.0.3
     eslint: 7.32.0
     eslint-config-airbnb: 18.2.1

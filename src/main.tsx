@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import './styles/global.scss';
-import dayjs from 'dayjs';
 import Live from './pages/Live';
 import { getChannelInfo, getStorage, setStorage } from './lib/chromeapi';
 import NoAuthPage from './pages/NoAuth';
@@ -93,7 +92,6 @@ export default class Main extends Component<any, MainState> {
   }
 
   render() {
-    console.log(`[${dayjs().format('HH:mm:ss')}] Re-rendered`);
     if (this.state.showRUSure) window.scrollTo(0, 0);
 
     const color = this.state.colorMode === 'dark' ? '#fff' : '#000';
