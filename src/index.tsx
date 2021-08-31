@@ -73,16 +73,17 @@ class Main extends Component<any, MainState> {
   async invalidateToken() {
     const token = await getStorage('NowLive:Storage:Token');
     try {
-      fetch(
+      await fetch(
         `https://id.twitch.tv/oauth2/revoke${objToParams({ clientId, token })}`,
         {
           method: 'POST',
         },
       );
-      setStorage('NowLive:Storage:Token', '');
     } catch (error) {
       console.log(error);
     }
+
+    await setStorage('NowLive:Storage:Token', '');
 
     this.setState({
       showRUSure: false,
