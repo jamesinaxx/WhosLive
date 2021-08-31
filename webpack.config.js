@@ -1,14 +1,23 @@
 const fs = require('fs');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { merge } = require('webpack-merge');
 const devConfig = require('./webpack/webpack.dev');
 const prodConfig = require('./webpack/webpack.prod');
+const commonConfig = require('./webpack/webpack.common');
 
-const configFunc = async (env, { mode }) => {
+module.exports = async (env, { mode }) => {
   if (fs.existsSync('./dist/')) {
     await fs.promises.rm('./dist/', { recursive: true, force: true });
   }
 
-  if (mode === 'development') return devConfig;
-  return prodConfig;
-};
+  const config = merge(
+    commonConfig,
+    mode === 'production' ? prodConfig : devConfig,
+  );
 
-module.exports = configFunc;
+  if (process.argv.includes('--analyze')) {
+    config.plugins.push(new BundleAnalyzerPlugin());
+  }
+
+  return config;
+};
