@@ -8,6 +8,9 @@ const config = {
     node: true,
     webextensions: true,
   },
+  globals: {
+    JSX: true,
+  },
   extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
   parser: '@typescript-eslint/parser',
   settings: {

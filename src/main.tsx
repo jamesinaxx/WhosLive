@@ -16,7 +16,7 @@ interface MainState {
   tokenValid: boolean;
   showRUSure: boolean;
   colorMode: 'light' | 'dark';
-  connected: boolean | null;
+  connected?: boolean | undefined;
 }
 
 export default class Main extends Component<any, MainState> {
@@ -28,7 +28,6 @@ export default class Main extends Component<any, MainState> {
       tokenValid: true,
       showRUSure: false,
       colorMode: 'dark',
-      connected: null,
     };
 
     this.validateToken = this.validateToken.bind(this);
@@ -117,8 +116,11 @@ export default class Main extends Component<any, MainState> {
       );
     }
 
-    if (this.state.userToken === undefined || this.state.connected === null) {
-      if (this.state.connected === null) {
+    if (
+      this.state.userToken === undefined ||
+      this.state.connected === undefined
+    ) {
+      if (this.state.connected === undefined) {
         checkConnection()
           .then((res: boolean) => this.setState({ connected: res }))
           .catch((res: boolean) => this.setState({ connected: res }));

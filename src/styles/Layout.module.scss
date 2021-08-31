@@ -1,5 +1,9 @@
 @use './include/mixins';
 
+.container {
+  padding-bottom: 5px;
+}
+
 .main {
   margin-bottom: 110px;
   text-align: center;
