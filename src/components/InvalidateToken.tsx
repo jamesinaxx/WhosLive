@@ -1,4 +1,3 @@
-import React from 'react';
 import { ButtonGroup, Button } from '@material-ui/core';
 import styles from '../styles/Layout.module.scss';
 

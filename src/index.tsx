@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './styles/global.scss';
 import dayjs from 'dayjs';
@@ -27,7 +27,7 @@ interface MainState {
   connected: boolean | null;
 }
 
-class Main extends React.Component<any, MainState> {
+class Main extends Component<any, MainState> {
   constructor(props: any) {
     super(props);
 

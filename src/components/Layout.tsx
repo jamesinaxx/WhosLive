@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import ColorModeToggle from './buttons/ColorModeToggle';
 
 interface LayoutProps {
