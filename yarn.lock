@@ -1251,7 +1251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-react@npm:7.14.5":
+"@babel/preset-react@npm:^7.14.5":
   version: 7.14.5
   resolution: "@babel/preset-react@npm:7.14.5"
   dependencies:
@@ -5099,7 +5099,7 @@ fsevents@~2.3.2:
     "@babel/plugin-proposal-class-properties": 7.14.5
     "@babel/plugin-syntax-dynamic-import": 7.8.3
     "@babel/preset-env": 7.15.0
-    "@babel/preset-react": 7.14.5
+    "@babel/preset-react": ^7.14.5
     "@babel/preset-typescript": 7.15.0
     "@fortawesome/fontawesome-svg-core": ^1.2.36
     "@fortawesome/free-brands-svg-icons": ^5.15.4

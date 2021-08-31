@@ -58,6 +58,9 @@ const config = {
     // Fixes an issue where React was "used before it was defined" which is incorrect
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
+    // Support for new React jsx transformation
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
 };
 
