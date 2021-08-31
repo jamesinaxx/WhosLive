@@ -1,8 +1,8 @@
-import * as React from 'react';
+import { ReactNode } from 'react';
 import ColorModeToggle from './buttons/ColorModeToggle';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
   toggleColor: () => void;
   shown: boolean;
   mode: 'light' | 'dark';

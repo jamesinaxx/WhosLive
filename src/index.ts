@@ -1,5 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { render, createElement } from 'preact';
 import Main from './main';
 
-ReactDOM.render(React.createElement(Main), document.getElementById('root'));
+render(
+  createElement(Main, null),
+  // Explicitly cast as it will never be null
+  document.getElementById('root') as HTMLElement,
+);

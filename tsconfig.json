@@ -5,6 +5,7 @@
     "esModuleInterop": true,
     "strict": true,
     "baseUrl": "./src/",
-    "types": ["chrome"]
+    "types": ["chrome"],
+    "skipLibCheck": true
   }
 }

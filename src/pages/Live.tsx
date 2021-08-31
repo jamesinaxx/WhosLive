@@ -1,5 +1,5 @@
 import 'regenerator-runtime';
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import styles from '../styles/Layout.module.scss';
 import Channel from '../components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
@@ -60,7 +60,7 @@ interface LiveState {
   loaded: number;
 }
 
-export default class Live extends Component<LiveProps, LiveState> {
+export default class Live extends PureComponent<LiveProps, LiveState> {
   constructor(props: any) {
     super(props);
 

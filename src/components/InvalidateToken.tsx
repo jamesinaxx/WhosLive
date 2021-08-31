@@ -1,10 +1,11 @@
+import { memo } from 'react';
 import styles from '../styles/Layout.module.scss';
 
 interface InvalidateTokenProps {
   onChoice: (invalidate: boolean) => void;
 }
 
-export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
+function InvalidateToken({ onChoice }: InvalidateTokenProps) {
   document.body.style.overflow = 'hidden';
 
   return (
@@ -32,3 +33,5 @@ export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
     </div>
   );
 }
+
+export default memo(InvalidateToken);
