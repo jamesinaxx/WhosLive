@@ -142,7 +142,9 @@ export default class Main extends Component<any, MainState> {
             {this.state.showRUSure && (
               <InvalidateToken
                 onChoice={invalidate => {
-                  if (invalidate) return this.invalidateToken;
+                  if (invalidate) {
+                    return this.invalidateToken();
+                  }
 
                   document.body.style.overflow = '';
                   return this.setState({
