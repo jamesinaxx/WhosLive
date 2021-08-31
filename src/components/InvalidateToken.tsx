@@ -2,14 +2,10 @@ import { ButtonGroup, Button } from '@material-ui/core';
 import styles from '../styles/Layout.module.scss';
 
 interface InvalidateTokenProps {
-  show: any;
-  invalidateToken: () => void;
+  onChoice: (invalidate: boolean) => void;
 }
 
-export default function InvalidateToken({
-  show,
-  invalidateToken,
-}: InvalidateTokenProps) {
+export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
   document.body.style.overflow = 'hidden';
 
   return (
@@ -20,8 +16,8 @@ export default function InvalidateToken({
         To continue using Now Live you will have to log in again{' '}
       </h1>
       <ButtonGroup variant="contained">
-        <Button onClick={invalidateToken}>Yes</Button>
-        <Button color="primary" onClick={show}>
+        <Button onClick={() => onChoice(true)}>Yes</Button>
+        <Button color="primary" onClick={() => onChoice(false)}>
           No
         </Button>
       </ButtonGroup>

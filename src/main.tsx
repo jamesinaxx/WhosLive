@@ -141,13 +141,14 @@ export default class Main extends Component<any, MainState> {
           <>
             {this.state.showRUSure && (
               <InvalidateToken
-                show={() => {
+                onChoice={invalidate => {
+                  if (invalidate) return this.invalidateToken;
+
                   document.body.style.overflow = '';
-                  this.setState({
+                  return this.setState({
                     showRUSure: false,
                   });
                 }}
-                invalidateToken={this.invalidateToken}
               />
             )}
             <Live color={color} />
