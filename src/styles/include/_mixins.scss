@@ -41,3 +41,11 @@ $buttonClicked: darken($buttonColor, 10%);
   font-size: xx-large;
   color: rgb(179, 179, 179);
 }
+
+@mixin animationChild($delay, $top, $left) {
+  animation-delay: $delay;
+  &:after {
+    top: $top;
+    left: $left;
+  }
+}
