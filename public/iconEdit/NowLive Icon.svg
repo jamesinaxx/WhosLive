@@ -1,1 +1,10 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 752.81 832.76"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#9146ff;}.cls-3{fill:#ed1c24;}</style></defs><polygon class="cls-1" points="701 444.18 597.38 547.8 493.76 547.8 403.1 638.47 403.1 547.8 286.53 547.8 286.53 159.23 701 159.23 701 444.18"/><g id="Layer_1-2" data-name="Layer 1-2"><path class="cls-2" d="M327.62,164.51,198.1,294V760.32H353.52V889.85L483.05,760.32H586.67L819.81,527.18V164.51ZM768,501.28,664.38,604.89H560.76L470.1,695.56V604.89H353.52V216.32H768Z" transform="translate(-67 -57.09)"/><rect class="cls-2" x="571.48" y="249.9" width="51.81" height="155.43"/><rect class="cls-2" x="429" y="249.9" width="51.81" height="155.43"/></g><circle class="cls-3" cx="214.5" cy="214.5" r="214.5"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" viewBox="0 0 48 48" overflow="visible" xml:space="preserve">
+<circle fill="#FFFFFF" cx="24" cy="24" r="22"/>
+<path fill="#F90606" d="M24,4C13,4,4,13,4,24s9,20,20,20s20-9,20-20S35,4,24,4z M29.2,32l-6.6-6.6C22.2,25,22,24.5,22,24V14
+	c0-1.1,0.9-2,2-2l0,0c1.1,0,2,0.9,2,2v9.2l6,6c0.8,0.8,0.8,2,0,2.8l0,0C31.2,32.8,30,32.8,29.2,32z"/>
+<path fill="#FFFFFF" d="M24.8,10.9h-1.7c-0.9,0-1.7-0.7-1.7-1.7V7.6c0-0.9,0.7-1.7,1.7-1.7h1.7c0.9,0,1.7,0.7,1.7,1.7v1.7
+	C26.5,10.2,25.8,10.9,24.8,10.9z"/>
+</svg>
