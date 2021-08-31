@@ -1,13 +1,14 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
+const rules = require('./webpack.rules');
 
 /**
  * @type {import('webpack').Configuration}
  */
 const config = {
   entry: {
-    index: path.resolve(__dirname, '..', 'src/index.tsx'),
+    index: path.resolve(__dirname, '..', 'src/index.ts'),
     background: path.resolve(__dirname, '..', 'src/scripts/background.ts'),
     authcheck: path.resolve(__dirname, '..', 'src/scripts/authcheck.ts'),
   },
@@ -18,7 +19,7 @@ const config = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
-    rules: require('./webpack.rules'),
+    rules,
   },
   plugins: [
     new HtmlWebpackPlugin({
