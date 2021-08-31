@@ -36,7 +36,6 @@ const config = {
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
     semi: ['error', 'always'],
-    'no-unused-vars': ['warn'],
     'react/jsx-filename-extension': [
       2,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
@@ -61,6 +60,8 @@ const config = {
     // Support for new React jsx transformation
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
   },
 };
 

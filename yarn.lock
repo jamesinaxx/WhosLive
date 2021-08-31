@@ -1676,10 +1676,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:16.7.2":
+"@types/node@npm:*":
   version: 16.7.2
   resolution: "@types/node@npm:16.7.2"
   checksum: aef77c109e2fd93b5dc6ec0a57a0878aaaa58adf0e63d9618d67b116ad3f2a3eb2589a99deaf9fda4a0805068b2533e3d2cf8e8dc3572251c498ec3dc929a76c
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^16.7.8":
+  version: 16.7.8
+  resolution: "@types/node@npm:16.7.8"
+  checksum: 060ea222ce8f3eb05bd86a7785ca5807503a50602dd805c5be997a5ae684fa6224c9ad8890bcc5551c05d14a8bcd735f94567691342d197f5f7f7f893ed0d46b
   languageName: node
   linkType: hard
 
@@ -5101,7 +5108,7 @@ fsevents@~2.3.2:
     "@fortawesome/react-fontawesome": ^0.1.15
     "@material-ui/core": ^4.12.3
     "@types/chrome": 0.0.154
-    "@types/node": 16.7.2
+    "@types/node": ^16.7.8
     "@types/react": 17.0.19
     "@types/react-dom": 17.0.9
     "@types/regenerator-runtime": 0.13.1

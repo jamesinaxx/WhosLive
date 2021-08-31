@@ -3,17 +3,11 @@ import './styles/global.scss';
 import Live from './pages/Live';
 import { getChannelInfo, getStorage, setStorage } from './lib/chromeapi';
 import NoAuthPage from './pages/NoAuth';
-import validateToken from './lib/tokenValid';
+import validateToken from './lib/validateToken';
 import Loading from './components/Loading';
 import Error404 from './pages/404';
 import InvalidateToken from './components/InvalidateToken';
-import {
-  clientId,
-  connectionType,
-  checkConnection,
-  toggleColorMode,
-  objToParams,
-} from './lib/lib';
+import { clientId, checkConnection, objToParams } from './lib/lib';
 import Layout from './components/Layout';
 import LogoutButton from './components/buttons/LogoutButton';
 
@@ -39,6 +33,7 @@ export default class Main extends Component<any, MainState> {
 
     this.validateToken = this.validateToken.bind(this);
     this.invalidateToken = this.invalidateToken.bind(this);
+    this.toggleColorMode = this.toggleColorMode.bind(this);
   }
 
   async componentDidMount() {
@@ -53,13 +48,14 @@ export default class Main extends Component<any, MainState> {
   }
 
   async setColor() {
-    const colorMode = await getStorage('NowLive:Storage:Color');
+    const colorMode =
+      (await getStorage<'light' | 'dark'>('NowLive:Storage:Color')) || 'dark';
     this.setState({ colorMode });
     document.body.className = this.state.colorMode;
   }
 
   async validateToken() {
-    const res = await getStorage('NowLive:Storage:Token');
+    const res = await getStorage<string>('NowLive:Storage:Token');
     const valid = await validateToken(res);
 
     this.setState({
@@ -69,7 +65,7 @@ export default class Main extends Component<any, MainState> {
   }
 
   async invalidateToken() {
-    const token = await getStorage('NowLive:Storage:Token');
+    const token = await getStorage<string>('NowLive:Storage:Token');
     try {
       await fetch(
         `https://id.twitch.tv/oauth2/revoke${objToParams({ clientId, token })}`,
@@ -77,8 +73,8 @@ export default class Main extends Component<any, MainState> {
           method: 'POST',
         },
       );
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.error(err);
     }
 
     await setStorage('NowLive:Storage:Token', '');
@@ -89,6 +85,13 @@ export default class Main extends Component<any, MainState> {
       tokenValid: false,
     });
     return getChannelInfo();
+  }
+
+  async toggleColorMode() {
+    await setStorage(
+      'NowLive:Storage:Color',
+      this.state.colorMode === 'light' ? 'dark' : 'light',
+    );
   }
 
   render() {
@@ -105,7 +108,7 @@ export default class Main extends Component<any, MainState> {
     if (this.state.connected === false) {
       return (
         <Layout
-          toggleColor={toggleColorMode}
+          toggleColor={this.toggleColorMode}
           mode={this.state.colorMode}
           shown={this.state.showRUSure}
         >
@@ -117,13 +120,8 @@ export default class Main extends Component<any, MainState> {
     if (this.state.userToken === undefined || this.state.connected === null) {
       if (this.state.connected === null) {
         checkConnection()
-          .then((res: connectionType) => {
-            this.setState({ connected: res[0] });
-          })
-          .catch((res: connectionType) => {
-            this.setState({ connected: res[0] });
-            console.log('Failed to connect to twitch', res[1]);
-          });
+          .then((res: boolean) => this.setState({ connected: res }))
+          .catch((res: boolean) => this.setState({ connected: res }));
       }
 
       return <Loading hidden={false} />;
@@ -135,13 +133,13 @@ export default class Main extends Component<any, MainState> {
 
     return (
       <Layout
-        toggleColor={toggleColorMode}
+        toggleColor={this.toggleColorMode}
         mode={this.state.colorMode}
         shown={this.state.showRUSure}
       >
         {this.state.userToken && this.state.tokenValid ? (
           <>
-            {this.state.showRUSure ? (
+            {this.state.showRUSure && (
               <InvalidateToken
                 show={() => {
                   document.body.style.overflow = '';
@@ -151,12 +149,10 @@ export default class Main extends Component<any, MainState> {
                 }}
                 invalidateToken={this.invalidateToken}
               />
-            ) : (
-              <div>{null}</div>
             )}
             <Live color={color} />
             <LogoutButton
-              ruSure={() => this.setState({ showRUSure: true })}
+              onClick={() => this.setState({ showRUSure: true })}
               shown={this.state.showRUSure}
             />
           </>

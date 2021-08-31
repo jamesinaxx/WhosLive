@@ -23,10 +23,7 @@ interface ChannelState {
   color: string;
 }
 
-export default class Channel extends Component<
-  ChannelProps,
-  ChannelState
-> {
+export default class Channel extends Component<ChannelProps, ChannelState> {
   constructor(props: ChannelProps) {
     super(props);
 
@@ -58,7 +55,7 @@ export default class Channel extends Component<
     });
 
     fac.destroy();
-    return this.props.doneLoading();
+    this.props.doneLoading();
   }
 
   render() {

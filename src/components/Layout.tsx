@@ -5,7 +5,7 @@ interface LayoutProps {
   children: React.ReactNode;
   toggleColor: () => void;
   shown: boolean;
-  mode: string;
+  mode: 'light' | 'dark';
 }
 
 export default function Layout({

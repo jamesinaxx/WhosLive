@@ -1,6 +1,6 @@
 import 'regenerator-runtime';
 import { setStorage, getChannelInfo } from '../lib/chromeapi';
-import validateToken from '../lib/tokenValid';
+import validateToken from '../lib/validateToken';
 
 chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 
