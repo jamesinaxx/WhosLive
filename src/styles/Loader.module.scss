@@ -1,5 +1,3 @@
-// I did not write this code... I "stole" it off a template loaders website and modified it to work better with scss
-
 @mixin animationChild($delay, $top, $left) {
   animation-delay: $delay;
   &:after {
