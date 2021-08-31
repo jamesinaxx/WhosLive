@@ -14,9 +14,7 @@ export default function Loading({ hidden }: LoadingProps) {
   return (
     <div>
       <style>{`.lds_rollerDivs div:after {background: ${bodyColor};}`}</style>
-      {hidden ? (
-        <div>{null}</div>
-      ) : (
+      {!hidden && (
         <div
           className={`${styles.lds_roller} lds_rollerDivs`}
           id="loadingChannels"
