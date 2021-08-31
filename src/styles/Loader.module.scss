@@ -1,12 +1,4 @@
-// I did not write this code... I "stole" it off a template loaders website and modified it to work better with scss
-
-@mixin animationChild($delay, $top, $left) {
-  animation-delay: $delay;
-  &:after {
-    top: $top;
-    left: $left;
-  }
-}
+@use './include/mixins';
 
 .lds_roller {
   display: inline-block;
@@ -17,7 +9,7 @@
   width: 80px;
   height: 80px;
   div {
-    animation: lds_roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    animation: lds_roller_anim 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     transform-origin: 40px 40px;
     &:after {
       content: ' ';
@@ -29,33 +21,33 @@
       margin: -4px 0 0 -4px;
     }
     &:nth-child(1) {
-      @include animationChild(-0.036s, 63px, 63px);
+      @include mixins.animationChild(-0.036s, 63px, 63px);
     }
     &:nth-child(2) {
-      @include animationChild(-72ms, 68px, 56px);
+      @include mixins.animationChild(-72ms, 68px, 56px);
     }
     &:nth-child(3) {
-      @include animationChild(-108ms, 71px, 48px);
+      @include mixins.animationChild(-108ms, 71px, 48px);
     }
     &:nth-child(4) {
-      @include animationChild(-144ms, 72px, 40px);
+      @include mixins.animationChild(-144ms, 72px, 40px);
     }
     &:nth-child(5) {
-      @include animationChild(-180ms, 71px, 32px);
+      @include mixins.animationChild(-180ms, 71px, 32px);
     }
     &:nth-child(6) {
-      @include animationChild(-216ms, 68px, 24px);
+      @include mixins.animationChild(-216ms, 68px, 24px);
     }
     &:nth-child(7) {
-      @include animationChild(-252ms, 63px, 17px);
+      @include mixins.animationChild(-252ms, 63px, 17px);
     }
     &:nth-child(8) {
-      @include animationChild(-288ms, 56px, 12px);
+      @include mixins.animationChild(-288ms, 56px, 12px);
     }
   }
 }
 
-@keyframes lds_roller {
+@keyframes lds_roller_anim {
   0% {
     transform: rotate(0deg);
   }

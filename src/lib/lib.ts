@@ -1,6 +1,5 @@
-import { getStorage, setStorage } from './chromeapi';
-
-export type connectionType = [boolean, any?];
+// This is because we don't have @types/node but we still need to use process in one line
+declare const process: any;
 
 export const clientId = process.env.CLIENTID as string;
 
@@ -27,22 +26,14 @@ export async function fetchWithTimeout(
   return res;
 }
 
-export async function toggleColorMode() {
-  setStorage(
-    'NowLive:Storage:Color',
-    (await getStorage('NowLive:Storage:Color')) === 'light' ? 'dark' : 'light',
-  );
-}
-
-export async function checkConnection(): Promise<connectionType> {
+export async function checkConnection(): Promise<boolean> {
   try {
-    const fetchRes = await fetchWithTimeout('https://twitch.tv', {
+    await fetchWithTimeout('https://twitch.tv', {
       timeout: 10000,
     });
-    const res = fetchRes.json();
-    return [true, res];
+    return true;
   } catch (error) {
-    return [false, error];
+    return false;
   }
 }
 

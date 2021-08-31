@@ -1,30 +1,75 @@
 import 'regenerator-runtime';
-import React from 'react';
+import { Component } from 'react';
 import styles from '../styles/Layout.module.scss';
 import Channel from '../components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
 import Loading from '../components/Loading';
 
+interface ChannelsProps {
+  channels: any[] | null | undefined;
+  loaded: number;
+  updateChannels: () => void;
+  finishLoading: () => void;
+}
+
+function Channels({
+  channels,
+  loaded,
+  updateChannels,
+  finishLoading,
+}: ChannelsProps): JSX.Element {
+  if (channels === null || channels === undefined) {
+    updateChannels();
+    return <Loading hidden={false} />;
+  }
+
+  if (channels.length === 0) {
+    return (
+      <small className={styles.goFollow}>
+        You do not follow anybody who is currently live
+        <img
+          src="https://cdn.frankerfacez.com/emoticon/425196/4"
+          alt="Sadge Emote from FFZ"
+        />
+      </small>
+    );
+  }
+
+  return (
+    <div className={styles.container}>
+      <Loading hidden={loaded === channels.length} />
+      {channels.map((channelData, _index, channelsArray) => (
+        <Channel
+          online
+          key={channelData.id}
+          data={channelData}
+          hidden={loaded !== channelsArray.length}
+          doneLoading={finishLoading}
+        />
+      ))}
+    </div>
+  );
+}
+
 interface LiveProps {
-  color: string;
+  color: '#000' | '#fff';
 }
 
 interface LiveState {
   channels: any[] | null | undefined;
-  doneLoading: number;
+  loaded: number;
 }
 
-export default class Live extends React.Component<LiveProps, LiveState> {
+export default class Live extends Component<LiveProps, LiveState> {
   constructor(props: any) {
     super(props);
 
     this.state = {
       channels: null,
-      doneLoading: 0,
+      loaded: 0,
     };
 
-    this.doneLoading = this.doneLoading.bind(this);
-    this.showChannels = this.showChannels.bind(this);
+    this.finishLoading = this.finishLoading.bind(this);
     this.updateChannels = this.updateChannels.bind(this);
 
     chrome.storage.onChanged.addListener(this.updateChannels);
@@ -32,12 +77,14 @@ export default class Live extends React.Component<LiveProps, LiveState> {
   }
 
   componentDidMount() {
-    const interval = setInterval(() => {
-      getStorageLocal('NowLive:Storage:Channels').then((res: any[]) => {
-        if (res === undefined) return;
-        clearInterval(interval);
-        this.setState({ channels: res });
-      });
+    // This checks every second to see if the channels have loaded yet and if they have it stops checking
+    const interval = setInterval(async () => {
+      const res = await getStorageLocal<any[] | undefined>(
+        'NowLive:Storage:Channels',
+      );
+      if (res === undefined) return;
+      clearInterval(interval);
+      this.setState({ channels: res });
     }, 1000);
   }
 
@@ -47,57 +94,20 @@ export default class Live extends React.Component<LiveProps, LiveState> {
     });
   }
 
-  doneLoading() {
-    this.setState(oldState => ({ doneLoading: oldState.doneLoading + 1 }));
-  }
-
-  showChannels() {
-    if (this.state.channels === null || this.state.channels === undefined) {
-      this.updateChannels();
-      return <Loading hidden={false} color={this.props.color} />;
-    }
-
-    if (this.state.channels.length === 0) {
-      return (
-        <small className={styles.goFollow}>
-          You do not follow anybody who is currently live
-          <img
-            src="https://cdn.frankerfacez.com/emoticon/425196/4"
-            alt="Sadge Emote from FFZ"
-          />
-        </small>
-      );
-    }
-
-    return (
-      <div>
-        <Loading
-          hidden={this.state.doneLoading === this.state.channels.length}
-          color={this.props.color}
-        />
-        {this.state.channels.map(channelData => (
-          <Channel
-            online
-            key={channelData.id}
-            data={channelData}
-            /* I really shouldn't have to cast but here we are */
-            hidden={
-              this.state.doneLoading !== (this.state.channels as any[]).length
-            }
-            doneLoading={this.doneLoading}
-          />
-        ))}
-        <div
-          /* Placeholder so the channel cards don't flow beyond the viewport */
-          style={{
-            height: '5px',
-          }}
-        />
-      </div>
-    );
+  finishLoading() {
+    this.setState(oldState => ({ loaded: oldState.loaded + 1 }));
   }
 
   render() {
-    return <div className={styles.main}>{this.showChannels()}</div>;
+    return (
+      <div className={styles.main}>
+        <Channels
+          channels={this.state.channels}
+          loaded={this.state.loaded}
+          updateChannels={this.updateChannels}
+          finishLoading={this.finishLoading}
+        />
+      </div>
+    );
   }
 }

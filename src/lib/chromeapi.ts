@@ -1,49 +1,35 @@
 import { clientId } from './lib';
 
 export async function setStorage(key: string, value: any): Promise<void> {
-  chrome.storage.sync.set({ [key]: value }, () => {
-    console.log(`Set ${key} in synced chrome storage`);
-  });
+  await chrome.storage.sync.set({ [key]: value });
 }
 
-export async function getStorage(
-  key: 'NowLive:Storage:Token' | string,
-): Promise<any> {
-  return new Promise(resolve => {
-    chrome.storage.sync.get([key], res => {
-      console.log(`Got ${key} from synced chrome storage`);
-      resolve(res[key]);
-    });
-  });
+export type SyncType = 'NowLive:Storage:Token' | string;
+export function getStorage<T>(key: SyncType): Promise<T> {
+  return new Promise(resolve =>
+    chrome.storage.sync.get(key, res => resolve(res[key])),
+  );
 }
 
 export async function setStorageLocal(key: string, value: any): Promise<void> {
-  chrome.storage.local.set({ [key]: value }, () => {
-    console.log(`Set ${key} in local chrome storage`);
-  });
+  chrome.storage.local.set({ [key]: value });
 }
 
-export async function getStorageLocal(
-  key: 'NowLive:Storage:Channels' | string,
-): Promise<any> {
-  return new Promise(resolve => {
-    chrome.storage.local.get([key], res => {
-      console.log(`Got ${key} from local chrome storage`);
-      resolve(res[key]);
-    });
-  });
+export type LocalType = 'NowLive:Storage:Channels' | string;
+export function getStorageLocal<T>(key: LocalType): Promise<T> {
+  return new Promise(resolve =>
+    chrome.storage.local.get(key, res => resolve(res[key])),
+  );
 }
 
 export async function getChannelInfo(): Promise<void> {
-  const token = await getStorage('NowLive:Storage:Token');
-  console.log('Token:', token);
-  console.debug('Updating channel info');
+  const token = await getStorage<string>('NowLive:Storage:Token');
   if (!token) {
-    chrome.action.setTitle({
+    await chrome.action.setTitle({
       title: `Please verify Now Live`,
     });
-    chrome.action.setBadgeText({ text: '' });
-    return console.debug('Token is undefined');
+    await chrome.action.setBadgeText({ text: '' });
+    return;
   }
   try {
     const userId = (
@@ -72,22 +58,21 @@ export async function getChannelInfo(): Promise<void> {
     const streamingNow = Number(res.data.length.toString());
 
     if (streamingNow !== 0) {
-      chrome.action.setTitle({
+      await chrome.action.setTitle({
         title: `There are ${streamingNow} people streaming right now`,
       });
-      chrome.action.setBadgeText({
+      await chrome.action.setBadgeText({
         text: streamingNow.toString(),
       });
     } else {
-      chrome.action.setTitle({
+      await chrome.action.setTitle({
         title: `There is nobody streaming right now`,
       });
-      chrome.action.setBadgeText({ text: '' });
+      await chrome.action.setBadgeText({ text: '' });
     }
 
-    setStorageLocal('NowLive:Storage:Channels', res.data);
+    await setStorageLocal('NowLive:Storage:Channels', res.data);
   } catch (error) {
     console.error(error);
   }
-  return console.debug('Updated channel info');
 }

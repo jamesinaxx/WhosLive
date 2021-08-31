@@ -1,4 +1,3 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-regular-svg-icons';
 import styles from '../../styles/Layout.module.scss';
@@ -6,7 +5,7 @@ import styles from '../../styles/Layout.module.scss';
 interface ColorToggleProps {
   toggleColor: () => void;
   shown: boolean;
-  mode: string;
+  mode: 'light' | 'dark';
 }
 
 export default function ColorToggle({

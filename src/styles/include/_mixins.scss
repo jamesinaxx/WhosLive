@@ -2,7 +2,26 @@ $buttonColor: #724cf9;
 $buttonHover: darken($buttonColor, 5%);
 $buttonClicked: darken($buttonColor, 10%);
 
-@mixin control-button($left) {
+@mixin confirmButton() {
+  transition: background-color 100ms ease-in-out;
+  width: 150px;
+  height: 50px;
+  letter-spacing: 0.5px;
+  background-color: $buttonColor;
+  color: white;
+  font-size: 2em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: $buttonHover;
+  }
+  &:active {
+    background-color: $buttonClicked;
+  }
+}
+
+@mixin controlButton($left) {
   color: #fff;
   transition: all 100ms ease-in-out;
   width: 30px;
@@ -40,4 +59,12 @@ $buttonClicked: darken($buttonColor, 10%);
   transform: translate(-50%, -50%);
   font-size: xx-large;
   color: rgb(179, 179, 179);
+}
+
+@mixin animationChild($delay, $top, $left) {
+  animation-delay: $delay;
+  &:after {
+    top: $top;
+    left: $left;
+  }
 }

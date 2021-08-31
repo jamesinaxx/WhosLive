@@ -1,19 +1,18 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/Layout.module.scss';
 
 interface LogoutButtonProps {
-  ruSure: () => void;
+  onClick: () => void;
   shown: boolean;
 }
 
-export default function LogoutButton({ ruSure, shown }: LogoutButtonProps) {
+export default function LogoutButton({ onClick, shown }: LogoutButtonProps) {
   return (
     <button
       type="button"
       className={styles.settingsButton}
-      onClick={ruSure}
+      onClick={onClick}
       style={{
         opacity: shown ? '0%' : '100%',
         color: '#fff',

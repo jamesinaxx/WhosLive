@@ -1,15 +1,30 @@
-@import './include/mixins';
+@use './include/mixins';
+
+.container {
+  padding-bottom: 5px;
+}
 
 .main {
   margin-bottom: 110px;
   text-align: center;
 }
 
+.confirmButton {
+  @include mixins.confirmButton();
+  border-radius: 100%, 0px, 0px, 100%;
+}
+
+.dismissButton {
+  @include mixins.confirmButton();
+  border-radius: 0px, 100%, 100%, 0px;
+}
+
 .ruSure {
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   z-index: 1;
   transition: opacity 100ms ease-in-out;
-  margin: none;
-  padding: none;
   position: fixed;
   width: 550px;
   height: 550px;
@@ -41,17 +56,17 @@
       margin-top: 15px;
     }
   }
-  @include smolText();
+  @include mixins.smolText();
 }
 
 .goFollow {
-  @include smolText();
+  @include mixins.smolText();
 }
 
 .colorModeToggle {
-  @include control-button(5px);
+  @include mixins.controlButton(5px);
 }
 
 .settingsButton {
-  @include control-button(40px);
+  @include mixins.controlButton(40px);
 }

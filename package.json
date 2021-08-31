@@ -10,6 +10,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "fmt": "prettier --write ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
+    "fmt:check": "prettier --check ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
     "lint": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore",
     "lint:fix": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore --fix"
   },
@@ -19,8 +20,6 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
-    "@material-ui/core": "^4.12.3",
-    "dayjs": "^1.10.6",
     "eslint-config-prettier": "^8.3.0",
     "fast-average-color": "^6.4.1",
     "react": "^17.0.2",
@@ -32,10 +31,10 @@
     "@babel/plugin-proposal-class-properties": "7.14.5",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/preset-env": "7.15.0",
-    "@babel/preset-react": "7.14.5",
+    "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "7.15.0",
     "@types/chrome": "0.0.154",
-    "@types/node": "16.7.2",
+    "@types/node": "^16.7.8",
     "@types/react": "17.0.19",
     "@types/react-dom": "17.0.9",
     "@types/regenerator-runtime": "0.13.1",
@@ -61,7 +60,6 @@
     "style-loader": "3.2.1",
     "typescript": "4.3.5",
     "webpack": "5.51.1",
-    "webpack-bundle-analyzer": "4.4.2",
     "webpack-cli": "4.8.0",
     "webpack-merge": "5.8.0"
   }
