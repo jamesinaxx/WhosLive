@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */ // The properties are named with snake_case because thats how the Twitch api works
 import { Component } from 'preact';
 import FastAverageColor from 'fast-average-color';
-import styles from '../styles/Channel.module.scss';
+import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
 
 interface ChannelProps {
@@ -22,6 +22,41 @@ interface ChannelState {
   bgColor: string;
   color: string;
 }
+
+const ChannelContainer = styled.div`
+  padding: 0;
+  border: none;
+  background: none;
+  position: relative;
+`;
+
+const ChannelDiv = styled.div`
+  user-select: none;
+  padding: 10px;
+  img {
+    transition: transform 100ms ease-in-out;
+    border-radius: 15px;
+    margin: 10px;
+    float: left;
+    cursor: pointer;
+    &:hover {
+      transform: scale(110%);
+    }
+  }
+  border-radius: 15px;
+  width: 90vw;
+  height: 92px;
+  margin: 10px;
+`;
+
+const ChannelInfo = styled.div`
+  vertical-align: middle;
+  text-align: center;
+  margin-left: 100px;
+  max-width: 425px;
+  font-size: 30px;
+  font-size: 2vw;
+`;
 
 export default class Channel extends Component<ChannelProps, ChannelState> {
   constructor(props: ChannelProps) {
@@ -73,13 +108,8 @@ export default class Channel extends Component<ChannelProps, ChannelState> {
       .replace('{height}', '72');
 
     return (
-      <div
-        title={title}
-        className={styles.channelDiv}
-        hidden={this.props.hidden}
-      >
-        <div
-          className={styles.channel}
+      <ChannelContainer title={title} hidden={this.props.hidden}>
+        <ChannelDiv
           style={{
             backgroundColor: this.state.bgColor,
             color: this.state.color,
@@ -94,7 +124,7 @@ export default class Channel extends Component<ChannelProps, ChannelState> {
             width={128}
             height={72}
           />
-          <div className={styles.channelInfo}>
+          <ChannelInfo>
             <h1>{getTitle(title)}</h1>
             <p>
               <b>{user_name}</b> is currently playing <b>{game_name}</b> for{' '}
@@ -105,9 +135,9 @@ export default class Channel extends Component<ChannelProps, ChannelState> {
               </b>{' '}
               viewers
             </p>
-          </div>
-        </div>
-      </div>
+          </ChannelInfo>
+        </ChannelDiv>
+      </ChannelContainer>
     );
   }
 }

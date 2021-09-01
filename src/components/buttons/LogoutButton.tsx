@@ -1,17 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import styles from '../../styles/Layout.module.scss';
+import styled from 'styled-components';
+import { controlButton } from '../../styles/Mixins';
 
 interface LogoutButtonProps {
   onClick: () => void;
   shown: boolean;
 }
 
-export default function LogoutButton({ onClick, shown }: LogoutButtonProps) {
+const LogoutButton = styled.button`
+  ${controlButton(40)}
+`;
+
+export default function Logout({ onClick, shown }: LogoutButtonProps) {
   return (
-    <button
+    <LogoutButton
       type="button"
-      className={styles.settingsButton}
       onClick={onClick}
       style={{
         opacity: shown ? '0%' : '100%',
@@ -19,6 +23,6 @@ export default function LogoutButton({ onClick, shown }: LogoutButtonProps) {
       }}
     >
       <FontAwesomeIcon icon={faSignOutAlt} />
-    </button>
+    </LogoutButton>
   );
 }

@@ -1,10 +1,23 @@
 import { FunctionComponent } from 'preact';
-import styles from '../styles/Layout.module.scss';
+import styled from 'styled-components';
 
-const Link: FunctionComponent<{ href: string }> = ({ href, children }) => (
-  <a href={href} target="_blank" rel="noreferrer" className={styles.link}>
+const Anchor = styled.a`
+  margin: 5px;
+  text-decoration: none;
+  color: #ba00f2;
+  &:hover {
+    color: #9902c7;
+  }
+`;
+
+const Link: FunctionComponent<{ href: string; color: string }> = ({
+  href,
+  color,
+  children,
+}) => (
+  <Anchor href={href} target="_blank" rel="noreferrer" color={color}>
     {children}
-  </a>
+  </Anchor>
 );
 
 export default Link;
