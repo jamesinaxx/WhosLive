@@ -1,55 +1,21 @@
+/* eslint-disable no-undef */
 import 'regenerator-runtime';
 import { Component } from 'preact';
-import styles from '../styles/Layout.module.scss';
+import styled from 'styled-components';
 import Channel from '../components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
 import Loading from '../components/Loading';
+import { smolText } from '../styles/Mixins';
 
-interface ChannelsProps {
-  channels: any[] | null | undefined;
-  loaded: number;
-  updateChannels: () => void;
-  finishLoading: () => void;
-}
+const NoLiveChannels = styled.small`
+  ${smolText}
+`;
 
-function Channels({
-  channels,
-  loaded,
-  updateChannels,
-  finishLoading,
-}: ChannelsProps) {
-  if (channels === null || channels === undefined) {
-    updateChannels();
-    return <Loading hidden={false} />;
-  }
-
-  if (channels.length === 0) {
-    return (
-      <small className={styles.goFollow}>
-        You do not follow anybody who is currently live
-        <img
-          src="https://cdn.frankerfacez.com/emoticon/425196/4"
-          alt="Sadge Emote from FFZ"
-        />
-      </small>
-    );
-  }
-
-  return (
-    <div className={styles.container}>
-      <Loading hidden={loaded === channels.length} />
-      {channels.map((channelData, _index, channelsArray) => (
-        <Channel
-          online
-          key={channelData.id}
-          data={channelData}
-          hidden={loaded !== channelsArray.length}
-          doneLoading={finishLoading}
-        />
-      ))}
-    </div>
-  );
-}
+const Container = styled.div`
+  margin-bottom: 110px;
+  padding-bottom: 60px;
+  text-align: center;
+`;
 
 interface LiveProps {
   color: '#000' | '#fff';
@@ -99,15 +65,36 @@ export default class Live extends Component<LiveProps, LiveState> {
   }
 
   render() {
+    if (this.state.channels === null || this.state.channels === undefined) {
+      this.updateChannels();
+      return <Loading hidden={false} />;
+    }
+
+    if (this.state.channels.length === 0) {
+      return (
+        <NoLiveChannels>
+          You do not follow anybody who is currently live
+          <img
+            src="https://cdn.frankerfacez.com/emoticon/425196/4"
+            alt="Sadge Emote from FFZ"
+          />
+        </NoLiveChannels>
+      );
+    }
+
     return (
-      <div className={styles.main}>
-        <Channels
-          channels={this.state.channels}
-          loaded={this.state.loaded}
-          updateChannels={this.updateChannels}
-          finishLoading={this.finishLoading}
-        />
-      </div>
+      <Container>
+        <Loading hidden={this.state.loaded === this.state.channels.length} />
+        {this.state.channels.map((channelData, _index, channelsArray) => (
+          <Channel
+            online
+            key={channelData.id}
+            data={channelData}
+            hidden={this.state.loaded !== channelsArray.length}
+            doneLoading={this.finishLoading}
+          />
+        ))}
+      </Container>
     );
   }
 }
