@@ -1,8 +1,6 @@
-import { darken } from 'polished';
-
 export const buttonColor = '#724cf9';
-export const buttonHover = darken(0.05, buttonColor);
-export const buttonClicked = darken(0.1, buttonColor);
+export const buttonHover = '#6b4ecf';
+export const buttonClicked = '#573eb0';
 
 export const confirmButton = `
   transition: background-color 100ms ease-in-out;
