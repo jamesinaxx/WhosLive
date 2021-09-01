@@ -2,22 +2,34 @@ import { FunctionComponent } from 'preact';
 import styled from 'styled-components';
 
 const Anchor = styled.a`
+  transition: color 100ms ease-in-out;
   margin: 5px;
   text-decoration: none;
-  color: #ba00f2;
+  color: ${props => props.color};
   &:hover {
-    color: #9902c7;
+    color: ${props => props.theme.hoverColor};
   }
 `;
 
-const Link: FunctionComponent<{ href: string; color: string }> = ({
+const Link: FunctionComponent<{ href: string; mode: 'light' | 'dark' }> = ({
   href,
-  color,
+  mode,
   children,
-}) => (
-  <Anchor href={href} target="_blank" rel="noreferrer" color={color}>
-    {children}
-  </Anchor>
-);
+}) => {
+  const color = mode === 'light' ? '#000' : '#fff';
+  const hoverColor = mode === 'light' ? '#504e4e' : '#cacaca';
+
+  return (
+    <Anchor
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      color={color}
+      theme={{ hoverColor }}
+    >
+      {children}
+    </Anchor>
+  );
+};
 
 export default Link;
