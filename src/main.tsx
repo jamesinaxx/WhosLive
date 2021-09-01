@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { Component } from 'preact';
 import './styles/global.scss';
 import Live from './pages/Live';
 import { getChannelInfo, getStorage, setStorage } from './lib/chromeapi';
@@ -19,7 +19,7 @@ interface MainState {
   connected?: boolean | undefined;
 }
 
-export default class Main extends PureComponent<any, MainState> {
+export default class Main extends Component<any, MainState> {
   constructor(props: any) {
     super(props);
 

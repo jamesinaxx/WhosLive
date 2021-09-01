@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */ // The properties are named with snake_case because thats how the Twitch api works
-import { PureComponent } from 'react';
+import { Component } from 'preact';
 import FastAverageColor from 'fast-average-color';
 import styles from '../styles/Channel.module.scss';
 import { getTitle } from '../lib/lib';
@@ -23,7 +23,7 @@ interface ChannelState {
   color: string;
 }
 
-export default class Channel extends PureComponent<ChannelProps, ChannelState> {
+export default class Channel extends Component<ChannelProps, ChannelState> {
   constructor(props: ChannelProps) {
     super(props);
 

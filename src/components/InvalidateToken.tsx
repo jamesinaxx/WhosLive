@@ -1,11 +1,10 @@
-import { memo } from 'react';
 import styles from '../styles/Layout.module.scss';
 
 interface InvalidateTokenProps {
   onChoice: (invalidate: boolean) => void;
 }
 
-function InvalidateToken({ onChoice }: InvalidateTokenProps) {
+export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
   document.body.style.overflow = 'hidden';
 
   return (
@@ -15,7 +14,6 @@ function InvalidateToken({ onChoice }: InvalidateTokenProps) {
         <br />
         To continue using Now Live you will have to log in again
       </h1>
-      {/* <br style={{ width: '100vw' }} /> */}
       <button
         type="button"
         onClick={() => onChoice(true)}
@@ -33,5 +31,3 @@ function InvalidateToken({ onChoice }: InvalidateTokenProps) {
     </div>
   );
 }
-
-export default memo(InvalidateToken);
