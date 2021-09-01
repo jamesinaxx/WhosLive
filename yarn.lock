@@ -1620,7 +1620,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.7.8":
+"@types/node@npm:16.7.8":
   version: 16.7.8
   resolution: "@types/node@npm:16.7.8"
   checksum: 060ea222ce8f3eb05bd86a7785ca5807503a50602dd805c5be997a5ae684fa6224c9ad8890bcc5551c05d14a8bcd735f94567691342d197f5f7f7f893ed0d46b
@@ -4988,7 +4988,7 @@ fsevents@~2.3.2:
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
     "@types/chrome": 0.0.154
-    "@types/node": ^16.7.8
+    "@types/node": 16.7.8
     "@types/regenerator-runtime": 0.13.1
     "@types/styled-components": ^5.1.13
     "@typescript-eslint/eslint-plugin": 4.30.0
@@ -5019,9 +5019,9 @@ fsevents@~2.3.2:
     styled-components: ^5.3.1
     typescript: 4.3.5
     webpack: 5.51.1
-    webpack-bundle-analyzer: ^4.4.2
+    webpack-bundle-analyzer: 4.4.2
     webpack-cli: 4.8.0
-    webpack-merge: ^5.8.0
+    webpack-merge: 5.8.0
   languageName: unknown
   linkType: soft
 
@@ -6977,7 +6977,7 @@ typescript@4.3.5:
   languageName: node
   linkType: hard
 
-"webpack-bundle-analyzer@npm:^4.4.2":
+"webpack-bundle-analyzer@npm:4.4.2":
   version: 4.4.2
   resolution: "webpack-bundle-analyzer@npm:4.4.2"
   dependencies:
@@ -7030,7 +7030,7 @@ typescript@4.3.5:
   languageName: node
   linkType: hard
 
-"webpack-merge@npm:^5.7.3, webpack-merge@npm:^5.8.0":
+"webpack-merge@npm:5.8.0, webpack-merge@npm:^5.7.3":
   version: 5.8.0
   resolution: "webpack-merge@npm:5.8.0"
   dependencies:
