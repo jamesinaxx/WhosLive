@@ -1,5 +1,5 @@
 import 'regenerator-runtime';
-import { Component } from 'react';
+import { Component } from 'preact';
 import styles from '../styles/Layout.module.scss';
 import Channel from '../components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
@@ -17,7 +17,7 @@ function Channels({
   loaded,
   updateChannels,
   finishLoading,
-}: ChannelsProps): JSX.Element {
+}: ChannelsProps) {
   if (channels === null || channels === undefined) {
     updateChannels();
     return <Loading hidden={false} />;

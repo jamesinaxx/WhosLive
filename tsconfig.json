@@ -2,9 +2,11 @@
   "compilerOptions": {
     "lib": ["ES2021", "DOM"],
     "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "esModuleInterop": true,
     "strict": true,
     "baseUrl": "./src/",
-    "types": ["chrome"]
+    "types": ["chrome"],
+    "skipLibCheck": true
   }
 }

@@ -14,7 +14,6 @@ export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
         <br />
         To continue using Now Live you will have to log in again
       </h1>
-      {/* <br style={{ width: '100vw' }} /> */}
       <button
         type="button"
         onClick={() => onChoice(true)}
