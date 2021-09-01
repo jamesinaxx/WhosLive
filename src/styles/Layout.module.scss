@@ -14,6 +14,29 @@
   border-radius: 100%, 0px, 0px, 100%;
 }
 
+.footer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  padding: 5px;
+  margin: 0;
+  border-top: 1px solid white;
+}
+
+.link {
+  margin: 5px;
+  color: white;
+  &:hover {
+    color: #d3d0d0;
+  }
+}
+
 .dismissButton {
   @include mixins.confirmButton();
   border-radius: 0px, 100%, 100%, 0px;
