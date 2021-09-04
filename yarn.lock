@@ -1522,13 +1522,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:0.0.154":
-  version: 0.0.154
-  resolution: "@types/chrome@npm:0.0.154"
+"@types/chrome@npm:0.0.155":
+  version: 0.0.155
+  resolution: "@types/chrome@npm:0.0.155"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 143fb34b7e283415b6a839748f1b5ff0422fc27b6c7052b7ba5c033d8d313bc911fea68f595b170e4e649b448a159415a77465ff1cf63d8ed6f7d6a10d825734
+  checksum: bdded7b4548396933155ee2129d73a932971c1bf7e5a8bc53729d2bb438185621d1585d4b9d6cf4c7a7665b5f64d3d808bd9507eb5baeb0bc90907e3754be0dc
   languageName: node
   linkType: hard
 
@@ -4987,7 +4987,7 @@ fsevents@~2.3.2:
     "@fortawesome/free-regular-svg-icons": ^5.15.4
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
-    "@types/chrome": 0.0.154
+    "@types/chrome": 0.0.155
     "@types/node": 16.7.8
     "@types/regenerator-runtime": 0.13.1
     "@types/styled-components": ^5.1.13
