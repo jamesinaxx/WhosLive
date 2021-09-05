@@ -1862,10 +1862,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.7.8":
-  version: 16.7.8
-  resolution: "@types/node@npm:16.7.8"
-  checksum: 060ea222ce8f3eb05bd86a7785ca5807503a50602dd805c5be997a5ae684fa6224c9ad8890bcc5551c05d14a8bcd735f94567691342d197f5f7f7f893ed0d46b
+"@types/node@npm:16.7.10":
+  version: 16.7.10
+  resolution: "@types/node@npm:16.7.10"
+  checksum: 0518803caa1a14f4070e770a280eda1c4b4581a425cbda481cdd54b1f34a7ea497ff067fd23b90e3d4f4fdcfba15c1316182875e9cf9f5b2e880de1e595de053
   languageName: node
   linkType: hard
 
@@ -3826,10 +3826,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-average-color@npm:^6.4.1":
-  version: 6.4.1
-  resolution: "fast-average-color@npm:6.4.1"
-  checksum: a04dd17d5dc0401ea81796fd55d9967a7199c84ceca987719f6d6ff37fd057afaff01d0f7ce575de03f2534ed8670ef1369e3f38151f1ec504840040081117c1
+"fast-average-color@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "fast-average-color@npm:6.4.2"
+  checksum: 5cc2fc7bb6efa9a675cd4b6910707f774eff71984f4a7e6b934fb683792b3d6570d5c2dd4def26e4138a4dda2c85ceb9ce266b60b95fe6526e7b900e67e8ed46
   languageName: node
   linkType: hard
 
@@ -5230,7 +5230,7 @@ fsevents@~2.3.2:
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
     "@types/chrome": 0.0.155
-    "@types/node": 16.7.8
+    "@types/node": 16.7.10
     "@types/regenerator-runtime": 0.13.1
     "@types/styled-components": 5.1.14
     "@typescript-eslint/eslint-plugin": 4.30.0
@@ -5248,7 +5248,7 @@ fsevents@~2.3.2:
     eslint-plugin-jsx-a11y: 6.4.1
     eslint-plugin-react: 7.25.1
     eslint-plugin-react-hooks: 4.2.0
-    fast-average-color: ^6.4.1
+    fast-average-color: ^6.4.2
     html-webpack-plugin: 5.3.2
     json-minimizer-webpack-plugin: 3.0.0
     preact: ^10.5.14
