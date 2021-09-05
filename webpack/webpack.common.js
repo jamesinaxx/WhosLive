@@ -8,7 +8,7 @@ const rules = require('./webpack.rules');
  */
 const config = {
   entry: {
-    index: path.resolve(__dirname, '..', 'src/index.ts'),
+    index: path.resolve(__dirname, '..', 'src/index.tsx'),
     background: path.resolve(__dirname, '..', 'src/scripts/background.ts'),
     authcheck: path.resolve(__dirname, '..', 'src/scripts/authcheck.ts'),
   },

@@ -1,5 +1,4 @@
 const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
 
@@ -13,7 +12,7 @@ const config = {
   mode: 'production',
   plugins: [new Dotenv({ path: path.resolve(__dirname, '..', '.env') })],
   optimization: {
-    minimizer: ['...', new CssMinimizerPlugin(), new JsonMinimizerPlugin()],
+    minimizer: ['...', new JsonMinimizerPlugin()],
   },
   performance: {
     maxEntrypointSize: mb,

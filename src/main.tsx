@@ -1,5 +1,4 @@
 import { Component } from 'preact';
-import './styles/global.scss';
 import Live from './pages/Live';
 import { getChannelInfo, getStorage, setStorage } from './lib/chromeapi';
 import NoAuthPage from './pages/NoAuth';
