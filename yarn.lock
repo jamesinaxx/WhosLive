@@ -1862,13 +1862,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.7.10":
-  version: 16.7.10
-  resolution: "@types/node@npm:16.7.10"
-  checksum: 0518803caa1a14f4070e770a280eda1c4b4581a425cbda481cdd54b1f34a7ea497ff067fd23b90e3d4f4fdcfba15c1316182875e9cf9f5b2e880de1e595de053
-  languageName: node
-  linkType: hard
-
 "@types/prop-types@npm:*":
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
@@ -5230,7 +5223,6 @@ fsevents@~2.3.2:
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
     "@types/chrome": 0.0.155
-    "@types/node": 16.7.10
     "@types/regenerator-runtime": 0.13.1
     "@types/styled-components": 5.1.14
     "@typescript-eslint/eslint-plugin": 4.30.0
