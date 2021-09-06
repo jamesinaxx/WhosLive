@@ -1740,13 +1740,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:0.0.155":
-  version: 0.0.155
-  resolution: "@types/chrome@npm:0.0.155"
+"@types/chrome@npm:0.0.157":
+  version: 0.0.157
+  resolution: "@types/chrome@npm:0.0.157"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: bdded7b4548396933155ee2129d73a932971c1bf7e5a8bc53729d2bb438185621d1585d4b9d6cf4c7a7665b5f64d3d808bd9507eb5baeb0bc90907e3754be0dc
+  checksum: 56edd77a108320674eae6f01688559a4fed3f0a7df2a718b4ad9cd50eaff2f59532e8fa0eb7881e473aea4507d9dc72d0c2fe84ff2ff394c72322ddca7f586f1
   languageName: node
   linkType: hard
 
@@ -4453,7 +4453,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": ^5.15.4
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
-    "@types/chrome": 0.0.155
+    "@types/chrome": 0.0.157
     "@types/styled-components": 5.1.14
     "@typescript-eslint/eslint-plugin": 4.30.0
     "@typescript-eslint/parser": 4.30.0
