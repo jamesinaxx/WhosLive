@@ -4476,7 +4476,7 @@ __metadata:
     react-is: ^17.0.2
     regenerator-runtime: ^0.13.9
     styled-components: 5.3.1
-    typescript: ^4.4.2
+    typescript: 4.4.2
     webpack: 5.52.0
     webpack-bundle-analyzer: 4.4.2
     webpack-cli: 4.8.0
@@ -5631,7 +5631,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-typescript@^4.4.2:
+typescript@4.4.2:
   version: 4.4.2
   resolution: "typescript@npm:4.4.2"
   bin:
@@ -5641,7 +5641,7 @@ typescript@^4.4.2:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.4.2#~builtin<compat/typescript>":
   version: 4.4.2
   resolution: "typescript@patch:typescript@npm%3A4.4.2#~builtin<compat/typescript>::version=4.4.2&hash=32657b"
   bin:
