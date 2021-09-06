@@ -1,4 +1,3 @@
-import 'regenerator-runtime';
 import { Component } from 'preact';
 import styled from 'styled-components';
 import Channel from '../components/Channel';
