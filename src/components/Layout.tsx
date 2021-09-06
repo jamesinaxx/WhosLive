@@ -1,4 +1,4 @@
-import { ComponentChildren } from 'preact';
+import { ReactNode } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faGithub,
@@ -10,7 +10,7 @@ import ColorModeToggle from './buttons/ColorModeToggle';
 import Link from './Link';
 
 interface LayoutProps {
-  children: ComponentChildren;
+  children: ReactNode;
   toggleColor: () => void;
   shown: boolean;
   mode: 'light' | 'dark';

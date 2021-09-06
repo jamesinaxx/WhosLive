@@ -24,6 +24,8 @@
     "eslint-config-prettier": "^8.3.0",
     "fast-average-color": "^6.4.2",
     "preact": "^10.5.14",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-is": "^17.0.2"
   },
   "devDependencies": {
@@ -34,6 +36,8 @@
     "@babel/preset-react": "7.14.5",
     "@babel/preset-typescript": "7.15.0",
     "@types/chrome": "0.0.155",
+    "@types/react": "^17.0.20",
+    "@types/react-dom": "^17.0.9",
     "@types/styled-components": "5.1.14",
     "@typescript-eslint/eslint-plugin": "4.30.0",
     "@typescript-eslint/parser": "4.30.0",

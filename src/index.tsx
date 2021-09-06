@@ -1,4 +1,4 @@
-import { render } from 'preact';
+import { render } from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
 import Main from './main';
 

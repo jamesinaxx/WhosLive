@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'preact';
+import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 const Anchor = styled.a`

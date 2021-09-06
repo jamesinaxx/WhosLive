@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { Component } from 'react';
 import Live from './pages/Live';
 import { getChannelInfo, getStorage, setStorage } from './lib/chromeapi';
 import NoAuthPage from './pages/NoAuth';

@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { Component } from 'react';
 import styled from 'styled-components';
 import Channel from '../components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';

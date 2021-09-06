@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ComponentChildren } from 'preact';
+import { ReactNode } from 'react';
 import { buttonClicked, buttonColor, buttonHover } from '../styles/Mixins';
 
 interface InvalidateTokenProps {
@@ -20,7 +20,7 @@ const RUSure = styled.div`
 `;
 
 interface ChoiceButtonProps {
-  children: ComponentChildren;
+  children: ReactNode;
   type: 'button';
   onChoice: (confirm: boolean) => void;
   confirm: boolean;

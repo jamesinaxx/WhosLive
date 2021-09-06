@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */ // The properties are named with snake_case because thats how the Twitch api works
-import { Component } from 'preact';
+import { Component } from 'react';
 import FastAverageColor from 'fast-average-color';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
