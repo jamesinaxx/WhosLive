@@ -1,3 +1,4 @@
+import { StrictMode } from 'react';
 import { render } from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
 import Main from './main';
@@ -22,9 +23,9 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 render(
-  <>
+  <StrictMode>
     <GlobalStyle />
     <Main />
-  </>,
+  </StrictMode>,
   document.getElementById('root') as HTMLElement,
 );
