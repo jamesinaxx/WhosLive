@@ -3,8 +3,8 @@ import { TwitchStream } from '../types/twitch';
 import { clientId } from './lib';
 import { error } from './logger';
 
-export async function setStorage(key: Synced, value: any): Promise<void> {
-  chrome.storage.sync.set({ [key]: value });
+export function setStorage(key: Synced, value: any): Promise<void> {
+  return chrome.storage.sync.set({ [key]: value });
 }
 
 export function getStorage(
@@ -17,8 +17,8 @@ export function getStorage<T>(key: Synced): Promise<T | undefined> {
   );
 }
 
-export async function setStorageLocal(key: Local, value: any): Promise<void> {
-  chrome.storage.local.set({ [key]: value });
+export function setStorageLocal(key: Local, value: any): Promise<void> {
+  return chrome.storage.local.set({ [key]: value });
 }
 
 export function getStorageLocal(
@@ -52,7 +52,7 @@ export async function getChannelInfo(): Promise<void> {
       ).json()
     ).data[0].id;
 
-    const res = await (
+    const { data } = await (
       await fetch(
         `https://api.twitch.tv/helix/streams/followed?user_id=${userId}`,
         {
@@ -64,7 +64,7 @@ export async function getChannelInfo(): Promise<void> {
       )
     ).json();
 
-    const streamingNow = Number(res.data.length.toString());
+    const streamingNow = Number(data.length.toString());
 
     if (streamingNow !== 0) {
       await chrome.action.setTitle({
@@ -80,7 +80,7 @@ export async function getChannelInfo(): Promise<void> {
       await chrome.action.setBadgeText({ text: '' });
     }
 
-    await setStorageLocal('NowLive:Channels', res.data);
+    await setStorageLocal('NowLive:Channels', data);
   } catch (err) {
     error(err);
   }
