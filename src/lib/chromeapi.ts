@@ -1,4 +1,5 @@
 import { clientId } from './lib';
+import { error } from './logger';
 
 export async function setStorage(key: string, value: any): Promise<void> {
   await chrome.storage.sync.set({ [key]: value });
@@ -72,7 +73,7 @@ export async function getChannelInfo(): Promise<void> {
     }
 
     await setStorageLocal('NowLive:Storage:Channels', res.data);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    error(err);
   }
 }
