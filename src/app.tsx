@@ -13,7 +13,7 @@ export default async function render() {
     }
 
     body::-webkit-scrollbar-thumb {
-      background-color: #44357a;
+      background-color: ${({ theme }) => theme.colors.scrollbarColor};
       border-radius: 25px;
     }
 

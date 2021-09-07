@@ -5,6 +5,7 @@ declare module 'styled-components' {
     colors: {
       backgroundColor: string;
       color: string;
+      scrollbarColor: string;
     };
   }
 }
