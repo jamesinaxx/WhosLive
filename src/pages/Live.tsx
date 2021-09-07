@@ -47,7 +47,6 @@ const Live = () => {
     <Container>
       {channels.map((channelData, _index, channelsArray) => (
         <Channel
-          online
           key={channelData.id}
           data={channelData}
           hidden={loaded !== channelsArray.length}
