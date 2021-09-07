@@ -44,7 +44,7 @@ export async function getChannelInfo(): Promise<void> {
   const token = await getStorage('NowLive:Token');
   if (!token) {
     await chrome.action.setTitle({
-      title: `Please verify Now Live`,
+      title: 'Please verify Now Live',
     });
     await chrome.action.setBadgeText({ text: '' });
     return;
@@ -104,7 +104,7 @@ export async function getChannelInfo(): Promise<void> {
       });
     } else {
       await chrome.action.setTitle({
-        title: `There is nobody streaming right now`,
+        title: 'There is nobody streaming right now',
       });
       await chrome.action.setBadgeText({ text: '' });
     }

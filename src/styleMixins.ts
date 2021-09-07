@@ -23,7 +23,7 @@ export const confirmButton = `
   }
 `;
 
-export const controlButton = (left: number) => `
+export const controlButton = (left: number): string => `
   color: #fff;
   transition: all 100ms ease-in-out;
   width: 30px;
@@ -63,7 +63,11 @@ export const smolText = `
   color: rgb(179, 179, 179);
 `;
 
-export const animationChild = (delay: number, top: number, left: number) => `
+export const animationChild = (
+  delay: number,
+  top: number,
+  left: number,
+): string => `
   animation-delay: ${delay}s;
   &:after {
     top: ${top}px;

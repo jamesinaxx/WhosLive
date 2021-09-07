@@ -7,7 +7,7 @@ interface LinkProps {
   children: ReactNode;
 }
 
-const Link: FunctionComponent = ({ href, children }: LinkProps) => {
+const Link: FunctionComponent<LinkProps> = ({ href, children }) => {
   const mode = useContext(ThemeContext).type;
 
   return (
