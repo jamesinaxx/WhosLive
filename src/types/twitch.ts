@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 
-// TODO Add user type and stream type
 export interface TwitchUser {
   broadcaster_type: 'partner' | 'affiliate' | '';
   description: string;

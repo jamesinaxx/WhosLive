@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */ // The properties are named with snake_case because thats how the Twitch api works
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import FastAverageColor from 'fast-average-color';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
@@ -59,6 +59,8 @@ export default ({
   const [backgroundColor, setBackgroundColor] = useState<string>('#FFF');
   const [color, setColor] = useState<string>('#000');
 
+  const imageRef = useRef<HTMLImageElement>(null);
+
   const {
     title,
     user_name,
@@ -72,19 +74,14 @@ export default ({
     .replace('{width}', '128')
     .replace('{height}', '72');
 
-  const getColor = async () => {
+  const getColor = () => {
     const fac = new FastAverageColor();
 
-    const facColor = await fac.getColorAsync(
-      thumbnailUrl.replace('{width}', '128').replace('{height}', '72'),
-    );
+    const ac = fac.getColor(imageRef.current!);
 
-    const bgColor = `rgba${facColor.rgb.substring(
-      3,
-      facColor.rgb.length - 1,
-    )},0.7)`;
+    const bgColor = `rgba(${ac.rgb.substring(4).replace(')', '')},0.7)`;
 
-    setColor(facColor.isLight ? '#000' : '#FFF');
+    setColor(ac.isLight ? '#000' : '#FFF');
     setBackgroundColor(bgColor);
 
     fac.destroy();
@@ -101,10 +98,12 @@ export default ({
         }}
       >
         <img
+          ref={imageRef}
           onLoad={getColor}
+          src={thumbnailUrl}
+          crossOrigin="anonymous"
           onClick={() => window.open(`https://twitch.tv/${user_login}`)}
           alt={`${user_name} stream thumbnail`}
-          src={thumbnailUrl}
           width={128}
           height={72}
         />

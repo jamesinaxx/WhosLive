@@ -73,6 +73,7 @@ const config = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
     'react/require-default-props': 'off',
+    'require-await': 'error',
   },
 };
 

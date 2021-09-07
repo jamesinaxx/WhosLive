@@ -4,7 +4,7 @@
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "strict": true,
-    "types": ["chrome", "node"],
+    "types": ["chrome"],
     "skipLibCheck": true,
     "rootDir": "./src/"
   }

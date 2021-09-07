@@ -1872,13 +1872,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.7.12":
-  version: 16.7.12
-  resolution: "@types/node@npm:16.7.12"
-  checksum: c104b1e7d63bf4a5661d330778a30937300fbbaff6d9d3ac17cb0b906ab543a1698331091164299b53c7dca68effd6dc3600f7813ea56c9b1fa6efcb35828215
-  languageName: node
-  linkType: hard
-
 "@types/prop-types@npm:*":
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
@@ -5069,7 +5062,6 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
     "@types/chrome": 0.0.157
-    "@types/node": 16.7.12
     "@types/react": 17.0.20
     "@types/react-dom": 17.0.9
     "@types/styled-components": 5.1.14

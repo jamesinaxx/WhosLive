@@ -5,6 +5,8 @@ import { getStorageLocal } from './lib/chromeapi';
 import Main from './pages/main';
 import { lightTheme, darkTheme } from './theme';
 
+// TODO Add support for multiple pages of life streams
+
 export default async function render() {
   const GlobalStyle = createGlobalStyle`
     body::-webkit-scrollbar {
