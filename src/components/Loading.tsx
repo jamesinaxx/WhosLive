@@ -63,13 +63,17 @@ const LoadingContainer = styled.div`
   }
 `;
 
-export default () => (
-  <LoadingContainer>
-    {[1, 2, 3, 4, 5, 6, 7, 8].map(key => (
-      <Circle
-        key={key}
-        theme={{ colors: { after: document.body.style.color } }}
-      />
-    ))}
-  </LoadingContainer>
-);
+export default function Loading({ hidden }: { hidden?: boolean }) {
+  if (hidden) return <>{null}</>;
+
+  return (
+    <LoadingContainer>
+      {[1, 2, 3, 4, 5, 6, 7, 8].map(key => (
+        <Circle
+          key={key}
+          theme={{ colors: { after: document.body.style.color } }}
+        />
+      ))}
+    </LoadingContainer>
+  );
+}

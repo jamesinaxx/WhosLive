@@ -15,7 +15,10 @@ const Live = () => {
   const updateChannels = async () =>
     setChannels(await getStorageLocal('NowLive:Storage:Channels'));
 
-  const finishLoading = () => setLoaded(old => old + 1);
+  const finishLoading = () => {
+    setLoaded(old => old + 1);
+    console.log(loaded);
+  };
 
   useEffect(() => {
     // This checks every second to see if the channels have loaded yet and if they have it stops checking
@@ -39,17 +42,14 @@ const Live = () => {
     return <NoLiveChannels />;
   }
 
-  if (loaded !== channels.length) {
-    return <Loading />;
-  }
-
   return (
     <Container>
-      {channels.map((channelData, _index, channelsArray) => (
+      <Loading hidden={loaded !== channels.length} />
+      {channels.map(channelData => (
         <Channel
           key={channelData.id}
           data={channelData}
-          hidden={loaded !== channelsArray.length}
+          hidden={loaded !== channels.length}
           doneLoading={finishLoading}
         />
       ))}
