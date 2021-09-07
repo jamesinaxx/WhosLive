@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 import styled from 'styled-components';
 import { buttonClicked, buttonColor, buttonHover } from '../styleMixins';
 
@@ -26,12 +26,12 @@ interface ChoiceButtonProps {
   confirm: boolean;
 }
 
-const ChoiceButton = ({
+const ChoiceButton: FunctionComponent<ChoiceButtonProps> = ({
   type,
   onChoice,
   confirm,
   children,
-}: ChoiceButtonProps) => {
+}) => {
   const Button = styled.button`
     transition: background-color 100ms ease-in-out;
     width: 150px;
@@ -61,7 +61,9 @@ const ChoiceButton = ({
   );
 };
 
-export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
+const InvalidateToken: FunctionComponent<InvalidateTokenProps> = ({
+  onChoice,
+}) => {
   document.body.style.overflow = 'hidden';
 
   return (
@@ -79,4 +81,6 @@ export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
       </ChoiceButton>
     </Confirm>
   );
-}
+};
+
+export default InvalidateToken;

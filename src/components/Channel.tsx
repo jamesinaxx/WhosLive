@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */ // The properties are named with snake_case because thats how the Twitch api works
-import { useRef, useState } from 'react';
+import { FunctionComponent, useRef, useState } from 'react';
 import FastAverageColor from 'fast-average-color';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
@@ -49,13 +49,13 @@ const ChannelInfo = styled.div`
   font-size: 2vw;
 `;
 
-const Channel = ({
+const Channel: FunctionComponent<ChannelProps> = ({
   data,
   hidden,
   doneLoading,
   favorite = false,
   setFavorites,
-}: ChannelProps) => {
+}) => {
   const [backgroundColor, setBackgroundColor] = useState<string>('#FFF');
   const [color, setColor] = useState<string>('#000');
 
@@ -76,8 +76,9 @@ const Channel = ({
 
   const getColor = () => {
     const fac = new FastAverageColor();
+    if (!imageRef.current) return;
 
-    const ac = fac.getColor(imageRef.current!);
+    const ac = fac.getColor(imageRef.current);
 
     const bgColor = `rgba(${ac.rgb.substring(4).replace(')', '')},0.7)`;
 

@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { LoadingContainer } from './LoadingContainer';
 
@@ -7,7 +8,7 @@ const Circle = styled.div`
   }
 `;
 
-export default function Loading({ hidden }: { hidden?: boolean }) {
+const Loading: FunctionComponent<{ hidden?: boolean }> = ({ hidden }) => {
   if (hidden) return <>{null}</>;
 
   return (
@@ -17,4 +18,6 @@ export default function Loading({ hidden }: { hidden?: boolean }) {
       ))}
     </LoadingContainer>
   );
-}
+};
+
+export default Loading;

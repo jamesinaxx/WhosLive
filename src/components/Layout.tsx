@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faGithub,
@@ -14,7 +14,7 @@ interface LayoutProps {
   shown: boolean;
 }
 
-const Layout = ({ children, shown }: LayoutProps) => (
+const Layout: FunctionComponent<LayoutProps> = ({ children, shown }) => (
   <div>
     {children}
     <ColorModeToggle shown={shown} />

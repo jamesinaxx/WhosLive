@@ -1,8 +1,8 @@
-import { Component } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import Live from './Live';
 import { getChannelInfo, getStorage, setStorage } from '../lib/chromeapi';
 import NoAuthPage from './NoAuth';
-import validateToken from '../lib/validateToken';
+import isValidToken from '../lib/validateToken';
 import Loading from '../components/Loading';
 import Error404 from './404';
 import InvalidateToken from '../components/InvalidateToken';
@@ -11,48 +11,13 @@ import Layout from '../components/Layout';
 import Logout from '../components/buttons/LogoutButton';
 import { error } from '../lib/logger';
 
-interface MainState {
-  userToken: string | undefined;
-  tokenValid: boolean;
-  showRUSure: boolean;
-  connected?: boolean | undefined;
-}
+const Main: FunctionComponent = () => {
+  const [userToken, setUserToken] = useState<string | undefined>(undefined);
+  const [tokenValid, setTokenValid] = useState<boolean>(false);
+  const [showRUSure, setShowRUSure] = useState<boolean>(false);
+  const [connected, setConnected] = useState<boolean | undefined>(undefined);
 
-export default class Main extends Component<unknown, MainState> {
-  constructor() {
-    super(null);
-
-    this.state = {
-      userToken: undefined,
-      tokenValid: true,
-      showRUSure: false,
-    };
-
-    this.validateToken = this.validateToken.bind(this);
-    this.invalidateToken = this.invalidateToken.bind(this);
-  }
-
-  async componentDidMount() {
-    await this.validateToken();
-
-    chrome.storage.onChanged.addListener(async (_changes, area) => {
-      if (area === 'sync') {
-        await this.validateToken();
-      }
-    });
-  }
-
-  async validateToken() {
-    const res = await getStorage('NowLive:Token');
-    const valid = await validateToken(res);
-
-    this.setState({
-      userToken: valid ? res : 'invalid',
-      tokenValid: valid,
-    });
-  }
-
-  async invalidateToken() {
+  async function invalidateToken() {
     const token = (await getStorage('NowLive:Token')) || '';
     try {
       await fetch(
@@ -64,73 +29,82 @@ export default class Main extends Component<unknown, MainState> {
     } catch (err) {
       error(err);
     }
-
     await setStorage('NowLive:Token', '');
 
-    this.setState({
-      showRUSure: false,
-      userToken: 'invalid',
-      tokenValid: false,
-    });
+    setShowRUSure(false);
+    setUserToken(undefined);
+    setTokenValid(false);
     await getChannelInfo();
   }
 
-  render() {
-    if (this.state.showRUSure) window.scrollTo(0, 0);
+  async function validateToken() {
+    const res = await getStorage('NowLive:Token');
+    const valid = await isValidToken(res);
 
-    if (this.state.connected === false) {
-      return (
-        <Layout shown={this.state.showRUSure}>
-          <Error404 />
-        </Layout>
-      );
-    }
+    setUserToken(valid ? res : 'invalid');
+    setTokenValid(valid);
+  }
 
-    if (
-      this.state.userToken === undefined ||
-      this.state.connected === undefined
-    ) {
-      if (this.state.connected === undefined) {
-        checkConnection()
-          .then((res: boolean) => this.setState({ connected: res }))
-          .catch((res: boolean) => this.setState({ connected: res }));
-      }
+  useEffect(() => {
+    (async () => {
+      await validateToken();
 
-      return <Loading />;
-    }
+      chrome.storage.onChanged.addListener(async (_changes, area) => {
+        if (area === 'sync') {
+          await validateToken();
+        }
+      });
+    })();
+  });
 
-    window.addEventListener('scroll', () => {
-      if (this.state.showRUSure) window.scrollTo(0, 0);
-    });
+  if (showRUSure) window.scrollTo(0, 0);
 
+  if (connected === false) {
     return (
-      <Layout shown={this.state.showRUSure}>
-        {this.state.userToken && this.state.tokenValid ? (
-          <>
-            {this.state.showRUSure && (
-              <InvalidateToken
-                onChoice={invalidate => {
-                  if (invalidate) {
-                    return this.invalidateToken();
-                  }
-
-                  document.body.style.overflow = '';
-                  return this.setState({
-                    showRUSure: false,
-                  });
-                }}
-              />
-            )}
-            <Live />
-            <Logout
-              onClick={() => this.setState({ showRUSure: true })}
-              shown={this.state.showRUSure}
-            />
-          </>
-        ) : (
-          <NoAuthPage />
-        )}
+      <Layout shown={showRUSure}>
+        <Error404 />
       </Layout>
     );
   }
-}
+
+  if (userToken === undefined || connected === undefined) {
+    if (connected === undefined) {
+      checkConnection()
+        .then((res: boolean) => setConnected(res))
+        .catch((res: boolean) => setConnected(res));
+    }
+
+    return <Loading />;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (showRUSure) window.scrollTo(0, 0);
+  });
+
+  return (
+    <Layout shown={showRUSure}>
+      {userToken && tokenValid ? (
+        <>
+          {showRUSure && (
+            <InvalidateToken
+              onChoice={invalidate => {
+                if (invalidate) {
+                  return invalidateToken();
+                }
+
+                document.body.style.overflow = '';
+                return setShowRUSure(false);
+              }}
+            />
+          )}
+          <Live />
+          <Logout onClick={() => setShowRUSure(true)} shown={showRUSure} />
+        </>
+      ) : (
+        <NoAuthPage />
+      )}
+    </Layout>
+  );
+};
+
+export default Main;

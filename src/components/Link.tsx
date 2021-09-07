@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from 'react';
+import { FunctionComponent, ReactNode, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import { Anchor } from '../styleMixins';
 
@@ -7,7 +7,7 @@ interface LinkProps {
   children: ReactNode;
 }
 
-const Link = ({ href, children }: LinkProps) => {
+const Link: FunctionComponent = ({ href, children }: LinkProps) => {
   const mode = useContext(ThemeContext).type;
 
   return (

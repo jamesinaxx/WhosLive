@@ -1,6 +1,7 @@
+import { FunctionComponent } from 'react';
 import { SmallText } from '../styleMixins';
 
-const NoLiveChannels = () => (
+const NoLiveChannels: FunctionComponent = () => (
   <SmallText>
     You do not follow anybody who is currently live
     <img

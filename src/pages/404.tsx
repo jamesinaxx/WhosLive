@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
+import { FunctionComponent } from 'react';
 
 const Container = styled.div`
   text-align: center;
@@ -24,7 +25,7 @@ const Description = styled.p`
   }
 `;
 
-const Error = () => (
+const Error: FunctionComponent = () => (
   <Container>
     <FailedHeader>Failed to connect to Twitch</FailedHeader>
     <Description>

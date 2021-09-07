@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { smolText } from '../styleMixins';
 
@@ -20,7 +21,7 @@ const NoAuthText = styled.small`
   ${smolText}
 `;
 
-const NoAuth = () => (
+const NoAuth: FunctionComponent = () => (
   <NoAuthText>
     You are not logged in to Twitch! Please go to{' '}
     <a

@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import Channel from '../components/Channel';
 import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
 import Loading from '../components/Loading';
@@ -16,7 +22,7 @@ const finishLoading = (setLoaded: Dispatch<SetStateAction<number>>) => {
   setLoaded(old => old + 1);
 };
 
-const Live = () => {
+const Live: FunctionComponent = () => {
   const [favoriteChannels, setFavoriteChannels] = useState<string[]>([]);
   const [channels, setChannels] = useState<ChannelsType>(undefined);
   const [loaded, setLoaded] = useState(0);

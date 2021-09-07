@@ -3,7 +3,7 @@ import { error } from './logger';
 import type { Local, Synced } from '../types/chrome';
 import type { TwitchStream } from '../types/twitch';
 
-export function setStorage(key: Synced, value: any): Promise<void> {
+export function setStorage(key: Synced, value: unknown): Promise<void> {
   return chrome.storage.sync.set({ [key]: value });
 }
 
@@ -17,7 +17,7 @@ export function getStorage<T>(key: Synced): Promise<T | undefined> {
   );
 }
 
-export function setStorageLocal(key: Local, value: any): Promise<void> {
+export function setStorageLocal(key: Local, value: unknown): Promise<void> {
   return chrome.storage.local.set({ [key]: value });
 }
 
