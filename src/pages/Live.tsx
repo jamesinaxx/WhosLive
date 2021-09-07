@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Channel from '../components/Channel';
-import { getStorageLocal, setStorage } from '../lib/chromeapi';
+import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
 import Loading from '../components/Loading';
 import NoLiveChannels from '../components/NoLiveChannels';
 import type { TwitchStream } from '../types/twitch';
@@ -22,13 +22,10 @@ const Live = () => {
   const [loaded, setLoaded] = useState(0);
 
   useEffect(() => {
-    // This checks every second to see if the channels have loaded yet and if they have it stops checking
-    const interval = setInterval(async () => {
-      const res = await getStorageLocal('NowLive:Channels');
-      if (res === undefined) return;
-      clearInterval(interval);
-      setChannels(res);
-    }, 1000);
+    (async () => {
+      setChannels(await getStorageLocal('NowLive:Channels'));
+      setFavoriteChannels((await getStorage('NowLive:Favorites')) || []);
+    })();
   }, []);
 
   chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
@@ -52,6 +49,9 @@ const Live = () => {
     }
     setStorage('NowLive:Favorites', favoriteChannels);
   };
+
+  console.log(channels);
+  console.log(favoriteChannels);
 
   return (
     <Container>
