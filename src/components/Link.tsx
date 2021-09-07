@@ -1,6 +1,6 @@
 import { ReactNode, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
-import { Anchor } from '../styles/Mixins';
+import { Anchor } from '../styleMixins';
 
 interface LinkProps {
   href: string;

@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import * as mixins from '../styles/Mixins';
+import * as mixins from '../styleMixins';
 
 export const LoadingAnim = keyframes`
   0% {

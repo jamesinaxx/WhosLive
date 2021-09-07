@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import ColorModeToggle from './buttons/ColorModeToggle';
 import Link from './Link';
-import { Footer } from '../styles/Mixins';
+import { Footer } from '../styleMixins';
 
 interface LayoutProps {
   children: ReactNode;

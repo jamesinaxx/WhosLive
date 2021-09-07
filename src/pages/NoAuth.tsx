@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { smolText } from '../styles/Mixins';
+import { smolText } from '../styleMixins';
 
 const NoAuthText = styled.small`
   text-align: center;

@@ -1,30 +1,35 @@
+import { Local, Synced } from '../types/chrome';
+import { TwitchStream } from '../types/twitch';
 import { clientId } from './lib';
 import { error } from './logger';
 
-export async function setStorage(key: string, value: any): Promise<void> {
-  await chrome.storage.sync.set({ [key]: value });
+export async function setStorage(key: Synced, value: any): Promise<void> {
+  chrome.storage.sync.set({ [key]: value });
 }
 
-export type SyncType = 'NowLive:Token' | string;
-export function getStorage<T>(key: SyncType): Promise<T> {
+export function getStorage(key: 'NowLive:Token'): Promise<string>;
+export function getStorage<T>(key: Synced): Promise<T> {
   return new Promise(resolve =>
     chrome.storage.sync.get(key, res => resolve(res[key])),
   );
 }
 
-export async function setStorageLocal(key: string, value: any): Promise<void> {
+export async function setStorageLocal(key: Local, value: any): Promise<void> {
   chrome.storage.local.set({ [key]: value });
 }
 
-export type LocalType = 'NowLive:Channels' | string;
-export function getStorageLocal<T>(key: LocalType): Promise<T> {
+export function getStorageLocal(
+  key: 'NowLive:Channels',
+): Promise<TwitchStream[] | undefined>;
+export function getStorageLocal(key: 'NowLive:Theme'): Promise<string>;
+export function getStorageLocal<T>(key: Local): Promise<T> {
   return new Promise(resolve =>
     chrome.storage.local.get(key, res => resolve(res[key])),
   );
 }
 
 export async function getChannelInfo(): Promise<void> {
-  const token = await getStorage<string>('NowLive:Token');
+  const token = await getStorage('NowLive:Token');
   if (!token) {
     await chrome.action.setTitle({
       title: `Please verify Now Live`,

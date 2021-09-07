@@ -1,4 +1,4 @@
-import { SmallText } from '../styles/Mixins';
+import { SmallText } from '../styleMixins';
 
 export default () => (
   <SmallText>

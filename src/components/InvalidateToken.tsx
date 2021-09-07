@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
-import { buttonClicked, buttonColor, buttonHover } from '../styles/Mixins';
+import { buttonClicked, buttonColor, buttonHover } from '../styleMixins';
 
 interface InvalidateTokenProps {
   onChoice: (invalidate: boolean) => void;
