@@ -20,7 +20,7 @@ export interface TwitchStream {
   id: string;
   language: string;
   started_at: string;
-  tag_ids: string;
+  tag_ids: string[];
   thumbnail_url: string;
   title: string;
   type: 'live' | '';

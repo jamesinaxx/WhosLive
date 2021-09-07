@@ -6,10 +6,11 @@ import NoLiveChannels from '../components/NoLiveChannels';
 import type { TwitchStream } from '../types/twitch';
 import Container from '../components/Container';
 
-type ChannelsType = TwitchStream[] | null | undefined;
+type ChannelsType = TwitchStream[] | undefined;
 
 const Live = () => {
-  const [channels, setChannels] = useState<ChannelsType>(null);
+  const [favoriteChannels, setFavoriteChannels] = useState<string[]>([]);
+  const [channels, setChannels] = useState<ChannelsType>(undefined);
   const [loaded, setLoaded] = useState(0);
 
   const updateChannels = async () =>
@@ -20,6 +21,7 @@ const Live = () => {
   };
 
   useEffect(() => {
+    setFavoriteChannels(['84432477']);
     // This checks every second to see if the channels have loaded yet and if they have it stops checking
     const interval = setInterval(async () => {
       const res = await getStorageLocal('NowLive:Channels');
@@ -31,7 +33,7 @@ const Live = () => {
 
   chrome.storage.onChanged.addListener(updateChannels);
 
-  if (channels === null || channels === undefined) {
+  if (channels === undefined) {
     return <Loading />;
   }
 
@@ -42,14 +44,30 @@ const Live = () => {
   return (
     <Container>
       <Loading hidden={loaded === channels.length} />
-      {channels.map(channelData => (
-        <Channel
-          key={channelData.id}
-          data={channelData}
-          hidden={loaded !== channels.length}
-          doneLoading={finishLoading}
-        />
-      ))}
+      {favoriteChannels.map(channelName => {
+        const channel = channels.find(c => c.user_id === channelName);
+
+        if (channel === undefined) return null;
+
+        return (
+          <Channel
+            key={channel.id}
+            data={channel}
+            hidden={loaded !== channels.length}
+            doneLoading={finishLoading}
+          />
+        );
+      })}
+      {channels
+        .filter(channel => !favoriteChannels.includes(channel.user_id))
+        .map(channel => (
+          <Channel
+            key={channel.id}
+            data={channel}
+            hidden={loaded !== channels.length}
+            doneLoading={finishLoading}
+          />
+        ))}
     </Container>
   );
 };
