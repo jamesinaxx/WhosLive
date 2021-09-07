@@ -1,6 +1,6 @@
 import { SmallText } from '../styleMixins';
 
-export default () => (
+const NoLiveChannels = () => (
   <SmallText>
     You do not follow anybody who is currently live
     <img
@@ -9,3 +9,5 @@ export default () => (
     />
   </SmallText>
 );
+
+export default NoLiveChannels;

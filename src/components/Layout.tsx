@@ -14,7 +14,7 @@ interface LayoutProps {
   shown: boolean;
 }
 
-export default ({ children, shown }: LayoutProps) => (
+const Layout = ({ children, shown }: LayoutProps) => (
   <div>
     {children}
     <ColorModeToggle shown={shown} />
@@ -31,3 +31,5 @@ export default ({ children, shown }: LayoutProps) => (
     </Footer>
   </div>
 );
+
+export default Layout;

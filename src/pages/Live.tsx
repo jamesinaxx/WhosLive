@@ -3,8 +3,8 @@ import Channel from '../components/Channel';
 import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
 import Loading from '../components/Loading';
 import NoLiveChannels from '../components/NoLiveChannels';
-import type { TwitchStream } from '../types/twitch';
 import Container from '../components/Container';
+import type { TwitchStream } from '../types/twitch';
 
 type ChannelsType = TwitchStream[] | undefined;
 

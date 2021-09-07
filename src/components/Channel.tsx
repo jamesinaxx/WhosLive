@@ -49,7 +49,7 @@ const ChannelInfo = styled.div`
   font-size: 2vw;
 `;
 
-export default ({
+const Channel = ({
   data,
   hidden,
   doneLoading,
@@ -122,3 +122,5 @@ export default ({
     </ChannelContainer>
   );
 };
+
+export default Channel;

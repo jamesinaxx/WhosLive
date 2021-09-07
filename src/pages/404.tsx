@@ -24,7 +24,7 @@ const Description = styled.p`
   }
 `;
 
-export default () => (
+const Error = () => (
   <Container>
     <FailedHeader>Failed to connect to Twitch</FailedHeader>
     <Description>
@@ -53,3 +53,5 @@ export default () => (
     </Description>
   </Container>
 );
+
+export default Error;

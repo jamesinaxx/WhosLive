@@ -20,7 +20,7 @@ const NoAuthText = styled.small`
   ${smolText}
 `;
 
-export default () => (
+const NoAuth = () => (
   <NoAuthText>
     You are not logged in to Twitch! Please go to{' '}
     <a
@@ -33,3 +33,5 @@ export default () => (
     , log in with Twitch, and then come back here.
   </NoAuthText>
 );
+
+export default NoAuth;
