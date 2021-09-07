@@ -86,7 +86,7 @@ export default class Main extends Component<any, MainState> {
       userToken: 'invalid',
       tokenValid: false,
     });
-    return getChannelInfo();
+    await getChannelInfo();
   }
 
   render() {
