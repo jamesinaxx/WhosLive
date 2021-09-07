@@ -51,7 +51,7 @@ const config = {
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
     'import/extensions': 'off',
-    'no-console': 'off',
+    'no-console': 'warn',
     'react/destructuring-assignment': 'off',
     'operator-linebreak': [
       'error',

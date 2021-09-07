@@ -1,19 +1,19 @@
 import { Component } from 'react';
-import Live from './pages/Live';
+import Live from './Live';
 import {
   getChannelInfo,
   getStorage,
   getStorageLocal,
   setStorage,
-} from './lib/chromeapi';
-import NoAuthPage from './pages/NoAuth';
-import validateToken from './lib/validateToken';
-import Loading from './components/Loading';
-import Error404 from './pages/404';
-import InvalidateToken from './components/InvalidateToken';
-import { clientId, checkConnection, objToParams } from './lib/lib';
-import Layout from './components/Layout';
-import Logout from './components/buttons/LogoutButton';
+} from '../lib/chromeapi';
+import NoAuthPage from './NoAuth';
+import validateToken from '../lib/validateToken';
+import Loading from '../components/Loading';
+import Error404 from './404';
+import InvalidateToken from '../components/InvalidateToken';
+import { clientId, checkConnection, objToParams } from '../lib/lib';
+import Layout from '../components/Layout';
+import Logout from '../components/buttons/LogoutButton';
 
 interface MainState {
   userToken: string | undefined;
@@ -91,14 +91,6 @@ export default class Main extends Component<any, MainState> {
 
   render() {
     if (this.state.showRUSure) window.scrollTo(0, 0);
-
-    const color = this.state.colorMode === 'dark' ? '#fff' : '#000';
-    const bgColor = this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
-
-    const docBody = document.querySelector('body') as HTMLBodyElement;
-
-    docBody.style.backgroundColor = bgColor;
-    docBody.style.color = color;
 
     if (this.state.connected === false) {
       return (

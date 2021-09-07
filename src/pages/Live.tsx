@@ -41,8 +41,6 @@ const Live = () => {
     return <NoLiveChannels />;
   }
 
-  console.log(loaded);
-
   return (
     <Container>
       <Loading hidden={loaded === channels.length} />

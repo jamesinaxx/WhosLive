@@ -79,9 +79,9 @@ export const Anchor = styled.a`
   transition: color 100ms ease-in-out;
   margin: 5px;
   text-decoration: none;
-  color: ${props => props.color};
+  color: ${({ color }) => color};
   &:hover {
-    color: ${props => props.theme.hoverColor};
+    color: ${({ theme }) => (theme as any).hoverColor};
   }
 `;
 
@@ -98,6 +98,6 @@ export const Footer = styled.footer`
   padding: 5px;
   margin: 0;
   border-top: 1px solid white;
-  background-color: ${props => props.style?.backgroundColor || 'black'};
-  color: ${props => props.style?.color || 'white'};
+  background-color: ${({ theme }) => theme.colors.backgroundColor};
+  color: ${({ theme }) => theme.colors.color};
 `;
