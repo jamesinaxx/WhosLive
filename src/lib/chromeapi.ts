@@ -73,6 +73,7 @@ export async function getChannelInfo(): Promise<void> {
       )
     ).json();
 
+    // Downloads the images and converts them into a base64 url
     const withImages = await Promise.all(
       data.map(async stream => {
         const blob = await (
@@ -87,14 +88,6 @@ export async function getChannelInfo(): Promise<void> {
           ...stream,
           thumbnail_url: await blobToBase64(blob),
         };
-
-        console.log('Base64URL:', withImage.thumbnail_url);
-        console.log(
-          'OldURL:',
-          stream.thumbnail_url
-            .replace('{width}', '128')
-            .replace('{height}', '72'),
-        );
 
         return withImage;
       }),
