@@ -1,6 +1,11 @@
 import { Component } from 'react';
 import Live from './pages/Live';
-import { getChannelInfo, getStorage, setStorage } from './lib/chromeapi';
+import {
+  getChannelInfo,
+  getStorage,
+  getStorageLocal,
+  setStorage,
+} from './lib/chromeapi';
 import NoAuthPage from './pages/NoAuth';
 import validateToken from './lib/validateToken';
 import Loading from './components/Loading';
@@ -39,16 +44,16 @@ export default class Main extends Component<any, MainState> {
     await this.setColor();
 
     chrome.storage.onChanged.addListener(async () => {
-      await this.validateToken();
       await this.setColor();
+      await this.validateToken();
     });
   }
 
   async setColor() {
     const colorMode =
-      (await getStorage<'light' | 'dark'>('NowLive:Storage:Color')) || 'dark';
+      (await getStorageLocal<'light' | 'dark'>('NowLive:Storage:Color')) ||
+      'dark';
     this.setState({ colorMode });
-    document.body.className = this.state.colorMode;
   }
 
   async validateToken() {

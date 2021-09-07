@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-regular-svg-icons';
 import styled from 'styled-components';
 import { controlButton } from '../../styles/Mixins';
-import { setStorage } from '../../lib/chromeapi';
+import { setStorageLocal } from '../../lib/chromeapi';
 
 interface ColorToggleProps {
   shown: boolean;
@@ -18,7 +18,10 @@ export default function ColorToggle({ shown, mode }: ColorToggleProps) {
     <ColorToggleButton
       type="button"
       onClick={() =>
-        setStorage('NowLive:Storage:Color', mode === 'light' ? 'dark' : 'light')
+        setStorageLocal(
+          'NowLive:Storage:Color',
+          mode === 'light' ? 'dark' : 'light',
+        )
       }
       style={{ opacity: shown ? '0%' : '100%' }}
     >
