@@ -10,14 +10,16 @@ const manifest = require('./manifest.json');
 
 async function generateIcons() {
   const sizes = [16, 32, 48, 64, 96, 128, 256];
-  const icon = path.resolve(__dirname, 'assets', 'icon.png');
+  const icon = await fs.promises.readFile(
+    path.resolve(__dirname, 'assets', 'icon.svg'),
+  );
   await fs.promises.mkdir(path.resolve(__dirname, 'dist', 'icons'));
 
   for (let i = 0; i < sizes.length; i += 1) {
     const size = sizes[i];
 
     // eslint-disable-next-line no-await-in-loop
-    await sharp(icon)
+    await sharp(icon, { density: 300 })
       .resize(size, size)
       .toFile(path.resolve(__dirname, 'dist', 'icons', `${size}.png`));
 

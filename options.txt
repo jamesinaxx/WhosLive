@@ -1,8 +1,0 @@
-NowLive:Theme
-NowLive:Channels
-
-Sync
-NowLive:Token
-
-Alarms
-NowLive:Refresh
