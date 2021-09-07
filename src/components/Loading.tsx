@@ -1,32 +1,20 @@
-import React from 'react';
-import styles from '../styles/Loader.module.scss';
+import styled from 'styled-components';
+import { LoadingContainer } from './LoadingContainer';
 
-interface LoadingProps {
-  hidden: boolean;
-}
+const Circle = styled.div`
+  &::after {
+    background: ${props => props.theme.colors.color};
+  }
+`;
 
-export default function Loading({ hidden }: LoadingProps) {
-  const docBody = document.querySelector('body') as HTMLBodyElement;
-
-  const bodyColor = docBody.style.color;
-
-  const circles: string[] = new Array(8).fill('');
+export default function Loading({ hidden }: { hidden?: boolean }) {
+  if (hidden) return <>{null}</>;
 
   return (
-    <div>
-      <style>{`.lds_rollerDivs div:after {background: ${bodyColor};}`}</style>
-      {hidden ? (
-        <div>{null}</div>
-      ) : (
-        <div
-          className={`${styles.lds_roller} lds_rollerDivs`}
-          id="loadingChannels"
-        >
-          {circles.map(() => (
-            <div />
-          ))}
-        </div>
-      )}
-    </div>
+    <LoadingContainer>
+      {[1, 2, 3, 4, 5, 6, 7, 8].map(key => (
+        <Circle key={key} />
+      ))}
+    </LoadingContainer>
   );
 }

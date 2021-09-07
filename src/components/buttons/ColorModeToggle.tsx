@@ -1,27 +1,30 @@
-import React from 'react';
+import { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-regular-svg-icons';
-import styles from '../../styles/Layout.module.scss';
+import { controlButton } from '../../styleMixins';
+import { setStorageLocal } from '../../lib/chromeapi';
 
 interface ColorToggleProps {
-  toggleColor: () => void;
   shown: boolean;
-  mode: string;
 }
 
-export default function ColorToggle({
-  toggleColor,
-  shown,
-  mode,
-}: ColorToggleProps) {
+const ColorToggleButton = styled.button`
+  ${controlButton(5)}
+`;
+
+export default function ColorToggle({ shown }: ColorToggleProps) {
+  const mode = useContext(ThemeContext).type;
+
   return (
-    <button
+    <ColorToggleButton
       type="button"
-      className={styles.colorModeToggle}
-      onClick={toggleColor}
+      onClick={() =>
+        setStorageLocal('NowLive:Theme', mode === 'light' ? 'dark' : 'light')
+      }
       style={{ opacity: shown ? '0%' : '100%' }}
     >
       <FontAwesomeIcon icon={mode === 'light' ? faSun : faMoon} />
-    </button>
+    </ColorToggleButton>
   );
 }

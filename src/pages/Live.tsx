@@ -1,103 +1,57 @@
-import 'regenerator-runtime';
-import React from 'react';
-import styles from '../styles/Layout.module.scss';
+import { useEffect, useState } from 'react';
 import Channel from '../components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
 import Loading from '../components/Loading';
+import NoLiveChannels from '../components/NoLiveChannels';
+import type { TwitchStream } from '../types/twitch';
+import Container from '../components/Container';
 
-interface LiveProps {
-  color: string;
-}
+type ChannelsType = TwitchStream[] | null | undefined;
 
-interface LiveState {
-  channels: any[] | null | undefined;
-  doneLoading: number;
-}
+const Live = () => {
+  const [channels, setChannels] = useState<ChannelsType>(null);
+  const [loaded, setLoaded] = useState(0);
 
-export default class Live extends React.Component<LiveProps, LiveState> {
-  constructor(props: any) {
-    super(props);
+  const updateChannels = async () =>
+    setChannels(await getStorageLocal('NowLive:Channels'));
 
-    this.state = {
-      channels: null,
-      doneLoading: 0,
-    };
+  const finishLoading = () => {
+    setLoaded(old => old + 1);
+  };
 
-    this.doneLoading = this.doneLoading.bind(this);
-    this.showChannels = this.showChannels.bind(this);
-    this.updateChannels = this.updateChannels.bind(this);
-
-    chrome.storage.onChanged.addListener(this.updateChannels);
-    this.updateChannels();
-  }
-
-  componentDidMount() {
-    const interval = setInterval(() => {
-      getStorageLocal('NowLive:Storage:Channels').then((res: any[]) => {
-        if (res === undefined) return;
-        clearInterval(interval);
-        this.setState({ channels: res });
-      });
+  useEffect(() => {
+    // This checks every second to see if the channels have loaded yet and if they have it stops checking
+    const interval = setInterval(async () => {
+      const res = await getStorageLocal('NowLive:Channels');
+      if (res === undefined) return;
+      clearInterval(interval);
+      setChannels(res);
     }, 1000);
+  }, []);
+
+  chrome.storage.onChanged.addListener(updateChannels);
+
+  if (channels === null || channels === undefined) {
+    return <Loading />;
   }
 
-  async updateChannels() {
-    this.setState({
-      channels: await getStorageLocal('NowLive:Storage:Channels'),
-    });
+  if (channels.length === 0) {
+    return <NoLiveChannels />;
   }
 
-  doneLoading() {
-    this.setState(oldState => ({ doneLoading: oldState.doneLoading + 1 }));
-  }
-
-  showChannels() {
-    if (this.state.channels === null || this.state.channels === undefined) {
-      this.updateChannels();
-      return <Loading hidden={false} color={this.props.color} />;
-    }
-
-    if (this.state.channels.length === 0) {
-      return (
-        <small className={styles.goFollow}>
-          You do not follow anybody who is currently live
-          <img
-            src="https://cdn.frankerfacez.com/emoticon/425196/4"
-            alt="Sadge Emote from FFZ"
-          />
-        </small>
-      );
-    }
-
-    return (
-      <div>
-        <Loading
-          hidden={this.state.doneLoading === this.state.channels.length}
-          color={this.props.color}
+  return (
+    <Container>
+      <Loading hidden={loaded === channels.length} />
+      {channels.map(channelData => (
+        <Channel
+          key={channelData.id}
+          data={channelData}
+          hidden={loaded !== channels.length}
+          doneLoading={finishLoading}
         />
-        {this.state.channels.map(channelData => (
-          <Channel
-            online
-            key={channelData.id}
-            data={channelData}
-            /* I really shouldn't have to cast but here we are */
-            hidden={
-              this.state.doneLoading !== (this.state.channels as any[]).length
-            }
-            doneLoading={this.doneLoading}
-          />
-        ))}
-        <div
-          /* Placeholder so the channel cards don't flow beyond the viewport */
-          style={{
-            height: '5px',
-          }}
-        />
-      </div>
-    );
-  }
+      ))}
+    </Container>
+  );
+};
 
-  render() {
-    return <div className={styles.main}>{this.showChannels()}</div>;
-  }
-}
+export default Live;

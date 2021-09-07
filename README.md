@@ -2,7 +2,7 @@
 
 Easily check who is live on Twitch with 1 click!
 
-<img title="" src="https://raw.githubusercontent.com/jamesinaxx/NowLive/public/public/screenshots/Dark.jpg" alt="" width="500">
+<img title="" src="https://raw.githubusercontent.com/jamesinaxx/NowLive/staging/assets/screenshots/Dark.jpg" alt="" width="500">
 
 ## Installation
 
@@ -11,7 +11,5 @@ Easily check who is live on Twitch with 1 click!
 2. Login with Twitch
 
 3. Done
-
-
 
 **Developed with ❤️ by jamesinaxx**
