@@ -84,3 +84,20 @@ export const Anchor = styled.a`
     color: ${props => props.theme.hoverColor};
   }
 `;
+
+export const Footer = styled.footer`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  padding: 5px;
+  margin: 0;
+  border-top: 1px solid white;
+  background-color: ${props => props.style?.backgroundColor || 'black'};
+  color: ${props => props.style?.color || 'white'};
+`;

@@ -8,7 +8,7 @@ import Error404 from './pages/404';
 import InvalidateToken from './components/InvalidateToken';
 import { clientId, checkConnection, objToParams } from './lib/lib';
 import Layout from './components/Layout';
-import LogoutButton from './components/buttons/LogoutButton';
+import Logout from './components/buttons/LogoutButton';
 
 interface MainState {
   userToken: string | undefined;
@@ -31,7 +31,6 @@ export default class Main extends Component<any, MainState> {
 
     this.validateToken = this.validateToken.bind(this);
     this.invalidateToken = this.invalidateToken.bind(this);
-    this.toggleColorMode = this.toggleColorMode.bind(this);
   }
 
   async componentDidMount() {
@@ -85,13 +84,6 @@ export default class Main extends Component<any, MainState> {
     return getChannelInfo();
   }
 
-  async toggleColorMode() {
-    await setStorage(
-      'NowLive:Storage:Color',
-      this.state.colorMode === 'light' ? 'dark' : 'light',
-    );
-  }
-
   render() {
     if (this.state.showRUSure) window.scrollTo(0, 0);
 
@@ -105,11 +97,7 @@ export default class Main extends Component<any, MainState> {
 
     if (this.state.connected === false) {
       return (
-        <Layout
-          toggleColor={this.toggleColorMode}
-          mode={this.state.colorMode}
-          shown={this.state.showRUSure}
-        >
+        <Layout mode={this.state.colorMode} shown={this.state.showRUSure}>
           <Error404 />
         </Layout>
       );
@@ -133,11 +121,7 @@ export default class Main extends Component<any, MainState> {
     });
 
     return (
-      <Layout
-        toggleColor={this.toggleColorMode}
-        mode={this.state.colorMode}
-        shown={this.state.showRUSure}
-      >
+      <Layout mode={this.state.colorMode} shown={this.state.showRUSure}>
         {this.state.userToken && this.state.tokenValid ? (
           <>
             {this.state.showRUSure && (
@@ -155,7 +139,7 @@ export default class Main extends Component<any, MainState> {
               />
             )}
             <Live />
-            <LogoutButton
+            <Logout
               onClick={() => this.setState({ showRUSure: true })}
               shown={this.state.showRUSure}
             />

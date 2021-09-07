@@ -12,17 +12,15 @@ const LogoutButton = styled.button`
   ${controlButton(40)}
 `;
 
-export default function Logout({ onClick, shown }: LogoutButtonProps) {
-  return (
-    <LogoutButton
-      type="button"
-      onClick={onClick}
-      style={{
-        opacity: shown ? '0%' : '100%',
-        color: '#fff',
-      }}
-    >
-      <FontAwesomeIcon icon={faSignOutAlt} />
-    </LogoutButton>
-  );
-}
+export default ({ onClick, shown }: LogoutButtonProps) => (
+  <LogoutButton
+    type="button"
+    onClick={onClick}
+    style={{
+      opacity: shown ? '0%' : '100%',
+      color: '#fff',
+    }}
+  >
+    <FontAwesomeIcon icon={faSignOutAlt} />
+  </LogoutButton>
+);

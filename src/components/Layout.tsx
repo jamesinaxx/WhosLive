@@ -5,46 +5,23 @@ import {
   faTwitch,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
-import styled from 'styled-components';
 import ColorModeToggle from './buttons/ColorModeToggle';
 import Link from './Link';
+import { Footer } from '../styles/Mixins';
 
 interface LayoutProps {
   children: ReactNode;
-  toggleColor: () => void;
   shown: boolean;
   mode: 'light' | 'dark';
 }
 
-const Footer = styled.footer`
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 50px;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  padding: 5px;
-  margin: 0;
-  border-top: 1px solid white;
-  background-color: ${props => props.style?.backgroundColor || 'black'};
-  color: ${props => props.style?.color || 'white'};
-`;
-
-export default function Layout({
-  children,
-  toggleColor,
-  shown,
-  mode,
-}: LayoutProps) {
+export default ({ children, shown, mode }: LayoutProps) => {
   const color = mode === 'dark' ? 'white' : 'black';
 
   return (
     <div>
       {children}
-      <ColorModeToggle toggleColor={toggleColor} shown={shown} mode={mode} />
+      <ColorModeToggle shown={shown} mode={mode} />
       <Footer
         style={{
           backgroundColor: document.body.style.backgroundColor,
@@ -63,4 +40,4 @@ export default function Layout({
       </Footer>
     </div>
   );
-}
+};
