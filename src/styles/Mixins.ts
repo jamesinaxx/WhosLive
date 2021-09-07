@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 export const buttonColor = '#724cf9';
 export const buttonHover = '#6b4ecf';
 export const buttonClicked = '#573eb0';
@@ -67,4 +69,8 @@ export const animationChild = (delay: number, top: number, left: number) => `
     top: ${top}px;
     left: ${left};
   }
+`;
+
+export const SmallText = styled.small`
+  ${smolText}
 `;

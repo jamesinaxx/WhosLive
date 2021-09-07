@@ -1,47 +1,23 @@
-import { Component } from 'react';
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import Channel from '../components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
 import Loading from '../components/Loading';
-import { smolText } from '../styles/Mixins';
+import NoLiveChannels from '../components/NoLiveChannels';
 import type { TwitchStream } from '../types/twitch';
+import Container from '../components/Container';
 
-const NoLiveChannels = styled.small`
-  ${smolText}
-`;
+type ChannelsType = TwitchStream[] | null | undefined;
 
-const Container = styled.div`
-  margin-bottom: 110px;
-  padding-bottom: 60px;
-  text-align: center;
-`;
+const Live = () => {
+  const [channels, setChannels] = useState<ChannelsType>(null);
+  const [loaded, setLoaded] = useState(0);
 
-interface LiveProps {
-  color: '#000' | '#fff';
-}
+  const updateChannels = async () =>
+    setChannels(await getStorageLocal('NowLive:Storage:Channels'));
 
-interface LiveState {
-  channels: TwitchStream[] | null | undefined;
-  loaded: number;
-}
+  const finishLoading = () => setLoaded(old => old + 1);
 
-export default class Live extends Component<LiveProps, LiveState> {
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      channels: null,
-      loaded: 0,
-    };
-
-    this.finishLoading = this.finishLoading.bind(this);
-    this.updateChannels = this.updateChannels.bind(this);
-
-    chrome.storage.onChanged.addListener(this.updateChannels);
-    this.updateChannels();
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     // This checks every second to see if the channels have loaded yet and if they have it stops checking
     const interval = setInterval(async () => {
       const res = await getStorageLocal<any[] | undefined>(
@@ -49,51 +25,37 @@ export default class Live extends Component<LiveProps, LiveState> {
       );
       if (res === undefined) return;
       clearInterval(interval);
-      this.setState({ channels: res });
+      setChannels(res);
     }, 1000);
+  }, []);
+
+  chrome.storage.onChanged.addListener(updateChannels);
+
+  if (channels === null || channels === undefined) {
+    return <Loading />;
   }
 
-  async updateChannels() {
-    this.setState({
-      channels: await getStorageLocal('NowLive:Storage:Channels'),
-    });
+  if (channels.length === 0) {
+    return <NoLiveChannels />;
   }
 
-  finishLoading() {
-    this.setState(oldState => ({ loaded: oldState.loaded + 1 }));
+  if (loaded !== channels.length) {
+    return <Loading />;
   }
 
-  render() {
-    if (this.state.channels === null || this.state.channels === undefined) {
-      this.updateChannels();
-      return <Loading hidden={false} />;
-    }
+  return (
+    <Container>
+      {channels.map((channelData, _index, channelsArray) => (
+        <Channel
+          online
+          key={channelData.id}
+          data={channelData}
+          hidden={loaded !== channelsArray.length}
+          doneLoading={finishLoading}
+        />
+      ))}
+    </Container>
+  );
+};
 
-    if (this.state.channels.length === 0) {
-      return (
-        <NoLiveChannels>
-          You do not follow anybody who is currently live
-          <img
-            src="https://cdn.frankerfacez.com/emoticon/425196/4"
-            alt="Sadge Emote from FFZ"
-          />
-        </NoLiveChannels>
-      );
-    }
-
-    return (
-      <Container>
-        <Loading hidden={this.state.loaded === this.state.channels.length} />
-        {this.state.channels.map((channelData, _index, channelsArray) => (
-          <Channel
-            online
-            key={channelData.id}
-            data={channelData}
-            hidden={this.state.loaded !== channelsArray.length}
-            doneLoading={this.finishLoading}
-          />
-        ))}
-      </Container>
-    );
-  }
-}
+export default Live;

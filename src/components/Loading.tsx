@@ -1,10 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import * as mixins from '../styles/Mixins';
 
-interface LoadingProps {
-  hidden: boolean;
-}
-
 const Circle = styled.div`
   &::after {
     background: ${props => props.theme.colors.after};
@@ -67,18 +63,13 @@ const LoadingContainer = styled.div`
   }
 `;
 
-export default function Loading({ hidden }: LoadingProps) {
-  // We don't wanna do anything if it's hidden
-  if (hidden) return <>{null}</>;
-
-  const { color } = document.body.style;
-  const circles = [1, 2, 3, 4, 5, 6, 7, 8];
-
-  return (
-    <LoadingContainer id="loadingChannels">
-      {circles.map(key => (
-        <Circle key={key} theme={{ colors: { after: color } }} />
-      ))}
-    </LoadingContainer>
-  );
-}
+export default () => (
+  <LoadingContainer>
+    {[1, 2, 3, 4, 5, 6, 7, 8].map(key => (
+      <Circle
+        key={key}
+        theme={{ colors: { after: document.body.style.color } }}
+      />
+    ))}
+  </LoadingContainer>
+);

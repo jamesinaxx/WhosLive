@@ -125,7 +125,7 @@ export default class Main extends Component<any, MainState> {
           .catch((res: boolean) => this.setState({ connected: res }));
       }
 
-      return <Loading hidden={false} />;
+      return <Loading />;
     }
 
     window.addEventListener('scroll', () => {
@@ -154,7 +154,7 @@ export default class Main extends Component<any, MainState> {
                 }}
               />
             )}
-            <Live color={color} />
+            <Live />
             <LogoutButton
               onClick={() => this.setState({ showRUSure: true })}
               shown={this.state.showRUSure}
