@@ -1,6 +1,3 @@
-// This is because we don't have @types/node but we still need to use process in one line
-declare const process: any;
-
 export const clientId = process.env.CLIENTID as string;
 
 interface fetchOptions extends RequestInit {

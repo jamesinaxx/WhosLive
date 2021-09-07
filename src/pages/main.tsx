@@ -9,6 +9,7 @@ import InvalidateToken from '../components/InvalidateToken';
 import { clientId, checkConnection, objToParams } from '../lib/lib';
 import Layout from '../components/Layout';
 import Logout from '../components/buttons/LogoutButton';
+import { error } from '../lib/logger';
 
 interface MainState {
   userToken: string | undefined;
@@ -61,7 +62,7 @@ export default class Main extends Component<any, MainState> {
         },
       );
     } catch (err) {
-      console.error(err);
+      error(err);
     }
 
     await setStorage('NowLive:Storage:Token', '');

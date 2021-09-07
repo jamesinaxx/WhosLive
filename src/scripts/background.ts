@@ -1,11 +1,12 @@
 import { getChannelInfo, setStorageLocal } from '../lib/chromeapi';
+import { log } from '../lib/logger';
 import validateToken from '../lib/validateToken';
 
 chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 
 chrome.runtime.onInstalled.addListener(async () => {
   await setStorageLocal('NowLive:Storage:Color', 'dark');
-  console.log('Initialized Now Live');
+  log('Initialized Now Live');
 });
 
 chrome.storage.onChanged.addListener(async changes => {
