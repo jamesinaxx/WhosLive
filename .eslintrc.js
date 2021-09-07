@@ -71,7 +71,7 @@ const config = {
     '@typescript-eslint/no-unused-vars': ['warn'],
     'react/require-default-props': ['off'],
     'require-await': ['error'],
-    'linebreak-style': ['off'],
+    'linebreak-style': ['error'],
     'react/jsx-one-expression-per-line': ['off'],
     'implicit-arrow-linebreak': ['off'],
     'function-paren-newline': ['off'],

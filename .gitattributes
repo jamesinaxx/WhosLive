@@ -1,3 +1,5 @@
+* text eol=lf
+
 *.tsx linguist-language=TypeScript
 *.ts.example linguist-language=TypeScript
 webpack.*.js linguist-vendored
