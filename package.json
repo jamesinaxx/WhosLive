@@ -7,7 +7,7 @@
   "author": "jamesinaxx",
   "license": "MIT",
   "scripts": {
-    "pre-commit": "echo test husky",
+    "pre-commit": "yarn lint && yarn fmt",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "build:analyze": "webpack --mode production --analyze",
