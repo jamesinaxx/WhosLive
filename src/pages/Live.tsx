@@ -43,11 +43,18 @@ const Live = () => {
   const toggleFavorite = (wasFave: boolean, userId: string) => {
     setLoaded(old => old - 1);
     if (wasFave) {
-      setFavoriteChannels(oldFaves => oldFaves.filter(fav => fav !== userId));
+      setFavoriteChannels(oldFaves => {
+        const newArray = oldFaves.filter(fav => fav !== userId);
+        setStorage('NowLive:Favorites', newArray);
+        return newArray;
+      });
     } else {
-      setFavoriteChannels(oldFaves => [...oldFaves, userId]);
+      setFavoriteChannels(oldFaves => {
+        const newArray = [...oldFaves, userId];
+        setStorage('NowLive:Favorites', newArray);
+        return newArray;
+      });
     }
-    setStorage('NowLive:Favorites', favoriteChannels);
   };
 
   return (
