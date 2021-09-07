@@ -1,12 +1,12 @@
-import styled from 'styled-components';
 import { ReactNode } from 'react';
+import styled from 'styled-components';
 import { buttonClicked, buttonColor, buttonHover } from '../styles/Mixins';
 
 interface InvalidateTokenProps {
   onChoice: (invalidate: boolean) => void;
 }
 
-const RUSure = styled.div`
+const Confirm = styled.div`
   z-index: 1;
   transition: opacity 100ms ease-in-out;
   position: fixed;
@@ -65,7 +65,7 @@ export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
   document.body.style.overflow = 'hidden';
 
   return (
-    <RUSure>
+    <Confirm>
       <h1>
         Are you sure you want to sign out?
         <br />
@@ -77,6 +77,6 @@ export default function InvalidateToken({ onChoice }: InvalidateTokenProps) {
       <ChoiceButton type="button" onChoice={onChoice} confirm={false}>
         No
       </ChoiceButton>
-    </RUSure>
+    </Confirm>
   );
 }
