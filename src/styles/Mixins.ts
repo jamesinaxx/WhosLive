@@ -74,3 +74,13 @@ export const animationChild = (delay: number, top: number, left: number) => `
 export const SmallText = styled.small`
   ${smolText}
 `;
+
+export const Anchor = styled.a`
+  transition: color 100ms ease-in-out;
+  margin: 5px;
+  text-decoration: none;
+  color: ${props => props.color};
+  &:hover {
+    color: ${props => props.theme.hoverColor};
+  }
+`;
