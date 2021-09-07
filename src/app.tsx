@@ -17,7 +17,7 @@ export default async function render() {
     }
 
     body {
-      transition: background 100ms ease-in-out;
+      transition: background-color 100ms ease-in-out;
       // Width and height to cap extension size, Can cause issues with scrollbar showing when there is nothing to scroll
       width: 550px;
       height: 550px;
