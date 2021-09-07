@@ -9,10 +9,8 @@ const commonConfig = require('./webpack/webpack.common');
 const manifest = require('./manifest.json');
 
 async function generateIcons() {
-  const sizes = [16, 24, 32, 48, 64, 96, 128, 256, 512];
-  const icon = await fs.promises.readFile(
-    path.resolve(__dirname, 'public', 'icons', 'icon.png'),
-  );
+  const sizes = [16, 32, 48, 64, 96, 128, 256];
+  const icon = path.resolve(__dirname, 'public', 'icons', 'icon.png');
   await fs.promises.mkdir(path.resolve(__dirname, 'dist', 'icons'));
 
   for (let i = 0; i < sizes.length; i += 1) {
