@@ -31,7 +31,7 @@ export default function Error404() {
       <Description>
         Please try to troubleshoot your connection and if everything seems okay,
         try going to{' '}
-        <a href="https://twitch.tv/jamesinaxx" target="_blank" rel="noreferrer">
+        <a href="https://twitch.tv" target="_blank" rel="noreferrer">
           Twitch
         </a>
         .
