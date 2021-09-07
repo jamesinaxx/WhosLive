@@ -1872,6 +1872,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^16.7.13":
+  version: 16.7.13
+  resolution: "@types/node@npm:16.7.13"
+  checksum: 15dc28aa44674d3f49dcca4a6523b6ab1ef9bbea5c659057bec13153e1873718d6b62ab0ea57a3d57ee37f0f1136ae30e3ea503df43b0afa3ae437c8750be7f5
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:*":
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
@@ -4016,6 +4023,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"has-flag@npm:^5.0.0":
+  version: 5.0.1
+  resolution: "has-flag@npm:5.0.1"
+  checksum: e0a151db8e43b528258c4269c23224c691b42c1f5168f6d88b61c3f9398ef16d44226a78a0596642da55851cf306a8afe57d6936d4d69a24b66fd10de1373da8
+  languageName: node
+  linkType: hard
+
 "has-symbols@npm:^1.0.1, has-symbols@npm:^1.0.2":
   version: 1.0.2
   resolution: "has-symbols@npm:1.0.2"
@@ -4057,7 +4071,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.0":
+"hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -5062,6 +5076,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
     "@types/chrome": 0.0.157
+    "@types/node": ^16.7.13
     "@types/react": 17.0.20
     "@types/react-dom": 17.0.9
     "@types/styled-components": 5.1.14
@@ -5072,22 +5087,41 @@ __metadata:
     eslint: 7.32.0
     eslint-config-airbnb: 18.2.1
     eslint-config-prettier: 8.3.0
+    eslint-import-resolver-node: ^0.3.6
     eslint-plugin-import: 2.24.2
     eslint-plugin-jsx-a11y: 6.4.1
     eslint-plugin-react: 7.25.1
     eslint-plugin-react-hooks: 4.2.0
     fast-average-color: ^6.4.2
+    hoist-non-react-statics: ^3.3.2
     html-webpack-plugin: 5.3.2
     prettier: 2.3.2
+    prop-types: ^15.7.2
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-is: ^17.0.2
+    scheduler: ^0.20.2
     sharp: 0.29.0
     styled-components: 5.3.1
+    supports-color: ^9.0.2
     typescript: 4.4.2
     webpack: 5.52.0
     webpack-bundle-analyzer: 4.4.2
     webpack-cli: 4.8.0
     webpack-merge: 5.8.0
+  dependenciesMeta:
+    eslint-import-resolver-node:
+      optional: true
+    hoist-non-react-statics:
+      optional: true
+    prop-types:
+      optional: true
+    react-is:
+      optional: true
+    scheduler:
+      optional: true
+    supports-color:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -5597,6 +5631,13 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
+  languageName: node
+  linkType: hard
+
+"react-is@npm:^17.0.2":
+  version: 17.0.2
+  resolution: "react-is@npm:17.0.2"
+  checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
   languageName: node
   linkType: hard
 
@@ -6397,6 +6438,15 @@ resolve@^2.0.0-next.3:
   dependencies:
     has-flag: ^4.0.0
   checksum: c052193a7e43c6cdc741eb7f378df605636e01ad434badf7324f17fb60c69a880d8d8fcdcb562cf94c2350e57b937d7425ab5b8326c67c2adc48f7c87c1db406
+  languageName: node
+  linkType: hard
+
+"supports-color@npm:^9.0.2":
+  version: 9.0.2
+  resolution: "supports-color@npm:9.0.2"
+  dependencies:
+    has-flag: ^5.0.0
+  checksum: 690c21f61945a1ebab61fbc9dc861672b1d9678359ce75312b8b7ecb873f37f2ed2df56daa4ef4265300bea2e51f8285831ffb0a190ac46aaeed1d5b44fd51fe
   languageName: node
   linkType: hard
 
