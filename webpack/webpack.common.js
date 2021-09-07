@@ -41,10 +41,7 @@ const config = {
       inject: false,
     }),
     new CopyPlugin({
-      patterns: [
-        { from: 'manifest.json' },
-        { from: 'public/icons', to: 'icons' },
-      ],
+      patterns: [{ from: 'public/icons', to: 'icons' }],
     }),
   ],
 };
