@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from 'preact';
 import styled from 'styled-components';
 import { LoadingContainer } from './LoadingContainer';
 

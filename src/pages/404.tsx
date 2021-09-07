@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from 'preact';
 
 const Container = styled.div`
   text-align: center;

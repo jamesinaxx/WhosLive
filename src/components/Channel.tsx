@@ -1,6 +1,7 @@
 // The properties are named with snake_case because thats how the Twitch api works
 /* eslint-disable camelcase */
-import { FunctionComponent, useRef, useState } from 'react';
+import { FunctionComponent } from 'preact';
+import { useRef, useState } from 'preact/hooks';
 import FastAverageColor from 'fast-average-color';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';

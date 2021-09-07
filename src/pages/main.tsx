@@ -1,4 +1,5 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
 import Live from './Live';
 import { getChannelInfo, getStorage, setStorage } from '../lib/chromeapi';
 import NoAuthPage from './NoAuth';

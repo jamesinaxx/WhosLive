@@ -1,5 +1,4 @@
-import { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
+import { render as renderDom } from 'preact';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { getChannelInfo, getStorageLocal } from './lib/chromeapi';
 import Main from './pages/main';
@@ -42,13 +41,13 @@ async function render() {
     }
   });
 
-  ReactDOM.render(
-    <StrictMode>
+  renderDom(
+    <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Main />
       </ThemeProvider>
-    </StrictMode>,
+    </>,
     document.body,
   );
 }

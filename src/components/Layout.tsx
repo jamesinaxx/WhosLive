@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode } from 'react';
+import { FunctionComponent, ComponentChildren } from 'preact';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faGithub,
@@ -10,7 +10,7 @@ import Link from './Link';
 import { Footer } from '../styleMixins';
 
 interface LayoutProps {
-  children: ReactNode;
+  children: ComponentChildren;
   shown: boolean;
 }
 

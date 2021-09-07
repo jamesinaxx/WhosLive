@@ -45,20 +45,19 @@ const config = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
-    'comma-dangle': ['error', 'always-multiline'],
-    semi: ['error', 'always'],
-    'react/jsx-filename-extension': [
-      2,
-      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
-    ],
-    'import/extensions': ['off'],
-    'no-console': ['warn'],
-    'react/destructuring-assignment': ['off'],
     'operator-linebreak': [
       'error',
       'after',
       { overrides: { '?': 'before', ':': 'before' } },
     ],
+    'react/jsx-filename-extension': [
+      2,
+      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+    ],
+    'comma-dangle': ['error', 'always-multiline'],
+    'import/extensions': ['off'],
+    'no-console': ['warn'],
+    'react/destructuring-assignment': ['off'],
     'arrow-parens': ['error', 'as-needed'],
     'jsx-a11y/no-noninteractive-element-interactions': ['off'],
     'jsx-a11y/click-events-have-key-events': ['off'],
@@ -76,7 +75,9 @@ const config = {
     'react/jsx-one-expression-per-line': ['off'],
     'implicit-arrow-linebreak': ['off'],
     'function-paren-newline': ['off'],
+    'react/prop-types': ['off'],
     indent: ['off'],
+    semi: ['error', 'always'],
   },
 };
 
