@@ -50,9 +50,6 @@ const Live = () => {
     setStorage('NowLive:Favorites', favoriteChannels);
   };
 
-  console.log(channels);
-  console.log(favoriteChannels);
-
   return (
     <Container>
       <Loading hidden={!loading} />
