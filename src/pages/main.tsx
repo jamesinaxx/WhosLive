@@ -1,11 +1,6 @@
 import { Component } from 'react';
 import Live from './Live';
-import {
-  getChannelInfo,
-  getStorage,
-  getStorageLocal,
-  setStorage,
-} from '../lib/chromeapi';
+import { getChannelInfo, getStorage, setStorage } from '../lib/chromeapi';
 import NoAuthPage from './NoAuth';
 import validateToken from '../lib/validateToken';
 import Loading from '../components/Loading';
@@ -19,7 +14,6 @@ interface MainState {
   userToken: string | undefined;
   tokenValid: boolean;
   showRUSure: boolean;
-  colorMode: 'light' | 'dark';
   connected?: boolean | undefined;
 }
 
@@ -31,7 +25,6 @@ export default class Main extends Component<any, MainState> {
       userToken: undefined,
       tokenValid: true,
       showRUSure: false,
-      colorMode: 'dark',
     };
 
     this.validateToken = this.validateToken.bind(this);
@@ -41,19 +34,11 @@ export default class Main extends Component<any, MainState> {
   async componentDidMount() {
     await this.validateToken();
 
-    await this.setColor();
-
-    chrome.storage.onChanged.addListener(async () => {
-      await this.setColor();
-      await this.validateToken();
+    chrome.storage.onChanged.addListener(async (_changes, area) => {
+      if (area === 'sync') {
+        await this.validateToken();
+      }
     });
-  }
-
-  async setColor() {
-    const colorMode =
-      (await getStorageLocal<'light' | 'dark'>('NowLive:Storage:Color')) ||
-      'dark';
-    this.setState({ colorMode });
   }
 
   async validateToken() {
@@ -94,7 +79,7 @@ export default class Main extends Component<any, MainState> {
 
     if (this.state.connected === false) {
       return (
-        <Layout mode={this.state.colorMode} shown={this.state.showRUSure}>
+        <Layout shown={this.state.showRUSure}>
           <Error404 />
         </Layout>
       );
@@ -118,7 +103,7 @@ export default class Main extends Component<any, MainState> {
     });
 
     return (
-      <Layout mode={this.state.colorMode} shown={this.state.showRUSure}>
+      <Layout shown={this.state.showRUSure}>
         {this.state.userToken && this.state.tokenValid ? (
           <>
             {this.state.showRUSure && (

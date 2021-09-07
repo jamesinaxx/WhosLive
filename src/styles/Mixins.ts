@@ -75,13 +75,13 @@ export const SmallText = styled.small`
   ${smolText}
 `;
 
-export const Anchor = styled.a`
+export const Anchor = styled.a<{ hoverColor: string }>`
   transition: color 100ms ease-in-out;
   margin: 5px;
   text-decoration: none;
   color: ${({ color }) => color};
   &:hover {
-    color: ${({ theme }) => (theme as any).hoverColor};
+    color: ${({ hoverColor }) => hoverColor};
   }
 `;
 

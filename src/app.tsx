@@ -6,7 +6,6 @@ import Main from './pages/main';
 import { lightTheme, darkTheme } from './theme';
 
 export default async function render() {
-  // TODO Add better light mode vs dark mode scroll bars
   const GlobalStyle = createGlobalStyle`
     body::-webkit-scrollbar {
       width: 0.5em;
@@ -32,6 +31,12 @@ export default async function render() {
     'light'
       ? lightTheme
       : darkTheme;
+
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName === 'local' && changes['NowLive:Storage:Color']) {
+      render();
+    }
+  });
 
   ReactDOM.render(
     <StrictMode>
