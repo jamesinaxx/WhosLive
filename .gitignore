@@ -1,6 +1,7 @@
 keys/
 *.crx
-.env.dev
+
+config.json
 
 # Logs
 logs

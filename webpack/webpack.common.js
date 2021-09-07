@@ -1,3 +1,4 @@
+const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const rules = require('./webpack.rules');
@@ -32,6 +33,10 @@ const config = {
       template: path.resolve(__dirname, '..', 'src', 'template.html'),
       minify: true,
       inject: false,
+    }),
+    new DefinePlugin({
+      'process.env.CLIENTID': require('../config.json').clientId,
+      'process.env.CLIENTSECRET': require('../config.json').clientSecret,
     }),
   ],
 };
