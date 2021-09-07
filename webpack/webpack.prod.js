@@ -1,5 +1,4 @@
-const Dotenv = require('dotenv-webpack');
-const path = require('path');
+const { DefinePlugin } = require('webpack');
 
 // 1 Megabyte in bytes
 const mb = 1048576;
@@ -9,7 +8,11 @@ const mb = 1048576;
  */
 const config = {
   mode: 'production',
-  plugins: [new Dotenv({ path: path.resolve(__dirname, '..', '.env') })],
+  plugins: [
+    new DefinePlugin({
+      'process.env.PRODUCTION': 'true',
+    }),
+  ],
   performance: {
     maxEntrypointSize: mb,
     maxAssetSize: mb,

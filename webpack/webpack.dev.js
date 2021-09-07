@@ -1,5 +1,4 @@
-const Dotenv = require('dotenv-webpack');
-const path = require('path');
+const { DefinePlugin } = require('webpack');
 
 /**
  * @type {import('webpack').Configuration}
@@ -8,7 +7,11 @@ const config = {
   mode: 'development',
   watch: true,
   devtool: 'inline-source-map',
-  plugins: [new Dotenv({ path: path.resolve(__dirname, '..', '.env.dev') })],
+  plugins: [
+    new DefinePlugin({
+      'process.env.PRODUCTION': 'false',
+    }),
+  ],
 };
 
 module.exports = config;

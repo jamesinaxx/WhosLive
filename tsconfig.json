@@ -5,7 +5,7 @@
     "jsxImportSource": "preact",
     "esModuleInterop": true,
     "strict": true,
-    "types": ["chrome", "node"],
+    "types": ["@types/chrome", "@types/node"],
     "skipLibCheck": true,
     "rootDir": "./src/"
   }
