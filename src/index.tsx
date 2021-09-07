@@ -49,7 +49,7 @@ async function render() {
         <Main />
       </ThemeProvider>
     </StrictMode>,
-    document.getElementById('root') as HTMLElement,
+    document.body,
   );
 }
 
