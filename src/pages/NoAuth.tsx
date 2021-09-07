@@ -20,18 +20,16 @@ const NoAuthText = styled.small`
   ${smolText}
 `;
 
-export default function NoAuth() {
-  return (
-    <NoAuthText>
-      You are not logged in to Twitch! Please go to{' '}
-      <a
-        href="https://nowlive.jamesinaxx.me/auth/"
-        target="_blank"
-        rel="noreferrer"
-      >
-        this page
-      </a>
-      , log in with Twitch, and then come back here.
-    </NoAuthText>
-  );
-}
+export default () => (
+  <NoAuthText>
+    You are not logged in to Twitch! Please go to{' '}
+    <a
+      href="https://nowlive.jamesinaxx.me/auth/"
+      target="_blank"
+      rel="noreferrer"
+    >
+      this page
+    </a>
+    , log in with Twitch, and then come back here.
+  </NoAuthText>
+);
