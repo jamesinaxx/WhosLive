@@ -1872,10 +1872,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.7.12":
-  version: 16.7.12
-  resolution: "@types/node@npm:16.7.12"
-  checksum: c104b1e7d63bf4a5661d330778a30937300fbbaff6d9d3ac17cb0b906ab543a1698331091164299b53c7dca68effd6dc3600f7813ea56c9b1fa6efcb35828215
+"@types/node@npm:16.7.11":
+  version: 16.7.11
+  resolution: "@types/node@npm:16.7.11"
+  checksum: 2395bb42ae54c209a0014f125851bbe36e021009fbb8278059b8e98690dc2a5575e1a45bcc03319c9a0a2a921ba23220ca424cc50196332c2b6ce47ebc4947de
   languageName: node
   linkType: hard
 
@@ -1886,7 +1886,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.9":
+"@types/react-dom@npm:17.0.9":
   version: 17.0.9
   resolution: "@types/react-dom@npm:17.0.9"
   dependencies:
@@ -1906,7 +1906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^17.0.20":
+"@types/react@npm:17.0.20":
   version: 17.0.20
   resolution: "@types/react@npm:17.0.20"
   dependencies:
@@ -1924,7 +1924,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/styled-components@npm:^5.1.14":
+"@types/styled-components@npm:5.1.14":
   version: 5.1.14
   resolution: "@types/styled-components@npm:5.1.14"
   dependencies:
@@ -3425,7 +3425,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^8.3.0":
+"eslint-config-prettier@npm:8.3.0":
   version: 8.3.0
   resolution: "eslint-config-prettier@npm:8.3.0"
   peerDependencies:
@@ -5069,17 +5069,17 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
     "@types/chrome": 0.0.157
-    "@types/node": ^16.7.12
-    "@types/react": ^17.0.20
-    "@types/react-dom": ^17.0.9
-    "@types/styled-components": ^5.1.14
+    "@types/node": 16.7.11
+    "@types/react": 17.0.20
+    "@types/react-dom": 17.0.9
+    "@types/styled-components": 5.1.14
     "@typescript-eslint/eslint-plugin": 4.31.0
     "@typescript-eslint/parser": 4.31.0
     babel-loader: 8.2.2
     dotenv-webpack: 7.0.3
     eslint: 7.32.0
     eslint-config-airbnb: 18.2.1
-    eslint-config-prettier: ^8.3.0
+    eslint-config-prettier: 8.3.0
     eslint-plugin-import: 2.24.2
     eslint-plugin-jsx-a11y: 6.4.1
     eslint-plugin-react: 7.25.1
@@ -5089,7 +5089,7 @@ __metadata:
     prettier: 2.3.2
     react: ^17.0.2
     react-dom: ^17.0.2
-    sharp: ^0.29.0
+    sharp: 0.29.0
     styled-components: 5.3.1
     typescript: 4.4.2
     webpack: 5.52.0
@@ -6002,7 +6002,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.29.0":
+"sharp@npm:0.29.0":
   version: 0.29.0
   resolution: "sharp@npm:0.29.0"
   dependencies:
