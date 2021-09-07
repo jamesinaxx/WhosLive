@@ -8,6 +8,7 @@ const Circle = styled.div`
 `;
 
 export default function Loading({ hidden }: { hidden?: boolean }) {
+  console.log(hidden);
   if (hidden) return <>{null}</>;
 
   return (

@@ -17,7 +17,6 @@ const Live = () => {
 
   const finishLoading = () => {
     setLoaded(old => old + 1);
-    console.log(loaded);
   };
 
   useEffect(() => {
@@ -42,9 +41,11 @@ const Live = () => {
     return <NoLiveChannels />;
   }
 
+  console.log(loaded);
+
   return (
     <Container>
-      <Loading hidden={loaded !== channels.length} />
+      <Loading hidden={loaded === channels.length} />
       {channels.map(channelData => (
         <Channel
           key={channelData.id}
