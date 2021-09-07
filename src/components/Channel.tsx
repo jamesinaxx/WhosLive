@@ -97,10 +97,6 @@ export default class Channel extends Component<ChannelProps, ChannelState> {
       thumbnail_url,
     } = this.props.data;
 
-    console.log(
-      `The type of viewer count is ${typeof viewer_count} should be number`,
-    );
-
     const thumbnailUrl = thumbnail_url
       .replace('{width}', '128')
       .replace('{height}', '72');
