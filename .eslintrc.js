@@ -35,6 +35,12 @@ const config = {
         project: ['./tsconfig.json'], // Specify it only for TypeScript files
       },
     },
+    {
+      files: ['*.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
   ],
   parserOptions: {
     ecmaFeatures: {

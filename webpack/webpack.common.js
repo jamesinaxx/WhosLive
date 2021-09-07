@@ -2,6 +2,7 @@ const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const rules = require('./webpack.rules');
+const configJSON = require('../config.json');
 
 /**
  * @type {import('webpack').Configuration}
@@ -35,8 +36,8 @@ const config = {
       inject: false,
     }),
     new DefinePlugin({
-      'process.env.CLIENTID': require('../config.json').clientId,
-      'process.env.CLIENTSECRET': require('../config.json').clientSecret,
+      'process.env.CLIENTID': configJSON.clientId,
+      'process.env.CLIENTSECRET': configJSON.clientSecret,
     }),
   ],
 };
