@@ -2936,23 +2936,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copy-webpack-plugin@npm:9.0.1":
-  version: 9.0.1
-  resolution: "copy-webpack-plugin@npm:9.0.1"
-  dependencies:
-    fast-glob: ^3.2.5
-    glob-parent: ^6.0.0
-    globby: ^11.0.3
-    normalize-path: ^3.0.0
-    p-limit: ^3.1.0
-    schema-utils: ^3.0.0
-    serialize-javascript: ^6.0.0
-  peerDependencies:
-    webpack: ^5.1.0
-  checksum: f3e69883e173f9a298b63dcf35ba5aafc02e252c67c236029424af19fb2e36fc93de94054bd7a9ada8b4cbcc4e96e9a3a269f972e4a45f4fd1b32a3d199d2cae
-  languageName: node
-  linkType: hard
-
 "core-js-compat@npm:^3.14.0, core-js-compat@npm:^3.16.0":
   version: 3.16.3
   resolution: "core-js-compat@npm:3.16.3"
@@ -3750,7 +3733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.5":
+"fast-glob@npm:^3.1.1":
   version: 3.2.7
   resolution: "fast-glob@npm:3.2.7"
   dependencies:
@@ -3949,15 +3932,6 @@ __metadata:
   dependencies:
     is-glob: ^4.0.1
   checksum: f4f2bfe2425296e8a47e36864e4f42be38a996db40420fe434565e4480e3322f18eb37589617a98640c5dc8fdec1a387007ee18dbb1f3f5553409c34d17f425e
-  languageName: node
-  linkType: hard
-
-"glob-parent@npm:^6.0.0":
-  version: 6.0.1
-  resolution: "glob-parent@npm:6.0.1"
-  dependencies:
-    is-glob: ^4.0.1
-  checksum: 0468cf300b8c7a483dbd8c031704fa1003331cbc65ded095f768328ed35eec78dd199c224c7436db997569863c0cbc0b7fd7c3cb45508e6134c502be9e691dc5
   languageName: node
   linkType: hard
 
@@ -4556,17 +4530,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-minimizer-webpack-plugin@npm:3.0.0":
-  version: 3.0.0
-  resolution: "json-minimizer-webpack-plugin@npm:3.0.0"
-  dependencies:
-    schema-utils: ^3.0.0
-  peerDependencies:
-    webpack: ^5.1.0
-  checksum: 048ac8a6b543e45bb8836ae0b0a7ab63182b9fabcc48918d82eb5282210a1574d9929d9ea5f1a02bc95e0d41146aced76b447cd8d922bfb6024255df1cd7f249
-  languageName: node
-  linkType: hard
-
 "json-parse-better-errors@npm:^1.0.1, json-parse-better-errors@npm:^1.0.2":
   version: 1.0.2
   resolution: "json-parse-better-errors@npm:1.0.2"
@@ -5090,13 +5053,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"normalize-path@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "normalize-path@npm:3.0.0"
-  checksum: 88eeb4da891e10b1318c4b2476b6e2ecbeb5ff97d946815ffea7794c31a89017c70d7f34b3c2ebf23ef4e9fc9fb99f7dffe36da22011b5b5c6ffa34f4873ec20
-  languageName: node
-  linkType: hard
-
 "nowlive@workspace:.":
   version: 0.0.0-use.local
   resolution: "nowlive@workspace:."
@@ -5120,7 +5076,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 4.30.0
     "@typescript-eslint/parser": 4.30.0
     babel-loader: 8.2.2
-    copy-webpack-plugin: 9.0.1
     dotenv-webpack: 7.0.3
     eslint: 7.32.0
     eslint-config-airbnb: 18.2.1
@@ -5132,7 +5087,6 @@ __metadata:
     eslint-plugin-react-hooks: 4.2.0
     fast-average-color: ^6.4.2
     html-webpack-plugin: 5.3.2
-    json-minimizer-webpack-plugin: 3.0.0
     prettier: 2.3.2
     react: ^17.0.2
     react-dom: ^17.0.2

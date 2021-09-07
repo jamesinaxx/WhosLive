@@ -1,5 +1,4 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const rules = require('./webpack.rules');
 
@@ -39,9 +38,6 @@ const config = {
       </html>`,
       minify: true,
       inject: false,
-    }),
-    new CopyPlugin({
-      patterns: [{ from: 'public/icons', to: 'icons' }],
     }),
   ],
 };
