@@ -23,19 +23,7 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       // prettier-ignore
-      templateContent:
-      `<html>
-        <head>
-          <meta charset="UTF-8" />
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title></title>
-        </head>
-        <body>
-          <div id="root"></div>
-          <script src="index.js"></script>
-        </body>
-      </html>`,
+      template: path.resolve(__dirname, '..', 'src', 'template.html'),
       minify: true,
       inject: false,
     }),
