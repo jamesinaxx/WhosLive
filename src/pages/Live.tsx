@@ -16,6 +16,20 @@ const finishLoading = (setLoaded: Dispatch<SetStateAction<number>>) => {
   setLoaded(old => old + 1);
 };
 
+const toggleFavorite = (
+  wasFave: boolean,
+  userId: string,
+  setLoaded: Dispatch<SetStateAction<number>>,
+  setFavoriteChannels: Dispatch<SetStateAction<string[]>>,
+) => {
+  setLoaded(old => old - 1);
+  if (wasFave) {
+    setFavoriteChannels(oldFaves => oldFaves.filter(fav => fav !== userId));
+  } else {
+    setFavoriteChannels(oldFaves => [...oldFaves, userId]);
+  }
+};
+
 const Live = () => {
   const [favoriteChannels, setFavoriteChannels] = useState<string[]>([]);
   const [channels, setChannels] = useState<ChannelsType>(undefined);
@@ -42,9 +56,11 @@ const Live = () => {
     return <NoLiveChannels />;
   }
 
+  const loading = !(loaded === channels.length);
+
   return (
     <Container>
-      <Loading hidden={loaded === channels.length} />
+      <Loading hidden={!loading} />
       {favoriteChannels.map(channelName => {
         const channel = channels.find(c => c.user_id === channelName);
 
@@ -54,9 +70,17 @@ const Live = () => {
           <Channel
             key={channel.id}
             data={channel}
-            hidden={loaded !== channels.length}
+            hidden={loading}
             doneLoading={() => finishLoading(setLoaded)}
-            favorite={favoriteChannels.includes(channel.user_id)}
+            favorite
+            setFavorites={old =>
+              toggleFavorite(
+                old,
+                channel.user_id,
+                setLoaded,
+                setFavoriteChannels,
+              )
+            }
           />
         );
       })}
@@ -66,9 +90,16 @@ const Live = () => {
           <Channel
             key={channel.id}
             data={channel}
-            hidden={loaded !== channels.length}
+            hidden={loading}
             doneLoading={() => finishLoading(setLoaded)}
-            favorite={favoriteChannels.includes(channel.user_id)}
+            setFavorites={old =>
+              toggleFavorite(
+                old,
+                channel.user_id,
+                setLoaded,
+                setFavoriteChannels,
+              )
+            }
           />
         ))}
     </Container>

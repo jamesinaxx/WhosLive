@@ -1,18 +1,17 @@
 /* eslint-disable camelcase */ // The properties are named with snake_case because thats how the Twitch api works
 import { useState } from 'react';
 import FastAverageColor from 'fast-average-color';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
-import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
+import FavoriteButton from './buttons/FavoriteButton';
 
 interface ChannelProps {
   data: TwitchStream;
   doneLoading: () => void;
   hidden: boolean;
-  favorite: boolean;
+  favorite?: boolean;
+  setFavorites: (old: boolean) => void;
 }
 
 const ChannelContainer = styled.div`
@@ -50,7 +49,13 @@ const ChannelInfo = styled.div`
   font-size: 2vw;
 `;
 
-export default ({ data, hidden, doneLoading, favorite }: ChannelProps) => {
+export default ({
+  data,
+  hidden,
+  doneLoading,
+  favorite = false,
+  setFavorites,
+}: ChannelProps) => {
   const [backgroundColor, setBackgroundColor] = useState<string>('#FFF');
   const [color, setColor] = useState<string>('#000');
 
@@ -112,9 +117,9 @@ export default ({ data, hidden, doneLoading, favorite }: ChannelProps) => {
             </b>{' '}
             viewers
           </p>
-          <FontAwesomeIcon icon={favorite ? solidStar : emptyStar} />
         </ChannelInfo>
       </ChannelDiv>
+      <FavoriteButton favorite={favorite} toggleFavorite={setFavorites} />
     </ChannelContainer>
   );
 };
