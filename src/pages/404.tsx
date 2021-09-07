@@ -24,34 +24,32 @@ const Description = styled.p`
   }
 `;
 
-export default function Error404() {
-  return (
-    <Container>
-      <FailedHeader>Failed to connect to Twitch</FailedHeader>
-      <Description>
-        Please try to troubleshoot your connection and if everything seems okay,
-        try going to{' '}
-        <a href="https://twitch.tv" target="_blank" rel="noreferrer">
-          Twitch
-        </a>
-        .
-        <br />
-        <br />
-        If Twitch loads fine, then there is a bug with Now Live. Please report
-        this{' '}
-        <a href="https://github.com/jamesinaxx/NowLive/issues">
-          here{' '}
-          <FontAwesomeIcon
-            icon={faGithub}
-            style={{
-              color:
-                document.body.style.backgroundColor === 'rgb(255, 255, 255)'
-                  ? '#000'
-                  : '#fff',
-            }}
-          />
-        </a>
-      </Description>
-    </Container>
-  );
-}
+export default () => (
+  <Container>
+    <FailedHeader>Failed to connect to Twitch</FailedHeader>
+    <Description>
+      Please try to troubleshoot your connection and if everything seems okay,
+      try going to{' '}
+      <a href="https://twitch.tv" target="_blank" rel="noreferrer">
+        Twitch
+      </a>
+      .
+      <br />
+      <br />
+      If Twitch loads fine, then there is a bug with Now Live. Please report
+      this{' '}
+      <a href="https://github.com/jamesinaxx/NowLive/issues">
+        here{' '}
+        <FontAwesomeIcon
+          icon={faGithub}
+          style={{
+            color:
+              document.body.style.backgroundColor === 'rgb(255, 255, 255)'
+                ? '#000'
+                : '#fff',
+          }}
+        />
+      </a>
+    </Description>
+  </Container>
+);
