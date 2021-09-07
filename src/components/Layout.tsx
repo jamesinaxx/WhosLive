@@ -18,12 +18,7 @@ export default ({ children, shown }: LayoutProps) => (
   <div>
     {children}
     <ColorModeToggle shown={shown} />
-    <Footer
-      style={{
-        backgroundColor: document.body.style.backgroundColor,
-        color,
-      }}
-    >
+    <Footer>
       <Link href="https://github.com/jamesinaxx">
         <FontAwesomeIcon icon={faGithub} size="2x" />
       </Link>
