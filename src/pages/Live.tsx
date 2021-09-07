@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Channel from '../components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
 import Loading from '../components/Loading';
@@ -8,17 +8,18 @@ import Container from '../components/Container';
 
 type ChannelsType = TwitchStream[] | undefined;
 
+const updateChannels = async (
+  setChannels: Dispatch<SetStateAction<ChannelsType>>,
+) => setChannels(await getStorageLocal('NowLive:Channels'));
+
+const finishLoading = (setLoaded: Dispatch<SetStateAction<number>>) => {
+  setLoaded(old => old + 1);
+};
+
 const Live = () => {
   const [favoriteChannels, setFavoriteChannels] = useState<string[]>([]);
   const [channels, setChannels] = useState<ChannelsType>(undefined);
   const [loaded, setLoaded] = useState(0);
-
-  const updateChannels = async () =>
-    setChannels(await getStorageLocal('NowLive:Channels'));
-
-  const finishLoading = () => {
-    setLoaded(old => old + 1);
-  };
 
   useEffect(() => {
     setFavoriteChannels(['84432477']);
@@ -31,7 +32,7 @@ const Live = () => {
     }, 1000);
   }, []);
 
-  chrome.storage.onChanged.addListener(updateChannels);
+  chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
 
   if (channels === undefined) {
     return <Loading />;
@@ -54,7 +55,7 @@ const Live = () => {
             key={channel.id}
             data={channel}
             hidden={loaded !== channels.length}
-            doneLoading={finishLoading}
+            doneLoading={() => finishLoading(setLoaded)}
           />
         );
       })}
@@ -65,7 +66,7 @@ const Live = () => {
             key={channel.id}
             data={channel}
             hidden={loaded !== channels.length}
-            doneLoading={finishLoading}
+            doneLoading={() => finishLoading(setLoaded)}
           />
         ))}
     </Container>
