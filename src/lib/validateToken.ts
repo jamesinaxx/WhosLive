@@ -10,7 +10,7 @@ export default async function validateToken(token: string): Promise<boolean> {
     const resJson = await res.json();
 
     if (resJson.scopes.includes('user:read:follows') && resJson.expires_in) {
-      setStorage('NowLive:Storage:Token', token);
+      setStorage('NowLive:Token', token);
       return true;
     }
     return false;

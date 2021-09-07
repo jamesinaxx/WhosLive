@@ -5,12 +5,12 @@ import validateToken from '../lib/validateToken';
 chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 
 chrome.runtime.onInstalled.addListener(async () => {
-  await setStorageLocal('NowLive:Storage:Color', 'dark');
+  await setStorageLocal('NowLive:Theme', 'dark');
   log('Initialized Now Live');
 });
 
 chrome.storage.onChanged.addListener(async changes => {
-  if ('NowLive:Storage:Token' in changes) await getChannelInfo();
+  if ('NowLive:Token' in changes) await getChannelInfo();
 });
 
 chrome.runtime.onMessage.addListener(async (message, sender, res) => {
@@ -22,7 +22,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, res) => {
 
   if (
     typeof message === 'object' &&
-    message.name === 'NowLive:Storage:Token' &&
+    message.name === 'NowLive:Token' &&
     typeof message.token === 'string'
   ) {
     if (await validateToken(message.token)) {

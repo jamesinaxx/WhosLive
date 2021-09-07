@@ -27,13 +27,12 @@ export default async function render() {
   `;
 
   const theme =
-    (await getStorageLocal<'light' | 'dark'>('NowLive:Storage:Color')) ===
-    'light'
+    (await getStorageLocal<'light' | 'dark'>('NowLive:Theme')) === 'light'
       ? lightTheme
       : darkTheme;
 
   chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (areaName === 'local' && changes['NowLive:Storage:Color']) {
+    if (areaName === 'local' && changes['NowLive:Theme']) {
       render();
     }
   });

@@ -13,7 +13,7 @@ const Live = () => {
   const [loaded, setLoaded] = useState(0);
 
   const updateChannels = async () =>
-    setChannels(await getStorageLocal('NowLive:Storage:Channels'));
+    setChannels(await getStorageLocal('NowLive:Channels'));
 
   const finishLoading = () => {
     setLoaded(old => old + 1);
@@ -22,9 +22,7 @@ const Live = () => {
   useEffect(() => {
     // This checks every second to see if the channels have loaded yet and if they have it stops checking
     const interval = setInterval(async () => {
-      const res = await getStorageLocal<any[] | undefined>(
-        'NowLive:Storage:Channels',
-      );
+      const res = await getStorageLocal<any[] | undefined>('NowLive:Channels');
       if (res === undefined) return;
       clearInterval(interval);
       setChannels(res);

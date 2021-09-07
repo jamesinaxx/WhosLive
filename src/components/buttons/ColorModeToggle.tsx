@@ -20,10 +20,7 @@ export default function ColorToggle({ shown }: ColorToggleProps) {
     <ColorToggleButton
       type="button"
       onClick={() =>
-        setStorageLocal(
-          'NowLive:Storage:Color',
-          mode === 'light' ? 'dark' : 'light',
-        )
+        setStorageLocal('NowLive:Theme', mode === 'light' ? 'dark' : 'light')
       }
       style={{ opacity: shown ? '0%' : '100%' }}
     >
