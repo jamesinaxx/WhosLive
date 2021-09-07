@@ -18,9 +18,9 @@ interface MainState {
   connected?: boolean | undefined;
 }
 
-export default class Main extends Component<any, MainState> {
-  constructor(props: any) {
-    super(props);
+export default class Main extends Component<unknown, MainState> {
+  constructor() {
+    super(null);
 
     this.state = {
       userToken: undefined,

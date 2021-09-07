@@ -1,10 +1,12 @@
 const authEl = document.getElementById('NowLiveAuthText');
 const hash = window.location.hash.substr(1);
-const hashResult = hash.split('&').reduce((res: any, item) => {
-  const [key, value] = item.split('=');
-  res[key] = value;
-  return res;
-}, {});
+const hashResult = hash.split('&').reduce(
+  (previous: { [key: string]: unknown }, item) => ({
+    ...previous,
+    [item.split('=')[0]]: item.split('=')[1],
+  }),
+  {},
+);
 
 window.history.pushState(
   '',
