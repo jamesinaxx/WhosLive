@@ -1,6 +1,8 @@
 import { setStorage } from './chromeapi';
 
-export default async function validateToken(token: string): Promise<boolean> {
+export default async function validateToken(
+  token: string | undefined,
+): Promise<boolean> {
   try {
     const res = await fetch('https://id.twitch.tv/oauth2/validate', {
       headers: {

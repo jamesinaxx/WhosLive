@@ -4,11 +4,14 @@ import FastAverageColor from 'fast-average-color';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
+import FavoriteButton from './buttons/FavoriteButton';
 
 interface ChannelProps {
   data: TwitchStream;
   doneLoading: () => void;
   hidden: boolean;
+  favorite?: boolean;
+  setFavorites: (old: boolean) => void;
 }
 
 const ChannelContainer = styled.div`
@@ -46,7 +49,13 @@ const ChannelInfo = styled.div`
   font-size: 2vw;
 `;
 
-export default ({ data, hidden, doneLoading }: ChannelProps) => {
+export default ({
+  data,
+  hidden,
+  doneLoading,
+  favorite = false,
+  setFavorites,
+}: ChannelProps) => {
   const [backgroundColor, setBackgroundColor] = useState<string>('#FFF');
   const [color, setColor] = useState<string>('#000');
 
@@ -110,6 +119,7 @@ export default ({ data, hidden, doneLoading }: ChannelProps) => {
           </p>
         </ChannelInfo>
       </ChannelDiv>
+      <FavoriteButton favorite={favorite} toggleFavorite={setFavorites} />
     </ChannelContainer>
   );
 };

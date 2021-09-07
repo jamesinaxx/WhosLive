@@ -53,7 +53,7 @@ export default class Main extends Component<any, MainState> {
   }
 
   async invalidateToken() {
-    const token = await getStorage('NowLive:Token');
+    const token = (await getStorage('NowLive:Token')) || '';
     try {
       await fetch(
         `https://id.twitch.tv/oauth2/revoke${objToParams({ clientId, token })}`,

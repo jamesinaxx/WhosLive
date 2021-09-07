@@ -27,12 +27,12 @@ export default async function render() {
   `;
 
   const theme =
-    (await getStorageLocal<'light' | 'dark'>('NowLive:Theme')) === 'light'
+    (await getStorageLocal('NowLive:Theme')) === 'light'
       ? lightTheme
       : darkTheme;
 
   chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (areaName === 'local' && changes['NowLive:Theme']) {
+    if (areaName === 'local' && 'NowLive:Theme' in changes) {
       render();
     }
   });
@@ -47,3 +47,5 @@ export default async function render() {
     document.getElementById('root') as HTMLElement,
   );
 }
+
+render();

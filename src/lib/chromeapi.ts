@@ -7,8 +7,11 @@ export async function setStorage(key: Synced, value: any): Promise<void> {
   chrome.storage.sync.set({ [key]: value });
 }
 
-export function getStorage(key: 'NowLive:Token'): Promise<string>;
-export function getStorage<T>(key: Synced): Promise<T> {
+export function getStorage(
+  key: 'NowLive:Favorites',
+): Promise<string[] | undefined>;
+export function getStorage(key: 'NowLive:Token'): Promise<string | undefined>;
+export function getStorage<T>(key: Synced): Promise<T | undefined> {
   return new Promise(resolve =>
     chrome.storage.sync.get(key, res => resolve(res[key])),
   );
