@@ -4,6 +4,7 @@ import Channel from '../components/Channel';
 import { getStorageLocal } from '../lib/chromeapi';
 import Loading from '../components/Loading';
 import { smolText } from '../styles/Mixins';
+import type { TwitchStream } from '../types/twitch';
 
 const NoLiveChannels = styled.small`
   ${smolText}
@@ -20,7 +21,7 @@ interface LiveProps {
 }
 
 interface LiveState {
-  channels: any[] | null | undefined;
+  channels: TwitchStream[] | null | undefined;
   loaded: number;
 }
 

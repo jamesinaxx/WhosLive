@@ -3,17 +3,11 @@ import { Component } from 'react';
 import FastAverageColor from 'fast-average-color';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
+import type { TwitchStream } from '../types/twitch';
 
 interface ChannelProps {
   online: boolean;
-  data: {
-    user_name: string;
-    user_login: string;
-    game_name: string;
-    viewer_count: string;
-    title: string;
-    thumbnail_url: string;
-  };
+  data: TwitchStream;
   doneLoading: () => void;
   hidden: boolean;
 }
@@ -129,9 +123,7 @@ export default class Channel extends Component<ChannelProps, ChannelState> {
             <p>
               <b>{user_name}</b> is currently playing <b>{game_name}</b> for{' '}
               <b>
-                {new Intl.NumberFormat(navigator.language).format(
-                  Number(viewer_count),
-                )}
+                {new Intl.NumberFormat(navigator.language).format(viewer_count)}
               </b>{' '}
               viewers
             </p>
