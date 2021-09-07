@@ -1,7 +1,7 @@
-import { Local, Synced } from '../types/chrome';
-import { TwitchStream } from '../types/twitch';
 import { clientId } from './lib';
 import { error } from './logger';
+import type { Local, Synced } from '../types/chrome';
+import type { TwitchStream } from '../types/twitch';
 
 export function setStorage(key: Synced, value: any): Promise<void> {
   return chrome.storage.sync.set({ [key]: value });
@@ -31,6 +31,15 @@ export function getStorageLocal<T>(key: Local): Promise<T> {
   );
 }
 
+const blobToBase64 = (blob: Blob): Promise<string> => {
+  const reader = new FileReader();
+  return new Promise<string>((resolve, reject) => {
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+};
+
 export async function getChannelInfo(): Promise<void> {
   const token = await getStorage('NowLive:Token');
   if (!token) {
@@ -52,7 +61,7 @@ export async function getChannelInfo(): Promise<void> {
       ).json()
     ).data[0].id;
 
-    const { data } = await (
+    const { data }: { data: TwitchStream[] } = await (
       await fetch(
         `https://api.twitch.tv/helix/streams/followed?user_id=${userId}`,
         {
@@ -63,6 +72,33 @@ export async function getChannelInfo(): Promise<void> {
         },
       )
     ).json();
+
+    const withImages = await Promise.all(
+      data.map(async stream => {
+        const blob = await (
+          await fetch(
+            stream.thumbnail_url
+              .replace('{width}', '128')
+              .replace('{height}', '72'),
+          )
+        ).blob();
+
+        const withImage: TwitchStream = {
+          ...stream,
+          thumbnail_url: await blobToBase64(blob),
+        };
+
+        console.log('Base64URL:', withImage.thumbnail_url);
+        console.log(
+          'OldURL:',
+          stream.thumbnail_url
+            .replace('{width}', '128')
+            .replace('{height}', '72'),
+        );
+
+        return withImage;
+      }),
+    );
 
     const streamingNow = Number(data.length.toString());
 
@@ -80,7 +116,7 @@ export async function getChannelInfo(): Promise<void> {
       await chrome.action.setBadgeText({ text: '' });
     }
 
-    await setStorageLocal('NowLive:Channels', data);
+    await setStorageLocal('NowLive:Channels', withImages);
   } catch (err) {
     error(err);
   }

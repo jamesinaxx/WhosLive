@@ -1,13 +1,17 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { getStorageLocal } from './lib/chromeapi';
+import { getChannelInfo, getStorageLocal } from './lib/chromeapi';
 import Main from './pages/main';
 import { lightTheme, darkTheme } from './theme';
 
-// TODO Add support for multiple pages of life streams
+// TODO Add support for multiple pages of live streams
 
-export default async function render() {
+if (process.env.NODE_ENV === 'development') {
+  getChannelInfo();
+}
+
+async function render() {
   const GlobalStyle = createGlobalStyle`
     body::-webkit-scrollbar {
       width: 0.5em;
@@ -19,7 +23,6 @@ export default async function render() {
     }
 
     body {
-      transition: background-color 100ms ease-in-out;
       // Width and height to cap extension size, Can cause issues with scrollbar showing when there is nothing to scroll
       width: 550px;
       height: 550px;
