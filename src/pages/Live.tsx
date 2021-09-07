@@ -42,6 +42,15 @@ const Live = () => {
     return <NoLiveChannels />;
   }
 
+  const ChannelWrapper = ({ channel }: { channel: TwitchStream }) => (
+    <Channel
+      key={channel.id}
+      data={channel}
+      hidden={loaded !== channels.length}
+      doneLoading={() => finishLoading(setLoaded)}
+    />
+  );
+
   return (
     <Container>
       <Loading hidden={loaded === channels.length} />
@@ -50,24 +59,12 @@ const Live = () => {
 
         if (channel === undefined) return null;
 
-        return (
-          <Channel
-            key={channel.id}
-            data={channel}
-            hidden={loaded !== channels.length}
-            doneLoading={() => finishLoading(setLoaded)}
-          />
-        );
+        return <ChannelWrapper channel={channel} />;
       })}
       {channels
         .filter(channel => !favoriteChannels.includes(channel.user_id))
         .map(channel => (
-          <Channel
-            key={channel.id}
-            data={channel}
-            hidden={loaded !== channels.length}
-            doneLoading={() => finishLoading(setLoaded)}
-          />
+          <ChannelWrapper channel={channel} />
         ))}
     </Container>
   );
