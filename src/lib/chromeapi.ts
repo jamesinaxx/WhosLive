@@ -83,7 +83,6 @@ export async function getChannelInfo(): Promise<void> {
         .catch(err => error(err))
     ).data[0].id;
 
-    const startTime = new Date().getTime();
     const { data }: { data: TwitchStream[] } = await (
       await fetch(
         `https://api.twitch.tv/helix/streams/followed?user_id=${userId}`,
@@ -137,15 +136,7 @@ export async function getChannelInfo(): Promise<void> {
 
         return withImage;
       }),
-    ).then(res => {
-      const finishTime = new Date().getTime();
-
-      console.log(
-        `Finished downloading images in ${(finishTime - startTime) / 1000}s`,
-      );
-
-      return res;
-    });
+    );
 
     const streamingNow = Number(data.length.toString());
 
