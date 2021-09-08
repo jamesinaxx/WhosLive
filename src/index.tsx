@@ -1,13 +1,15 @@
-import { FunctionComponent } from 'preact';
+import { FunctionComponent, render } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import {
   createGlobalStyle,
   DefaultTheme,
   ThemeProvider,
 } from 'styled-components';
-import { getStorageLocal } from '../lib/chromeapi';
-import Themes from '../theme';
-import Main from './main';
+import { getStorageLocal } from './lib/chromeapi';
+import Themes from './theme';
+import Main from './pages/main';
+
+// TODO Add support for multiple pages of live streams
 
 const GlobalStyle = createGlobalStyle`
     body::-webkit-scrollbar {
@@ -62,4 +64,8 @@ const App: FunctionComponent = () => {
   );
 };
 
-export default App;
+if (process.env.PRODUCTION === 'false') {
+  import('./lib/chromeapi').then(({ getChannelInfo }) => getChannelInfo());
+}
+
+render(<App />, document.body);
