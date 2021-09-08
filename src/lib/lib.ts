@@ -1,4 +1,4 @@
-export const clientId = process.env.CLIENTID as string;
+export const clientId = process.env.CLIENTID;
 
 interface fetchOptions extends RequestInit {
   timeout?: number | undefined;

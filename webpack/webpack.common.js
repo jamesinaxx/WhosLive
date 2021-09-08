@@ -1,8 +1,7 @@
-const { DefinePlugin } = require('webpack');
+const DotenvPlugin = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const rules = require('./webpack.rules');
-const configJSON = require('../config.json');
 
 /**
  * @type {import('webpack').Configuration}
@@ -35,10 +34,7 @@ const config = {
       minify: true,
       inject: false,
     }),
-    new DefinePlugin({
-      'process.env.CLIENTID': configJSON.clientId,
-      'process.env.CLIENTSECRET': configJSON.clientSecret,
-    }),
+    new DotenvPlugin({ path: path.resolve(__dirname, '..', '.env') }),
   ],
 };
 

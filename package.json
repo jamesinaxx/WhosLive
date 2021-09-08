@@ -23,6 +23,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
+    "dotenv-webpack": "^7.0.3",
     "fast-average-color": "^6.4.2",
     "preact": "^10.5.14",
     "styled-components": "^5.3.1"
