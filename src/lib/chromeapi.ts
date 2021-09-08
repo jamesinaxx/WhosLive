@@ -71,19 +71,7 @@ export async function getChannelInfo(): Promise<void> {
     return;
   }
   try {
-    // Move this to initialization
-    const userId = (
-      await fetch('https://api.twitch.tv/helix/users', {
-        headers: {
-          'Client-Id': clientId,
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(res => res.json())
-        .catch(err => error(err))
-    ).data[0].id;
-
-    const startTime = new Date().getTime();
+    const userId = await getStorage('NowLive:UserId');
 
     const { data }: { data: TwitchStream[] } = await (
       await fetch(
@@ -148,13 +136,7 @@ export async function getChannelInfo(): Promise<void> {
         }
         return stream;
       }),
-    ).then(res => {
-      const finishTime = new Date().getTime();
-
-      console.log(`Finished in ${(finishTime - startTime) / 1000}s`);
-
-      return res;
-    });
+    );
 
     const streamingNow = Number(data.length.toString());
 
