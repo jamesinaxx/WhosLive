@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'preact';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
@@ -21,13 +22,13 @@ interface FavoriteButtonProps {
   toggleFavorite: (old: boolean) => void;
 }
 
-export default function FavoriteButton({
+const FavoriteButton: FunctionComponent<FavoriteButtonProps> = ({
   favorite,
   toggleFavorite,
-}: FavoriteButtonProps) {
-  return (
-    <Button onClick={() => toggleFavorite(favorite)}>
-      <FontAwesomeIcon icon={favorite ? solidStar : emptyStar} size="lg" />
-    </Button>
-  );
-}
+}) => (
+  <Button onClick={() => toggleFavorite(favorite)}>
+    <FontAwesomeIcon icon={favorite ? solidStar : emptyStar} size="lg" />
+  </Button>
+);
+
+export default FavoriteButton;
