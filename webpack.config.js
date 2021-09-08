@@ -6,12 +6,12 @@ const { merge } = require('webpack-merge');
 const devConfig = require('./webpack/webpack.dev');
 const prodConfig = require('./webpack/webpack.prod');
 const commonConfig = require('./webpack/webpack.common');
-const manifest = require('./manifest.json');
+const manifest = require('./src/assets/manifest.json');
 
 async function generateIcons() {
   const sizes = [16, 32, 48, 64, 96, 128, 256];
   const icon = await fs.promises.readFile(
-    path.resolve(__dirname, 'assets', 'icon.svg'),
+    path.resolve(__dirname, 'src', 'assets', 'icon.svg'),
   );
   await fs.promises.mkdir(path.resolve(__dirname, 'dist', 'icons'));
 
