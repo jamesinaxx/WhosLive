@@ -1,15 +1,10 @@
-import { render as renderDom } from 'preact';
-import { getChannelInfo } from './lib/chromeapi';
+import { render } from 'preact';
 import App from './pages/app';
 
 // TODO Add support for multiple pages of live streams
 
 if (process.env.PRODUCTION === 'false') {
-  getChannelInfo();
+  import('./lib/chromeapi').then(({ getChannelInfo }) => getChannelInfo());
 }
 
-function render() {
-  renderDom(<App />, document.body);
-}
-
-render();
+render(<App />, document.body);
