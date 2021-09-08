@@ -19,9 +19,7 @@ chrome.storage.onChanged.addListener(async changes => {
 });
 
 chrome.runtime.onMessage.addListener(async (message, sender, res) => {
-  if (
-    sender.url?.split('#')[0] !== 'https://nowlive.jamesinaxx.me/auth/callback'
-  ) {
+  if (sender.url?.startsWith('https://nowlive.jamesinaxx.me/auth/callback')) {
     return false;
   }
 
