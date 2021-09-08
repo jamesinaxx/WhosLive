@@ -27,4 +27,5 @@ export interface TwitchStream {
   user_login: string;
   user_name: string;
   viewer_count: number;
+  profile_image_url: string;
 }

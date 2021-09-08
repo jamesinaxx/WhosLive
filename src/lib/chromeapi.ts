@@ -1,7 +1,7 @@
 import { clientId } from './lib';
 import { error } from './logger';
 import type { Local, Synced } from '../types/chrome';
-import type { TwitchStream } from '../types/twitch';
+import type { TwitchStream, TwitchUser } from '../types/twitch';
 
 export function setStorage(key: Synced, value: unknown): Promise<void> {
   return chrome.storage.sync.set({ [key]: value });
@@ -71,15 +71,16 @@ export async function getChannelInfo(): Promise<void> {
     return;
   }
   try {
+    // Move this to initialization
     const userId = (
-      await (
-        await fetch('https://api.twitch.tv/helix/users', {
-          headers: {
-            'Client-Id': clientId,
-            Authorization: `Bearer ${token}`,
-          },
-        })
-      ).json()
+      await fetch('https://api.twitch.tv/helix/users', {
+        headers: {
+          'Client-Id': clientId,
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => res.json())
+        .catch(err => error(err))
     ).data[0].id;
 
     const startTime = new Date().getTime();
@@ -96,23 +97,56 @@ export async function getChannelInfo(): Promise<void> {
       )
     ).json();
 
+    const users: { data: TwitchUser[] } = await fetch(
+      `https://api.twitch.tv/helix/users?id=${data
+        .map(stream => stream.user_id)
+        .join('&id=')}`,
+      {
+        headers: {
+          'Client-Id': clientId,
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    ).then(res => res.json());
+
+    const oldChannels = await getStorageLocal('NowLive:Channels');
+
+    const withicons = data.map(stream => {
+      const oldUser = oldChannels?.find(
+        user => user.user_id === stream.user_id,
+      );
+      if (oldUser) {
+        return {
+          ...stream,
+          profile_image_url: oldUser.profile_image_url,
+        };
+      }
+
+      const withicon = {
+        ...stream,
+        profile_image_url:
+          users.data.find((user: TwitchUser) => user.id === stream.user_id)
+            ?.profile_image_url || '',
+      };
+
+      return withicon;
+    });
+
     // Downloads the images and converts them into a base64 url
     const withImages = await Promise.all(
-      data.map(async stream => {
-        const blob = await (
-          await fetch(
-            stream.thumbnail_url
-              .replace('{width}', '128')
-              .replace('{height}', '72'),
-          )
-        ).blob();
+      withicons.map(async stream => {
+        const url = stream.profile_image_url;
+        if (url.startsWith('https://static-cdn.jtvnw.net/')) {
+          const blob = await (await fetch(stream.profile_image_url)).blob();
 
-        const withImage: TwitchStream = {
-          ...stream,
-          thumbnail_url: await blobToBase64(blob),
-        };
+          const withImage: TwitchStream = {
+            ...stream,
+            profile_image_url: await blobToBase64(blob),
+          };
 
-        return withImage;
+          return withImage;
+        }
+        return stream;
       }),
     ).then(res => {
       const finishTime = new Date().getTime();
