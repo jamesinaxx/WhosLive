@@ -1,7 +1,7 @@
+const path = require('path');
 const DotenvPlugin = require('dotenv-webpack');
 const EslintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
 const rules = require('./webpack.rules');
 
 /**
