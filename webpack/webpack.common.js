@@ -1,4 +1,5 @@
 const DotenvPlugin = require('dotenv-webpack');
+const EslintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const rules = require('./webpack.rules');
@@ -25,6 +26,7 @@ const config = {
     rules,
   },
   plugins: [
+    new EslintPlugin({ eslintPath: require.resolve('eslint') }),
     new HtmlWebpackPlugin({
       // prettier-ignore
       template: path.resolve(__dirname, '..', 'src', 'template.html'),
