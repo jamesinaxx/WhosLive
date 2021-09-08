@@ -15,7 +15,7 @@
     "fmt:check": "prettier --check ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
     "lint": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore",
     "lint:fix": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore --fix",
-    "prepare": "husky install"
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
