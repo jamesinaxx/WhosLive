@@ -66,6 +66,8 @@ const App: FunctionComponent = () => {
 
 if (process.env.PRODUCTION === 'false') {
   import('./lib/chromeapi').then(({ getChannelInfo }) => getChannelInfo());
+} else {
+  document.oncontextmenu = e => e.preventDefault();
 }
 
 render(<App />, document.body);
