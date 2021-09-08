@@ -1,8 +1,6 @@
 import { FunctionComponent } from 'preact';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
-import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
+import { FaStar, FaRegStar } from 'react-icons/fa';
 
 const Button = styled.button`
   transition: color 100ms ease-in-out;
@@ -27,7 +25,7 @@ const FavoriteButton: FunctionComponent<FavoriteButtonProps> = ({
   toggleFavorite,
 }) => (
   <Button onClick={() => toggleFavorite(favorite)}>
-    <FontAwesomeIcon icon={favorite ? solidStar : emptyStar} size="lg" />
+    {favorite ? <FaStar size={20} /> : <FaRegStar size={20} />}
   </Button>
 );
 

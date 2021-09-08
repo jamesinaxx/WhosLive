@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { FaGithub } from 'react-icons/fa';
 import styled from 'styled-components';
 import { FunctionComponent } from 'preact';
 
@@ -41,8 +40,7 @@ const Error: FunctionComponent = () => (
       this{' '}
       <a href="https://github.com/jamesinaxx/NowLive/issues">
         here{' '}
-        <FontAwesomeIcon
-          icon={faGithub}
+        <FaGithub
           style={{
             color:
               document.body.style.backgroundColor === 'rgb(255, 255, 255)'

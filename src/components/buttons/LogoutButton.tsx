@@ -1,6 +1,5 @@
 import { FunctionComponent } from 'preact';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { FaSignOutAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import { controlButton } from '../../styleMixins';
 
@@ -25,7 +24,7 @@ const LogoutButton: FunctionComponent<LogoutButtonProps> = ({
       color: '#fff',
     }}
   >
-    <FontAwesomeIcon icon={faSignOutAlt} />
+    <FaSignOutAlt />
   </Button>
 );
 

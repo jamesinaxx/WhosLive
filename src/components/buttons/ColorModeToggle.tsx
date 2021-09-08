@@ -1,8 +1,7 @@
 import { FunctionComponent } from 'preact';
 import { useContext } from 'preact/hooks';
 import styled, { ThemeContext } from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon } from '@fortawesome/free-regular-svg-icons';
+import { FaSun, FaMoon } from 'react-icons/fa';
 import { controlButton } from '../../styleMixins';
 import { setStorageLocal } from '../../lib/chromeapi';
 
@@ -25,7 +24,7 @@ const ColorToggle: FunctionComponent<ColorToggleProps> = ({ shown }) => {
       }
       style={{ opacity: shown ? '0%' : '100%' }}
     >
-      <FontAwesomeIcon icon={mode === 'light' ? faSun : faMoon} />
+      {mode === 'light' ? <FaSun /> : <FaMoon />}
     </ColorToggleButton>
   );
 };
