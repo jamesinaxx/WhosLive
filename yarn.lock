@@ -1818,7 +1818,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:0.0.157":
+"@types/chrome@npm:^0.0.157":
   version: 0.0.157
   resolution: "@types/chrome@npm:0.0.157"
   dependencies:
@@ -2881,16 +2881,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"coffeescript@npm:^2.5.1":
-  version: 2.5.1
-  resolution: "coffeescript@npm:2.5.1"
-  bin:
-    cake: bin/cake
-    coffee: bin/coffee
-  checksum: ecd9d47d1fdb1fa7042bf3f52b299fb1bc167f764202e9719e40d0b6ee3fc3247ba5daa041761d4c1961f28617eab1cc0f7a3ab6cfc9131eb0abacafbb765c0f
-  languageName: node
-  linkType: hard
-
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -3282,33 +3272,6 @@ __metadata:
     no-case: ^3.0.4
     tslib: ^2.0.3
   checksum: a65e3519414856df0228b9f645332f974f2bf5433370f544a681122eab59e66038fc3349b4be1cdc47152779dac71a5864f1ccda2f745e767c46e9c6543b1169
-  languageName: node
-  linkType: hard
-
-"dotenv-defaults@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "dotenv-defaults@npm:2.0.2"
-  dependencies:
-    dotenv: ^8.2.0
-  checksum: c005960bd048e2189c4799e729c41f362e415e6e0b54313d3f31e853a84b049bf770b25cb21c112c2805bb13a8376edc9de451fb514abf8546392d327c27f6e5
-  languageName: node
-  linkType: hard
-
-"dotenv-webpack@npm:7.0.3":
-  version: 7.0.3
-  resolution: "dotenv-webpack@npm:7.0.3"
-  dependencies:
-    dotenv-defaults: ^2.0.2
-  peerDependencies:
-    webpack: ^4 || ^5
-  checksum: d80dcbebe3b9e8f6251b3eb15647bb647bf358172ff21d2eaa4bb012afc9eaa7f4ba6c452f2dafd40afc96474e8c7ffbd21f0a2896eec244eff59a79e32c7716
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^8.2.0":
-  version: 8.6.0
-  resolution: "dotenv@npm:8.6.0"
-  checksum: 38e902c80b0666ab59e9310a3d24ed237029a7ce34d976796349765ac96b8d769f6df19090f1f471b77a25ca391971efde8a1ea63bb83111bd8bec8e5cc9b2cd
   languageName: node
   linkType: hard
 
@@ -5184,7 +5147,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": ^5.15.4
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
-    "@types/chrome": 0.0.157
+    "@types/chrome": ^0.0.157
     "@types/node": ^16.7.13
     "@types/sharp": ^0.29.0
     "@types/styled-components": 5.1.14
@@ -5193,8 +5156,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 4.31.0
     "@typescript-eslint/parser": 4.31.0
     babel-loader: 8.2.2
-    coffeescript: ^2.5.1
-    dotenv-webpack: 7.0.3
     eslint: 7.32.0
     eslint-config-airbnb: 18.2.1
     eslint-config-prettier: 8.3.0
