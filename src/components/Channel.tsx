@@ -38,17 +38,18 @@ const ChannelDiv = styled.div`
   }
   border-radius: 15px;
   width: 90vw;
-  height: 92px;
+  height: 120px;
   margin: 10px;
 `;
 
 const ChannelInfo = styled.div`
-  vertical-align: middle;
-  text-align: center;
+  height: 100%;
+  display: block;
+  align-items: center;
+  justify-content: space-between;
   margin-left: 100px;
   max-width: 425px;
-  font-size: 30px;
-  font-size: 2vw;
+  font-size: 2.3vw;
 `;
 
 const Channel: FunctionComponent<ChannelProps> = ({
@@ -69,18 +70,14 @@ const Channel: FunctionComponent<ChannelProps> = ({
     user_login,
     viewer_count,
     game_name,
-    thumbnail_url,
+    profile_image_url,
   } = data;
 
-  const thumbnailUrl = thumbnail_url
-    .replace('{width}', '128')
-    .replace('{height}', '72');
-
-  const getColor = () => {
+  const getColor = async () => {
     const fac = new FastAverageColor();
     if (!imageRef.current) return;
 
-    const ac = fac.getColor(imageRef.current);
+    const ac = await fac.getColorAsync(imageRef.current);
 
     const bgColor = `rgba(${ac.rgb.substring(4).replace(')', '')},0.7)`;
 
@@ -103,12 +100,12 @@ const Channel: FunctionComponent<ChannelProps> = ({
         <img
           ref={imageRef}
           onLoad={getColor}
-          src={thumbnailUrl}
+          src={profile_image_url}
           crossOrigin="anonymous"
           onClick={() => window.open(`https://twitch.tv/${user_login}`)}
           alt={`${user_name} stream thumbnail`}
-          width={128}
-          height={72}
+          width={100}
+          height={100}
         />
         <ChannelInfo>
           <h1>{getTitle(title)}</h1>

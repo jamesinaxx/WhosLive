@@ -1,7 +1,7 @@
 import { clientId } from './lib';
 import { error } from './logger';
 import type { Local, Synced } from '../types/chrome';
-import type { TwitchStream } from '../types/twitch';
+import type { TwitchStream, TwitchUser } from '../types/twitch';
 
 export function setStorage(key: Synced, value: unknown): Promise<void> {
   return chrome.storage.sync.set({ [key]: value });
@@ -71,17 +71,19 @@ export async function getChannelInfo(): Promise<void> {
     return;
   }
   try {
+    // Move this to initialization
     const userId = (
-      await (
-        await fetch('https://api.twitch.tv/helix/users', {
-          headers: {
-            'Client-Id': clientId,
-            Authorization: `Bearer ${token}`,
-          },
-        })
-      ).json()
+      await fetch('https://api.twitch.tv/helix/users', {
+        headers: {
+          'Client-Id': clientId,
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => res.json())
+        .catch(err => error(err))
     ).data[0].id;
 
+    const startTime = new Date().getTime();
     const { data }: { data: TwitchStream[] } = await (
       await fetch(
         `https://api.twitch.tv/helix/streams/followed?user_id=${userId}`,
@@ -94,12 +96,35 @@ export async function getChannelInfo(): Promise<void> {
       )
     ).json();
 
+    const users: { data: TwitchUser[] } = await fetch(
+      `https://api.twitch.tv/helix/users?id=${data
+        .map(stream => stream.user_id)
+        .join('&id=')}`,
+      {
+        headers: {
+          'Client-Id': clientId,
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    ).then(res => res.json());
+
+    const withicons = data.map(stream => {
+      const withicon = {
+        ...stream,
+        profile_image_url:
+          users.data.find((user: TwitchUser) => user.id === stream.user_id)
+            ?.profile_image_url || '',
+      };
+
+      return withicon;
+    });
+
     // Downloads the images and converts them into a base64 url
     const withImages = await Promise.all(
-      data.map(async stream => {
+      withicons.map(async stream => {
         const blob = await (
           await fetch(
-            stream.thumbnail_url
+            stream.profile_image_url
               .replace('{width}', '128')
               .replace('{height}', '72'),
           )
@@ -107,12 +132,20 @@ export async function getChannelInfo(): Promise<void> {
 
         const withImage: TwitchStream = {
           ...stream,
-          thumbnail_url: await blobToBase64(blob),
+          profile_image_url: await blobToBase64(blob),
         };
 
         return withImage;
       }),
-    );
+    ).then(res => {
+      const finishTime = new Date().getTime();
+
+      console.log(
+        `Finished downloading images in ${(finishTime - startTime) / 1000}s`,
+      );
+
+      return res;
+    });
 
     const streamingNow = Number(data.length.toString());
 
