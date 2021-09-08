@@ -55,5 +55,13 @@
     "webpack-cli": "4.8.0",
     "webpack-merge": "5.8.0"
   },
-  "packageManager": "yarn@3.0.2"
+  "packageManager": "yarn@3.0.2",
+  "optionalDependencies": {
+    "@types/react": "^17.0.20",
+    "eslint-import-resolver-node": "^0.3.6",
+    "hoist-non-react-statics": "^3.3.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-is": "^17.0.2"
+  }
 }
