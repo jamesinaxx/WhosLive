@@ -24,7 +24,9 @@ export function setStorageLocal(key: Local, value: unknown): Promise<void> {
 export function getStorageLocal(
   key: 'NowLive:Channels',
 ): Promise<TwitchStream[] | undefined>;
-export function getStorageLocal(key: 'NowLive:Theme'): Promise<string>;
+export function getStorageLocal(
+  key: 'NowLive:Theme',
+): Promise<'light' | 'dark'>;
 export function getStorageLocal<T>(key: Local): Promise<T> {
   return new Promise(resolve =>
     chrome.storage.local.get(key, res => resolve(res[key])),

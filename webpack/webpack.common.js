@@ -13,6 +13,9 @@ const config = {
     background: path.resolve(__dirname, '..', 'src', 'scripts', 'background'),
     authcheck: path.resolve(__dirname, '..', 'src', 'scripts', 'authcheck'),
   },
+  output: {
+    filename: '[name].js',
+  },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
