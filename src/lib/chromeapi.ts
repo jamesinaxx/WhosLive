@@ -95,18 +95,20 @@ export async function getChannelInfo(): Promise<void> {
 
     const streamingNow = Number(data.length.toString());
 
+    const { setTitle, setBadgeText } = chrome.action;
+
     if (streamingNow !== 0) {
-      await chrome.action.setTitle({
+      await setTitle({
         title: `There are ${streamingNow} people streaming right now`,
       });
-      await chrome.action.setBadgeText({
+      await setBadgeText({
         text: streamingNow.toString(),
       });
     } else {
-      await chrome.action.setTitle({
+      await setTitle({
         title: 'There is nobody streaming right now',
       });
-      await chrome.action.setBadgeText({ text: '' });
+      await setBadgeText({ text: '' });
     }
 
     await setStorageLocal('NowLive:Channels', withImages);
