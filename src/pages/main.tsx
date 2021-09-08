@@ -13,7 +13,6 @@ import Logout from '../components/buttons/LogoutButton';
 import { error } from '../lib/logger';
 
 const Main: FunctionComponent = () => {
-  const [userToken, setUserToken] = useState<string | undefined>(undefined);
   const [tokenValid, setTokenValid] = useState<boolean>(false);
   const [showRUSure, setShowRUSure] = useState<boolean>(false);
   const [connected, setConnected] = useState<boolean | undefined>(undefined);
@@ -33,7 +32,6 @@ const Main: FunctionComponent = () => {
     await setStorage('NowLive:Token', '');
 
     setShowRUSure(false);
-    setUserToken(undefined);
     setTokenValid(false);
     await getChannelInfo();
   }
@@ -42,7 +40,6 @@ const Main: FunctionComponent = () => {
     const res = await getStorage('NowLive:Token');
     const valid = await isValidToken(res);
 
-    setUserToken(valid ? res : 'invalid');
     setTokenValid(valid);
   }
 
@@ -68,12 +65,10 @@ const Main: FunctionComponent = () => {
     );
   }
 
-  if (userToken === undefined || connected === undefined) {
-    if (connected === undefined) {
-      checkConnection()
-        .then((res: boolean) => setConnected(res))
-        .catch((res: boolean) => setConnected(res));
-    }
+  if (connected === undefined) {
+    checkConnection()
+      .then((res: boolean) => setConnected(res))
+      .catch((res: boolean) => setConnected(res));
     return <Loading />;
   }
 
@@ -83,7 +78,7 @@ const Main: FunctionComponent = () => {
 
   return (
     <Layout shown={showRUSure}>
-      {userToken && tokenValid ? (
+      {tokenValid ? (
         <>
           {showRUSure && (
             <InvalidateToken
