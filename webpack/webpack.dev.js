@@ -1,6 +1,9 @@
-import { Configuration, DefinePlugin } from 'webpack';
+const { DefinePlugin } = require('webpack');
 
-const config: Configuration = {
+/**
+ * @type {import('webpack').Configuration}
+ */
+const config = {
   mode: 'development',
   watch: true,
   devtool: 'inline-source-map',
@@ -11,4 +14,4 @@ const config: Configuration = {
   ],
 };
 
-export default config;
+module.exports = config;
