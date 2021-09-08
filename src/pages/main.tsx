@@ -13,10 +13,12 @@ import Logout from '../components/buttons/LogoutButton';
 import { error } from '../lib/logger';
 
 const Main: FunctionComponent = () => {
-  const [tokenValid, setTokenValid] = useState<boolean>(false);
-  const [showRUSure, setShowRUSure] = useState<boolean>(false);
-  const [connected, setConnected] = useState<boolean | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+  const [tokenValid, setTokenValid] = useState(false);
+  const [showRUSure, setShowRUSure] = useState(false);
+  const [connected, setConnected] = useState<boolean>(false);
 
+  // TODO Move these functions out of main function
   async function invalidateToken() {
     const token = (await getStorage('NowLive:Token')) || '';
     try {
@@ -41,14 +43,16 @@ const Main: FunctionComponent = () => {
     const valid = await isValidToken(res);
 
     setTokenValid(valid);
+    setConnected(valid);
+    setLoading(false);
   }
 
   useEffect(() => {
     (async () => {
       await validateToken();
 
-      chrome.storage.onChanged.addListener(async (_changes, area) => {
-        if (area === 'sync') {
+      chrome.storage.onChanged.addListener(async (changes, area) => {
+        if (area === 'sync' && 'NowLive:Token' in changes) {
           await validateToken();
         }
       });
@@ -58,18 +62,15 @@ const Main: FunctionComponent = () => {
   if (showRUSure) window.scrollTo(0, 0);
 
   if (connected === false) {
+    if (loading === true) {
+      checkConnection().then(validateToken);
+      return <Loading />;
+    }
     return (
       <Layout shown={showRUSure}>
         <Error404 />
       </Layout>
     );
-  }
-
-  if (connected === undefined) {
-    checkConnection()
-      .then((res: boolean) => setConnected(res))
-      .catch((res: boolean) => setConnected(res));
-    return <Loading />;
   }
 
   window.addEventListener('scroll', () => {
