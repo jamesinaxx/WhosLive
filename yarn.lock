@@ -5020,6 +5020,7 @@ __metadata:
     prop-types: ^15.7.2
     react-icons: ^4.2.0
     react-is: ^17.0.2
+    rimraf: ^3.0.2
     scheduler: ^0.20.2
     sharp: 0.29.1
     styled-components: ^5.3.1

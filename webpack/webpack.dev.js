@@ -5,6 +5,9 @@ const { DefinePlugin } = require('webpack');
  */
 const config = {
   mode: 'development',
+  output: {
+    filename: '[name].[contenthash].js',
+  },
   watch: true,
   devtool: 'inline-source-map',
   plugins: [
