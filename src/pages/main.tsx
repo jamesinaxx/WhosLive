@@ -5,7 +5,7 @@ import { getChannelInfo, getStorage, setStorage } from '../lib/chromeapi';
 import NoAuthPage from './NoAuth';
 import isValidToken from '../lib/validateToken';
 import Loading from '../components/Loading';
-import Error404 from './404';
+import Error from './Error';
 import InvalidateToken from '../components/InvalidateToken';
 import { clientId, checkConnection, objToParams } from '../lib/lib';
 import Layout from '../components/Layout';
@@ -47,7 +47,7 @@ const Main: FunctionComponent = () => {
     }
     return (
       <Layout shown={showRUSure}>
-        <Error404 />
+        <Error />
       </Layout>
     );
   }
