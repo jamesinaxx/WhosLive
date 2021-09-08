@@ -35,7 +35,8 @@ const App: FunctionComponent = () => {
 
   useEffect(() => {
     const updateTheme = async () => {
-      const newTheme = Themes[await getStorageLocal('NowLive:Theme')];
+      const newTheme =
+        Themes[(await getStorageLocal('NowLive:Theme')) || 'light'];
 
       setCurrentTheme(newTheme);
       setThemeLoaded(true);
