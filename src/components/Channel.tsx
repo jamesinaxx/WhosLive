@@ -1,6 +1,6 @@
 // The properties are named with snake_case because thats how the Twitch api works
 /* eslint-disable camelcase */
-import { FunctionComponent } from 'preact';
+import { FunctionComponent, RefObject } from 'preact';
 import { useRef, useState } from 'preact/hooks';
 import FastAverageColor from 'fast-average-color';
 import styled from 'styled-components';
@@ -52,6 +52,18 @@ const ChannelInfo = styled.div`
   font-size: 2.3vw;
 `;
 
+const getColor = async (imageRef: RefObject<HTMLImageElement>) => {
+  const fac = new FastAverageColor();
+
+  const ac = await fac.getColorAsync(imageRef.current);
+
+  const bgColor = `rgba(${ac.rgb.substring(4).replace(')', '')},0.7)`;
+  const text = ac.isLight ? '#000' : '#FFF';
+
+  fac.destroy();
+  return { text, bgColor };
+};
+
 const Channel: FunctionComponent<ChannelProps> = ({
   data,
   hidden,
@@ -59,8 +71,8 @@ const Channel: FunctionComponent<ChannelProps> = ({
   favorite = false,
   setFavorites,
 }) => {
-  const [backgroundColor, setBackgroundColor] = useState<string>('#FFF');
-  const [color, setColor] = useState<string>('#000');
+  const [backgroundColor, setBackgroundColor] = useState('#FFF');
+  const [color, setColor] = useState('#000');
 
   const imageRef = useRef<HTMLImageElement>(null);
 
@@ -73,21 +85,6 @@ const Channel: FunctionComponent<ChannelProps> = ({
     profile_image_url,
   } = data;
 
-  const getColor = async () => {
-    const fac = new FastAverageColor();
-    if (!imageRef.current) return;
-
-    const ac = await fac.getColorAsync(imageRef.current);
-
-    const bgColor = `rgba(${ac.rgb.substring(4).replace(')', '')},0.7)`;
-
-    setColor(ac.isLight ? '#000' : '#FFF');
-    setBackgroundColor(bgColor);
-
-    fac.destroy();
-    doneLoading();
-  };
-
   return (
     <ChannelContainer title={title} hidden={hidden}>
       <ChannelDiv
@@ -99,7 +96,13 @@ const Channel: FunctionComponent<ChannelProps> = ({
       >
         <img
           ref={imageRef}
-          onLoad={getColor}
+          onLoad={() =>
+            getColor(imageRef).then(({ text, bgColor }) => {
+              setColor(text);
+              setBackgroundColor(bgColor);
+              doneLoading();
+            })
+          }
           src={profile_image_url}
           crossOrigin="anonymous"
           onClick={() => window.open(`https://twitch.tv/${user_login}`)}
