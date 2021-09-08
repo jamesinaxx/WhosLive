@@ -107,7 +107,19 @@ export async function getChannelInfo(): Promise<void> {
       },
     ).then(res => res.json());
 
+    const oldChannels = await getStorageLocal('NowLive:Channels');
+
     const withicons = data.map(stream => {
+      const oldUser = oldChannels?.find(
+        user => user.user_id === stream.user_id,
+      );
+      if (oldUser) {
+        return {
+          ...stream,
+          profile_image_url: oldUser.profile_image_url,
+        };
+      }
+
       const withicon = {
         ...stream,
         profile_image_url:
@@ -121,20 +133,18 @@ export async function getChannelInfo(): Promise<void> {
     // Downloads the images and converts them into a base64 url
     const withImages = await Promise.all(
       withicons.map(async stream => {
-        const blob = await (
-          await fetch(
-            stream.profile_image_url
-              .replace('{width}', '128')
-              .replace('{height}', '72'),
-          )
-        ).blob();
+        const url = stream.profile_image_url;
+        if (url.startsWith('https://static-cdn.jtvnw.net/')) {
+          const blob = await (await fetch(stream.profile_image_url)).blob();
 
-        const withImage: TwitchStream = {
-          ...stream,
-          profile_image_url: await blobToBase64(blob),
-        };
+          const withImage: TwitchStream = {
+            ...stream,
+            profile_image_url: await blobToBase64(blob),
+          };
 
-        return withImage;
+          return withImage;
+        }
+        return stream;
       }),
     );
 
