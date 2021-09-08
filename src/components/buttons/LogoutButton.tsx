@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'preact';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
@@ -8,12 +9,15 @@ interface LogoutButtonProps {
   shown: boolean;
 }
 
-const LogoutButton = styled.button`
+const Button = styled.button`
   ${controlButton(40)}
 `;
 
-export default ({ onClick, shown }: LogoutButtonProps) => (
-  <LogoutButton
+const LogoutButton: FunctionComponent<LogoutButtonProps> = ({
+  onClick,
+  shown,
+}) => (
+  <Button
     type="button"
     onClick={onClick}
     style={{
@@ -22,5 +26,7 @@ export default ({ onClick, shown }: LogoutButtonProps) => (
     }}
   >
     <FontAwesomeIcon icon={faSignOutAlt} />
-  </LogoutButton>
+  </Button>
 );
+
+export default LogoutButton;

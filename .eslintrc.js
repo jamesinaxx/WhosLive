@@ -84,6 +84,7 @@ const config = {
     'react/prop-types': ['off'],
     indent: ['off'],
     semi: ['error', 'always'],
+    'react/jsx-curly-newline': ['off'],
   },
 };
 

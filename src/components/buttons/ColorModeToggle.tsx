@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'preact';
 import { useContext } from 'preact/hooks';
 import styled, { ThemeContext } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +14,7 @@ const ColorToggleButton = styled.button`
   ${controlButton(5)}
 `;
 
-export default function ColorToggle({ shown }: ColorToggleProps) {
+const ColorToggle: FunctionComponent<ColorToggleProps> = ({ shown }) => {
   const mode = useContext(ThemeContext).type;
 
   return (
@@ -27,4 +28,6 @@ export default function ColorToggle({ shown }: ColorToggleProps) {
       <FontAwesomeIcon icon={mode === 'light' ? faSun : faMoon} />
     </ColorToggleButton>
   );
-}
+};
+
+export default ColorToggle;
