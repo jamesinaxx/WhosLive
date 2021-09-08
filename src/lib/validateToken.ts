@@ -14,7 +14,6 @@ export default async function validateToken(
 
     if (res.scopes.includes('user:read:follows') && res.expires_in) {
       await setStorage('NowLive:Token', token);
-      // Move this to initialization
       const userId = (
         await fetch('https://api.twitch.tv/helix/users', {
           headers: {
