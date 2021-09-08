@@ -6,8 +6,8 @@ import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
 const Button = styled.button`
   transition: color 100ms ease-in-out;
   position: absolute;
-  top: 15px;
-  right: 25px;
+  top: 10px;
+  right: 20px;
   border: none;
   background: none;
   color: #ffd700;
