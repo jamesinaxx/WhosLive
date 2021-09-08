@@ -3,5 +3,5 @@ node_js: lts/*
 jobs:
   include:
     - stage: Build
-      install: 'yarn --immutable && mv config.json.example config.json'
+      install: 'yarn --immutable && mv config.example.json config.json'
       script: 'yarn build'
