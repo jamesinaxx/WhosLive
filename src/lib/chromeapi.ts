@@ -11,6 +11,7 @@ export function getStorage(
   key: 'NowLive:Favorites',
 ): Promise<string[] | undefined>;
 export function getStorage(key: 'NowLive:Token'): Promise<string | undefined>;
+export function getStorage(key: Synced): Promise<unknown>;
 export function getStorage<T>(key: Synced): Promise<T | undefined> {
   return new Promise(resolve =>
     chrome.storage.sync.get(key, res => resolve(res[key])),
@@ -31,6 +32,24 @@ export function getStorageLocal<T>(key: Local): Promise<T> {
   return new Promise(resolve =>
     chrome.storage.local.get(key, res => resolve(res[key])),
   );
+}
+
+export async function setStorageIfNull(
+  key: Synced,
+  value: unknown,
+): Promise<void> {
+  if ((await getStorage(key)) === undefined) {
+    setStorage(key, value);
+  }
+}
+
+export async function setStorageLocalIfNull(
+  key: Synced,
+  value: unknown,
+): Promise<void> {
+  if ((await getStorage(key)) === undefined) {
+    setStorage(key, value);
+  }
 }
 
 const blobToBase64 = (blob: Blob): Promise<string> => {

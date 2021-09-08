@@ -1,5 +1,5 @@
-export type Local = 'NowLive:Channels' | 'NowLive:Theme';
+export type Local = 'NowLive:Channels' | 'NowLive:Theme' | string;
 
-export type Synced = 'NowLive:Token' | 'NowLive:Favorites';
+export type Synced = 'NowLive:Token' | 'NowLive:Favorites' | string;
 
-export type Alarms = 'NowLive:Refresh';
+export type Alarms = 'NowLive:Refresh' | string;

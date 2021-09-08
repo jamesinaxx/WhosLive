@@ -1,8 +1,7 @@
 import {
   getChannelInfo,
-  getStorage,
-  setStorage,
-  setStorageLocal,
+  setStorageIfNull,
+  setStorageLocalIfNull,
 } from '../lib/chromeapi';
 import { log } from '../lib/logger';
 import validateToken from '../lib/validateToken';
@@ -10,10 +9,8 @@ import validateToken from '../lib/validateToken';
 chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 
 chrome.runtime.onInstalled.addListener(async () => {
-  await setStorageLocal('NowLive:Theme', 'dark');
-  if (!(await getStorage('NowLive:Favorites'))) {
-    await setStorage('NowLive:Favorites', []);
-  }
+  await setStorageLocalIfNull('NowLive:Theme', 'dark');
+  await setStorageIfNull('NowLive:Favorites', []);
   log('Initialized Now Live');
 });
 
