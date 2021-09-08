@@ -74,7 +74,6 @@ const Main: FunctionComponent = () => {
         .then((res: boolean) => setConnected(res))
         .catch((res: boolean) => setConnected(res));
     }
-
     return <Loading />;
   }
 

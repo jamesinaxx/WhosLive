@@ -33,6 +33,7 @@ const Live: FunctionComponent = () => {
   if (channels === undefined) {
     return <Loading />;
   }
+  console.log('Called live');
 
   if (channels.length === 0) {
     return <NoLiveChannels />;
