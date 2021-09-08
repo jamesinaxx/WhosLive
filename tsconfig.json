@@ -6,7 +6,7 @@
     "jsxImportSource": "preact",
     "esModuleInterop": true,
     "strict": true,
-    "types": ["chrome", "node"],
+    "types": ["chrome"],
     "typeRoots": ["./src/types"],
     "skipLibCheck": true,
     "resolveJsonModule": true,

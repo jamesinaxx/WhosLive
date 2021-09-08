@@ -6,7 +6,7 @@ import { lightTheme, darkTheme } from './theme';
 
 // TODO Add support for multiple pages of live streams
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.PRODUCTION === 'false') {
   getChannelInfo();
 }
 

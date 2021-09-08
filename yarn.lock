@@ -1916,13 +1916,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.7.13":
-  version: 16.7.13
-  resolution: "@types/node@npm:16.7.13"
-  checksum: 15dc28aa44674d3f49dcca4a6523b6ab1ef9bbea5c659057bec13153e1873718d6b62ab0ea57a3d57ee37f0f1136ae30e3ea503df43b0afa3ae437c8750be7f5
-  languageName: node
-  linkType: hard
-
 "@types/prop-types@npm:*":
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
@@ -1948,15 +1941,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sharp@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "@types/sharp@npm:0.29.0"
-  dependencies:
-    "@types/node": "*"
-  checksum: 7fed897ba2777f00cea8b1e3aece640027e6ace811de4b3c20353fa5de206fa0e4ac27e4b263ee3903c36e77152aaf42e0687f8ab2289f40d9e3ca9d895524ed
-  languageName: node
-  linkType: hard
-
 "@types/styled-components@npm:5.1.14":
   version: 5.1.14
   resolution: "@types/styled-components@npm:5.1.14"
@@ -1965,28 +1949,6 @@ __metadata:
     "@types/react": "*"
     csstype: ^3.0.2
   checksum: 314cc98cfdc21a608973cf5c690d335c0acaa1a9b9cf1e5714a9b073967bfbc0a7def7e9fef81b921d4017b19e39c068e189ee79ce7553f24bc714c4dd5bd430
-  languageName: node
-  linkType: hard
-
-"@types/webpack-bundle-analyzer@npm:^4.4.1":
-  version: 4.4.1
-  resolution: "@types/webpack-bundle-analyzer@npm:4.4.1"
-  dependencies:
-    "@types/node": "*"
-    tapable: ^2.2.0
-    webpack: ^5
-  checksum: 50afdbd2a40545a8acda4adda09b98772dd646dea894dfa95d9f86d224d3df462405b5d0c04077958e87399cda4c9bac7451bbb7285c99e7220806b439ae7f72
-  languageName: node
-  linkType: hard
-
-"@types/webpack@npm:^5.28.0":
-  version: 5.28.0
-  resolution: "@types/webpack@npm:5.28.0"
-  dependencies:
-    "@types/node": "*"
-    tapable: ^2.2.0
-    webpack: ^5
-  checksum: a038d7e12dd109c6a8d2eb744fd32070ef94f1655e730fb1443b370db98864c3a0e408638b02d12ba08269b9c012b3be8b801117ced2d1102e7676203fd663ed
   languageName: node
   linkType: hard
 
@@ -5148,11 +5110,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.15
     "@types/chrome": ^0.0.157
-    "@types/node": ^16.7.13
-    "@types/sharp": ^0.29.0
     "@types/styled-components": 5.1.14
-    "@types/webpack": ^5.28.0
-    "@types/webpack-bundle-analyzer": ^4.4.1
     "@typescript-eslint/eslint-plugin": 4.31.0
     "@typescript-eslint/parser": 4.31.0
     babel-loader: 8.2.2
@@ -6938,7 +6896,7 @@ typescript@^4.4.2:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.52.0, webpack@npm:^5":
+"webpack@npm:5.52.0":
   version: 5.52.0
   resolution: "webpack@npm:5.52.0"
   dependencies:
