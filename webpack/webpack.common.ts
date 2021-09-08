@@ -1,13 +1,10 @@
-const { DefinePlugin } = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
-const rules = require('./webpack.rules');
-const configJSON = require('../config.json');
+import { DefinePlugin, Configuration } from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
+import rules from './webpack.rules';
+import configJSON from '../config.json';
 
-/**
- * @type {import('webpack').Configuration}
- */
-const config = {
+const config: Configuration = {
   entry: {
     index: path.resolve(__dirname, '..', 'src', 'index'),
     background: path.resolve(__dirname, '..', 'src', 'scripts', 'background'),
@@ -42,4 +39,4 @@ const config = {
   ],
 };
 
-module.exports = config;
+export default config;

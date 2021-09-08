@@ -1,12 +1,16 @@
-const fs = require('fs');
-const path = require('path');
-const sharp = require('sharp');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const { merge } = require('webpack-merge');
-const devConfig = require('./webpack/webpack.dev');
-const prodConfig = require('./webpack/webpack.prod');
-const commonConfig = require('./webpack/webpack.common');
-const manifest = require('./manifest.json');
+import webpack from 'webpack';
+import fs from 'fs';
+import path from 'path';
+import sharp from 'sharp';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { merge } from 'webpack-merge';
+import devConfig from './webpack/webpack.dev';
+import prodConfig from './webpack/webpack.prod';
+import commonConfig from './webpack/webpack.common';
+import manifestWeak from './manifest.json';
+
+// Definitely typed so that Typescript doesn't throw errors
+const manifest: { icons: { [key: string]: string } } = { ...manifestWeak };
 
 async function generateIcons() {
   const sizes = [16, 32, 48, 64, 96, 128, 256];
@@ -32,7 +36,12 @@ async function generateIcons() {
   );
 }
 
-module.exports = async (env, { mode }) => {
+type ConfigFunction = (
+  env: unknown,
+  argv: { mode: 'production' | 'development'; analyze?: true | undefined },
+) => Promise<webpack.Configuration>;
+
+const configFunction: ConfigFunction = async (_env, argv) => {
   if (fs.existsSync('./dist/')) {
     await fs.promises.rm('./dist/', { recursive: true, force: true });
   }
@@ -42,12 +51,14 @@ module.exports = async (env, { mode }) => {
 
   const config = merge(
     commonConfig,
-    mode === 'production' ? prodConfig : devConfig,
+    argv.mode === 'production' ? prodConfig : devConfig,
   );
 
-  if (process.argv.includes('--analyze')) {
-    config.plugins.push(new BundleAnalyzerPlugin());
+  if (argv.analyze) {
+    config.plugins?.push(new BundleAnalyzerPlugin());
   }
 
   return config;
 };
+
+export default configFunction;

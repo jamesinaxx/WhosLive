@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "lib": ["ES2021", "DOM"],
+    "module": "CommonJS",
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "esModuleInterop": true,
     "strict": true,
     "types": ["@types/chrome", "@types/node"],
     "skipLibCheck": true,
-    "rootDir": "./src/"
+    "resolveJsonModule": true,
+    "rootDir": "./"
   }
 }
