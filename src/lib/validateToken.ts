@@ -1,10 +1,17 @@
-import { setStorage } from './chromeapi';
+import { getStorage, setStorage } from './chromeapi';
 import { clientId } from './lib';
 import { error } from './logger';
 
 export default async function validateToken(
-  token: string | undefined,
+  checkToken?: string | undefined,
 ): Promise<boolean> {
+  const token = checkToken || (await getStorage('NowLive:Token'));
+
+  if (token === undefined) {
+    error('No token found');
+    return false;
+  }
+
   try {
     const res = await fetch('https://id.twitch.tv/oauth2/validate', {
       headers: {

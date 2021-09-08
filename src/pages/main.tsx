@@ -18,34 +18,13 @@ const Main: FunctionComponent = () => {
   const [showRUSure, setShowRUSure] = useState(false);
   const [connected, setConnected] = useState<boolean>(false);
 
-  // TODO Move these functions out of main function
-  async function invalidateToken() {
-    const token = (await getStorage('NowLive:Token')) || '';
-    try {
-      await fetch(
-        `https://id.twitch.tv/oauth2/revoke${objToParams({ clientId, token })}`,
-        {
-          method: 'POST',
-        },
-      );
-    } catch (err) {
-      error(err);
-    }
-    await setStorage('NowLive:Token', '');
-
-    setShowRUSure(false);
-    setTokenValid(false);
-    await getChannelInfo();
-  }
-
-  async function validateToken() {
-    const res = await getStorage('NowLive:Token');
-    const valid = await isValidToken(res);
+  const validateToken = async () => {
+    const valid = await isValidToken();
 
     setTokenValid(valid);
     setConnected(valid);
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -83,9 +62,27 @@ const Main: FunctionComponent = () => {
         <>
           {showRUSure && (
             <InvalidateToken
-              onChoice={invalidate => {
+              onChoice={async invalidate => {
                 if (invalidate) {
-                  return invalidateToken();
+                  const token = (await getStorage('NowLive:Token')) || '';
+                  try {
+                    await fetch(
+                      `https://id.twitch.tv/oauth2/revoke${objToParams({
+                        clientId,
+                        token,
+                      })}`,
+                      {
+                        method: 'POST',
+                      },
+                    );
+                  } catch (err) {
+                    error(err);
+                  }
+                  await setStorage('NowLive:Token', '');
+
+                  setShowRUSure(false);
+                  setTokenValid(false);
+                  return getChannelInfo();
                 }
 
                 document.body.style.overflow = '';
