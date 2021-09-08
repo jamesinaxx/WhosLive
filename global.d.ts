@@ -1,7 +1,12 @@
+declare const process: NodeJS.Process;
+
 declare namespace NodeJS {
-  export interface ProcessEnv {
+  interface ProcessEnv {
     CLIENTID: string;
     CLIENTSECRET: string;
     PRODUCTION: 'true' | 'false';
+  }
+  interface Process {
+    env: ProcessEnv;
   }
 }
