@@ -31,7 +31,6 @@ const config = {
   plugins: [
     new EslintPlugin({ eslintPath: require.resolve('eslint') }),
     new HtmlWebpackPlugin({
-      // prettier-ignore
       template: path.resolve(__dirname, '..', 'src', 'template.html'),
       minify: true,
       inject: true,
