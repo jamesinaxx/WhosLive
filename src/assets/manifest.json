@@ -4,7 +4,6 @@
     "default_popup": "index.html",
     "default_title": "See who is live"
   },
-  "default_locale": "en",
   "minimum_chrome_version": "88",
   "background": {
     "service_worker": "background.js"
