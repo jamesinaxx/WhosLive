@@ -1,12 +1,9 @@
-const { DefinePlugin } = require('webpack');
+import { Configuration, DefinePlugin } from 'webpack';
 
 // 1 Megabyte in bytes
 const mb = 1048576;
 
-/**
- * @type {import('webpack').Configuration}
- */
-const config = {
+const config: Configuration = {
   mode: 'production',
   plugins: [
     new DefinePlugin({
@@ -20,4 +17,4 @@ const config = {
   },
 };
 
-module.exports = config;
+export default config;

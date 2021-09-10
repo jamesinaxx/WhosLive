@@ -1,13 +1,11 @@
-const path = require('path');
-const DotenvPlugin = require('dotenv-webpack');
-const EslintPlugin = require('eslint-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const rules = require('./webpack.rules');
+import { Configuration } from 'webpack';
+import path from 'path';
+import DotenvPlugin from 'dotenv-webpack';
+import EslintPlugin from 'eslint-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import rules from './webpack.rules';
 
-/**
- * @type {import('webpack').Configuration}
- */
-const config = {
+const config: Configuration = {
   entry: {
     index: path.resolve(__dirname, '..', 'src', 'index'),
     background: path.resolve(__dirname, '..', 'src', 'scripts', 'background'),
@@ -40,4 +38,4 @@ const config = {
   ],
 };
 
-module.exports = config;
+export default config;

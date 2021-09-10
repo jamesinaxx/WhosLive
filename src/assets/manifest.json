@@ -1,14 +1,11 @@
 {
   "manifest_version": 3,
-  "minimum_chrome_version": "88",
-  "name": "Now Live",
-  "description": "Instantly check which of your favorite Twitch streamers are live right from your favorite browser",
-  "version": "1.0.0",
   "action": {
     "default_popup": "index.html",
     "default_title": "See who is live"
   },
-  "icons": {},
+  "default_locale": "en",
+  "minimum_chrome_version": "88",
   "background": {
     "service_worker": "background.js"
   },

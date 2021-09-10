@@ -1,6 +1,6 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = [
+export default [
   {
     test: /\.[jt](s|sx)$/,
     include: path.resolve(__dirname, '..', 'src'),
