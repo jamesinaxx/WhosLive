@@ -1718,13 +1718,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:0.0.157":
-  version: 0.0.157
-  resolution: "@types/chrome@npm:0.0.157"
+"@types/chrome@npm:0.0.158":
+  version: 0.0.158
+  resolution: "@types/chrome@npm:0.0.158"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 56edd77a108320674eae6f01688559a4fed3f0a7df2a718b4ad9cd50eaff2f59532e8fa0eb7881e473aea4507d9dc72d0c2fe84ff2ff394c72322ddca7f586f1
+  checksum: 5a397830b386b30e3ecd2df9a3709db4e3944c176d06c91c85e629478c6fc8e4d2126bc5c176a05af2a54c27553a8b81b2115ed2cf8b530ff6d949e5a376df2d
   languageName: node
   linkType: hard
 
@@ -5041,7 +5041,7 @@ __metadata:
     "@babel/preset-env": 7.15.6
     "@babel/preset-react": 7.14.5
     "@babel/preset-typescript": 7.15.0
-    "@types/chrome": 0.0.157
+    "@types/chrome": 0.0.158
     "@types/react": ^17.0.20
     "@types/styled-components": 5.1.14
     "@typescript-eslint/eslint-plugin": 4.31.0
