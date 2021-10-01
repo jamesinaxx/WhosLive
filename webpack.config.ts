@@ -1,12 +1,12 @@
 /// <reference types="node" />
-import { Configuration } from 'webpack';
+import type { Configuration } from 'webpack';
 import { merge } from 'webpack-merge';
 import fs from 'fs/promises';
 import sharp from 'sharp';
 import path from 'path';
-import devConfig from './webpack/webpack.dev';
-import prodConfig from './webpack/webpack.prod';
 import commonConfig from './webpack/webpack.common';
+import prodConfig from './webpack/webpack.prod';
+import devConfig from './webpack/webpack.dev';
 
 const distDir = path.resolve(__dirname, 'dist');
 
