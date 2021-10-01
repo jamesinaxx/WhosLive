@@ -72,10 +72,15 @@ const config: Configuration = {
           ],
         };
 
-        const backgroundJs = files.find(
+        const newFiles = files.map((file) => ({
+          ...file,
+          path: file.path.replace('auto', ''),
+        }));
+
+        const backgroundJs = newFiles.find(
           ({ name }) => name === 'background.js',
         ) as FileDescriptor;
-        const authcheckJs = files.find(
+        const authcheckJs = newFiles.find(
           ({ name }) => name === 'authcheck.js',
         ) as FileDescriptor;
 
