@@ -14,8 +14,10 @@ chrome.runtime.onInstalled.addListener(async () => {
   log('Initialized Now Live');
 });
 
-chrome.storage.onChanged.addListener(async (changes) => {
-  if ('NowLive:Token' in changes) await getChannelInfo();
+chrome.storage.onChanged.addListener((changes) => {
+  if ('NowLive:Token' in changes) {
+    getChannelInfo();
+  }
 });
 
 chrome.runtime.onMessage.addListener((message, sender, res) => {
