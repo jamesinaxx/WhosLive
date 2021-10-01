@@ -14,7 +14,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   log('Initialized Now Live');
 });
 
-chrome.storage.onChanged.addListener(async changes => {
+chrome.storage.onChanged.addListener(async (changes) => {
   if ('NowLive:Token' in changes) await getChannelInfo();
 });
 
@@ -28,7 +28,7 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
     message.name === 'NowLive:Token' &&
     typeof message.token === 'string'
   ) {
-    validateToken(message.token).then(valid => {
+    validateToken(message.token).then((valid) => {
       if (valid) {
         res([`Received valid token: ${message.token}`, true]);
       } else {
@@ -43,7 +43,7 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
 
 (async () => {
   await getChannelInfo();
-  chrome.alarms.onAlarm.addListener(async alarm => {
+  chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === 'NowLive:Refresh') {
       await getChannelInfo();
     }

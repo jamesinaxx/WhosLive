@@ -17,7 +17,7 @@ export default async function validateToken(
       headers: {
         Authorization: `OAuth ${token}`,
       },
-    }).then(notJson => notJson.json());
+    }).then((notJson) => notJson.json());
 
     if (res.scopes.includes('user:read:follows') && res.expires_in) {
       await setStorage('NowLive:Token', token);
@@ -27,7 +27,7 @@ export default async function validateToken(
             'Client-Id': clientId,
             Authorization: `Bearer ${token}`,
           },
-        }).then(notJson => notJson.json())
+        }).then((notJson) => notJson.json())
       ).data[0].id;
       await setStorage('NowLive:UserId', userId);
       return true;

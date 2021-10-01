@@ -13,7 +13,7 @@ const updateChannels = async (setChannels: StateUpdater<ChannelsType>) =>
   setChannels(await getStorageLocal('NowLive:Channels'));
 
 const finishLoading = (setLoaded: StateUpdater<number>) => {
-  setLoaded(old => old + 1);
+  setLoaded((old) => old + 1);
 };
 
 const Live: FunctionComponent = () => {
@@ -41,15 +41,15 @@ const Live: FunctionComponent = () => {
   const loading = !(loaded === channels.length);
 
   const toggleFavorite = (wasFave: boolean, userId: string) => {
-    setLoaded(old => old - 1);
+    setLoaded((old) => old - 1);
     if (wasFave) {
-      setFavoriteChannels(oldFaves => {
-        const newArray = oldFaves.filter(fav => fav !== userId);
+      setFavoriteChannels((oldFaves) => {
+        const newArray = oldFaves.filter((fav) => fav !== userId);
         setStorage('NowLive:Favorites', newArray);
         return newArray;
       });
     } else {
-      setFavoriteChannels(oldFaves => {
+      setFavoriteChannels((oldFaves) => {
         const newArray = [...oldFaves, userId];
         setStorage('NowLive:Favorites', newArray);
         return newArray;
@@ -60,8 +60,8 @@ const Live: FunctionComponent = () => {
   return (
     <Container>
       <Loading hidden={!loading} />
-      {favoriteChannels.map(channelName => {
-        const channel = channels.find(c => c.user_id === channelName);
+      {favoriteChannels.map((channelName) => {
+        const channel = channels.find((c) => c.user_id === channelName);
 
         if (channel === undefined) return null;
 
@@ -72,19 +72,19 @@ const Live: FunctionComponent = () => {
             hidden={loading}
             doneLoading={() => finishLoading(setLoaded)}
             favorite
-            setFavorites={old => toggleFavorite(old, channel.user_id)}
+            setFavorites={(old) => toggleFavorite(old, channel.user_id)}
           />
         );
       })}
       {channels
-        .filter(channel => !favoriteChannels.includes(channel.user_id))
-        .map(channel => (
+        .filter((channel) => !favoriteChannels.includes(channel.user_id))
+        .map((channel) => (
           <Channel
             key={channel.id}
             data={channel}
             hidden={loading}
             doneLoading={() => finishLoading(setLoaded)}
-            setFavorites={old => toggleFavorite(old, channel.user_id)}
+            setFavorites={(old) => toggleFavorite(old, channel.user_id)}
           />
         ))}
     </Container>

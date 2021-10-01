@@ -13,8 +13,8 @@ export function getStorage(
 export function getStorage(key: 'NowLive:Token'): Promise<string | undefined>;
 export function getStorage(key: Synced): Promise<unknown>;
 export function getStorage<T>(key: Synced): Promise<T | undefined> {
-  return new Promise(resolve =>
-    chrome.storage.sync.get(key, res => resolve(res[key])),
+  return new Promise((resolve) =>
+    chrome.storage.sync.get(key, (res) => resolve(res[key])),
   );
 }
 
@@ -29,8 +29,8 @@ export function getStorageLocal(
   key: 'NowLive:Theme',
 ): Promise<'light' | 'dark'>;
 export function getStorageLocal<T>(key: Local): Promise<T> {
-  return new Promise(resolve =>
-    chrome.storage.local.get(key, res => resolve(res[key])),
+  return new Promise((resolve) =>
+    chrome.storage.local.get(key, (res) => resolve(res[key])),
   );
 }
 
@@ -87,7 +87,7 @@ export async function getChannelInfo(): Promise<void> {
 
     const users: { data: TwitchUser[] } = await fetch(
       `https://api.twitch.tv/helix/users?id=${data
-        .map(stream => stream.user_id)
+        .map((stream) => stream.user_id)
         .join('&id=')}`,
       {
         headers: {
@@ -95,13 +95,13 @@ export async function getChannelInfo(): Promise<void> {
           Authorization: `Bearer ${token}`,
         },
       },
-    ).then(res => res.json());
+    ).then((res) => res.json());
 
     const oldChannels = await getStorageLocal('NowLive:Channels');
 
-    const withicons = data.map(stream => {
+    const withicons = data.map((stream) => {
       const oldUser = oldChannels?.find(
-        user => user.user_id === stream.user_id,
+        (user) => user.user_id === stream.user_id,
       );
       if (oldUser) {
         return {
@@ -122,7 +122,7 @@ export async function getChannelInfo(): Promise<void> {
 
     // Downloads the images and converts them into a base64 url
     const withImages = await Promise.all(
-      withicons.map(async stream => {
+      withicons.map(async (stream) => {
         const url = stream.profile_image_url;
         if (url.startsWith('https://static-cdn.jtvnw.net/')) {
           const blob = await (await fetch(stream.profile_image_url)).blob();

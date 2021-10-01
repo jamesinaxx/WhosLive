@@ -4,7 +4,7 @@ import { LoadingContainer } from './LoadingContainer';
 
 const Circle = styled.div`
   &::after {
-    background: ${props => props.theme.colors.color};
+    background: ${(props) => props.theme.colors.color};
   }
 `;
 
@@ -13,7 +13,7 @@ const Loading: FunctionComponent<{ hidden?: boolean }> = ({ hidden }) => {
 
   return (
     <LoadingContainer>
-      {[1, 2, 3, 4, 5, 6, 7, 8].map(key => (
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((key) => (
         <Circle key={key} />
       ))}
     </LoadingContainer>

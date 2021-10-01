@@ -63,7 +63,7 @@ const Main: FunctionComponent = () => {
     <Layout shown={showRUSure}>
       {showRUSure && (
         <InvalidateToken
-          onChoice={async invalidate => {
+          onChoice={async (invalidate) => {
             if (invalidate) {
               const token = (await getStorage('NowLive:Token')) || '';
               try {
