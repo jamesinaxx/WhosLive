@@ -22,12 +22,11 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
+      background-color: ${(props) => props.theme.colors.backgroundColor};
       transition: background-color 100ms ease-in-out;
-      // Width and height to cap extension size, Can cause issues with scrollbar showing when there is nothing to scroll
+      color: ${(props) => props.theme.colors.color};
       width: 550px;
       height: 550px;
-      background-color: ${(props) => props.theme.colors.backgroundColor};
-      color: ${(props) => props.theme.colors.color};
     }
   `;
 
