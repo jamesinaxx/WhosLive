@@ -8,8 +8,8 @@
   "author": "jamesinaxx",
   "license": "MIT",
   "scripts": {
-    "dev": "npx rimraf dist && webpack --mode development",
-    "build": "npx rimraf dist && webpack --mode production",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
     "build:analyze": "yarn build --analyze",
     "fmt": "prettier --write ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
     "fmt:check": "prettier --check ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
