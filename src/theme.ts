@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'preact/hooks';
 import { DefaultTheme } from 'styled-components';
-import { getStorageLocal } from './lib/chromeapi';
 
 interface ThemesType {
   light: DefaultTheme;

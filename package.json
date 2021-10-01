@@ -13,8 +13,8 @@
     "build:analyze": "yarn build --analyze",
     "fmt": "prettier --write ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
     "fmt:check": "prettier --check ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
-    "lint": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore",
-    "lint:fix": "eslint ./src/*/**.{js,jsx,ts,tsx} --ignore-path .gitignore --fix"
+    "lint": "eslint . --ignore-path .gitignore",
+    "lint:fix": "eslint . --ignore-path .gitignore --fix"
   },
   "dependencies": {
     "eslint-plugin-import": "2.24.2",
