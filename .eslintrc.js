@@ -66,10 +66,10 @@ const config = {
     'react/jsx-one-expression-per-line': ['off'],
     'implicit-arrow-linebreak': ['off'],
     'function-paren-newline': ['off'],
-    // 'react/prop-types': ['off'],
     indent: ['off'],
     semi: ['error', 'always'],
     'react/jsx-curly-newline': ['off'],
+    'object-curly-newline': ['off'],
   },
 };
 

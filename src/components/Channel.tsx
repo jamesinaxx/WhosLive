@@ -1,4 +1,3 @@
-// The properties are named with snake_case because thats how the Twitch api works
 /* eslint-disable camelcase */
 import { FunctionComponent, RefObject, useRef, useState } from 'react';
 import FastAverageColor from 'fast-average-color';
@@ -93,22 +92,26 @@ const Channel: FunctionComponent<ChannelProps> = ({
           boxShadow: `0 0 10px ${backgroundColor}`,
         }}
       >
-        <img
-          ref={imageRef}
-          onLoad={() =>
-            getColor(imageRef).then(({ text, bgColor }) => {
-              setColor(text);
-              setBackgroundColor(bgColor);
-              doneLoading();
-            })
-          }
-          src={profile_image_url}
-          crossOrigin="anonymous"
+        <button
           onClick={() => window.open(`https://twitch.tv/${user_login}`)}
-          alt={`${user_name} stream thumbnail`}
-          width={100}
-          height={100}
-        />
+          type="button"
+        >
+          <img
+            ref={imageRef}
+            onLoad={() =>
+              getColor(imageRef).then(({ text, bgColor }) => {
+                setColor(text);
+                setBackgroundColor(bgColor);
+                doneLoading();
+              })
+            }
+            src={profile_image_url}
+            crossOrigin="anonymous"
+            alt={`${user_name} stream thumbnail`}
+            width={100}
+            height={100}
+          />
+        </button>
         <ChannelInfo>
           <h1>{getTitle(title)}</h1>
           <p>

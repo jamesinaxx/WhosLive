@@ -1,5 +1,4 @@
-import type { FunctionComponent, ReactNode } from 'react';
-import { useContext } from 'preact/hooks';
+import { FunctionComponent, ReactNode, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import { Anchor } from '../styleMixins';
 
