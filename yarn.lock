@@ -1531,7 +1531,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/dotenv-webpack@npm:^7.0.3":
+"@types/dotenv-webpack@npm:7.0.3":
   version: 7.0.3
   resolution: "@types/dotenv-webpack@npm:7.0.3"
   dependencies:
@@ -1640,10 +1640,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^16.9.1":
+"@types/node@npm:*":
   version: 16.10.2
   resolution: "@types/node@npm:16.10.2"
   checksum: 83c1c3c68e7500103908c3f16094e458879c840a719c15b6ea577f81fe1f24a1b3473bb6c8e8091fe79a82543ca7639c6b1088fcf80292ec091d1d1c9504a87e
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:16.9.1":
+  version: 16.9.1
+  resolution: "@types/node@npm:16.9.1"
+  checksum: 41afcf183a22d59323a0199dd7e0f46591247f45fc08a4434edb26d56dc279ae4fdb80f37989ddd7a0f45e3857c4933e6e82057ede09c5a829f77e373e680375
   languageName: node
   linkType: hard
 
@@ -1654,7 +1661,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^17.0.20":
+"@types/react@npm:*":
   version: 17.0.26
   resolution: "@types/react@npm:17.0.26"
   dependencies:
@@ -1665,7 +1672,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/rimraf@npm:^3.0.2":
+"@types/react@npm:17.0.20":
+  version: 17.0.20
+  resolution: "@types/react@npm:17.0.20"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: e342bfaa4fe052fc3a445ea49f746f3fd82cfc9c8028eae139a3e0763ead1871f353bd40da2a472f23d2b52544d2781d40e3159c0703e7e2ff08c13f067a3b9c
+  languageName: node
+  linkType: hard
+
+"@types/rimraf@npm:3.0.2":
   version: 3.0.2
   resolution: "@types/rimraf@npm:3.0.2"
   dependencies:
@@ -1682,12 +1700,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sharp@npm:^0.29.1":
-  version: 0.29.2
-  resolution: "@types/sharp@npm:0.29.2"
+"@types/sharp@npm:0.29.1":
+  version: 0.29.1
+  resolution: "@types/sharp@npm:0.29.1"
   dependencies:
     "@types/node": "*"
-  checksum: 342077dd9f877e1bbb732b5655b2d4627697691186c1b713539801f92be2461390eed35370c5272dc1f80523d6cfd30903fdaca5ece5b1924b1f3b4e312614f3
+  checksum: 86fe1ec5be5ac9910c32c25258a952d0a3bb207ade9d527a1d3177a23c735c2f83f1170c7ac000d7e8144aae37239d18e1d39d90d667de93e93d375426d3c03c
   languageName: node
   linkType: hard
 
@@ -1702,7 +1720,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-bundle-analyzer@npm:^4.4.1":
+"@types/webpack-bundle-analyzer@npm:4.4.1":
   version: 4.4.1
   resolution: "@types/webpack-bundle-analyzer@npm:4.4.1"
   dependencies:
@@ -2009,62 +2027,6 @@ __metadata:
   checksum: 8ed0d477ce3bc9c6fe2bf6a6a2cc316bb9c4127c5a7827bae947fa8ec34c7092395c5a283cc300c05b5fa01cbbfa1f938f410a7bf75db7c7846fea41949989ec
   languageName: node
   linkType: hard
-
-"Now Live@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "Now Live@workspace:."
-  dependencies:
-    "@babel/core": 7.15.5
-    "@babel/plugin-proposal-class-properties": 7.14.5
-    "@babel/plugin-syntax-dynamic-import": 7.8.3
-    "@babel/preset-env": 7.15.6
-    "@babel/preset-react": 7.14.5
-    "@babel/preset-typescript": 7.15.0
-    "@types/chrome": 0.0.157
-    "@types/dotenv-webpack": ^7.0.3
-    "@types/node": ^16.9.1
-    "@types/react": ^17.0.20
-    "@types/rimraf": ^3.0.2
-    "@types/sharp": ^0.29.1
-    "@types/styled-components": 5.1.14
-    "@types/webpack-bundle-analyzer": ^4.4.1
-    "@typescript-eslint/eslint-plugin": 4.31.0
-    "@typescript-eslint/parser": 4.31.0
-    babel-loader: 8.2.2
-    dotenv-webpack: 7.0.3
-    eslint: 7.32.0
-    eslint-config-airbnb: 18.2.1
-    eslint-config-prettier: 8.3.0
-    eslint-import-resolver-node: ^0.3.6
-    eslint-plugin-import: 2.24.2
-    eslint-plugin-jsx-a11y: 6.4.1
-    eslint-plugin-react: 7.26.0
-    eslint-plugin-react-hooks: 4.2.0
-    eslint-webpack-plugin: 3.0.1
-    fast-average-color: 6.4.2
-    hoist-non-react-statics: ^3.3.2
-    html-webpack-plugin: 5.3.2
-    husky: 7.0.2
-    preact: 10.5.14
-    prettier: 2.4.1
-    prop-types: ^15.7.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-icons: 4.2.0
-    react-is: ^17.0.2
-    rimraf: 3.0.2
-    scheduler: ^0.20.2
-    sharp: 0.29.1
-    styled-components: 5.3.1
-    supports-color: ^9.0.2
-    ts-node: ^10.2.1
-    typescript: ^4.4.2
-    webpack: 5.52.0
-    webpack-bundle-analyzer: 4.4.2
-    webpack-cli: 4.8.0
-    webpack-merge: 5.8.0
-  languageName: unknown
-  linkType: soft
 
 "abbrev@npm:1":
   version: 1.1.1
@@ -3299,7 +3261,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-node@npm:^0.3.6":
+"eslint-import-resolver-node@npm:0.3.6, eslint-import-resolver-node@npm:^0.3.6":
   version: 0.3.6
   resolution: "eslint-import-resolver-node@npm:0.3.6"
   dependencies:
@@ -3961,7 +3923,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
+"hoist-non-react-statics@npm:3.3.2, hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.0":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -4980,6 +4942,62 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nowlive@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "nowlive@workspace:."
+  dependencies:
+    "@babel/core": 7.15.5
+    "@babel/plugin-proposal-class-properties": 7.14.5
+    "@babel/plugin-syntax-dynamic-import": 7.8.3
+    "@babel/preset-env": 7.15.6
+    "@babel/preset-react": 7.14.5
+    "@babel/preset-typescript": 7.15.0
+    "@types/chrome": 0.0.157
+    "@types/dotenv-webpack": 7.0.3
+    "@types/node": 16.9.1
+    "@types/react": 17.0.20
+    "@types/rimraf": 3.0.2
+    "@types/sharp": 0.29.1
+    "@types/styled-components": 5.1.14
+    "@types/webpack-bundle-analyzer": 4.4.1
+    "@typescript-eslint/eslint-plugin": 4.31.0
+    "@typescript-eslint/parser": 4.31.0
+    babel-loader: 8.2.2
+    dotenv-webpack: 7.0.3
+    eslint: 7.32.0
+    eslint-config-airbnb: 18.2.1
+    eslint-config-prettier: 8.3.0
+    eslint-import-resolver-node: 0.3.6
+    eslint-plugin-import: 2.24.2
+    eslint-plugin-jsx-a11y: 6.4.1
+    eslint-plugin-react: 7.26.0
+    eslint-plugin-react-hooks: 4.2.0
+    eslint-webpack-plugin: 3.0.1
+    fast-average-color: 6.4.2
+    hoist-non-react-statics: 3.3.2
+    html-webpack-plugin: 5.3.2
+    husky: 7.0.2
+    preact: 10.5.14
+    prettier: 2.4.1
+    prop-types: 15.7.2
+    react: 17.0.2
+    react-dom: 17.0.2
+    react-icons: 4.2.0
+    react-is: 17.0.2
+    rimraf: 3.0.2
+    scheduler: 0.20.2
+    sharp: 0.29.1
+    styled-components: 5.3.1
+    supports-color: 9.0.2
+    ts-node: 10.2.1
+    typescript: 4.4.2
+    webpack: 5.52.0
+    webpack-bundle-analyzer: 4.4.2
+    webpack-cli: 4.8.0
+    webpack-merge: 5.8.0
+  languageName: unknown
+  linkType: soft
+
 "npm-run-path@npm:^4.0.1":
   version: 4.0.1
   resolution: "npm-run-path@npm:4.0.1"
@@ -5428,7 +5446,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2":
+"prop-types@npm:15.7.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -5486,7 +5504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.2":
+"react-dom@npm:17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -5508,6 +5526,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-is@npm:17.0.2":
+  version: 17.0.2
+  resolution: "react-is@npm:17.0.2"
+  checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.7.0, react-is@npm:^16.8.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -5515,14 +5540,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^17.0.2":
-  version: 17.0.2
-  resolution: "react-is@npm:17.0.2"
-  checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
-  languageName: node
-  linkType: hard
-
-"react@npm:^17.0.2":
+"react@npm:17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -5814,7 +5832,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.20.2":
+"scheduler@npm:0.20.2, scheduler@npm:^0.20.2":
   version: 0.20.2
   resolution: "scheduler@npm:0.20.2"
   dependencies:
@@ -6295,6 +6313,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"supports-color@npm:9.0.2":
+  version: 9.0.2
+  resolution: "supports-color@npm:9.0.2"
+  dependencies:
+    has-flag: ^5.0.0
+  checksum: 690c21f61945a1ebab61fbc9dc861672b1d9678359ce75312b8b7ecb873f37f2ed2df56daa4ef4265300bea2e51f8285831ffb0a190ac46aaeed1d5b44fd51fe
+  languageName: node
+  linkType: hard
+
 "supports-color@npm:^5.3.0, supports-color@npm:^5.5.0":
   version: 5.5.0
   resolution: "supports-color@npm:5.5.0"
@@ -6319,15 +6346,6 @@ resolve@^2.0.0-next.3:
   dependencies:
     has-flag: ^4.0.0
   checksum: c052193a7e43c6cdc741eb7f378df605636e01ad434badf7324f17fb60c69a880d8d8fcdcb562cf94c2350e57b937d7425ab5b8326c67c2adc48f7c87c1db406
-  languageName: node
-  linkType: hard
-
-"supports-color@npm:^9.0.2":
-  version: 9.0.2
-  resolution: "supports-color@npm:9.0.2"
-  dependencies:
-    has-flag: ^5.0.0
-  checksum: 690c21f61945a1ebab61fbc9dc861672b1d9678359ce75312b8b7ecb873f37f2ed2df56daa4ef4265300bea2e51f8285831ffb0a190ac46aaeed1d5b44fd51fe
   languageName: node
   linkType: hard
 
@@ -6470,7 +6488,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.2.1":
+"ts-node@npm:10.2.1":
   version: 10.2.1
   resolution: "ts-node@npm:10.2.1"
   dependencies:
@@ -6568,23 +6586,23 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-typescript@^4.4.2:
-  version: 4.4.3
-  resolution: "typescript@npm:4.4.3"
+typescript@4.4.2:
+  version: 4.4.2
+  resolution: "typescript@npm:4.4.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 05823f21796d450531a7e4ab299715d38fd9ded0e4ce7400876053f4b5166ca3dde7a68cecfe72d9086039f03c0b6edba36516fb10ed83c5837d9600532ea4c2
+  checksum: 194e08e9d1971d667d6fd1a0554616b7022312a2319d70e81a64e502a265992061ee7817ed9a69b52bbabe7a9b85e7938cb8c11c433e40a516b277f8c4dacd51
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
-  version: 4.4.3
-  resolution: "typescript@patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=32657b"
+"typescript@patch:typescript@4.4.2#~builtin<compat/typescript>":
+  version: 4.4.2
+  resolution: "typescript@patch:typescript@npm%3A4.4.2#~builtin<compat/typescript>::version=4.4.2&hash=32657b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 28ab98313afab46788ff41014fdb5932430ada6e03cf9e92ac47f406526a2cac1ae2894834e7da61e46b7429318e9c47f45ba8de323332f0cb9af99b72ebae74
+  checksum: 3109ae25705746996007161cdd3271857db4f40356b894e34d4cabc216bf9e251f53e0bb6e48df2450b5e3fd948dcbee716a616a4ad4cf7251292025e6163cb1
   languageName: node
   linkType: hard
 
