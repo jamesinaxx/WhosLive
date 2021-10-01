@@ -1,5 +1,6 @@
 {
   "name": "nowlive",
+  "displayName": "Now Live",
   "description": "Instantly check which of your favorite Twitch streamers are live right from your favorite browser",
   "private": true,
   "version": "1.0.0",

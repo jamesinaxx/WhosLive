@@ -4,7 +4,6 @@ import rimraf from 'rimraf';
 import fs from 'fs/promises';
 import path from 'path';
 import sharp from 'sharp';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import devConfig from './webpack/webpack.dev';
 import prodConfig from './webpack/webpack.prod';
 import commonConfig from './webpack/webpack.common';
@@ -41,14 +40,14 @@ const generateIcons = async () => {
     return { ...(await prev), [size]: `./icons/${size}.png` };
   }, Promise.resolve({}));
 
-  const { version, description, name } = await import('./package.json');
+  const { version, description, displayName } = await import('./package.json');
 
   const manifest = {
     ...(await import('./src/assets/manifest.json')).default,
     icons,
     version,
     description,
-    name,
+    name: displayName,
   };
 
   fs.writeFile(
@@ -69,6 +68,7 @@ const configuration: ConfigurationFactory = async (_env, { mode }) => {
   );
 
   if (process.argv.includes('--analyze')) {
+    const { BundleAnalyzerPlugin } = await import('webpack-bundle-analyzer')
     config.plugins?.push(new BundleAnalyzerPlugin());
   }
 
