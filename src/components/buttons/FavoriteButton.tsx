@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'preact';
+import type { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 

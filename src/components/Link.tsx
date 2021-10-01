@@ -1,11 +1,11 @@
-import { FunctionComponent, ComponentChildren } from 'preact';
+import type { FunctionComponent, ReactNode } from 'react';
 import { useContext } from 'preact/hooks';
 import { ThemeContext } from 'styled-components';
 import { Anchor } from '../styleMixins';
 
 interface LinkProps {
+  children: ReactNode;
   href: string;
-  children: ComponentChildren;
 }
 
 const Link: FunctionComponent<LinkProps> = ({ href, children }) => {

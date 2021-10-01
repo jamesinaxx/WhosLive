@@ -1,8 +1,8 @@
-import { FunctionComponent, ComponentChildren } from 'preact';
+import type { FunctionComponent, ReactNode } from 'react';
 import ColorModeToggle from './buttons/ColorModeToggle';
 
 interface LayoutProps {
-  children: ComponentChildren;
+  children: ReactNode;
   shown: boolean;
 }
 

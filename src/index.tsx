@@ -1,5 +1,5 @@
-import { FunctionComponent, render } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { FunctionComponent, useEffect, useState } from 'react';
+import { render } from 'react-dom';
 import {
   createGlobalStyle,
   DefaultTheme,

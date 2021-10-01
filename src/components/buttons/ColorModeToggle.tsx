@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'preact';
+import type { FunctionComponent } from 'react';
 import { useContext } from 'preact/hooks';
 import styled, { ThemeContext } from 'styled-components';
 import { FaSun, FaMoon } from 'react-icons/fa';

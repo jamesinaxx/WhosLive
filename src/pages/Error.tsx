@@ -1,6 +1,6 @@
+import type { FunctionComponent } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import styled from 'styled-components';
-import { FunctionComponent } from 'preact';
 
 const Container = styled.div`
   text-align: center;

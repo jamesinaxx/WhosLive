@@ -1,5 +1,10 @@
-import { FunctionComponent } from 'preact';
-import { StateUpdater, useEffect, useState } from 'preact/hooks';
+import {
+  FunctionComponent,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import Channel from '../components/Channel';
 import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
 import Loading from '../components/Loading';
@@ -9,10 +14,11 @@ import type { TwitchStream } from '../types/twitch';
 
 type ChannelsType = TwitchStream[] | undefined;
 
-const updateChannels = async (setChannels: StateUpdater<ChannelsType>) =>
-  setChannels(await getStorageLocal('NowLive:Channels'));
+const updateChannels = async (
+  setChannels: Dispatch<SetStateAction<ChannelsType>>,
+) => setChannels(await getStorageLocal('NowLive:Channels'));
 
-const finishLoading = (setLoaded: StateUpdater<number>) => {
+const finishLoading = (setLoaded: Dispatch<SetStateAction<number>>) => {
   setLoaded((old) => old + 1);
 };
 

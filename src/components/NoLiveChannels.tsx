@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'preact';
+import type { FunctionComponent } from 'react';
 import { SmallText } from '../styleMixins';
 
 const NoLiveChannels: FunctionComponent = () => (

@@ -1,4 +1,4 @@
-import { FunctionComponent, ComponentChildren } from 'preact';
+import type { FunctionComponent, ReactNode } from 'react';
 import styled from 'styled-components';
 import { buttonClicked, buttonColor, buttonHover } from '../styleMixins';
 
@@ -20,7 +20,7 @@ const Confirm = styled.div`
 `;
 
 interface ChoiceButtonProps {
-  children: ComponentChildren;
+  children: ReactNode;
   type: 'button';
   onChoice: (confirm: boolean) => void;
   confirm: boolean;
