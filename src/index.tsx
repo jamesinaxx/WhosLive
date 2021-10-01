@@ -70,4 +70,4 @@ if (!process.env.PRODUCTION) {
   document.oncontextmenu = (e) => e.preventDefault();
 }
 
-render(<App />, document.body);
+render(<App />, document.getElementById('root'));
