@@ -18,8 +18,8 @@ chrome.storage.onChanged.addListener(async changes => {
   if ('NowLive:Token' in changes) await getChannelInfo();
 });
 
-chrome.runtime.onMessage.addListener(async (message, sender, res) => {
-  if (sender.url?.startsWith('https://nowlive.jamesinaxx.me/auth/callback')) {
+chrome.runtime.onMessage.addListener((message, sender, res) => {
+  if (!sender.url?.startsWith('https://nowlive.jamesinaxx.me/auth/callback')) {
     return false;
   }
 
@@ -28,11 +28,13 @@ chrome.runtime.onMessage.addListener(async (message, sender, res) => {
     message.name === 'NowLive:Token' &&
     typeof message.token === 'string'
   ) {
-    if (await validateToken(message.token)) {
-      res([`Received valid token: ${message.token}`, true]);
-    } else {
-      res([`Received invalid token: ${message.token}`, false]);
-    }
+    validateToken(message.token).then(valid => {
+      if (valid) {
+        res([`Received valid token: ${message.token}`, true]);
+      } else {
+        res([`Received invalid token: ${message.token}`, false]);
+      }
+    });
   } else {
     res([`Received invalid message object: ${message}`, false]);
   }

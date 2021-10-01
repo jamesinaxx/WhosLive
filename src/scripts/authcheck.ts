@@ -14,6 +14,8 @@ window.history.pushState(
   window.location.pathname + window.location.search,
 );
 
+console.log('Registered context script');
+
 chrome.runtime.sendMessage(
   {
     name: 'NowLive:Token',

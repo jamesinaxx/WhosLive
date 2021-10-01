@@ -32,6 +32,7 @@ const Main: FunctionComponent = () => {
 
       chrome.storage.onChanged.addListener(async (changes, area) => {
         if (area === 'sync' && 'NowLive:Token' in changes) {
+          console.log('Updated token');
           await validateToken();
         }
       });
@@ -44,6 +45,9 @@ const Main: FunctionComponent = () => {
     if (loading === true) {
       checkConnection().then(validateToken);
       return <Loading />;
+    }
+    if (tokenValid === false) {
+      return <NoAuthPage />;
     }
     return (
       <Layout shown={showRUSure}>
@@ -58,44 +62,38 @@ const Main: FunctionComponent = () => {
 
   return (
     <Layout shown={showRUSure}>
-      {tokenValid ? (
-        <>
-          {showRUSure && (
-            <InvalidateToken
-              onChoice={async invalidate => {
-                if (invalidate) {
-                  const token = (await getStorage('NowLive:Token')) || '';
-                  try {
-                    await fetch(
-                      `https://id.twitch.tv/oauth2/revoke${objToParams({
-                        clientId,
-                        token,
-                      })}`,
-                      {
-                        method: 'POST',
-                      },
-                    );
-                  } catch (err) {
-                    error(err);
-                  }
-                  await setStorage('NowLive:Token', '');
+      {showRUSure && (
+        <InvalidateToken
+          onChoice={async invalidate => {
+            if (invalidate) {
+              const token = (await getStorage('NowLive:Token')) || '';
+              try {
+                await fetch(
+                  `https://id.twitch.tv/oauth2/revoke${objToParams({
+                    clientId,
+                    token,
+                  })}`,
+                  {
+                    method: 'POST',
+                  },
+                );
+              } catch (err) {
+                error(err);
+              }
+              await setStorage('NowLive:Token', '');
 
-                  setShowRUSure(false);
-                  setTokenValid(false);
-                  return getChannelInfo();
-                }
+              setShowRUSure(false);
+              setTokenValid(false);
+              return getChannelInfo();
+            }
 
-                document.body.style.overflow = '';
-                return setShowRUSure(false);
-              }}
-            />
-          )}
-          <Live />
-          <Logout onClick={() => setShowRUSure(true)} shown={showRUSure} />
-        </>
-      ) : (
-        <NoAuthPage />
+            document.body.style.overflow = '';
+            return setShowRUSure(false);
+          }}
+        />
       )}
+      <Live />
+      <Logout onClick={() => setShowRUSure(true)} shown={showRUSure} />
     </Layout>
   );
 };
