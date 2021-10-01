@@ -24,16 +24,6 @@ const ChannelContainer = styled.div`
 const ChannelDiv = styled.div`
   user-select: none;
   padding: 10px;
-  img {
-    transition: transform 100ms ease-in-out;
-    border-radius: 15px;
-    margin: 10px;
-    float: left;
-    cursor: pointer;
-    &:hover {
-      transform: scale(110%);
-    }
-  }
   border-radius: 15px;
   width: 90vw;
   height: 120px;
@@ -48,6 +38,21 @@ const ChannelInfo = styled.div`
   margin-left: 100px;
   max-width: 425px;
   font-size: 2.3vw;
+`;
+
+const ChannelImage = styled.button`
+  transition: transform 100ms ease-in-out;
+  background: none;
+  border: none;
+  margin: 10px;
+  float: left;
+  cursor: pointer;
+  &:hover {
+    transform: scale(110%);
+  }
+  img {
+    border-radius: 15px;
+  }
 `;
 
 const getColor = async (imageRef: RefObject<HTMLImageElement>) => {
@@ -92,7 +97,7 @@ const Channel: FunctionComponent<ChannelProps> = ({
           boxShadow: `0 0 10px ${backgroundColor}`,
         }}
       >
-        <button
+        <ChannelImage
           onClick={() => window.open(`https://twitch.tv/${user_login}`)}
           type="button"
         >
@@ -111,7 +116,7 @@ const Channel: FunctionComponent<ChannelProps> = ({
             width={100}
             height={100}
           />
-        </button>
+        </ChannelImage>
         <ChannelInfo>
           <h1>{getTitle(title)}</h1>
           <p>
