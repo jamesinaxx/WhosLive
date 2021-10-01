@@ -63,7 +63,7 @@ const config = {
     'react/require-default-props': ['off'],
     'require-await': ['error'],
     'linebreak-style': ['error'],
-    // 'react/jsx-one-expression-per-line': ['off'],
+    'react/jsx-one-expression-per-line': ['off'],
     'implicit-arrow-linebreak': ['off'],
     'function-paren-newline': ['off'],
     // 'react/prop-types': ['off'],

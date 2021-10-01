@@ -26,8 +26,8 @@ const GlobalStyle = createGlobalStyle`
       // Width and height to cap extension size, Can cause issues with scrollbar showing when there is nothing to scroll
       width: 550px;
       height: 550px;
-      background-color: ${props => props.theme.colors.backgroundColor};
-      color: ${props => props.theme.colors.color};
+      background-color: ${(props) => props.theme.colors.backgroundColor};
+      color: ${(props) => props.theme.colors.color};
     }
   `;
 
@@ -67,7 +67,7 @@ const App: FunctionComponent = () => {
 if (!process.env.PRODUCTION) {
   import('./lib/chromeapi').then(({ getChannelInfo }) => getChannelInfo());
 } else {
-  document.oncontextmenu = e => e.preventDefault();
+  document.oncontextmenu = (e) => e.preventDefault();
 }
 
 render(<App />, document.body);
