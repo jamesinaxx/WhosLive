@@ -32,7 +32,6 @@ const Main: FunctionComponent = () => {
 
       chrome.storage.onChanged.addListener(async (changes, area) => {
         if (area === 'sync' && 'NowLive:Token' in changes) {
-          console.log('Updated token');
           await validateToken();
         }
       });
