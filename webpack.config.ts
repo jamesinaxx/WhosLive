@@ -1,8 +1,9 @@
 /// <reference types="node" />
 import { Configuration } from 'webpack';
+import { merge } from 'webpack-merge';
 import fs from 'fs/promises';
-import path from 'path';
 import sharp from 'sharp';
+import path from 'path';
 import devConfig from './webpack/webpack.dev';
 import prodConfig from './webpack/webpack.prod';
 import commonConfig from './webpack/webpack.common';
@@ -29,37 +30,28 @@ const generateIcons = async () => {
   const icon = await fs.readFile(
     path.resolve(__dirname, 'src', 'assets', 'icon.svg'),
   );
-  await fs.mkdir(path.resolve(distDir, 'icons'));
 
-  const icons = await sizes.reduce(async (prev, size) => {
-    await sharp(icon, { density: 300 })
-      .resize(size, size)
-      .toFile(path.resolve(distDir, 'icons', `${size}.png`));
-
-    return { ...(await prev), [size]: `./icons/${size}.png` };
-  }, Promise.resolve({}));
-
-  const { version, description, displayName } = await import('./package.json');
-
-  const manifest = {
-    ...(await import('./src/assets/manifest.json')).default,
-    icons,
-    version,
-    description,
-    name: displayName,
-  };
-
-  fs.writeFile(
-    path.resolve(distDir, 'manifest.json'),
-    JSON.stringify(manifest),
+  await Promise.all(
+    sizes.map((size) =>
+      sharp(icon, { density: 300 })
+        .resize(size, size)
+        .toFile(
+          path.resolve(__dirname, 'src', 'assets', 'icons', `${size}.png`),
+        ),
+    ),
   );
 };
 
 const configuration: ConfigurationFactory = async (_env, { mode }) => {
   await fs.mkdir(distDir);
   await generateIcons();
+  fs.cp(
+    path.resolve(__dirname, 'src', 'assets', 'icons'),
+    path.resolve(distDir, 'icons'),
+    { recursive: true, force: true },
+  );
 
-  const config = (await import('webpack-merge')).merge(
+  const config = merge(
     commonConfig,
     mode === 'production' ? prodConfig : devConfig,
   );
