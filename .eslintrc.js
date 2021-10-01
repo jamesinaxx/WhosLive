@@ -3,20 +3,15 @@
  */
 const config = {
   env: {
+    webextensions: true,
     browser: true,
     es2021: true,
     node: true,
-    webextensions: true,
-  },
-  globals: {
-    JSX: true,
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'plugin:import/typescript',
-    'plugin:import/warnings',
-    'plugin:import/errors',
     'plugin:react/recommended',
+    'eslint:recommended',
     'prettier',
     'airbnb',
   ],
@@ -30,9 +25,9 @@ const config = {
   },
   overrides: [
     {
-      files: ['*.ts', '*.tsx'], // Your TypeScript files extension
+      files: ['*.ts', '*.tsx'],
       parserOptions: {
-        project: ['./tsconfig.json'], // Specify it only for TypeScript files
+        project: ['./tsconfig.json'],
       },
     },
     {
@@ -51,15 +46,8 @@ const config = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
-    'operator-linebreak': [
-      'error',
-      'after',
-      { overrides: { '?': 'before', ':': 'before' } },
-    ],
-    'react/jsx-filename-extension': [
-      2,
-      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
-    ],
+    'operator-linebreak': ['off'],
+    'react/jsx-filename-extension': [2, { extensions: ['.tsx'] }],
     'comma-dangle': ['error', 'always-multiline'],
     'import/extensions': ['off'],
     'no-console': ['warn'],
