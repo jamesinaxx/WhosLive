@@ -4,7 +4,6 @@
   "description": "Instantly check which of your favorite Twitch streamers are live right from your favorite browser",
   "private": true,
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "https://github.com/jamesinaxx/NowLive",
   "author": "jamesinaxx",
   "license": "MIT",
