@@ -1,6 +1,5 @@
 /// <reference types="node" />
 import { Configuration } from 'webpack';
-import rimraf from 'rimraf';
 import fs from 'fs/promises';
 import path from 'path';
 import sharp from 'sharp';
@@ -57,8 +56,6 @@ const generateIcons = async () => {
 };
 
 const configuration: ConfigurationFactory = async (_env, { mode }) => {
-  await (await import('util')).promisify(rimraf)(distDir);
-
   await fs.mkdir(distDir);
   await generateIcons();
 
