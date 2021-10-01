@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import type { Configuration } from 'webpack';
+import { existsSync as exists } from 'fs';
 import { merge } from 'webpack-merge';
 import fs from 'fs/promises';
 import sharp from 'sharp';
@@ -43,7 +44,10 @@ const generateIcons = async () => {
 };
 
 const configuration: ConfigurationFactory = async (_env, { mode }) => {
-  await fs.mkdir(distDir);
+  if (!exists(distDir)) {
+    await fs.mkdir(distDir);
+  }
+
   await generateIcons();
   fs.cp(
     path.resolve(__dirname, 'src', 'assets', 'icons'),
