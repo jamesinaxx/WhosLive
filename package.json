@@ -25,10 +25,10 @@
     "styled-components": "5.3.1"
   },
   "devDependencies": {
-    "@babel/core": "7.15.5",
+    "@babel/core": "7.15.8",
     "@babel/plugin-proposal-class-properties": "7.14.5",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
-    "@babel/preset-env": "7.15.6",
+    "@babel/preset-env": "7.15.8",
     "@babel/preset-react": "7.14.5",
     "@babel/preset-typescript": "7.15.0",
     "@types/chrome": "0.0.158",
@@ -41,7 +41,7 @@
     "@types/webpack-bundle-analyzer": "4.4.1",
     "@typescript-eslint/eslint-plugin": "4.32.0",
     "@typescript-eslint/parser": "4.32.0",
-    "babel-loader": "8.2.2",
+    "babel-loader": "8.2.3",
     "dotenv-webpack": "7.0.3",
     "eslint": "7.32.0",
     "eslint-config-airbnb": "18.2.1",
