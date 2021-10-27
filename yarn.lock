@@ -1588,13 +1588,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:^7.2.14":
+"@types/eslint@npm:*":
   version: 7.28.0
   resolution: "@types/eslint@npm:7.28.0"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
   checksum: 75ac2577d2a2e35bae66f56d2d1c871d5e836b2721cf14bd3df450c9d584eba48fa3b1013fba710245bf4795f16e1df0ed315e543e3199c4815ee4782537d0ae
+  languageName: node
+  linkType: hard
+
+"@types/eslint@npm:^7.28.2":
+  version: 7.28.2
+  resolution: "@types/eslint@npm:7.28.2"
+  dependencies:
+    "@types/estree": "*"
+    "@types/json-schema": "*"
+  checksum: d177f3eec22971baeef8f244693687ee4c0357125f4a8fb7e614b83e36b98318a0b1a13b31230199d2a91af54122b67883faa7b4d2c29f0c83e2650f6b0d4d9c
   languageName: node
   linkType: hard
 
@@ -3404,19 +3414,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-webpack-plugin@npm:3.0.1":
-  version: 3.0.1
-  resolution: "eslint-webpack-plugin@npm:3.0.1"
+"eslint-webpack-plugin@npm:3.1.0":
+  version: 3.1.0
+  resolution: "eslint-webpack-plugin@npm:3.1.0"
   dependencies:
-    "@types/eslint": ^7.2.14
-    jest-worker: ^27.0.6
+    "@types/eslint": ^7.28.2
+    jest-worker: ^27.3.1
     micromatch: ^4.0.4
     normalize-path: ^3.0.0
-    schema-utils: ^3.1.0
+    schema-utils: ^3.1.1
   peerDependencies:
-    eslint: ^7.0.0
+    eslint: ^7.0.0 || ^8.0.0
     webpack: ^5.0.0
-  checksum: ef9241907d7b99eb7edad48e005c49aa73124875f9c910bfde1645dfe853f2cbbfce363c80b2c2157d00a23545caefa74c138a61c1deb7f8666ee3569a025549
+  checksum: c6858e5f28d0ca5c5982a7a00cad99a25a8e117f90a662c5f550722f31ef8057ef1cf0cf1b89da249032437a61d917ab7623cb1ff4677cb4886aa2b010ecfdb0
   languageName: node
   linkType: hard
 
@@ -4356,6 +4366,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-worker@npm:^27.3.1":
+  version: 27.3.1
+  resolution: "jest-worker@npm:27.3.1"
+  dependencies:
+    "@types/node": "*"
+    merge-stream: ^2.0.0
+    supports-color: ^8.0.0
+  checksum: 125d46939d894ef8cf1ffbbf6c63cee10f28218698db3949704d5f613a353f56502da50d3425ec722927c7948c5742d0306f63ad5064a432574b8b217b9ceeba
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -4931,7 +4952,7 @@ __metadata:
     eslint-plugin-import: 2.25.2
     eslint-plugin-jsx-a11y: 6.4.1
     eslint-plugin-react: 7.26.1
-    eslint-webpack-plugin: 3.0.1
+    eslint-webpack-plugin: 3.1.0
     fast-average-color: 6.4.2
     html-webpack-plugin: 5.4.0
     prettier: 2.4.1
