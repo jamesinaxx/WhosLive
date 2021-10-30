@@ -49,7 +49,7 @@ const configuration: ConfigurationFactory = async (_env, { mode }) => {
   }
 
   await generateIcons();
-  fs.cp(
+  await fs.cp(
     path.resolve(__dirname, 'src', 'assets', 'icons'),
     path.resolve(distDir, 'icons'),
     { recursive: true, force: true },
@@ -62,7 +62,7 @@ const configuration: ConfigurationFactory = async (_env, { mode }) => {
 
   if (process.argv.includes('--analyze')) {
     const { BundleAnalyzerPlugin } = await import('webpack-bundle-analyzer');
-    config.plugins?.push(new BundleAnalyzerPlugin());
+    config.plugins?.push(BundleAnalyzerPlugin);
   }
 
   return config;

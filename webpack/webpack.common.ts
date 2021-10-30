@@ -1,6 +1,6 @@
-import { Configuration } from 'webpack';
+import { Compiler, Configuration, DefinePlugin } from 'webpack';
 import path from 'path';
-import DotenvPlugin from 'dotenv-webpack';
+import fs from 'fs/promises';
 import EslintPlugin from 'eslint-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
@@ -30,7 +30,18 @@ const config: Configuration = {
       inject: true,
       chunks: ['index'],
     }),
-    new DotenvPlugin({ path: path.resolve(__dirname, '..', '.env') }),
+    async (compiler: Compiler) => {
+      const envFile = await fs.readFile(
+        path.resolve(__dirname, '..', '.env'),
+        'utf8',
+      );
+      const env = envFile.split('\n').reduce((acc, line) => {
+        const [key, value] = line.split('=');
+        return { ...acc, [key]: value };
+      }, {});
+
+      compiler.options.plugins.push(new DefinePlugin(env));
+    },
     new WebpackManifestPlugin({
       generate: (_seed, files) => {
         const {
