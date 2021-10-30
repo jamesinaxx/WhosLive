@@ -11,10 +11,10 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "build:analyze": "yarn build --analyze",
-    "fmt": "prettier --write ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
-    "fmt:check": "prettier --check ./src/*/**.{js,jsx,ts,tsx,scss,css,sass} --ignore-path .gitignore",
-    "lint": "eslint . --ignore-path .gitignore",
-    "lint:fix": "eslint . --ignore-path .gitignore --fix"
+    "fmt": "prettier --write ./src/*/**.{ts,tsx} --ignore-path .gitignore",
+    "fmt:check": "prettier --check ./src/*/**.{ts,tsx} --ignore-path .gitignore",
+    "lint": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore",
+    "lint:fix": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore --fix"
   },
   "dependencies": {
     "eslint-plugin-import": "2.25.2",
