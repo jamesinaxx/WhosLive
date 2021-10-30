@@ -62,7 +62,7 @@ const configuration: ConfigurationFactory = async (_env, { mode }) => {
 
   if (process.argv.includes('--analyze')) {
     const { BundleAnalyzerPlugin } = await import('webpack-bundle-analyzer');
-    config.plugins?.push(BundleAnalyzerPlugin);
+    config.plugins?.push(new BundleAnalyzerPlugin() as any);
   }
 
   return config;

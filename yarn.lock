@@ -5109,6 +5109,7 @@ __metadata:
     eslint-webpack-plugin: 3.1.0
     fast-average-color: 6.4.2
     html-webpack-plugin: 5.5.0
+    preact: ^10.5.15
     prettier: 2.4.1
     react: 17.0.2
     react-dom: 17.0.2
@@ -5466,6 +5467,13 @@ __metadata:
   version: 4.1.0
   resolution: "postcss-value-parser@npm:4.1.0"
   checksum: 68a9ea27c780fa3cc350be37b47cc46385c61dd9627990909230e0e9c3debf6d5beb49006bd743a2e506cdd6fa7d07637f2d9504a394f67cc3011d1ff0134886
+  languageName: node
+  linkType: hard
+
+"preact@npm:^10.5.15":
+  version: 10.5.15
+  resolution: "preact@npm:10.5.15"
+  checksum: 1c9f025ed6ff9c6cbe85da4feb88011795914d615244089396d1157376897a09f478eac0d582c66bc5a96c2841ebd9f8dfbe0a28e8c1820bdd7c314083350d40
   languageName: node
   linkType: hard
 
