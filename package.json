@@ -17,7 +17,6 @@
     "lint:fix": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore --fix"
   },
   "dependencies": {
-    "eslint-plugin-import": "2.25.2",
     "fast-average-color": "6.4.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -46,6 +45,7 @@
     "eslint": "8.1.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.25.2",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-react": "7.26.1",
     "eslint-webpack-plugin": "3.1.0",
