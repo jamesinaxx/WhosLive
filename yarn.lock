@@ -1830,6 +1830,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/offscreencanvas@npm:^2019.6.4":
+  version: 2019.6.4
+  resolution: "@types/offscreencanvas@npm:2019.6.4"
+  checksum: ea05348b49cb0dc082fadf7ccc283e53c03ecf9b94c5ee096fce447edfcb563f6c060714609b72cee7848ea24589aa56297144a2b3a89a833e6ea24eaaa96da9
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:*":
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
@@ -3718,10 +3725,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-average-color@npm:6.4.2":
-  version: 6.4.2
-  resolution: "fast-average-color@npm:6.4.2"
-  checksum: 5cc2fc7bb6efa9a675cd4b6910707f774eff71984f4a7e6b934fb683792b3d6570d5c2dd4def26e4138a4dda2c85ceb9ce266b60b95fe6526e7b900e67e8ed46
+"fast-average-color@npm:7.0.1":
+  version: 7.0.1
+  resolution: "fast-average-color@npm:7.0.1"
+  dependencies:
+    "@types/offscreencanvas": ^2019.6.4
+  checksum: 8597f52a0f18f6fd1218f052f9c42334b8f58ee3fd6130167b7a8e62ed12300c66afc842461699ab545c4b4aeed00c0b231321f8c752300e01a48db659d4a825
   languageName: node
   linkType: hard
 
@@ -5107,7 +5116,7 @@ __metadata:
     eslint-plugin-jsx-a11y: 6.4.1
     eslint-plugin-react: 7.26.1
     eslint-webpack-plugin: 3.1.0
-    fast-average-color: 6.4.2
+    fast-average-color: 7.0.1
     html-webpack-plugin: 5.5.0
     preact: 10.5.15
     prettier: 2.4.1
