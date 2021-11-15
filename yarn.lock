@@ -1715,13 +1715,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:0.0.162":
-  version: 0.0.162
-  resolution: "@types/chrome@npm:0.0.162"
+"@types/chrome@npm:0.0.164":
+  version: 0.0.164
+  resolution: "@types/chrome@npm:0.0.164"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 3f403051de07f5d5d6b3bcb8ded1e104e2c73f1add84e41317da05a3bbfa20e3ad50c41be34aecee16f9bebef7453c7ac5a2afd394669677730c115cd4e0faaa
+  checksum: dac80221ac60545a3c9c615cc02a7329e9c661a5b8f0fa6d0c384d2d49f7a0a5d8ea37009aa66d4b65fe97f591436e3a8111619a03bbead868bf6f6cd73dddee
   languageName: node
   linkType: hard
 
@@ -5099,7 +5099,7 @@ __metadata:
     "@babel/preset-env": 7.16.0
     "@babel/preset-react": 7.16.0
     "@babel/preset-typescript": 7.16.0
-    "@types/chrome": 0.0.162
+    "@types/chrome": 0.0.164
     "@types/node": 16.11.6
     "@types/react": 17.0.34
     "@types/react-dom": 17.0.11
