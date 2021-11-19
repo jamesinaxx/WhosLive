@@ -36,8 +36,8 @@ const Live: FunctionComponent = () => {
 
   chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
 
-  if (channels === undefined) {
-    return <Loading />;
+  if (true) {
+    /* channels === undefined */ return <Loading />;
   }
 
   if (channels.length === 0) {

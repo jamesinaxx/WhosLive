@@ -1,5 +1,6 @@
 import type { FunctionComponent } from 'react';
 import { css, keyframes } from '@emotion/react';
+import { motion } from 'framer-motion';
 
 export const LoadingAnim = keyframes`
   0% {
@@ -11,30 +12,29 @@ export const LoadingAnim = keyframes`
 `;
 
 export const LoadingContainer: FunctionComponent = ({ children }) => (
-  <div
+  <motion.div
+    initial="start"
+    animate="end"
+    variants={{
+      start: {
+        transition: {
+          staggerChildren: 0.2,
+        },
+      },
+      end: {
+        transition: {
+          staggerChildren: 0.2,
+        },
+      },
+    }}
     css={css`
-      display: inline-block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80px;
-      height: 80px;
-      div {
-        animation: ${LoadingAnim} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        transform-origin: 40px 40px;
-        &:after {
-          content: ' ';
-          display: block;
-          position: absolute;
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          margin: -4px 0 0 -4px;
-        }
-      }
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 100%;
+      width: 100%;
     `}
   >
     {children}
-  </div>
+  </motion.div>
 );
