@@ -26,7 +26,10 @@ const Channel: FunctionComponent<ChannelProps> = ({
   const fac = useMemo(() => new FastAverageColor(), []);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const colors = useMemo(() => fac.getColor(imageRef.current), [imageRef]);
+  const colors = useMemo(
+    () => (imageRef.current ? fac.getColor(imageRef.current) : null),
+    [imageRef.current],
+  );
 
   const {
     title,
@@ -58,9 +61,9 @@ const Channel: FunctionComponent<ChannelProps> = ({
           margin: 10px;
         `}
         style={{
-          backgroundColor: parseRgba(colors.rgb),
-          color: colors.isLight ? '#000' : '#FFF',
-          boxShadow: `0 0 10px ${parseRgba(colors.rgb)}`,
+          backgroundColor: colors ? parseRgba(colors.rgb) : '#000',
+          color: colors?.isLight ? '#000' : '#FFF',
+          boxShadow: `0 0 10px ${colors ? parseRgba(colors.rgb) : '#000'}`,
         }}
       >
         <motion.button
