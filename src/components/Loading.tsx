@@ -1,13 +1,34 @@
 import type { FunctionComponent } from 'react';
 import { motion } from 'framer-motion';
 import { css } from '@emotion/react';
-import { LoadingContainer } from './LoadingContainer';
 
 const Loading: FunctionComponent<{ hidden?: boolean }> = ({ hidden }) => {
   if (hidden) return null;
 
   return (
-    <LoadingContainer>
+    <motion.div
+      initial="start"
+      animate="end"
+      variants={{
+        start: {
+          transition: {
+            staggerChildren: 0.2,
+          },
+        },
+        end: {
+          transition: {
+            staggerChildren: 0.2,
+          },
+        },
+      }}
+      css={css`
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+      `}
+    >
       <motion.span
         css={css`
           display: block;
@@ -39,7 +60,7 @@ const Loading: FunctionComponent<{ hidden?: boolean }> = ({ hidden }) => {
           },
         }}
       />
-    </LoadingContainer>
+    </motion.div>
   );
 };
 
