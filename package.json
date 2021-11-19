@@ -17,7 +17,7 @@
     "lint:fix": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore --fix"
   },
   "dependencies": {
-    "@emotion/react": "^11.6.0",
+    "@emotion/react": "11.6.0",
     "fast-average-color": "7.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -28,8 +28,8 @@
     "@babel/preset-env": "7.16.4",
     "@babel/preset-react": "7.16.0",
     "@babel/preset-typescript": "7.16.0",
-    "@emotion/babel-plugin": "^11.3.0",
-    "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@emotion/babel-plugin": "11.3.0",
+    "@emotion/babel-preset-css-prop": "11.2.0",
     "@types/chrome": "0.0.164",
     "@types/dotenv-webpack": "7.0.3",
     "@types/node": "16.11.9",

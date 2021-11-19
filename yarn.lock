@@ -1617,7 +1617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/babel-plugin@npm:^11.2.0, @emotion/babel-plugin@npm:^11.3.0":
+"@emotion/babel-plugin@npm:11.3.0, @emotion/babel-plugin@npm:^11.2.0":
   version: 11.3.0
   resolution: "@emotion/babel-plugin@npm:11.3.0"
   dependencies:
@@ -1639,7 +1639,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/babel-preset-css-prop@npm:^11.2.0":
+"@emotion/babel-preset-css-prop@npm:11.2.0":
   version: 11.2.0
   resolution: "@emotion/babel-preset-css-prop@npm:11.2.0"
   dependencies:
@@ -1680,7 +1680,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.6.0":
+"@emotion/react@npm:11.6.0":
   version: 11.6.0
   resolution: "@emotion/react@npm:11.6.0"
   dependencies:
@@ -5312,9 +5312,9 @@ __metadata:
     "@babel/preset-env": 7.16.4
     "@babel/preset-react": 7.16.0
     "@babel/preset-typescript": 7.16.0
-    "@emotion/babel-plugin": ^11.3.0
-    "@emotion/babel-preset-css-prop": ^11.2.0
-    "@emotion/react": ^11.6.0
+    "@emotion/babel-plugin": 11.3.0
+    "@emotion/babel-preset-css-prop": 11.2.0
+    "@emotion/react": 11.6.0
     "@types/chrome": 0.0.164
     "@types/dotenv-webpack": 7.0.3
     "@types/node": 16.11.9
