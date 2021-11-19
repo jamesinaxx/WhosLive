@@ -3,6 +3,7 @@
     "lib": ["ES2021", "DOM"],
     "module": "CommonJS",
     "jsx": "react-jsx",
+    "downlevelIteration": true,
     "jsxImportSource": "@emotion/react",
     "esModuleInterop": true,
     "strict": true,
