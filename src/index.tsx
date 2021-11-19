@@ -58,9 +58,7 @@ const App: FunctionComponent = () => {
   );
 };
 
-if (!process.env.PRODUCTION) {
-  import('./lib/chromeapi').then(({ getChannelInfo }) => getChannelInfo());
-} else {
+if (process.env.PRODUCTION) {
   document.oncontextmenu = (e) => e.preventDefault();
 }
 
