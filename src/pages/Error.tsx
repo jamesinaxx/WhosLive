@@ -1,33 +1,35 @@
 import type { FunctionComponent } from 'react';
 import { FaGithub } from 'react-icons/fa';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  text-align: center;
-  padding: 50px;
-`;
-
-const FailedHeader = styled.header`
-  font-size: 7vw;
-  color: rgb(199, 33, 33);
-`;
-
-const Description = styled.p`
-  font-size: 3vw;
-  a {
-    transition: color 100ms ease-in-out;
-    color: #05d1d1;
-    text-decoration: none;
-    &:hover {
-      color: #048585;
-    }
-  }
-`;
+import { css } from '@emotion/react';
 
 const Error: FunctionComponent = () => (
-  <Container>
-    <FailedHeader>Failed to connect to Twitch</FailedHeader>
-    <Description>
+  <div
+    css={css`
+      text-align: center;
+      padding: 50px;
+    `}
+  >
+    <h1
+      css={css`
+        font-size: 7vw;
+        color: rgb(199, 33, 33);
+      `}
+    >
+      Failed to connect to Twitch
+    </h1>
+    <p
+      css={css`
+        font-size: 3vw;
+        a {
+          transition: color 100ms ease-in-out;
+          color: #05d1d1;
+          text-decoration: none;
+          &:hover {
+            color: #048585;
+          }
+        }
+      `}
+    >
       Please try to troubleshoot your connection and if everything seems okay,
       try going to{' '}
       <a href="https://twitch.tv" target="_blank" rel="noreferrer">
@@ -49,8 +51,8 @@ const Error: FunctionComponent = () => (
           }}
         />
       </a>
-    </Description>
-  </Container>
+    </p>
+  </div>
 );
 
 export default Error;
