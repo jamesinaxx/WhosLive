@@ -13,9 +13,9 @@ export function getStorage(
 export function getStorage(key: 'NowLive:Token'): Promise<string | undefined>;
 export function getStorage(key: Synced): Promise<unknown>;
 export function getStorage<T>(key: Synced): Promise<T | undefined> {
-  return new Promise((resolve) =>
-    chrome.storage.sync.get(key, (res) => resolve(res[key])),
-  );
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(key, (res) => resolve(res[key]));
+  });
 }
 
 export function setStorageLocal(key: Local, value: unknown): Promise<void> {
@@ -29,9 +29,9 @@ export function getStorageLocal(
   key: 'NowLive:Theme',
 ): Promise<'light' | 'dark'>;
 export function getStorageLocal<T>(key: Local): Promise<T> {
-  return new Promise((resolve) =>
-    chrome.storage.local.get(key, (res) => resolve(res[key])),
-  );
+  return new Promise((resolve) => {
+    chrome.storage.local.get(key, (res) => resolve(res[key]));
+  });
 }
 
 export async function setStorageIfNull(
