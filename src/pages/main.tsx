@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import Live from './Live';
 import { getChannelInfo, getStorage, setStorage } from '../lib/chromeapi';
 import NoAuthPage from './NoAuth';
@@ -10,9 +10,10 @@ import { clientId, checkConnection, objToParams } from '../lib/lib';
 import Layout from '../components/Layout';
 import Logout from '../components/buttons/LogoutButton';
 import { error } from '../lib/logger';
+import LoadingContext from '../lib/LoadingContext';
 
 const Main: FunctionComponent = () => {
-  const [loading, setLoading] = useState(true);
+  const { isLoading, setLoading } = useContext(LoadingContext);
   const [tokenValid, setTokenValid] = useState(false);
   const [showRUSure, setShowRUSure] = useState(false);
   const [connected, setConnected] = useState<boolean>(false);
@@ -40,7 +41,7 @@ const Main: FunctionComponent = () => {
   if (showRUSure) window.scrollTo(0, 0);
 
   if (connected === false) {
-    if (loading === true) {
+    if (isLoading === true) {
       checkConnection().then(validateToken);
       return <Loading />;
     }

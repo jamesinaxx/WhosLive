@@ -4,6 +4,7 @@ import {
   useState,
   Dispatch,
   SetStateAction,
+  useContext,
 } from 'react';
 import Channel from '../components/Channel';
 import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
@@ -11,6 +12,7 @@ import Loading from '../components/Loading';
 import NoLiveChannels from '../components/NoLiveChannels';
 import Container from '../components/Container';
 import type { TwitchStream } from '../types/twitch';
+import LoadingContext from '../lib/LoadingContext';
 
 type ChannelsType = TwitchStream[] | undefined;
 
@@ -19,6 +21,7 @@ const updateChannels = async (
 ) => setChannels(await getStorageLocal('NowLive:Channels'));
 
 const Live: FunctionComponent = () => {
+  const { isLoading, setLoading } = useContext(LoadingContext);
   const [favoriteChannels, setFavoriteChannels] = useState<string[]>([]);
   const [channels, setChannels] = useState<ChannelsType>(undefined);
 
@@ -30,8 +33,6 @@ const Live: FunctionComponent = () => {
   }, []);
 
   chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
-
-  const loading = channels === undefined;
 
   const toggleFavorite = (wasFave: boolean, userId: string) => {
     if (wasFave) {
@@ -49,40 +50,42 @@ const Live: FunctionComponent = () => {
     }
   };
 
+  useEffect(() => {
+    setLoading(channels === undefined);
+  }, [channels]);
+
+  if (channels === undefined) {
+    return null;
+  }
+
   return (
     <Container>
-      {loading || channels === undefined ? (
-        <Loading />
-      ) : (
-        <>
-          {channels.length === 0 && <NoLiveChannels />}
-          {favoriteChannels.map((channelName) => {
-            const channel = channels.find((c) => c.user_id === channelName);
+      {channels.length === 0 && <NoLiveChannels />}
+      {favoriteChannels.map((channelName) => {
+        const channel = channels.find((c) => c.user_id === channelName);
 
-            if (channel === undefined) return null;
+        if (channel === undefined) return null;
 
-            return (
-              <Channel
-                key={channel.id}
-                data={channel}
-                hidden={loading}
-                favorite
-                setFavorites={(old) => toggleFavorite(old, channel.user_id)}
-              />
-            );
-          })}
-          {channels
-            .filter((channel) => !favoriteChannels.includes(channel.user_id))
-            .map((channel) => (
-              <Channel
-                key={channel.id}
-                data={channel}
-                hidden={loading}
-                setFavorites={(old) => toggleFavorite(old, channel.user_id)}
-              />
-            ))}
-        </>
-      )}
+        return (
+          <Channel
+            key={channel.id}
+            data={channel}
+            hidden={isLoading}
+            favorite
+            setFavorites={(old) => toggleFavorite(old, channel.user_id)}
+          />
+        );
+      })}
+      {channels
+        .filter((channel) => !favoriteChannels.includes(channel.user_id))
+        .map((channel) => (
+          <Channel
+            key={channel.id}
+            data={channel}
+            hidden={isLoading}
+            setFavorites={(old) => toggleFavorite(old, channel.user_id)}
+          />
+        ))}
     </Container>
   );
 };

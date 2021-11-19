@@ -4,6 +4,7 @@ import { Global, ThemeProvider, Theme, css } from '@emotion/react';
 import { getStorageLocal } from './lib/chromeapi';
 import Themes from './theme';
 import Main from './pages/main';
+import LoadingContext from './lib/LoadingContext';
 
 // TODO Add support for multiple pages of live streams
 const App: FunctionComponent = () => {
@@ -32,29 +33,36 @@ const App: FunctionComponent = () => {
   }
 
   return (
-    <ThemeProvider theme={currentTheme}>
-      <Global
-        styles={css`
-          body::-webkit-scrollbar {
-            width: 0.5em;
-          }
+    <LoadingContext.Provider
+      value={{
+        isLoading: false,
+        setLoading: () => {},
+      }}
+    >
+      <ThemeProvider theme={currentTheme}>
+        <Global
+          styles={css`
+            body::-webkit-scrollbar {
+              width: 0.5em;
+            }
 
-          body::-webkit-scrollbar-thumb {
-            background-color: ${currentTheme.colors.scrollbarColor};
-            border-radius: 25px;
-          }
+            body::-webkit-scrollbar-thumb {
+              background-color: ${currentTheme.colors.scrollbarColor};
+              border-radius: 25px;
+            }
 
-          body {
-            background-color: ${currentTheme.colors.backgroundColor};
-            transition: background-color 100ms ease-in-out;
-            color: ${currentTheme.colors.color};
-            width: 550px;
-            height: 550px;
-          }
-        `}
-      />
-      <Main />
-    </ThemeProvider>
+            body {
+              background-color: ${currentTheme.colors.backgroundColor};
+              transition: background-color 100ms ease-in-out;
+              color: ${currentTheme.colors.color};
+              width: 550px;
+              height: 550px;
+            }
+          `}
+        />
+        <Main />
+      </ThemeProvider>
+    </LoadingContext.Provider>
   );
 };
 
