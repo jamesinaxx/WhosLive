@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { FunctionComponent, RefObject, useRef, useState } from 'react';
 import FastAverageColor from 'fast-average-color';
+import { motion } from 'framer-motion';
 import { css } from '@emotion/react';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
@@ -73,7 +74,9 @@ const Channel: FunctionComponent<ChannelProps> = ({
           boxShadow: `0 0 10px ${backgroundColor}`,
         }}
       >
-        <button
+        <motion.button
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.8 }}
           css={css`
             transition: transform 100ms ease-in-out;
             background: none;
@@ -81,9 +84,6 @@ const Channel: FunctionComponent<ChannelProps> = ({
             margin: 10px;
             float: left;
             cursor: pointer;
-            &:hover {
-              transform: scale(110%);
-            }
             img {
               border-radius: 15px;
             }
@@ -106,7 +106,7 @@ const Channel: FunctionComponent<ChannelProps> = ({
             width={100}
             height={100}
           />
-        </button>
+        </motion.button>
         <div
           css={css`
             height: 100%;

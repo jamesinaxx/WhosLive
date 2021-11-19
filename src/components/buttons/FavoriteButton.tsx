@@ -1,5 +1,6 @@
 import type { FunctionComponent } from 'react';
 import { FaStar, FaRegStar } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 import { css } from '@emotion/react';
 
 interface FavoriteButtonProps {
@@ -11,7 +12,11 @@ const FavoriteButton: FunctionComponent<FavoriteButtonProps> = ({
   favorite,
   toggleFavorite,
 }) => (
-  <button
+  <motion.button
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+    animate={favorite ? { rotate: 360 } : { rotate: 0 }}
+    transition={{ duration: 0.5, type: 'spring', bounce: 0.5 }}
     onClick={() => toggleFavorite(favorite)}
     css={css`
       transition: color 100ms ease-in-out;
@@ -28,7 +33,7 @@ const FavoriteButton: FunctionComponent<FavoriteButtonProps> = ({
     type="button"
   >
     {favorite ? <FaStar size={20} /> : <FaRegStar size={20} />}
-  </button>
+  </motion.button>
 );
 
 export default FavoriteButton;
