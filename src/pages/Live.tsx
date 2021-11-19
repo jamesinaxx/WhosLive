@@ -36,15 +36,11 @@ const Live: FunctionComponent = () => {
 
   chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
 
-  if (true) {
-    /* channels === undefined */ return <Loading />;
-  }
+  const loading = channels === undefined || loaded !== channels.length;
 
-  if (channels.length === 0) {
-    return <NoLiveChannels />;
-  }
-
-  const loading = !(loaded === channels.length);
+  console.log(loading);
+  console.log(loaded !== channels?.length);
+  console.log(loaded, channels?.length);
 
   const toggleFavorite = (wasFave: boolean, userId: string) => {
     setLoaded((old) => old - 1);
@@ -65,34 +61,40 @@ const Live: FunctionComponent = () => {
 
   return (
     <Container>
-      <Loading hidden={!loading} />
-      {favoriteChannels.map((channelName) => {
-        const channel = channels.find((c) => c.user_id === channelName);
+      {loading || channels === undefined ? (
+        <Loading />
+      ) : (
+        <>
+          {channels.length === 0 && <NoLiveChannels />}
+          {favoriteChannels.map((channelName) => {
+            const channel = channels.find((c) => c.user_id === channelName);
 
-        if (channel === undefined) return null;
+            if (channel === undefined) return null;
 
-        return (
-          <Channel
-            key={channel.id}
-            data={channel}
-            hidden={loading}
-            doneLoading={() => finishLoading(setLoaded)}
-            favorite
-            setFavorites={(old) => toggleFavorite(old, channel.user_id)}
-          />
-        );
-      })}
-      {channels
-        .filter((channel) => !favoriteChannels.includes(channel.user_id))
-        .map((channel) => (
-          <Channel
-            key={channel.id}
-            data={channel}
-            hidden={loading}
-            doneLoading={() => finishLoading(setLoaded)}
-            setFavorites={(old) => toggleFavorite(old, channel.user_id)}
-          />
-        ))}
+            return (
+              <Channel
+                key={channel.id}
+                data={channel}
+                hidden={loading}
+                doneLoading={() => finishLoading(setLoaded)}
+                favorite
+                setFavorites={(old) => toggleFavorite(old, channel.user_id)}
+              />
+            );
+          })}
+          {channels
+            .filter((channel) => !favoriteChannels.includes(channel.user_id))
+            .map((channel) => (
+              <Channel
+                key={channel.id}
+                data={channel}
+                hidden={loading}
+                doneLoading={() => finishLoading(setLoaded)}
+                setFavorites={(old) => toggleFavorite(old, channel.user_id)}
+              />
+            ))}
+        </>
+      )}
     </Container>
   );
 };
