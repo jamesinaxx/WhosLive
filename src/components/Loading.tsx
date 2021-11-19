@@ -8,7 +8,7 @@ const Loading: FunctionComponent<{ hidden?: boolean }> = ({ hidden }) => {
 
   return (
     <LoadingContainer>
-      {new Array(8).map(() => (
+      {Array(8).map(() => (
         <div
           css={css`
             &::after {
