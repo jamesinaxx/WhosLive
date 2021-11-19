@@ -1,7 +1,6 @@
-import { Compiler, Configuration, DefinePlugin } from 'webpack';
+import { Configuration } from 'webpack';
 import DotenvPlugin from 'dotenv-webpack';
 import path from 'path';
-import fs from 'fs';
 import EslintPlugin from 'eslint-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
