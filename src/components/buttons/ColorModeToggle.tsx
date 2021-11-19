@@ -1,5 +1,5 @@
-import { FunctionComponent, useContext } from 'react';
-import styled, { ThemeContext } from 'styled-components';
+import type { FunctionComponent } from 'react';
+import { css, useTheme } from '@emotion/react';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { controlButton } from '../../styleMixins';
 import { setStorageLocal } from '../../lib/chromeapi';
@@ -8,23 +8,20 @@ interface ColorToggleProps {
   shown: boolean;
 }
 
-const ColorToggleButton = styled.button`
-  ${controlButton(5)}
-`;
-
 const ColorToggle: FunctionComponent<ColorToggleProps> = ({ shown }) => {
-  const mode = useContext(ThemeContext).type;
+  const { type } = useTheme();
 
   return (
-    <ColorToggleButton
+    <button
+      css={css(controlButton(5))}
       type="button"
       onClick={() =>
-        setStorageLocal('NowLive:Theme', mode === 'light' ? 'dark' : 'light')
+        setStorageLocal('NowLive:Theme', type === 'light' ? 'dark' : 'light')
       }
       style={{ opacity: shown ? '0%' : '100%' }}
     >
-      {mode === 'light' ? <FaSun /> : <FaMoon />}
-    </ColorToggleButton>
+      {type === 'light' ? <FaSun /> : <FaMoon />}
+    </button>
   );
 };
 

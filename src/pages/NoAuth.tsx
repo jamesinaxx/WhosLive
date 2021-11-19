@@ -1,28 +1,28 @@
 import type { FunctionComponent } from 'react';
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 import { smolText } from '../styleMixins';
 
-const NoAuthText = styled.small`
-  text-align: center;
-  a {
-    transition: color 100ms ease-in-out;
-    color: #05d1d1;
-    text-decoration: none;
-    &:hover {
-      color: #048585;
-    }
-  }
-  form {
-    margin-top: 15px;
-    button {
-      margin-top: 15px;
-    }
-  }
-  ${smolText}
-`;
-
 const NoAuth: FunctionComponent = () => (
-  <NoAuthText>
+  <small
+    css={css`
+      text-align: center;
+      a {
+        transition: color 100ms ease-in-out;
+        color: #05d1d1;
+        text-decoration: none;
+        &:hover {
+          color: #048585;
+        }
+      }
+      form {
+        margin-top: 15px;
+        button {
+          margin-top: 15px;
+        }
+      }
+      ${smolText}
+    `}
+  >
     You are not logged in to Twitch! Please go to{' '}
     <a
       href="https://nowlive.jamesinaxx.me/auth/"
@@ -32,7 +32,7 @@ const NoAuth: FunctionComponent = () => (
       this page
     </a>
     , log in with Twitch, and then come back here.
-  </NoAuthText>
+  </small>
 );
 
 export default NoAuth;
