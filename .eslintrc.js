@@ -71,6 +71,7 @@ const config = {
     'react/jsx-curly-newline': ['off'],
     'object-curly-newline': ['off'],
     'react/function-component-definition': 'off',
+    'react/destructuring-assignment': 'off',
   },
 };
 

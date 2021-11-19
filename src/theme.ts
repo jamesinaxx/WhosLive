@@ -1,8 +1,8 @@
-import { DefaultTheme } from 'styled-components';
+import type { Theme } from '@emotion/react';
 
 interface ThemesType {
-  light: DefaultTheme;
-  dark: DefaultTheme;
+  light: Theme;
+  dark: Theme;
 }
 
 const Themes: ThemesType = {

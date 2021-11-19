@@ -1,5 +1,5 @@
-import { FunctionComponent, ReactNode, useContext } from 'react';
-import { ThemeContext } from 'styled-components';
+import type { FunctionComponent, ReactNode } from 'react';
+import { useTheme } from '@emotion/react';
 import { Anchor } from '../styleMixins';
 
 interface LinkProps {
@@ -8,15 +8,15 @@ interface LinkProps {
 }
 
 const Link: FunctionComponent<LinkProps> = ({ href, children }) => {
-  const mode = useContext(ThemeContext).type;
+  const { type } = useTheme();
 
   return (
     <Anchor
       href={href}
       target="_blank"
       rel="noreferrer"
-      color={mode === 'light' ? '#000' : '#fff'}
-      hoverColor={mode === 'light' ? '#504e4e' : '#cacaca'}
+      color={type === 'light' ? '#000' : '#fff'}
+      hoverColor={type === 'light' ? '#504e4e' : '#cacaca'}
     >
       {children}
     </Anchor>

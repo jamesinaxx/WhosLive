@@ -1,6 +1,15 @@
-import styled from 'styled-components';
+import type { FunctionComponent } from 'react';
+import { css } from '@emotion/react';
 
-export default styled.div`
-  margin-bottom: 110px;
-  text-align: center;
-`;
+const Container: FunctionComponent = ({ children }) => (
+  <div
+    css={css`
+      margin-bottom: 110px;
+      text-align: center;
+    `}
+  >
+    {children}
+  </div>
+);
+
+export default Container;

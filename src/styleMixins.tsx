@@ -80,23 +80,32 @@ export const SmallText: FunctionComponent = ({ children }) => (
   <small css={smolText}>{children}</small>
 );
 
-export const Anchor: FunctionComponent<{ hoverColor: string; color: string }> =
-  ({ children, hoverColor, color }) => (
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    <a
-      css={css`
-        transition: color 100ms ease-in-out;
-        margin: 5px;
-        text-decoration: none;
-        color: ${color};
-        &:hover {
-          color: ${hoverColor};
-        }
-      `}
-    >
-      {children}
-    </a>
-  );
+interface AnchorType {
+  href: string;
+  hoverColor: string;
+  color: string;
+  target?: string;
+  rel?: string;
+}
+
+export const Anchor: FunctionComponent<AnchorType> = (props) => (
+  // eslint-disable-next-line jsx-a11y/anchor-is-valid
+  <a
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    {...props}
+    css={css`
+      transition: color 100ms ease-in-out;
+      margin: 5px;
+      text-decoration: none;
+      color: ${props.color};
+      &:hover {
+        color: ${props.hoverColor};
+      }
+    `}
+  >
+    {props.children}
+  </a>
+);
 
 export const Footer: FunctionComponent = ({ children }) => {
   const theme = useTheme();

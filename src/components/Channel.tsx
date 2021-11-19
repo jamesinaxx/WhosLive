@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { FunctionComponent, RefObject, useRef, useState } from 'react';
 import FastAverageColor from 'fast-average-color';
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
@@ -13,47 +13,6 @@ interface ChannelProps {
   favorite?: boolean;
   setFavorites: (old: boolean) => void;
 }
-
-const ChannelContainer = styled.div`
-  padding: 0;
-  border: none;
-  background: none;
-  position: relative;
-`;
-
-const ChannelDiv = styled.div`
-  user-select: none;
-  padding: 10px;
-  border-radius: 15px;
-  width: 90vw;
-  height: 120px;
-  margin: 10px;
-`;
-
-const ChannelInfo = styled.div`
-  height: 100%;
-  display: block;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 100px;
-  max-width: 425px;
-  font-size: 2.3vw;
-`;
-
-const ChannelImage = styled.button`
-  transition: transform 100ms ease-in-out;
-  background: none;
-  border: none;
-  margin: 10px;
-  float: left;
-  cursor: pointer;
-  &:hover {
-    transform: scale(110%);
-  }
-  img {
-    border-radius: 15px;
-  }
-`;
 
 const getColor = async (imageRef: RefObject<HTMLImageElement>) => {
   const fac = new FastAverageColor();
@@ -89,15 +48,46 @@ const Channel: FunctionComponent<ChannelProps> = ({
   } = data;
 
   return (
-    <ChannelContainer title={title} hidden={hidden}>
-      <ChannelDiv
+    <div
+      title={title}
+      hidden={hidden}
+      css={css`
+        padding: 0;
+        border: none;
+        background: none;
+        position: relative;
+      `}
+    >
+      <div
+        css={css`
+          user-select: none;
+          padding: 10px;
+          border-radius: 15px;
+          width: 90vw;
+          height: 120px;
+          margin: 10px;
+        `}
         style={{
           backgroundColor,
           color,
           boxShadow: `0 0 10px ${backgroundColor}`,
         }}
       >
-        <ChannelImage
+        <button
+          css={css`
+            transition: transform 100ms ease-in-out;
+            background: none;
+            border: none;
+            margin: 10px;
+            float: left;
+            cursor: pointer;
+            &:hover {
+              transform: scale(110%);
+            }
+            img {
+              border-radius: 15px;
+            }
+          `}
           onClick={() => window.open(`https://twitch.tv/${user_login}`)}
           type="button"
         >
@@ -116,8 +106,18 @@ const Channel: FunctionComponent<ChannelProps> = ({
             width={100}
             height={100}
           />
-        </ChannelImage>
-        <ChannelInfo>
+        </button>
+        <div
+          css={css`
+            height: 100%;
+            display: block;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 100px;
+            max-width: 425px;
+            font-size: 2.3vw;
+          `}
+        >
           <h1>{getTitle(title)}</h1>
           <p>
             <b>{user_name}</b> is currently playing <b>{game_name}</b> for{' '}
@@ -126,10 +126,10 @@ const Channel: FunctionComponent<ChannelProps> = ({
             </b>{' '}
             viewers
           </p>
-        </ChannelInfo>
-      </ChannelDiv>
+        </div>
+      </div>
       <FavoriteButton favorite={favorite} toggleFavorite={setFavorites} />
-    </ChannelContainer>
+    </div>
   );
 };
 
