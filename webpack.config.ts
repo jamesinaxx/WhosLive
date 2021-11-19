@@ -65,6 +65,15 @@ const configuration: ConfigurationFactory = async (_env, { mode }) => {
     config.plugins?.push(new BundleAnalyzerPlugin() as any);
   }
 
+  if (mode === 'production') {
+    Object.assign(config.resolve?.alias, {
+      react: 'preact/compat',
+      'react-dom/test-utils': 'preact/test-utils',
+      'react-dom': 'preact/compat',
+      'react/jsx-runtime': 'preact/jsx-runtime',
+    });
+  }
+
   return config;
 };
 
