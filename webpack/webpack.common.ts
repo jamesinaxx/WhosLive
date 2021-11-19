@@ -1,6 +1,7 @@
 import { Compiler, Configuration, DefinePlugin } from 'webpack';
+import DotenvPlugin from 'dotenv-webpack';
 import path from 'path';
-import fs from 'fs/promises';
+import fs from 'fs';
 import EslintPlugin from 'eslint-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
@@ -20,7 +21,7 @@ const config: Configuration = {
     alias: {
       react: 'preact/compat',
       'react-dom/test-utils': 'preact/test-utils',
-      'react-dom': 'preact/compat', // Must be below test-utils
+      'react-dom': 'preact/compat',
       'react/jsx-runtime': 'preact/jsx-runtime',
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -36,18 +37,9 @@ const config: Configuration = {
       inject: true,
       chunks: ['index'],
     }),
-    async (compiler: Compiler) => {
-      const envFile = await fs.readFile(
-        path.resolve(__dirname, '..', '.env'),
-        'utf8',
-      );
-      const env = envFile.split('\n').reduce((acc, line) => {
-        const [key, value] = line.split('=');
-        return { ...acc, [key]: value };
-      }, {});
-
-      compiler.options.plugins.push(new DefinePlugin(env));
-    },
+    new DotenvPlugin({
+      path: path.resolve(__dirname, '..', '.env'),
+    }) as any,
     new WebpackManifestPlugin({
       generate: (_seed, files) => {
         const {
