@@ -10,6 +10,7 @@ import LoadingContext from './lib/LoadingContext';
 const App: FunctionComponent = () => {
   const [currentTheme, setCurrentTheme] = useState<Theme>(Themes.light);
   const [themeLoaded, setThemeLoaded] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const updateTheme = async () => {
@@ -35,8 +36,8 @@ const App: FunctionComponent = () => {
   return (
     <LoadingContext.Provider
       value={{
-        isLoading: false,
-        setLoading: () => {},
+        isLoading: loading,
+        setLoading,
       }}
     >
       <ThemeProvider theme={currentTheme}>

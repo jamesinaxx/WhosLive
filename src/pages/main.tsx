@@ -18,6 +18,8 @@ const Main: FunctionComponent = () => {
   const [showRUSure, setShowRUSure] = useState(false);
   const [connected, setConnected] = useState<boolean>(false);
 
+  console.log(isLoading);
+
   const validateToken = async () => {
     const valid = await isValidToken();
 
@@ -43,16 +45,19 @@ const Main: FunctionComponent = () => {
   if (connected === false) {
     if (isLoading === true) {
       checkConnection().then(validateToken);
-      return <Loading />;
-    }
-    if (tokenValid === false) {
+    } else if (tokenValid === false) {
       return <NoAuthPage />;
+    } else {
+      return (
+        <Layout shown={showRUSure}>
+          <Error />
+        </Layout>
+      );
     }
-    return (
-      <Layout shown={showRUSure}>
-        <Error />
-      </Layout>
-    );
+  }
+
+  if (isLoading) {
+    return <Loading />;
   }
 
   window.addEventListener('scroll', () => {
