@@ -1,5 +1,6 @@
 module.exports = {
   presets: [
+    '@emotion/babel-preset-css-prop',
     [
       '@babel/preset-react',
       {
@@ -19,5 +20,6 @@ module.exports = {
   plugins: [
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-proposal-class-properties',
+    '@emotion/babel-plugin',
   ],
 };

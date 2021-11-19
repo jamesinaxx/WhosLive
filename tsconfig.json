@@ -3,6 +3,7 @@
     "lib": ["ES2021", "DOM"],
     "module": "CommonJS",
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "esModuleInterop": true,
     "strict": true,
     "types": ["chrome"],

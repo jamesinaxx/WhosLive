@@ -17,11 +17,11 @@
     "lint:fix": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore --fix"
   },
   "dependencies": {
+    "@emotion/react": "^11.6.0",
     "fast-average-color": "7.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "4.3.1",
-    "styled-components": "5.3.3"
+    "react-icons": "4.3.1"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
@@ -30,13 +30,14 @@
     "@babel/preset-env": "7.16.4",
     "@babel/preset-react": "7.16.0",
     "@babel/preset-typescript": "7.16.0",
+    "@emotion/babel-plugin": "^11.3.0",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
     "@types/chrome": "0.0.164",
     "@types/dotenv-webpack": "7.0.3",
     "@types/node": "16.11.9",
     "@types/react": "17.0.35",
     "@types/react-dom": "17.0.11",
     "@types/sharp": "0.29.4",
-    "@types/styled-components": "5.1.15",
     "@types/webpack-bundle-analyzer": "4.4.1",
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "@typescript-eslint/parser": "5.4.0",

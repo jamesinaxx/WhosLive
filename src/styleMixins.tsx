@@ -1,10 +1,11 @@
-import styled from 'styled-components';
+import { SerializedStyles, css, useTheme } from '@emotion/react';
+import { FunctionComponent } from 'react';
 
 export const buttonColor = '#724cf9';
 export const buttonHover = '#6b4ecf';
 export const buttonClicked = '#573eb0';
 
-export const confirmButton = `
+export const confirmButton = css`
   transition: background-color 100ms ease-in-out;
   width: 150px;
   height: 50px;
@@ -23,7 +24,7 @@ export const confirmButton = `
   }
 `;
 
-export const controlButton = (left: number): string => `
+export const controlButton = (left: number): SerializedStyles => css`
   color: #fff;
   transition: all 100ms ease-in-out;
   width: 30px;
@@ -53,7 +54,7 @@ export const controlButton = (left: number): string => `
   }
 `;
 
-export const smolText = `
+export const smolText = css`
   margin: 0;
   position: absolute;
   top: 50%;
@@ -67,7 +68,7 @@ export const animationChild = (
   delay: number,
   top: number,
   left: number,
-): string => `
+): SerializedStyles => css`
   animation-delay: ${delay}s;
   &:after {
     top: ${top}px;
@@ -75,33 +76,51 @@ export const animationChild = (
   }
 `;
 
-export const SmallText = styled.small`
-  ${smolText}
-`;
+export const SmallText: FunctionComponent = ({ children }) => (
+  <small css={smolText}>{children}</small>
+);
 
-export const Anchor = styled.a<{ hoverColor: string }>`
-  transition: color 100ms ease-in-out;
-  margin: 5px;
-  text-decoration: none;
-  color: ${({ color }) => color};
-  &:hover {
-    color: ${({ hoverColor }) => hoverColor};
-  }
-`;
+export const Anchor: FunctionComponent<{ hoverColor: string; color: string }> =
+  ({ children, hoverColor, color }) => (
+    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+    <a
+      css={css`
+        transition: color 100ms ease-in-out;
+        margin: 5px;
+        text-decoration: none;
+        color: ${color};
+        &:hover {
+          color: ${hoverColor};
+        }
+      `}
+    >
+      {children}
+    </a>
+  );
 
-export const Footer = styled.footer`
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 50px;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  padding: 5px;
-  margin: 0;
-  border-top: 1px solid white;
-  background-color: ${({ theme }) => theme.colors.backgroundColor};
-  color: ${({ theme }) => theme.colors.color};
-`;
+export const Footer: FunctionComponent = ({ children }) => {
+  const theme = useTheme();
+
+  return (
+    <footer
+      css={css`
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 50px;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        padding: 5px;
+        margin: 0;
+        border-top: 1px solid white;
+        background-color: ${theme.colors.backgroundColor};
+        color: ${theme.colors.color};
+      `}
+    >
+      {children}
+    </footer>
+  );
+};

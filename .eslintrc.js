@@ -70,6 +70,7 @@ const config = {
     semi: ['error', 'always'],
     'react/jsx-curly-newline': ['off'],
     'object-curly-newline': ['off'],
+    'react/function-component-definition': 'off',
   },
 };
 
