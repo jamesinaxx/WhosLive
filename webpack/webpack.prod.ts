@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { Configuration, DefinePlugin } from 'webpack';
 
 // 1 Megabyte in bytes

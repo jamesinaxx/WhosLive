@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /// <reference types="node" />
 import type { Configuration } from 'webpack';
 import { existsSync as exists } from 'fs';

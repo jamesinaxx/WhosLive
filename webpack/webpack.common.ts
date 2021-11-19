@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { Configuration } from 'webpack';
 import DotenvPlugin from 'dotenv-webpack';
 import path from 'path';
@@ -32,7 +33,7 @@ const config: Configuration = {
     }),
     new DotenvPlugin({
       path: path.resolve(__dirname, '..', '.env'),
-    }) as any,
+    }) as never,
     new WebpackManifestPlugin({
       generate: (_seed, files) => {
         const {
