@@ -18,14 +18,9 @@ const updateChannels = async (
   setChannels: Dispatch<SetStateAction<ChannelsType>>,
 ) => setChannels(await getStorageLocal('NowLive:Channels'));
 
-const finishLoading = (setLoaded: Dispatch<SetStateAction<number>>) => {
-  setLoaded((old) => old + 1);
-};
-
 const Live: FunctionComponent = () => {
   const [favoriteChannels, setFavoriteChannels] = useState<string[]>([]);
   const [channels, setChannels] = useState<ChannelsType>(undefined);
-  const [loaded, setLoaded] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -36,14 +31,9 @@ const Live: FunctionComponent = () => {
 
   chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
 
-  const loading = channels === undefined || loaded !== channels.length;
-
-  console.log(loading);
-  console.log(loaded !== channels?.length);
-  console.log(loaded, channels?.length);
+  const loading = channels === undefined;
 
   const toggleFavorite = (wasFave: boolean, userId: string) => {
-    setLoaded((old) => old - 1);
     if (wasFave) {
       setFavoriteChannels((oldFaves) => {
         const newArray = oldFaves.filter((fav) => fav !== userId);
@@ -76,7 +66,6 @@ const Live: FunctionComponent = () => {
                 key={channel.id}
                 data={channel}
                 hidden={loading}
-                doneLoading={() => finishLoading(setLoaded)}
                 favorite
                 setFavorites={(old) => toggleFavorite(old, channel.user_id)}
               />
@@ -89,7 +78,6 @@ const Live: FunctionComponent = () => {
                 key={channel.id}
                 data={channel}
                 hidden={loading}
-                doneLoading={() => finishLoading(setLoaded)}
                 setFavorites={(old) => toggleFavorite(old, channel.user_id)}
               />
             ))}

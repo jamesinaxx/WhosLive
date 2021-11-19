@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { FunctionComponent, RefObject, useRef, useState } from 'react';
+import { FunctionComponent, useMemo, useRef } from 'react';
 import FastAverageColor from 'fast-average-color';
 import { motion } from 'framer-motion';
 import { css } from '@emotion/react';
@@ -7,37 +7,26 @@ import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
 
+const parseRgba = (rgb: string) =>
+  `rgba(${rgb.substring(4).replace(')', '')},0.7)`;
+
 interface ChannelProps {
   data: TwitchStream;
-  doneLoading: () => void;
   hidden: boolean;
   favorite?: boolean;
   setFavorites: (old: boolean) => void;
 }
 
-const getColor = async (imageRef: RefObject<HTMLImageElement>) => {
-  const fac = new FastAverageColor();
-
-  const ac = await fac.getColorAsync(imageRef.current);
-
-  const bgColor = `rgba(${ac.rgb.substring(4).replace(')', '')},0.7)`;
-  const text = ac.isLight ? '#000' : '#FFF';
-
-  fac.destroy();
-  return { text, bgColor };
-};
-
 const Channel: FunctionComponent<ChannelProps> = ({
   data,
   hidden,
-  doneLoading,
   favorite = false,
   setFavorites,
 }) => {
-  const [backgroundColor, setBackgroundColor] = useState('#FFF');
-  const [color, setColor] = useState('#000');
-
+  const fac = useMemo(() => new FastAverageColor(), []);
   const imageRef = useRef<HTMLImageElement>(null);
+
+  const colors = useMemo(() => fac.getColor(imageRef.current), [imageRef]);
 
   const {
     title,
@@ -69,9 +58,9 @@ const Channel: FunctionComponent<ChannelProps> = ({
           margin: 10px;
         `}
         style={{
-          backgroundColor,
-          color,
-          boxShadow: `0 0 10px ${backgroundColor}`,
+          backgroundColor: parseRgba(colors.rgb),
+          color: colors.isLight ? '#000' : '#FFF',
+          boxShadow: `0 0 10px ${parseRgba(colors.rgb)}`,
         }}
       >
         <motion.button
@@ -93,13 +82,6 @@ const Channel: FunctionComponent<ChannelProps> = ({
         >
           <img
             ref={imageRef}
-            onLoad={() =>
-              getColor(imageRef).then(({ text, bgColor }) => {
-                setColor(text);
-                setBackgroundColor(bgColor);
-                doneLoading();
-              })
-            }
             src={profile_image_url}
             crossOrigin="anonymous"
             alt={`${user_name} stream thumbnail`}
