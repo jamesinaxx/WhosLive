@@ -5395,7 +5395,7 @@ __metadata:
     sharp: 0.29.3
     ts-node: 10.4.0
     typescript: 4.5.2
-    webpack: 5.64.1
+    webpack: 5.65.0
     webpack-bundle-analyzer: 4.5.0
     webpack-cli: 4.9.1
     webpack-manifest-plugin: 4.0.2
@@ -6945,6 +6945,16 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"watchpack@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "watchpack@npm:2.3.1"
+  dependencies:
+    glob-to-regexp: ^0.4.1
+    graceful-fs: ^4.1.2
+  checksum: 70a34f92842d94b5d842980f866d568d7a467de667c96ae5759c759f46587e49265863171f4650bdbafc5f3870a28f2b4453e9e847098ec4b718b38926d47d22
+  languageName: node
+  linkType: hard
+
 "webpack-bundle-analyzer@npm:4.5.0":
   version: 4.5.0
   resolution: "webpack-bundle-analyzer@npm:4.5.0"
@@ -7043,9 +7053,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.64.1":
-  version: 5.64.1
-  resolution: "webpack@npm:5.64.1"
+"webpack@npm:5.65.0":
+  version: 5.65.0
+  resolution: "webpack@npm:5.65.0"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.50
@@ -7069,14 +7079,14 @@ resolve@^2.0.0-next.3:
     schema-utils: ^3.1.0
     tapable: ^2.1.1
     terser-webpack-plugin: ^5.1.3
-    watchpack: ^2.2.0
+    watchpack: ^2.3.1
     webpack-sources: ^3.2.2
   peerDependenciesMeta:
     webpack-cli:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: d2a1baddaed03f2ce70c13501b89935d4bb4af30b4accb0d2dfbd00ec6f491eaf46272346cedcf013b477e131c8cc202ee0b2d2c51ece1cfb713fd2d98b80a52
+  checksum: 221ab8ccd440cb678269e86689704bbef81cf41393eb266625873e30c6980ffaa055bb1a7d14bf9fc0f5a2e6f03d15d068cbb995bc876757c01a4ca27fd2870c
   languageName: node
   linkType: hard
 
