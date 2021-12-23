@@ -2048,14 +2048,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.35":
-  version: 17.0.35
-  resolution: "@types/react@npm:17.0.35"
+"@types/react@npm:17.0.38":
+  version: 17.0.38
+  resolution: "@types/react@npm:17.0.38"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 33e2bf8068ccc5330f089f5d4bee54649c2d5b512edee4a9e44c113271a69ea8c71ddbd3103b205eb971fd4c358e9f69d707df08bec90b3c33492db374614eb7
+  checksum: 4079f4f959cd4a4bfaeda8b89fe8a1b1f8bdc9d87acfdc5f74a0b39cec9ec6a470724357c62778c0f063180b360c250e920c5a142f1dbcda67d9cc25a6d43a85
   languageName: node
   linkType: hard
 
@@ -5370,7 +5370,7 @@ __metadata:
     "@types/chrome": 0.0.164
     "@types/dotenv-webpack": 7.0.3
     "@types/node": 16.11.9
-    "@types/react": 17.0.35
+    "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
     "@types/sharp": 0.29.4
     "@types/webpack-bundle-analyzer": 4.4.1
