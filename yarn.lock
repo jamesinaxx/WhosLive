@@ -2000,10 +2000,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.11.9":
-  version: 16.11.9
-  resolution: "@types/node@npm:16.11.9"
-  checksum: baec2e6471ee58fd1e9874e6f47ab95a918a0f46b42424392e4c13e3e07f078f8b72b6b48073b0b14f710ed66c5f1b2e497df43f28151000f11f5f299382cfe2
+"@types/node@npm:16.11.17":
+  version: 16.11.17
+  resolution: "@types/node@npm:16.11.17"
+  checksum: 86ed84f79450f6aba1a6ef09f8407c10076966c3cc7cc4eb3d35b8ae4f47817e525641396ef0a667fa0a88fcdf484f6182812c074601403083bdf3b5e1ac0313
   languageName: node
   linkType: hard
 
@@ -5369,7 +5369,7 @@ __metadata:
     "@emotion/react": 11.6.0
     "@types/chrome": 0.0.164
     "@types/dotenv-webpack": 7.0.3
-    "@types/node": 16.11.9
+    "@types/node": 16.11.17
     "@types/react": 17.0.35
     "@types/react-dom": 17.0.11
     "@types/sharp": 0.29.4
