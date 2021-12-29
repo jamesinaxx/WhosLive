@@ -1891,13 +1891,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:0.0.164":
-  version: 0.0.164
-  resolution: "@types/chrome@npm:0.0.164"
+"@types/chrome@npm:0.0.174":
+  version: 0.0.174
+  resolution: "@types/chrome@npm:0.0.174"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: dac80221ac60545a3c9c615cc02a7329e9c661a5b8f0fa6d0c384d2d49f7a0a5d8ea37009aa66d4b65fe97f591436e3a8111619a03bbead868bf6f6cd73dddee
+  checksum: e3d803a6d3fc1a4ea3a43a2a7f57f2baa18194d8d5b12963b631c45fc03f954128e876752a8fe0b290428dc9a8fd1312d8a3bab235b4c13957a0cdae362e3e87
   languageName: node
   linkType: hard
 
@@ -5367,7 +5367,7 @@ __metadata:
     "@emotion/babel-plugin": 11.3.0
     "@emotion/babel-preset-css-prop": 11.2.0
     "@emotion/react": 11.6.0
-    "@types/chrome": 0.0.164
+    "@types/chrome": 0.0.174
     "@types/dotenv-webpack": 7.0.3
     "@types/node": 16.11.9
     "@types/react": 17.0.35
