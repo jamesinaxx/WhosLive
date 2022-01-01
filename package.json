@@ -60,5 +60,5 @@
     "webpack-manifest-plugin": "4.0.2",
     "webpack-merge": "5.8.0"
   },
-  "packageManager": "yarn@3.1.0"
+  "packageManager": "yarn@3.1.1"
 }
