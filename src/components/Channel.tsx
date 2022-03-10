@@ -2,10 +2,10 @@
 import { FunctionComponent, useMemo, useRef } from 'react';
 import FastAverageColor from 'fast-average-color';
 import { motion } from 'framer-motion';
+import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
-import styled from 'styled-components';
 
 const parseRgba = (rgb: string) =>
   `rgba(${rgb.substring(4).replace(')', '')},0.7)`;

@@ -7,7 +7,8 @@ interface LoadingContextProps {
 
 const LoadingContext = createContext<LoadingContextProps>({
   isLoading: true,
-  setLoading: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setLoading() {},
 });
 
 export default LoadingContext;

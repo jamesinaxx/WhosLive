@@ -1,7 +1,6 @@
 import type { FunctionComponent } from 'react';
-import { css } from '@emotion/react';
-import { smolText } from '../styleMixins';
 import styled from 'styled-components';
+import { smolText } from '../styleMixins';
 
 const NoAuthText = styled.small`
   text-align: center;

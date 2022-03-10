@@ -18,8 +18,6 @@ const Main: FunctionComponent = () => {
   const [showRUSure, setShowRUSure] = useState(false);
   const [connected, setConnected] = useState<boolean>(false);
 
-  console.log(isLoading);
-
   const validateToken = async () => {
     const valid = await isValidToken();
 

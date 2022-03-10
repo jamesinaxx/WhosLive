@@ -5,10 +5,10 @@ const config = {
   env: {
     webextensions: true,
     browser: true,
-    es2021: true,
-    node: true,
+    es2015: true,
   },
   extends: [
+    'plugin:compat/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'eslint:recommended',
@@ -50,9 +50,6 @@ const config = {
     'react/jsx-filename-extension': [2, { extensions: ['.tsx'] }],
     'comma-dangle': ['error', 'always-multiline'],
     'import/extensions': ['off'],
-    // 'react/destructuring-assignment': ['off'],
-    // 'jsx-a11y/no-noninteractive-element-interactions': ['off'],
-    // 'jsx-a11y/click-events-have-key-events': ['off'],
     'no-redeclare': ['off'],
     '@typescript-eslint/no-redeclare': ['error'],
     'no-use-before-define': ['off'],
