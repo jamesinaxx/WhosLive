@@ -1,5 +1,5 @@
 import type { FunctionComponent, ReactNode } from 'react';
-import { useTheme } from '@emotion/react';
+import { useTheme } from 'styled-components';
 import { Anchor } from '../styleMixins';
 
 interface LinkProps {

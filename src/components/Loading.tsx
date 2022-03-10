@@ -1,12 +1,26 @@
 import type { FunctionComponent } from 'react';
 import { motion } from 'framer-motion';
-import { css } from '@emotion/react';
+import styled from 'styled-components';
+
+const MotionDiv = styled(motion.div)`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`;
+
+const MotionSpan = styled(motion.span)`
+  display: block;
+  width: 5rem;
+  height: 5rem;
+`;
 
 const Loading: FunctionComponent<{ hidden?: boolean }> = ({ hidden }) => {
   if (hidden) return null;
 
   return (
-    <motion.div
+    <MotionDiv
       initial="start"
       animate="end"
       variants={{
@@ -21,20 +35,8 @@ const Loading: FunctionComponent<{ hidden?: boolean }> = ({ hidden }) => {
           },
         },
       }}
-      css={css`
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-      `}
     >
-      <motion.span
-        css={css`
-          display: block;
-          width: 5rem;
-          height: 5rem;
-        `}
+      <MotionSpan
         animate={{
           y: ['100%', '-100%'],
           background: ['#ff6699', '#6666ff'],
@@ -60,7 +62,7 @@ const Loading: FunctionComponent<{ hidden?: boolean }> = ({ hidden }) => {
           },
         }}
       />
-    </motion.div>
+    </MotionDiv>
   );
 };
 

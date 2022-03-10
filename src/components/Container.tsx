@@ -1,15 +1,13 @@
 import type { FunctionComponent } from 'react';
-import { css } from '@emotion/react';
+import styled from 'styled-components';
+
+const ContainerContainer = styled.div`
+  margin-bottom: 110px;
+  text-align: center;
+`;
 
 const Container: FunctionComponent = ({ children }) => (
-  <div
-    css={css`
-      margin-bottom: 110px;
-      text-align: center;
-    `}
-  >
-    {children}
-  </div>
+  <ContainerContainer>{children}</ContainerContainer>
 );
 
 export default Container;

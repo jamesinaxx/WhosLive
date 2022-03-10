@@ -2,10 +2,10 @@
 import { FunctionComponent, useMemo, useRef } from 'react';
 import FastAverageColor from 'fast-average-color';
 import { motion } from 'framer-motion';
-import { css } from '@emotion/react';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
+import styled from 'styled-components';
 
 const parseRgba = (rgb: string) =>
   `rgba(${rgb.substring(4).replace(')', '')},0.7)`;
@@ -16,6 +16,44 @@ interface ChannelProps {
   favorite?: boolean;
   setFavorites: (old: boolean) => void;
 }
+
+const ChannelContainer = styled.div`
+  padding: 0;
+  border: none;
+  background: none;
+  position: relative;
+`;
+
+const ChannelSubcontainer = styled.div`
+  user-select: none;
+  padding: 10px;
+  border-radius: 15px;
+  width: 90vw;
+  height: 120px;
+  margin: 10px;
+`;
+
+const Button = styled(motion.button)`
+  transition: transform 100ms ease-in-out;
+  background: none;
+  border: none;
+  margin: 10px;
+  float: left;
+  cursor: pointer;
+  img {
+    border-radius: 15px;
+  }
+`;
+
+const InfoContainer = styled.div`
+  height: 100%;
+  display: block;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 100px;
+  max-width: 425px;
+  font-size: 2.3vw;
+`;
 
 const Channel: FunctionComponent<ChannelProps> = ({
   data,
@@ -41,45 +79,17 @@ const Channel: FunctionComponent<ChannelProps> = ({
   } = data;
 
   return (
-    <div
-      title={title}
-      hidden={hidden}
-      css={css`
-        padding: 0;
-        border: none;
-        background: none;
-        position: relative;
-      `}
-    >
-      <div
-        css={css`
-          user-select: none;
-          padding: 10px;
-          border-radius: 15px;
-          width: 90vw;
-          height: 120px;
-          margin: 10px;
-        `}
+    <ChannelContainer title={title} hidden={hidden}>
+      <ChannelSubcontainer
         style={{
           backgroundColor: colors ? parseRgba(colors.rgb) : '#000',
           color: colors?.isLight ? '#000' : '#FFF',
           boxShadow: `0 0 10px ${colors ? parseRgba(colors.rgb) : '#000'}`,
         }}
       >
-        <motion.button
+        <Button
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.8 }}
-          css={css`
-            transition: transform 100ms ease-in-out;
-            background: none;
-            border: none;
-            margin: 10px;
-            float: left;
-            cursor: pointer;
-            img {
-              border-radius: 15px;
-            }
-          `}
           onClick={() => window.open(`https://twitch.tv/${user_login}`)}
           type="button"
         >
@@ -91,18 +101,8 @@ const Channel: FunctionComponent<ChannelProps> = ({
             width={100}
             height={100}
           />
-        </motion.button>
-        <div
-          css={css`
-            height: 100%;
-            display: block;
-            align-items: center;
-            justify-content: space-between;
-            margin-left: 100px;
-            max-width: 425px;
-            font-size: 2.3vw;
-          `}
-        >
+        </Button>
+        <InfoContainer>
           <h1>{getTitle(title)}</h1>
           <p>
             <b>{user_name}</b> is currently playing <b>{game_name}</b> for{' '}
@@ -111,10 +111,10 @@ const Channel: FunctionComponent<ChannelProps> = ({
             </b>{' '}
             viewers
           </p>
-        </div>
-      </div>
+        </InfoContainer>
+      </ChannelSubcontainer>
       <FavoriteButton favorite={favorite} toggleFavorite={setFavorites} />
-    </div>
+    </ChannelContainer>
   );
 };
 

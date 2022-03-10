@@ -1,19 +1,22 @@
 import type { FunctionComponent } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
-import { css } from '@emotion/react';
 import { controlButton } from '../../styleMixins';
+import styled from 'styled-components';
 
 interface LogoutButtonProps {
   onClick: () => void;
   shown: boolean;
 }
 
+const Button = styled.button`
+  ${controlButton(40)}
+`;
+
 const LogoutButton: FunctionComponent<LogoutButtonProps> = ({
   onClick,
   shown,
 }) => (
-  <button
-    css={css(controlButton(40))}
+  <Button
     type="button"
     onClick={onClick}
     style={{
@@ -22,7 +25,7 @@ const LogoutButton: FunctionComponent<LogoutButtonProps> = ({
     }}
   >
     <FaSignOutAlt />
-  </button>
+  </Button>
 );
 
 export default LogoutButton;
