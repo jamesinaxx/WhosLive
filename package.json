@@ -26,11 +26,6 @@
     "tslib": "2.3.1"
   },
   "devDependencies": {
-    "@babel/core": "7.17.5",
-    "@babel/preset-env": "7.16.11",
-    "@babel/preset-react": "7.16.7",
-    "@babel/preset-typescript": "7.16.7",
-    "@emotion/babel-plugin": "11.7.2",
     "@swc/core": "1.2.151",
     "@swc/helpers": "0.3.6",
     "@types/chrome": "0.0.179",
@@ -42,7 +37,6 @@
     "@types/webpack-bundle-analyzer": "4.4.1",
     "@typescript-eslint/eslint-plugin": "5.14.0",
     "@typescript-eslint/parser": "5.14.0",
-    "babel-loader": "8.2.3",
     "dotenv-webpack": "7.1.0",
     "eslint": "8.10.0",
     "eslint-config-airbnb": "19.0.4",
