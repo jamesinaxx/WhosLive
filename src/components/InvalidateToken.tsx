@@ -1,4 +1,4 @@
-import type { FunctionComponent, ReactNode } from 'react';
+import type { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { buttonClicked, buttonColor, buttonHover } from '../styleMixins';
 
@@ -7,7 +7,6 @@ interface InvalidateTokenProps {
 }
 
 interface ChoiceButtonProps {
-  children: ReactNode;
   onChoice: (confirm: boolean) => void;
   confirm: boolean;
 }
@@ -30,9 +29,9 @@ const ChoiceButtonButton = styled.button<{ confirm: boolean }>`
     background-color: ${buttonClicked};
   }
   border-radius: ${(props) =>
-    (props.confirm
+    props.confirm
       ? '100%, 0px, 0px, 100%'
-      : 'border-radius: 0px, 100%, 100%, 0px;')};
+      : 'border-radius: 0px, 100%, 100%, 0px;'};
 `;
 
 const ChoiceButton: FunctionComponent<ChoiceButtonProps> = ({

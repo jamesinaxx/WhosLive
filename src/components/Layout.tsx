@@ -1,8 +1,7 @@
-import type { FunctionComponent, ReactNode } from 'react';
+import type { FunctionComponent } from 'react';
 import ColorModeToggle from './buttons/ColorModeToggle';
 
 interface LayoutProps {
-  children: ReactNode;
   shown: boolean;
 }
 

@@ -1,9 +1,8 @@
-import type { FunctionComponent, ReactNode } from 'react';
+import type { FunctionComponent } from 'react';
 import { useTheme } from 'styled-components';
 import { Anchor } from '../styleMixins';
 
 interface LinkProps {
-  children: ReactNode;
   href: string;
 }
 
