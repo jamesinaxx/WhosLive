@@ -45,6 +45,10 @@ const generateIcons = async () => {
 };
 
 const configuration: ConfigurationFactory = async (_env, { mode }) => {
+  if (mode === 'production') {
+    await fs.rm(distDir, { recursive: true, force: true });
+  }
+
   if (!exists(distDir)) {
     await fs.mkdir(distDir);
   }
