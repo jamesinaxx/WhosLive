@@ -1,8 +1,19 @@
-import type { Theme } from '@emotion/react';
+import { DefaultTheme } from 'styled-components';
+
+declare module 'styled-components' {
+  export interface DefaultTheme {
+    type: 'light' | 'dark';
+    colors: {
+      backgroundColor: string;
+      color: string;
+      scrollbarColor: string;
+    };
+  }
+}
 
 interface ThemesType {
-  light: Theme;
-  dark: Theme;
+  light: DefaultTheme;
+  dark: DefaultTheme;
 }
 
 const Themes: ThemesType = {

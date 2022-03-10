@@ -1,5 +1,5 @@
 const authEl = document.getElementById('NowLiveAuthText');
-const hash = window.location.hash.substr(1);
+const hash = window.location.hash.substring(1);
 const hashResult = hash.split('&').reduce(
   (previous: { [key: string]: unknown }, item) => ({
     ...previous,

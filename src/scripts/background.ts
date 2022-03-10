@@ -43,11 +43,10 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
   return true;
 });
 
-(async () => {
-  await getChannelInfo();
+getChannelInfo().then(() => {
   chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === 'NowLive:Refresh') {
       await getChannelInfo();
     }
   });
-})();
+});

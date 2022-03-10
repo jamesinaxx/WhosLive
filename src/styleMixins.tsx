@@ -1,11 +1,11 @@
-import { SerializedStyles, css, useTheme } from '@emotion/react';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import styled from 'styled-components';
 
 export const buttonColor = '#724cf9';
 export const buttonHover = '#6b4ecf';
 export const buttonClicked = '#573eb0';
 
-export const confirmButton = css`
+export const confirmButton = /* css */ `
   transition: background-color 100ms ease-in-out;
   width: 150px;
   height: 50px;
@@ -24,7 +24,7 @@ export const confirmButton = css`
   }
 `;
 
-export const controlButton = (left: number): SerializedStyles => css`
+export const controlButton = (left: number): string => /* css */ `
   color: #fff;
   transition: all 100ms ease-in-out;
   width: 30px;
@@ -54,7 +54,7 @@ export const controlButton = (left: number): SerializedStyles => css`
   }
 `;
 
-export const smolText = css`
+export const smolText = /* css */ `
   margin: 0;
   position: absolute;
   top: 50%;
@@ -68,7 +68,7 @@ export const animationChild = (
   delay: number,
   top: number,
   left: number,
-): SerializedStyles => css`
+): string => /* css */ `
   animation-delay: ${delay}s;
   &:after {
     top: ${top}px;
@@ -76,8 +76,12 @@ export const animationChild = (
   }
 `;
 
+const SmolText = styled.small`
+  ${smolText}
+`;
+
 export const SmallText: FunctionComponent = ({ children }) => (
-  <small css={smolText}>{children}</small>
+  <SmolText>{children}</SmolText>
 );
 
 interface AnchorType {
@@ -88,48 +92,37 @@ interface AnchorType {
   rel?: string;
 }
 
+const AnchorStyled = styled.a<{ hoverColor: string }>`
+  transition: color 100ms ease-in-out;
+  margin: 5px;
+  text-decoration: none;
+  color: ${(props) => props.color};
+  &:hover {
+    color: ${(props) => props.hoverColor};
+  }
+`;
+
 export const Anchor: FunctionComponent<AnchorType> = (props) => (
-  // eslint-disable-next-line jsx-a11y/anchor-is-valid
-  <a
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    {...props}
-    css={css`
-      transition: color 100ms ease-in-out;
-      margin: 5px;
-      text-decoration: none;
-      color: ${props.color};
-      &:hover {
-        color: ${props.hoverColor};
-      }
-    `}
-  >
-    {props.children}
-  </a>
+  <AnchorStyled {...props}>{props.children}</AnchorStyled>
 );
 
-export const Footer: FunctionComponent = ({ children }) => {
-  const theme = useTheme();
+const FooterStyled = styled.footer`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  padding: 5px;
+  margin: 0;
+  border-top: 1px solid white;
+  background-color: ${(props) => props.theme.colors.backgroundColor};
+  color: ${(props) => props.theme.colors.color};
+`;
 
-  return (
-    <footer
-      css={css`
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100vw;
-        height: 50px;
-        bottom: 0;
-        left: 0;
-        z-index: 1;
-        padding: 5px;
-        margin: 0;
-        border-top: 1px solid white;
-        background-color: ${theme.colors.backgroundColor};
-        color: ${theme.colors.color};
-      `}
-    >
-      {children}
-    </footer>
-  );
-};
+export const Footer: FunctionComponent = ({ children }) => (
+  <FooterStyled>{children}</FooterStyled>
+);

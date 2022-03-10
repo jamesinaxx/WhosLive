@@ -1,14 +1,15 @@
 import type { FunctionComponent } from 'react';
 import { FaGithub } from 'react-icons/fa';
+import styled from 'styled-components';
 import { css } from '@emotion/react';
 
+const ErrorContainer = styled.div`
+  text-align: center;
+  padding: 50px;
+`;
+
 const Error: FunctionComponent = () => (
-  <div
-    css={css`
-      text-align: center;
-      padding: 50px;
-    `}
-  >
+  <ErrorContainer>
     <h1
       css={css`
         font-size: 7vw;
@@ -52,7 +53,7 @@ const Error: FunctionComponent = () => (
         />
       </a>
     </p>
-  </div>
+  </ErrorContainer>
 );
 
 export default Error;
