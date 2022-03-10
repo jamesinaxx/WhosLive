@@ -2,8 +2,8 @@ import path from 'path';
 
 export default [
   {
-    test: /\.[jt](s|sx)$/,
+    test: /\.m?[jt]sx?$/,
     include: path.resolve(__dirname, '..', 'src'),
-    use: ['babel-loader'],
+    use: ['swc-loader'],
   },
 ];

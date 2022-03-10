@@ -22,7 +22,8 @@
     "framer-motion": "5.6.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "4.3.1"
+    "react-icons": "4.3.1",
+    "tslib": "2.3.1"
   },
   "devDependencies": {
     "@babel/core": "7.17.5",
@@ -31,6 +32,7 @@
     "@babel/preset-typescript": "7.16.7",
     "@emotion/babel-plugin": "11.7.2",
     "@swc/core": "1.2.151",
+    "@swc/helpers": "0.3.6",
     "@types/chrome": "0.0.179",
     "@types/dotenv-webpack": "7.0.3",
     "@types/node": "17.0.21",
