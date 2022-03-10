@@ -2,7 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "jpoissonnier.vscode-styled-components",
-    "arcanis.vscode-zipfs"
+    "styled-components.vscode-styled-components"
   ]
 }
