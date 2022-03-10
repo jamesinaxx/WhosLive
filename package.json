@@ -13,6 +13,7 @@
     "dev": "webpack --mode development",
     "fmt": "prettier --write ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "fmt:check": "prettier --check ./src/*/**.{ts,tsx} --ignore-path .gitignore",
+    "icons": "node scripts/icons.js",
     "lint": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "lint:fix": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore --fix"
   },

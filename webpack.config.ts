@@ -4,7 +4,6 @@ import type { Configuration } from 'webpack';
 import { existsSync as exists } from 'fs';
 import { merge } from 'webpack-merge';
 import fs from 'fs/promises';
-import sharp from 'sharp';
 import path from 'path';
 import commonConfig from './webpack/webpack.common';
 import prodConfig from './webpack/webpack.prod';
@@ -27,23 +26,6 @@ type ConfigurationFactory = (
   args: CliConfigOptions,
 ) => Configuration | Promise<Configuration>;
 
-const generateIcons = async () => {
-  const sizes = [16, 32, 48, 64, 96, 128, 256];
-  const icon = await fs.readFile(
-    path.resolve(__dirname, 'src', 'assets', 'icon.svg'),
-  );
-
-  await Promise.all(
-    sizes.map((size) =>
-      sharp(icon, { density: 300 })
-        .resize(size, size)
-        .toFile(
-          path.resolve(__dirname, 'src', 'assets', 'icons', `${size}.png`),
-        ),
-    ),
-  );
-};
-
 const configuration: ConfigurationFactory = async (_env, { mode }) => {
   if (mode === 'production') {
     await fs.rm(distDir, { recursive: true, force: true });
@@ -53,7 +35,6 @@ const configuration: ConfigurationFactory = async (_env, { mode }) => {
     await fs.mkdir(distDir);
   }
 
-  await generateIcons();
   await fs.cp(
     path.resolve(__dirname, 'src', 'assets', 'icons'),
     path.resolve(distDir, 'icons'),
