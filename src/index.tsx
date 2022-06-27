@@ -17,6 +17,10 @@ import Main from './pages/main';
 import Themes from './theme';
 
 const Global = createGlobalStyle`
+  body, html {
+    font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  }
+
   body::-webkit-scrollbar {
     width: 0.5em;
   }
