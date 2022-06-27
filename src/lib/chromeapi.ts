@@ -13,8 +13,15 @@ export function getStorage(
 export function getStorage(key: 'NowLive:Token'): Promise<string | undefined>;
 export function getStorage(key: Synced): Promise<unknown>;
 export function getStorage<T>(key: Synced): Promise<T | undefined> {
-  return new Promise((resolve) => {
-    chrome.storage.sync.get(key, (res) => resolve(res[key]));
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.sync.get(key, (res) => {
+        console.log('got storage', res[key]);
+        resolve(res[key]);
+      });
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -64,10 +71,10 @@ const blobToBase64 = (blob: Blob): Promise<string> => {
 export async function getChannelInfo(): Promise<void> {
   const token = await getStorage('NowLive:Token');
   if (!token) {
-    await chrome.action.setTitle({
+    await chrome.browserAction.setTitle({
       title: 'Please verify Now Live',
     });
-    await chrome.action.setBadgeText({ text: '' });
+    await chrome.browserAction.setBadgeText({ text: '' });
     return;
   }
   try {
@@ -140,20 +147,18 @@ export async function getChannelInfo(): Promise<void> {
 
     const streamingNow = Number(data.length.toString());
 
-    const { setTitle, setBadgeText } = chrome.action;
-
     if (streamingNow !== 0) {
-      await setTitle({
+      await chrome.browserAction.setTitle({
         title: `There are ${streamingNow} people streaming right now`,
       });
-      await setBadgeText({
+      await chrome.browserAction.setBadgeText({
         text: streamingNow.toString(),
       });
     } else {
-      await setTitle({
+      await chrome.browserAction.setTitle({
         title: 'There is nobody streaming right now',
       });
-      await setBadgeText({ text: '' });
+      await chrome.browserAction.setBadgeText({ text: '' });
     }
 
     await setStorageLocal('NowLive:Channels', withImages);

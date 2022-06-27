@@ -5,9 +5,11 @@ import { error } from './logger';
 export default async function validateToken(
   checkToken?: string | undefined,
 ): Promise<boolean> {
+  console.trace('getting token');
   const token = checkToken || (await getStorage('NowLive:Token'));
 
   if (token === undefined) {
+    console.trace('undefined token');
     error('No token found');
     return false;
   }

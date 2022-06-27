@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const dev = !process.env.PRODUCTION;
+const dev = process.env.PRODUCTION !== 'true';
 
 export function log(...data: unknown[]): void {
   if (dev) {

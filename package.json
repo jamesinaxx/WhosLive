@@ -10,7 +10,7 @@
   "scripts": {
     "build": "parcel build manifest.json --config @parcel/config-webextension",
     "build:analyze": "yarn build --analyze",
-    "dev": "webpack --mode development",
+    "dev": "parcel watch manifest.json --config @parcel/config-webextension",
     "fmt": "prettier --write ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "fmt:check": "prettier --check ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "icons": "node scripts/icons.js",

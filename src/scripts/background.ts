@@ -43,7 +43,9 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
   return true;
 });
 
+console.log('getting channel info');
 getChannelInfo().then(() => {
+  console.log('got channel info');
   chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === 'NowLive:Refresh') {
       await getChannelInfo();

@@ -18,7 +18,10 @@ const Main: FunctionComponent = () => {
   const [showRUSure, setShowRUSure] = useState(false);
   const [connected, setConnected] = useState<boolean>(false);
 
+  console.log('bro wtf');
+
   const validateToken = async () => {
+    console.log('validating');
     const valid = await isValidToken();
 
     setTokenValid(valid);
@@ -55,6 +58,8 @@ const Main: FunctionComponent = () => {
   }
 
   if (isLoading) {
+    console.trace('not connected');
+
     return <Loading />;
   }
 
