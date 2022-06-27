@@ -22,7 +22,7 @@
   "permissions": ["storage", "alarms", "*://*.twitch.tv/*"],
   "content_scripts": [
     {
-      "matches": ["*://nowlive.jewelexx.com//auth/callback"],
+      "matches": ["*://nowlive.jewelexx.com/auth/callback"],
       "js": ["src/scripts/authcheck.ts"]
     }
   ]

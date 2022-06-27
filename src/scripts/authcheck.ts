@@ -8,12 +8,6 @@ const hashResult = hash.split('&').reduce(
   {},
 );
 
-window.history.pushState(
-  '',
-  document.title,
-  window.location.pathname + window.location.search,
-);
-
 chrome.runtime.sendMessage(
   {
     name: 'NowLive:Token',
