@@ -5,7 +5,7 @@ const config = {
   env: {
     webextensions: true,
     browser: true,
-    es2015: true,
+    es2021: true,
   },
   extends: [
     'plugin:compat/recommended',
