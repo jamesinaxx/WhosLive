@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "lib": ["ES2016", "DOM"],
+    "lib": ["ES2021", "DOM"],
     "module": "CommonJS",
     "jsx": "react-jsx",
     "downlevelIteration": true,
     "esModuleInterop": true,
     "strict": true,
-    "types": ["chrome"],
+    "types": ["chrome", "firefox-webext-browser"],
     "typeRoots": ["./src/types"],
     "skipLibCheck": true,
     "resolveJsonModule": true,
