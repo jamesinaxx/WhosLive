@@ -8,14 +8,15 @@
   "license": "MIT",
   "author": "jewlexx",
   "scripts": {
-    "build": "parcel build manifest.json --config @parcel/config-webextension",
+    "build": "cross-env PRODUCTION=true parcel build manifest.json --config @parcel/config-webextension",
     "build:analyze": "yarn build --analyze",
     "dev": "parcel watch manifest.json --config @parcel/config-webextension",
     "fmt": "prettier --write ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "fmt:check": "prettier --check ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "icons": "node scripts/icons.js",
     "lint": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore",
-    "lint:fix": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore --fix"
+    "lint:fix": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore --fix",
+    "start:firefox": "web-ext run --source-dir ./dist/"
   },
   "dependencies": {
     "fast-average-color": "9.1.1",
@@ -42,6 +43,7 @@
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
     "browserslist": "4.21.0",
+    "cross-env": "7.0.3",
     "dotenv-webpack": "7.1.1",
     "eslint": "8.18.0",
     "eslint-config-airbnb": "19.0.4",
