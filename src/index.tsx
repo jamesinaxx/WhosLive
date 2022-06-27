@@ -63,7 +63,7 @@ const App: FunctionComponent<PropsWithChildren<unknown>> = () => {
       isLoading: loading,
       setLoading,
     }),
-    [],
+    [loading, setLoading],
   );
 
   if (!themeLoaded) {
