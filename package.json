@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Instantly check which of your favorite Twitch streamers are live right from your favorite browser",
-  "repository": "https://github.com/jamesinaxx/NowLive",
+  "repository": "https://github.com/jewlexx/NowLive",
   "license": "MIT",
   "author": "jewlexx",
   "scripts": {
