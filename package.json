@@ -8,7 +8,7 @@
   "license": "MIT",
   "author": "jewlexx",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "parcel build manifest.json --config @parcel/config-webextension",
     "build:analyze": "yarn build --analyze",
     "dev": "webpack --mode development",
     "fmt": "prettier --write ./src/*/**.{ts,tsx} --ignore-path .gitignore",
