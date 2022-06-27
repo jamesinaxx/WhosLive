@@ -69,7 +69,7 @@ const config: Configuration = {
           host_permissions: ['*://*.twitch.tv/*'],
           content_scripts: [
             {
-              matches: ['*://nowlive.jamesinaxx.me/auth/callback'],
+              matches: ['*://nowlive.jewelexx.com/auth/callback'],
               js: ['CONTENT_SCRIPT'],
             },
           ],

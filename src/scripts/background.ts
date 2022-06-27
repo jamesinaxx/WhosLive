@@ -21,7 +21,7 @@ chrome.storage.onChanged.addListener((changes) => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, res) => {
-  if (!sender.url?.startsWith('https://nowlive.jamesinaxx.me/auth/callback')) {
+  if (!sender.url?.startsWith('https://nowlive.jewelexx.com/auth/callback')) {
     return false;
   }
 

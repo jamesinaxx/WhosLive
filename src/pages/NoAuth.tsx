@@ -25,7 +25,7 @@ const NoAuth: FunctionComponent = () => (
   <NoAuthText>
     You are not logged in to Twitch! Please go to{' '}
     <a
-      href="https://nowlive.jamesinaxx.me/auth/"
+      href="https://nowlive.jewelexx.com/auth/"
       target="_blank"
       rel="noreferrer"
     >

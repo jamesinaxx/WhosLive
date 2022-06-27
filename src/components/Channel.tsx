@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { FunctionComponent, useMemo, useRef } from 'react';
-import FastAverageColor from 'fast-average-color';
+import { FastAverageColor } from 'fast-average-color';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
