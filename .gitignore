@@ -1,6 +1,8 @@
 keys/
 *.crx
 
+web-ext-artifacts
+
 config.json
 
 # Logs
