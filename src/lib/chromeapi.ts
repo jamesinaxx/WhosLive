@@ -16,7 +16,6 @@ export function getStorage<T>(key: Synced): Promise<T | undefined> {
   return new Promise((resolve, reject) => {
     try {
       chrome.storage.sync.get(key, (res) => {
-        console.log('got storage', res[key]);
         resolve(res[key]);
       });
     } catch (e) {
