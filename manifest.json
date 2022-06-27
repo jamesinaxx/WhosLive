@@ -2,14 +2,13 @@
   "version": "1.0.0",
   "description": "Instantly check which of your favorite Twitch streamers are live right from your favorite browser",
   "name": "Now Live",
-  "manifest_version": 3,
-  "action": {
+  "manifest_version": 2,
+  "browser_action": {
     "default_popup": "src/index.html",
     "default_title": "See who is live"
   },
   "background": {
-    "service_worker": "src/scripts/background.ts",
-    "type": "module"
+    "scripts": ["src/scripts/background.ts"]
   },
   "icons": {
     "16": "src/assets/icons/16.png",
@@ -20,8 +19,7 @@
     "128": "src/assets/icons/128.png",
     "256": "src/assets/icons/256.png"
   },
-  "permissions": ["storage", "alarms"],
-  "host_permissions": ["*://*.twitch.tv/*"],
+  "permissions": ["storage", "alarms", "*://*.twitch.tv/*"],
   "content_scripts": [
     {
       "matches": ["*://nowlive.jamesinaxx.me/auth/callback"],
