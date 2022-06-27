@@ -17,6 +17,8 @@ import Main from './pages/main';
 import Themes from './theme';
 
 const Global = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
   body, html {
     font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   }
