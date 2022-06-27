@@ -4,7 +4,7 @@ import type { Local, Synced } from '../types/chrome';
 import type { TwitchStream, TwitchUser } from '../types/twitch';
 
 export function setStorage(key: Synced, value: unknown): Promise<void> {
-  return chrome.storage.sync.set({ [key]: value });
+  return chrome.storage.local.set({ [key]: value });
 }
 
 export function getStorage(
@@ -15,7 +15,7 @@ export function getStorage(key: Synced): Promise<unknown>;
 export function getStorage<T>(key: Synced): Promise<T | undefined> {
   return new Promise((resolve, reject) => {
     try {
-      chrome.storage.sync.get(key, (res) => {
+      chrome.storage.local.get(key, (res) => {
         resolve(res[key]);
       });
     } catch (e) {
