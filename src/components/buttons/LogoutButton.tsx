@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import { controlButton } from '../../styleMixins';
@@ -12,7 +12,7 @@ const Button = styled.button`
   ${controlButton(40)}
 `;
 
-const LogoutButton: FunctionComponent<LogoutButtonProps> = ({
+const LogoutButton: FunctionComponent<PropsWithChildren<LogoutButtonProps>> = ({
   onClick,
   shown,
 }) => (

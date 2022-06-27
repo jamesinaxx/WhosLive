@@ -1,4 +1,10 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import {
+  FunctionComponent,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { render } from 'react-dom';
 import {
   type DefaultTheme,
@@ -30,7 +36,7 @@ const Global = createGlobalStyle`
 `;
 
 // TODO Add support for multiple pages of live streams
-const App: FunctionComponent = () => {
+const App: FunctionComponent<PropsWithChildren<unknown>> = () => {
   const [currentTheme, setCurrentTheme] = useState<DefaultTheme>(Themes.light);
   const [themeLoaded, setThemeLoaded] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
@@ -52,17 +58,20 @@ const App: FunctionComponent = () => {
     });
   }, []);
 
+  const loadingContext = useMemo(
+    () => ({
+      isLoading: loading,
+      setLoading,
+    }),
+    [],
+  );
+
   if (!themeLoaded) {
     return null;
   }
 
   return (
-    <LoadingContext.Provider
-      value={{
-        isLoading: loading,
-        setLoading,
-      }}
-    >
+    <LoadingContext.Provider value={loadingContext}>
       <ThemeProvider theme={currentTheme}>
         <Global />
         <Main />

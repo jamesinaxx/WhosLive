@@ -1,7 +1,7 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import { SmallText } from '../styleMixins';
 
-const NoLiveChannels: FunctionComponent = () => (
+const NoLiveChannels: FunctionComponent<PropsWithChildren<unknown>> = () => (
   <SmallText>
     You do not follow anybody who is currently live
     <img

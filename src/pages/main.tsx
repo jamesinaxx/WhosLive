@@ -1,4 +1,10 @@
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import {
+  FunctionComponent,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import Live from './Live';
 import { getChannelInfo, getStorage, setStorage } from '../lib/chromeapi';
 import NoAuthPage from './NoAuth';
@@ -12,7 +18,7 @@ import Logout from '../components/buttons/LogoutButton';
 import { error } from '../lib/logger';
 import LoadingContext from '../lib/LoadingContext';
 
-const Main: FunctionComponent = () => {
+const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
   const { isLoading, setLoading } = useContext(LoadingContext);
   const [tokenValid, setTokenValid] = useState(false);
   const [showRUSure, setShowRUSure] = useState(false);

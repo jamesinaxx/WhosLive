@@ -5,6 +5,7 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
+  PropsWithChildren,
 } from 'react';
 import Channel from '../components/Channel';
 import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
@@ -19,7 +20,7 @@ const updateChannels = async (
   setChannels: Dispatch<SetStateAction<ChannelsType>>,
 ) => setChannels(await getStorageLocal('NowLive:Channels'));
 
-const Live: FunctionComponent = () => {
+const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
   const { isLoading } = useContext(LoadingContext);
   const [favoriteChannels, setFavoriteChannels] = useState<string[]>([]);
   const [channels, setChannels] = useState<ChannelsType>(undefined);

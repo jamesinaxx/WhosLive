@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -24,7 +24,7 @@ const ErrorParagraph = styled.p`
   }
 `;
 
-const Error: FunctionComponent = () => (
+const Error: FunctionComponent<PropsWithChildren<unknown>> = () => (
   <ErrorContainer>
     <ErrorHeader>Failed to connect to Twitch</ErrorHeader>
     <ErrorParagraph>

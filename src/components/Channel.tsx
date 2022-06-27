@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { FunctionComponent, useMemo, useRef } from 'react';
+import { FunctionComponent, PropsWithChildren, useMemo, useRef } from 'react';
 import { FastAverageColor } from 'fast-average-color';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
@@ -55,7 +55,7 @@ const InfoContainer = styled.div`
   font-size: 2.3vw;
 `;
 
-const Channel: FunctionComponent<ChannelProps> = ({
+const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
   data,
   hidden,
   favorite = false,

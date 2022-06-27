@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 export const buttonColor = '#724cf9';
@@ -80,9 +80,9 @@ const SmolText = styled.small`
   ${smolText}
 `;
 
-export const SmallText: FunctionComponent = ({ children }) => (
-  <SmolText>{children}</SmolText>
-);
+export const SmallText: FunctionComponent<PropsWithChildren<unknown>> = ({
+  children,
+}) => <SmolText>{children}</SmolText>;
 
 interface AnchorType {
   href: string;
@@ -102,9 +102,10 @@ const AnchorStyled = styled.a<{ hoverColor: string }>`
   }
 `;
 
-export const Anchor: FunctionComponent<AnchorType> = (props) => (
-  <AnchorStyled {...props}>{props.children}</AnchorStyled>
-);
+export const Anchor: FunctionComponent<PropsWithChildren<AnchorType>> = (
+  props,
+  // eslint-disable-next-line react/jsx-props-no-spreading
+) => <AnchorStyled {...props}>{props.children}</AnchorStyled>;
 
 const FooterStyled = styled.footer`
   position: fixed;
@@ -123,6 +124,6 @@ const FooterStyled = styled.footer`
   color: ${(props) => props.theme.colors.color};
 `;
 
-export const Footer: FunctionComponent = ({ children }) => (
-  <FooterStyled>{children}</FooterStyled>
-);
+export const Footer: FunctionComponent<PropsWithChildren<unknown>> = ({
+  children,
+}) => <FooterStyled>{children}</FooterStyled>;

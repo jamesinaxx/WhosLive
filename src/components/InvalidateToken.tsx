@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import { buttonClicked, buttonColor, buttonHover } from '../styleMixins';
 
@@ -37,7 +37,7 @@ const ChoiceButtonButton = styled.button<{ confirm: boolean }>`
   }};
 `;
 
-const ChoiceButton: FunctionComponent<ChoiceButtonProps> = ({
+const ChoiceButton: FunctionComponent<PropsWithChildren<ChoiceButtonProps>> = ({
   onChoice,
   confirm,
   children,
@@ -64,9 +64,9 @@ const InvalidateTokenContainer = styled.div`
   top: -50px;
 `;
 
-const InvalidateToken: FunctionComponent<InvalidateTokenProps> = ({
-  onChoice,
-}) => {
+const InvalidateToken: FunctionComponent<
+  PropsWithChildren<InvalidateTokenProps>
+> = ({ onChoice }) => {
   document.body.style.overflow = 'hidden';
 
   return (

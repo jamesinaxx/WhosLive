@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 const ContainerContainer = styled.div`
@@ -6,8 +6,8 @@ const ContainerContainer = styled.div`
   text-align: center;
 `;
 
-const Container: FunctionComponent = ({ children }) => (
-  <ContainerContainer>{children}</ContainerContainer>
-);
+const Container: FunctionComponent<PropsWithChildren<unknown>> = ({
+  children,
+}) => <ContainerContainer>{children}</ContainerContainer>;
 
 export default Container;

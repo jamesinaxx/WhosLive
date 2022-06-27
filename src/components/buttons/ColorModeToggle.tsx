@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { controlButton } from '../../styleMixins';
@@ -12,7 +12,9 @@ const ColorToggleButton = styled.button`
   ${controlButton(5)}
 `;
 
-const ColorToggle: FunctionComponent<ColorToggleProps> = ({ shown }) => {
+const ColorToggle: FunctionComponent<PropsWithChildren<ColorToggleProps>> = ({
+  shown,
+}) => {
   const { type } = useTheme();
 
   return (

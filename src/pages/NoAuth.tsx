@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import { smolText } from '../styleMixins';
 
@@ -21,7 +21,7 @@ const NoAuthText = styled.small`
   ${smolText}
 `;
 
-const NoAuth: FunctionComponent = () => (
+const NoAuth: FunctionComponent<PropsWithChildren<unknown>> = () => (
   <NoAuthText>
     You are not logged in to Twitch! Please go to{' '}
     <a

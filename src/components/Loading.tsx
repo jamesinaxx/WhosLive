@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -16,7 +16,9 @@ const MotionSpan = styled(motion.span)`
   height: 5rem;
 `;
 
-const Loading: FunctionComponent<{ hidden?: boolean }> = ({ hidden }) => {
+const Loading: FunctionComponent<PropsWithChildren<{ hidden?: boolean }>> = ({
+  hidden,
+}) => {
   if (hidden) return null;
 
   return (

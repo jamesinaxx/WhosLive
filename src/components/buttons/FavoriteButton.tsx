@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
@@ -21,10 +21,9 @@ const Button = styled(motion.button)`
   }
 `;
 
-const FavoriteButton: FunctionComponent<FavoriteButtonProps> = ({
-  favorite,
-  toggleFavorite,
-}) => (
+const FavoriteButton: FunctionComponent<
+  PropsWithChildren<FavoriteButtonProps>
+> = ({ favorite, toggleFavorite }) => (
   <Button
     whileHover={{ scale: 1.1 }}
     whileTap={{ scale: 0.9 }}

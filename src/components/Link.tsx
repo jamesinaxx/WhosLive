@@ -1,4 +1,4 @@
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
 import { useTheme } from 'styled-components';
 import { Anchor } from '../styleMixins';
 
@@ -6,7 +6,10 @@ interface LinkProps {
   href: string;
 }
 
-const Link: FunctionComponent<LinkProps> = ({ href, children }) => {
+const Link: FunctionComponent<PropsWithChildren<LinkProps>> = ({
+  href,
+  children,
+}) => {
   const { type } = useTheme();
 
   return (
