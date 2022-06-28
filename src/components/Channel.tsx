@@ -1,14 +1,14 @@
 /* eslint-disable camelcase */
-import { FunctionComponent, PropsWithChildren, useMemo, useRef } from 'react';
-import { FastAverageColor, FastAverageColorResult } from 'fast-average-color';
+import { FunctionComponent, PropsWithChildren, useRef } from 'react';
+import { FastAverageColorResult } from 'fast-average-color';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
 
-const parseRgba = ({ rgb }: FastAverageColorResult) =>
-  `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.7)`;
+const parseRgba = ({ value }: FastAverageColorResult) =>
+  `rgba(${value[0]},${value[1]},${value[2]},0.7)`;
 
 interface ChannelProps {
   data: TwitchStream;
@@ -42,6 +42,8 @@ const Button = styled(motion.button)`
   cursor: pointer;
   img {
     border-radius: 15px;
+    width: 100px;
+    height: 100px;
   }
 `;
 
@@ -63,13 +65,6 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
 }) => {
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const colors = useMemo(() => {
-    if (imageRef.current) {
-      return new FastAverageColor().getColor(imageRef.current);
-    }
-    return null;
-  }, [imageRef.current]);
-
   const {
     title,
     user_name,
@@ -77,15 +72,18 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
     viewer_count,
     game_name,
     profile_image_url,
+    average_color,
   } = data;
 
   return (
     <ChannelContainer title={title} hidden={hidden}>
       <ChannelSubcontainer
         style={{
-          backgroundColor: colors ? parseRgba(colors) : '#000',
-          color: colors?.isLight ? '#000' : '#FFF',
-          boxShadow: `0 0 10px ${colors ? parseRgba(colors) : '#000'}`,
+          backgroundColor: average_color ? parseRgba(average_color) : '#000',
+          color: average_color?.isLight ? '#000' : '#FFF',
+          boxShadow: `0 0 10px ${
+            average_color ? parseRgba(average_color) : '#000'
+          }`,
         }}
       >
         <Button
@@ -99,8 +97,8 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
             src={profile_image_url}
             crossOrigin="anonymous"
             alt={`${user_name} stream thumbnail`}
-            width={100}
-            height={100}
+            width={300}
+            height={300}
           />
         </Button>
         <InfoContainer>

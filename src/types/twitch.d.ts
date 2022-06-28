@@ -1,3 +1,4 @@
+import { FastAverageColorResult } from 'fast-average-color';
 /* eslint-disable camelcase */
 
 export interface TwitchUser {
@@ -28,4 +29,5 @@ export interface TwitchStream {
   user_name: string;
   viewer_count: number;
   profile_image_url: string;
+  average_color?: FastAverageColorResult;
 }

@@ -5,7 +5,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import {
   type DefaultTheme,
   ThemeProvider,
@@ -90,4 +90,7 @@ if (process.env.PRODUCTION) {
   document.oncontextmenu = (e) => e.preventDefault();
 }
 
-render(<App />, document.getElementById('root'));
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const root = createRoot(document.getElementById('root')!);
+
+root.render(<App />);
