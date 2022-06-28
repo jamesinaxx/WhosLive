@@ -104,19 +104,7 @@ export async function getChannelInfo(): Promise<void> {
       },
     ).then((res) => res.json());
 
-    const oldChannels = await getStorageLocal('NowLive:Channels');
-
     const withicons = data.map((stream) => {
-      const oldUser = oldChannels?.find(
-        (user) => user.user_id === stream.user_id,
-      );
-      if (oldUser) {
-        return {
-          ...stream,
-          profile_image_url: oldUser.profile_image_url,
-        };
-      }
-
       const withicon = {
         ...stream,
         profile_image_url:

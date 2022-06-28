@@ -11,6 +11,7 @@ chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 chrome.runtime.onInstalled.addListener(async () => {
   await setStorageLocalIfNull('NowLive:Theme', 'dark');
   await setStorageIfNull('NowLive:Favorites', []);
+  await getChannelInfo();
   log('Initialized Now Live');
 });
 
