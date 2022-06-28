@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { FunctionComponent, PropsWithChildren, useMemo, useRef } from 'react';
-import { FastAverageColor } from 'fast-average-color';
+import { AverageColor } from 'avgcol';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
@@ -61,13 +61,14 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
   favorite = false,
   setFavorites,
 }) => {
-  const fac = useMemo(() => new FastAverageColor(), []);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const colors = useMemo(
-    () => (imageRef.current ? fac.getColor(imageRef.current) : null),
-    [imageRef.current],
-  );
+  const colors = useMemo(() => {
+    if (imageRef.current) {
+      return AverageColor.from_base64(imageRef.current.src);
+    }
+    return null;
+  }, [imageRef.current]);
 
   const {
     title,
