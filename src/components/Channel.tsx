@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 import { FunctionComponent, PropsWithChildren, useMemo, useRef } from 'react';
-import { AverageColor } from 'avgcol';
+import { FastAverageColor, FastAverageColorResult } from 'fast-average-color';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
 
-const parseRgba = (rgb: AverageColor) =>
+const parseRgba = ({ rgb }: FastAverageColorResult) =>
   `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.7)`;
 
 interface ChannelProps {
@@ -65,7 +65,7 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
 
   const colors = useMemo(() => {
     if (imageRef.current) {
-      return AverageColor.fromBase64(imageRef.current.src);
+      return new FastAverageColor().getColor(imageRef.current);
     }
     return null;
   }, [imageRef.current]);
@@ -84,7 +84,7 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
       <ChannelSubcontainer
         style={{
           backgroundColor: colors ? parseRgba(colors) : '#000',
-          color: colors?.isLight() ? '#000' : '#FFF',
+          color: colors?.isLight ? '#000' : '#FFF',
           boxShadow: `0 0 10px ${colors ? parseRgba(colors) : '#000'}`,
         }}
       >
