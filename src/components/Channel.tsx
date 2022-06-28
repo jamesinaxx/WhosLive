@@ -7,8 +7,8 @@ import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
 
-const parseRgba = (rgb: string) =>
-  `rgba(${rgb.substring(4).replace(')', '')},0.7)`;
+const parseRgba = (rgb: AverageColor) =>
+  `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.7)`;
 
 interface ChannelProps {
   data: TwitchStream;
@@ -65,7 +65,7 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
 
   const colors = useMemo(() => {
     if (imageRef.current) {
-      return AverageColor.from_base64(imageRef.current.src);
+      return AverageColor.fromBase64(imageRef.current.src);
     }
     return null;
   }, [imageRef.current]);
@@ -83,9 +83,9 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
     <ChannelContainer title={title} hidden={hidden}>
       <ChannelSubcontainer
         style={{
-          backgroundColor: colors ? parseRgba(colors.rgb) : '#000',
-          color: colors?.isLight ? '#000' : '#FFF',
-          boxShadow: `0 0 10px ${colors ? parseRgba(colors.rgb) : '#000'}`,
+          backgroundColor: colors ? parseRgba(colors) : '#000',
+          color: colors?.isLight() ? '#000' : '#FFF',
+          boxShadow: `0 0 10px ${colors ? parseRgba(colors) : '#000'}`,
         }}
       >
         <Button
