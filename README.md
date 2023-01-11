@@ -12,4 +12,4 @@ Easily check who is live on Twitch with 1 click!
 
 3. Done
 
-**Developed with ❤️ by jamesinaxx**
+**Developed with ❤️ by Juliette Cordor**
