@@ -1,17 +1,23 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
-import ColorModeToggle from './buttons/ColorModeToggle';
+import type {
+  FunctionComponent,
+  PropsWithChildren,
+  SetStateAction,
+} from 'react';
+import ConfigButtons from './buttons/ConfigButtons';
 
 interface LayoutProps {
-  shown: boolean;
+  setShow: (value: SetStateAction<boolean>) => void;
+  show: boolean;
 }
 
 const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = ({
   children,
-  shown,
+  setShow,
+  show,
 }) => (
   <div>
     {children}
-    <ColorModeToggle shown={shown} />
+    <ConfigButtons setShow={setShow} show={show} />
   </div>
 );
 

@@ -14,7 +14,6 @@ import Error from './Error';
 import InvalidateToken from '../components/InvalidateToken';
 import { clientId, checkConnection, objToParams } from '../lib/lib';
 import Layout from '../components/Layout';
-import Logout from '../components/buttons/LogoutButton';
 import { error } from '../lib/logger';
 import LoadingContext from '../lib/LoadingContext';
 
@@ -53,7 +52,7 @@ const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
       return <NoAuthPage />;
     } else {
       return (
-        <Layout shown={showRUSure}>
+        <Layout setShow={setShowRUSure} show={showRUSure}>
           <Error />
         </Layout>
       );
@@ -69,7 +68,7 @@ const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
   });
 
   return (
-    <Layout shown={showRUSure}>
+    <Layout setShow={setShowRUSure} show={showRUSure}>
       {showRUSure && (
         <InvalidateToken
           onChoice={async (invalidate) => {
@@ -101,7 +100,6 @@ const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
         />
       )}
       <Live />
-      <Logout onClick={() => setShowRUSure(true)} shown={showRUSure} />
     </Layout>
   );
 };

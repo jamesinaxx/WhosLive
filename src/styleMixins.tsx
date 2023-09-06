@@ -24,14 +24,14 @@ export const confirmButton = /* css */ `
   }
 `;
 
-export const controlButton = (left: number): string => /* css */ `
+export const controlButton = (right: number): string => /* css */ `
   color: #fff;
   transition: all 100ms ease-in-out;
   width: 30px;
   height: 30px;
   position: fixed;
   top: 5px;
-  left: ${left}px;
+  right: ${right}px;
   background-color: ${buttonColor};
   box-shadow: 0 0 10px ${buttonColor};
   border-radius: 5px;
