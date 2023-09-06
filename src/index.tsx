@@ -48,10 +48,9 @@ const App: FunctionComponent<PropsWithChildren<unknown>> = () => {
 
   useEffect(() => {
     const updateTheme = async () => {
-      const newTheme =
-        Themes[(await getStorageLocal('NowLive:Theme')) || 'light'];
+      const theme = Themes[(await getStorageLocal('NowLive:Theme')) || 'light'];
 
-      setCurrentTheme(newTheme);
+      setCurrentTheme(theme);
       setThemeLoaded(true);
     };
 
@@ -72,6 +71,7 @@ const App: FunctionComponent<PropsWithChildren<unknown>> = () => {
   );
 
   if (!themeLoaded) {
+    // TODO: Add loading
     return null;
   }
 

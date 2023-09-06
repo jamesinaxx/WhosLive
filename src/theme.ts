@@ -1,21 +1,5 @@
 import type { DefaultTheme } from 'styled-components';
 
-declare module 'styled-components' {
-  export interface DefaultTheme {
-    type: 'light' | 'dark';
-    colors: {
-      backgroundColor: string;
-      color: string;
-      scrollbarColor: string;
-    };
-  }
-}
-
-interface ThemesType {
-  light: DefaultTheme;
-  dark: DefaultTheme;
-}
-
 const light: DefaultTheme = {
   type: 'light',
   colors: {
@@ -34,7 +18,7 @@ const dark: DefaultTheme = {
   },
 };
 
-const Themes: ThemesType = {
+const Themes = {
   light,
   dark,
 };
