@@ -16,7 +16,7 @@ chrome.runtime.sendMessage(
   (res: [string, boolean]) => {
     const success = res[1];
     if (authEl !== null && authEl !== undefined && !success) {
-      authEl.innerHTML = `<p style="color: red">We tried to send the token, but something went wrong... Please let me know <a href="https://github.com/jamesinaxx/NowLive/issues" style="color: #05d1d1">here</a> and include ${res[0]}</p>`;
+      authEl.innerHTML = `<p style="color: red">We tried to send the token, but something went wrong... Please let me know <a href="https://github.com/jewlexx/NowLive/issues" style="color: #05d1d1">here</a> and include ${res[0]}</p>`;
     }
   },
 );

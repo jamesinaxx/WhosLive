@@ -2,7 +2,7 @@
 
 Easily check who is live on Twitch with 1 click!
 
-<img title="" src="https://raw.githubusercontent.com/jamesinaxx/NowLive/staging/src/assets/screenshots/Dark.jpg" alt="" width="500">
+<img title="" src="https://raw.githubusercontent.com/jewlexx/NowLive/staging/src/assets/screenshots/Dark.jpg" alt="" width="500">
 
 ## Installation
 

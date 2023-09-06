@@ -38,7 +38,7 @@ const Error: FunctionComponent<PropsWithChildren<unknown>> = () => (
       <br />
       If Twitch loads fine, then there is a bug with Now Live. Please report
       this{' '}
-      <a href="https://github.com/jamesinaxx/NowLive/issues">
+      <a href="https://github.com/jewlexx/NowLive/issues">
         here{' '}
         <FaGithub
           style={{
