@@ -1,30 +1,35 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import { buttonColor } from '../styleMixins';
 
-const MotionDiv = styled(motion.div)`
+const ScreenContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LoadingContainer = styled(motion.div)`
+  width: 4rem;
+  height: 4rem;
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  height: 100%;
-  width: 100%;
 `;
 
-const MotionSpan = styled(motion.span)`
+const LoadingCircle = styled(motion.span)`
   display: block;
-  width: 5rem;
-  height: 5rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: ${buttonColor};
+  border-radius: 0.5rem;
 `;
 
-const Loading: FunctionComponent<PropsWithChildren<{ hidden?: boolean }>> = ({
-  hidden,
-}) => {
-  if (hidden) return null;
-
-  return (
-    <MotionDiv
-      initial="start"
-      animate="end"
+const Loading = () => (
+  <ScreenContainer>
+    <LoadingContainer
       variants={{
         start: {
           transition: {
@@ -37,35 +42,28 @@ const Loading: FunctionComponent<PropsWithChildren<{ hidden?: boolean }>> = ({
           },
         },
       }}
+      initial="start"
+      animate="end"
     >
-      <MotionSpan
-        animate={{
-          y: ['100%', '-100%'],
-          background: ['#ff6699', '#6666ff'],
-          borderRadius: ['50%', '5%'],
-        }}
-        transition={{
-          y: {
+      {[null, null, null].map(() => (
+        <LoadingCircle
+          variants={{
+            start: {
+              y: '0%',
+            },
+            end: {
+              y: '60%',
+            },
+          }}
+          transition={{
             duration: 0.4,
             yoyo: Infinity,
-            ease: 'easeOut',
-          },
-          background: {
-            duration: 0.1,
-            yoyo: Infinity,
-            ease: 'easeOut',
-            repeatDelay: 0.7,
-          },
-          borderRadius: {
-            duration: 0.1,
-            yoyo: Infinity,
-            ease: 'easeOut',
-            repeatDelay: 0.7,
-          },
-        }}
-      />
-    </MotionDiv>
-  );
-};
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+    </LoadingContainer>
+  </ScreenContainer>
+);
 
 export default Loading;
