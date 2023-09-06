@@ -8,7 +8,7 @@
   "license": "MIT",
   "author": "jewlexx",
   "scripts": {
-    "build": "rimraf dist && cross-env PRODUCTION=true parcel build manifest.json",
+    "build": "rimraf dist && parcel build manifest.json",
     "dev": "parcel watch manifest.json",
     "fmt": "prettier --write ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "fmt:check": "prettier --check ./src/*/**.{ts,tsx} --ignore-path .gitignore",
