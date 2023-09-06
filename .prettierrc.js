@@ -1,7 +1,7 @@
 /**
  * @type {import('prettier').Options}
  */
-const config = {
+module.exports = {
   endOfLine: 'lf',
   trailingComma: 'all',
   singleQuote: true,
@@ -10,5 +10,3 @@ const config = {
   vueIndentScriptAndStyle: true,
   arrowParens: 'always',
 };
-
-module.exports = config;
