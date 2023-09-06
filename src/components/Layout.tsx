@@ -1,23 +1,24 @@
-import React from 'react';
-import ColorModeToggle from './buttons/ColorModeToggle';
+import type {
+  FunctionComponent,
+  PropsWithChildren,
+  SetStateAction,
+} from 'react';
+import ConfigButtons from './buttons/ConfigButtons';
 
 interface LayoutProps {
-  children: React.ReactNode;
-  toggleColor: () => void;
-  shown: boolean;
-  mode: string;
+  setShow: (value: SetStateAction<boolean>) => void;
+  show: boolean;
 }
 
-export default function Layout({
+const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = ({
   children,
-  toggleColor,
-  shown,
-  mode,
-}: LayoutProps) {
-  return (
-    <div>
-      {children}
-      <ColorModeToggle toggleColor={toggleColor} shown={shown} mode={mode} />
-    </div>
-  );
-}
+  setShow,
+  show,
+}) => (
+  <div>
+    {children}
+    <ConfigButtons setShow={setShow} show={show} />
+  </div>
+);
+
+export default Layout;

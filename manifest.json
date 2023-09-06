@@ -1,27 +1,29 @@
 {
-  "manifest_version": 3,
-  "minimum_chrome_version": "88",
-  "name": "Now Live",
+  "manifest_version": 2,
+  "version": "1.1.1",
   "description": "Instantly check which of your favorite Twitch streamers are live right from your favorite browser",
-  "version": "1.0.0",
-  "action": {
-    "default_popup": "index.html",
+  "name": "Now Live",
+  "browser_action": {
+    "default_popup": "src/index.html",
     "default_title": "See who is live"
   },
-  "icons": {
-    "16": "./icons/16.png",
-    "48": "./icons/48.png",
-    "128": "./icons/128.png"
-  },
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["src/scripts/background.ts"]
   },
-  "permissions": ["storage", "alarms"],
-  "host_permissions": ["*://*.twitch.tv/*"],
+  "icons": {
+    "16": "src/assets/icons/16.png",
+    "32": "src/assets/icons/32.png",
+    "48": "src/assets/icons/48.png",
+    "64": "src/assets/icons/64.png",
+    "96": "src/assets/icons/96.png",
+    "128": "src/assets/icons/128.png",
+    "256": "src/assets/icons/256.png"
+  },
+  "permissions": ["storage", "alarms", "*://*.twitch.tv/*"],
   "content_scripts": [
     {
-      "matches": ["*://nowlive.jamesinaxx.me/auth/callback"],
-      "js": ["authcheck.js"]
+      "matches": ["*://nowlive.jewelexx.com/auth/callback"],
+      "js": ["src/scripts/authcheck.ts"]
     }
   ]
 }

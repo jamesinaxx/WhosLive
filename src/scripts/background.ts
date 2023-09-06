@@ -1,34 +1,38 @@
-import 'regenerator-runtime';
-import { setStorage, getChannelInfo } from '../lib/chromeapi';
-import validateToken from '../lib/tokenValid';
+import {
+  getChannelInfo,
+  setStorageIfNull,
+  setStorageLocalIfNull,
+} from '../lib/chromeapi';
+import { log } from '../lib/logger';
+import validateToken from '../lib/validateToken';
 
 chrome.alarms.create('NowLive:Refresh', { delayInMinutes: 1 });
 
-async function onInstalled() {
-  setStorage('NowLive:Storage:Color', 'dark');
-  console.log('Initialized Now Live');
-}
+chrome.runtime.onInstalled.addListener(async () => {
+  await setStorageLocalIfNull('NowLive:Theme', 'dark');
+  await setStorageIfNull('NowLive:Favorites', []);
+  await getChannelInfo();
+  log('Initialized Now Live');
+});
 
-chrome.runtime.onInstalled.addListener(onInstalled);
-
-chrome.storage.onChanged.addListener(async () => {
-  getChannelInfo();
+chrome.storage.onChanged.addListener((changes) => {
+  if ('NowLive:Token' in changes) {
+    getChannelInfo();
+  }
 });
 
 chrome.runtime.onMessage.addListener((message, sender, res) => {
-  if (
-    sender.url?.split('#')[0] !== 'https://nowlive.jamesinaxx.me/auth/callback'
-  ) {
+  if (!sender.url?.startsWith('https://nowlive.jewelexx.com/auth/callback')) {
     return false;
   }
 
   if (
     typeof message === 'object' &&
-    message.name === 'NowLive:Storage:Token' &&
+    message.name === 'NowLive:Token' &&
     typeof message.token === 'string'
   ) {
-    validateToken(message.token).then(isValid => {
-      if (isValid) {
+    validateToken(message.token).then((valid) => {
+      if (valid) {
         res([`Received valid token: ${message.token}`, true]);
       } else {
         res([`Received invalid token: ${message.token}`, false]);
@@ -40,14 +44,10 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
   return true;
 });
 
-async function init() {
-  console.log('Initialized background script');
-  await getChannelInfo();
-  chrome.alarms.onAlarm.addListener(async alarm => {
+getChannelInfo().then(() => {
+  chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === 'NowLive:Refresh') {
       await getChannelInfo();
     }
   });
-}
-
-init();
+});

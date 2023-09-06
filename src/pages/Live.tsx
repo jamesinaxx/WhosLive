@@ -1,103 +1,100 @@
-import 'regenerator-runtime';
-import React from 'react';
-import styles from '../styles/Layout.module.scss';
+import {
+  FunctionComponent,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  PropsWithChildren,
+  useCallback,
+} from 'react';
 import Channel from '../components/Channel';
-import { getStorageLocal } from '../lib/chromeapi';
-import Loading from '../components/Loading';
+import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
+import NoLiveChannels from '../components/NoLiveChannels';
+import Container from '../components/Container';
+import type { TwitchStream } from '../types/twitch';
+import LoadingContext from '../lib/LoadingContext';
 
-interface LiveProps {
-  color: string;
-}
+type ChannelsType = TwitchStream[] | undefined;
 
-interface LiveState {
-  channels: any[] | null | undefined;
-  doneLoading: number;
-}
+const updateChannels = async (
+  setChannels: Dispatch<SetStateAction<ChannelsType>>,
+) => setChannels(await getStorageLocal('NowLive:Channels'));
 
-export default class Live extends React.Component<LiveProps, LiveState> {
-  constructor(props: any) {
-    super(props);
+const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
+  const { isLoading } = useContext(LoadingContext);
+  const [favoriteChannels, setFavoriteChannels] = useState<Set<string>>(
+    new Set(),
+  );
+  const [channels, setChannels] = useState<ChannelsType>(undefined);
 
-    this.state = {
-      channels: null,
-      doneLoading: 0,
-    };
+  useEffect(() => {
+    chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
+    (async () => {
+      setChannels(await getStorageLocal('NowLive:Channels'));
+      const newFavoriteChannels = (await getStorage('NowLive:Favorites')) || [];
+      setFavoriteChannels(new Set(newFavoriteChannels));
+    })();
+  }, []);
 
-    this.doneLoading = this.doneLoading.bind(this);
-    this.showChannels = this.showChannels.bind(this);
-    this.updateChannels = this.updateChannels.bind(this);
-
-    chrome.storage.onChanged.addListener(this.updateChannels);
-    this.updateChannels();
-  }
-
-  componentDidMount() {
-    const interval = setInterval(() => {
-      getStorageLocal('NowLive:Storage:Channels').then((res: any[]) => {
-        if (res === undefined) return;
-        clearInterval(interval);
-        this.setState({ channels: res });
-      });
-    }, 1000);
-  }
-
-  async updateChannels() {
-    this.setState({
-      channels: await getStorageLocal('NowLive:Storage:Channels'),
+  const toggleFavorite = useCallback((userId: string) => {
+    setFavoriteChannels((oldFaves) => {
+      if (oldFaves.has(userId)) {
+        oldFaves.delete(userId);
+      } else {
+        oldFaves.add(userId);
+      }
+      setStorage('NowLive:Favorites', [...oldFaves]);
+      return oldFaves;
     });
+  }, []);
+
+  const sortChannels = useCallback(
+    (left: TwitchStream, right: TwitchStream): number => {
+      const leftFave = favoriteChannels.has(left.user_id);
+      const rightFave = favoriteChannels.has(right.user_id);
+
+      if (leftFave && !rightFave) {
+        return -1;
+      }
+      if (!leftFave && rightFave) {
+        return 1;
+      }
+
+      if (left.viewer_count < right.viewer_count) {
+        return 1;
+      }
+      if (left.viewer_count > right.viewer_count) {
+        return -1;
+      }
+      return 0;
+    },
+    [favoriteChannels],
+  );
+
+  if (channels === undefined) {
+    return null;
   }
 
-  doneLoading() {
-    this.setState(oldState => ({ doneLoading: oldState.doneLoading + 1 }));
-  }
+  return (
+    <Container>
+      {channels.length === 0 ? (
+        <NoLiveChannels />
+      ) : (
+        channels
+          .sort(sortChannels)
+          .map((channel) => (
+            <Channel
+              key={channel.id}
+              data={channel}
+              hidden={isLoading}
+              favorite={favoriteChannels.has(channel.user_id)}
+              setFavorites={() => toggleFavorite(channel.user_id)}
+            />
+          ))
+      )}
+    </Container>
+  );
+};
 
-  showChannels() {
-    if (this.state.channels === null || this.state.channels === undefined) {
-      this.updateChannels();
-      return <Loading hidden={false} color={this.props.color} />;
-    }
-
-    if (this.state.channels.length === 0) {
-      return (
-        <small className={styles.goFollow}>
-          You do not follow anybody who is currently live
-          <img
-            src="https://cdn.frankerfacez.com/emoticon/425196/4"
-            alt="Sadge Emote from FFZ"
-          />
-        </small>
-      );
-    }
-
-    return (
-      <div>
-        <Loading
-          hidden={this.state.doneLoading === this.state.channels.length}
-          color={this.props.color}
-        />
-        {this.state.channels.map(channelData => (
-          <Channel
-            online
-            key={channelData.id}
-            data={channelData}
-            /* I really shouldn't have to cast but here we are */
-            hidden={
-              this.state.doneLoading !== (this.state.channels as any[]).length
-            }
-            doneLoading={this.doneLoading}
-          />
-        ))}
-        <div
-          /* Placeholder so the channel cards don't flow beyond the viewport */
-          style={{
-            height: '5px',
-          }}
-        />
-      </div>
-    );
-  }
-
-  render() {
-    return <div className={styles.main}>{this.showChannels()}</div>;
-  }
-}
+export default Live;

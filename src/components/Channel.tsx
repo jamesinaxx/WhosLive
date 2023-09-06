@@ -1,116 +1,118 @@
 /* eslint-disable camelcase */
-import React from 'react';
-import FastAverageColor from 'fast-average-color';
-import styles from '../styles/Channel.module.scss';
+import { FunctionComponent, PropsWithChildren, useRef } from 'react';
+import { FastAverageColorResult } from 'fast-average-color';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { getTitle } from '../lib/lib';
+import type { TwitchStream } from '../types/twitch';
+import FavoriteButton from './buttons/FavoriteButton';
+
+const parseRgba = ({ value }: FastAverageColorResult) =>
+  `rgba(${value[0]},${value[1]},${value[2]},0.7)`;
 
 interface ChannelProps {
-  online: boolean;
-  data: {
-    user_name: string;
-    user_login: string;
-    game_name: string;
-    viewer_count: string;
-    title: string;
-    thumbnail_url: string;
-  };
-  doneLoading: () => void;
+  data: TwitchStream;
   hidden: boolean;
+  favorite?: boolean;
+  setFavorites: (old: boolean) => void;
 }
 
-interface ChannelState {
-  bgColor: string;
-  color: string;
-}
+const ChannelContainer = styled.div`
+  padding: 0;
+  border: none;
+  background: none;
+  position: relative;
+`;
 
-export default class Channel extends React.Component<
-  ChannelProps,
-  ChannelState
-> {
-  constructor(props: ChannelProps) {
-    super(props);
+const ChannelSubcontainer = styled(motion.button)`
+  border-radius: 15px;
+  width: 80vw;
+  height: 120px;
+  margin: 10px;
 
-    this.state = {
-      bgColor: '#FFF',
-      color: '#000',
-    };
+  border: none;
+  background: none;
 
-    this.getColor = this.getColor.bind(this);
-  }
+  cursor: pointer;
+`;
 
-  async getColor() {
-    const fac = new FastAverageColor();
+const Pfp = styled.img`
+  background: none;
+  border: none;
+  margin: 10px;
+  float: left;
+  border-radius: 15px;
+  width: 100px;
+  height: 100px;
+`;
 
-    const facColor = await fac.getColorAsync(
-      this.props.data.thumbnail_url
-        .replace('{width}', '128')
-        .replace('{height}', '72'),
-    );
+const InfoContainer = styled.div`
+  height: 100%;
+  display: block;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 100px;
+  max-width: 425px;
+  font-size: 2.3vw;
+`;
 
-    const bgColor = `rgba${facColor.rgb.substring(
-      3,
-      facColor.rgb.length - 1,
-    )},0.7)`;
+const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
+  data,
+  hidden,
+  favorite = false,
+  setFavorites,
+}) => {
+  const imageRef = useRef<HTMLImageElement>(null);
 
-    this.setState({
-      bgColor,
-      color: facColor.isLight ? '#000' : '#FFF',
-    });
+  const {
+    title,
+    user_name,
+    user_login,
+    viewer_count,
+    game_name,
+    profile_image_url,
+    average_color,
+  } = data;
 
-    fac.destroy();
-    return this.props.doneLoading();
-  }
-
-  render() {
-    const {
-      title,
-      user_name,
-      user_login,
-      viewer_count,
-      game_name,
-      thumbnail_url,
-    } = this.props.data;
-
-    const thumbnailUrl = thumbnail_url
-      .replace('{width}', '128')
-      .replace('{height}', '72');
-
-    return (
-      <div
-        title={title}
-        className={styles.channelDiv}
-        hidden={this.props.hidden}
+  return (
+    <ChannelContainer title={title} hidden={hidden}>
+      <ChannelSubcontainer
+        style={{
+          backgroundColor: average_color ? parseRgba(average_color) : '#000',
+          color: average_color?.isLight ? '#000' : '#FFF',
+          boxShadow: `0 0 10px ${
+            average_color ? parseRgba(average_color) : '#000'
+          }`,
+        }}
+        onClick={() => window.open(`https://twitch.tv/${user_login}`)}
+        type="button"
+        whileHover={{
+          scale: 1.05,
+        }}
+        whileTap={{
+          scale: 0.95,
+        }}
       >
-        <div
-          className={styles.channel}
-          style={{
-            backgroundColor: this.state.bgColor,
-            color: this.state.color,
-            boxShadow: `0 0 10px ${this.state.bgColor}`,
-          }}
-        >
-          <img
-            onLoad={this.getColor}
-            onClick={() => window.open(`https://twitch.tv/${user_login}`)}
-            alt={`${user_name} stream thumbnail`}
-            src={thumbnailUrl}
-            width={128}
-            height={72}
-          />
-          <div className={styles.channelInfo}>
-            <h1>{getTitle(title)}</h1>
-            <p>
-              <b>{user_name}</b> is currently playing <b>{game_name}</b> for{' '}
-              <b>
-                {new Intl.NumberFormat(navigator.language).format(
-                  Number(viewer_count),
-                )}
-              </b>{' '}
-              viewers
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
+        <Pfp
+          ref={imageRef}
+          src={profile_image_url}
+          crossOrigin="anonymous"
+          alt={`${user_name} stream thumbnail`}
+        />
+        <InfoContainer>
+          <h1>{getTitle(title)}</h1>
+          <p>
+            <b>{user_name}</b> is currently playing <b>{game_name}</b> for{' '}
+            <b>
+              {new Intl.NumberFormat(navigator.language).format(viewer_count)}
+            </b>{' '}
+            viewers
+          </p>
+        </InfoContainer>
+      </ChannelSubcontainer>
+      <FavoriteButton favorite={favorite} toggleFavorite={setFavorites} />
+    </ChannelContainer>
+  );
+};
+
+export default Channel;

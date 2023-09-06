@@ -1,173 +1,91 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/global.scss';
-import dayjs from 'dayjs';
-import Live from './pages/Live';
-import { getChannelInfo, getStorage, setStorage } from './lib/chromeapi';
-import NoAuthPage from './pages/NoAuth';
-import validateToken from './lib/tokenValid';
-import Loading from './components/Loading';
-import Error404 from './pages/404';
-import InvalidateToken from './components/InvalidateToken';
 import {
-  clientId,
-  connectionType,
-  checkConnection,
-  toggleColorMode,
-  objToParams,
-} from './lib/lib';
-import Layout from './components/Layout';
-import LogoutButton from './components/buttons/LogoutButton';
+  FunctionComponent,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { createRoot } from 'react-dom/client';
+import {
+  type DefaultTheme,
+  ThemeProvider,
+  createGlobalStyle,
+} from 'styled-components';
+import { getStorageLocal } from './lib/chromeapi';
+import LoadingContext from './lib/LoadingContext';
+import Main from './pages/main';
+import Themes from './theme';
+import '@fontsource/noto-sans';
 
-interface MainState {
-  userToken: string | undefined;
-  tokenValid: boolean;
-  showRUSure: boolean;
-  colorMode: 'light' | 'dark';
-  connected: boolean | null;
-}
+const Global = createGlobalStyle`
+  body, html {
+    font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  }
 
-class Main extends React.Component<any, MainState> {
-  constructor(props: any) {
-    super(props);
+  body::-webkit-scrollbar {
+    width: 0.5em;
+  }
 
-    this.state = {
-      userToken: undefined,
-      tokenValid: true,
-      showRUSure: false,
-      colorMode: 'dark',
-      connected: null,
+  body::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.scrollbarColor};
+    border-radius: 25px;
+  }
+
+  body {
+    background-color: ${(props) => props.theme.colors.backgroundColor};
+    transition: background-color 100ms ease-in-out;
+    color: ${(props) => props.theme.colors.color};
+    width: 550px;
+    height: 550px;
+  }
+`;
+
+// TODO Add support for multiple pages of live streams
+const App: FunctionComponent<PropsWithChildren<unknown>> = () => {
+  const [currentTheme, setCurrentTheme] = useState<DefaultTheme>(Themes.light);
+  const [themeLoaded, setThemeLoaded] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const updateTheme = async () => {
+      const theme = Themes[(await getStorageLocal('NowLive:Theme')) || 'light'];
+
+      setCurrentTheme(theme);
+      setThemeLoaded(true);
     };
 
-    this.validateToken = this.validateToken.bind(this);
-    this.invalidateToken = this.invalidateToken.bind(this);
-  }
-
-  componentDidMount() {
-    this.validateToken();
-
-    this.setColor();
-
-    chrome.storage.onChanged.addListener(() => {
-      this.validateToken();
-      this.setColor();
-    });
-  }
-
-  async setColor() {
-    const colorMode = await getStorage('NowLive:Storage:Color');
-    this.setState({ colorMode });
-    document.body.className = this.state.colorMode;
-  }
-
-  async validateToken() {
-    const res = await getStorage('NowLive:Storage:Token');
-    const valid = await validateToken(res);
-
-    this.setState({
-      userToken: valid ? res : 'invalid',
-      tokenValid: valid,
-    });
-  }
-
-  async invalidateToken() {
-    const token = await getStorage('NowLive:Storage:Token');
-    try {
-      fetch(
-        `https://id.twitch.tv/oauth2/revoke${objToParams({ clientId, token })}`,
-        {
-          method: 'POST',
-        },
-      );
-      setStorage('NowLive:Storage:Token', '');
-    } catch (error) {
-      console.log(error);
-    }
-
-    this.setState({
-      showRUSure: false,
-      userToken: 'invalid',
-      tokenValid: false,
-    });
-    return getChannelInfo();
-  }
-
-  render() {
-    console.log(`[${dayjs().format('HH:mm:ss')}] Re-rendered`);
-    if (this.state.showRUSure) window.scrollTo(0, 0);
-
-    const color = this.state.colorMode === 'dark' ? '#fff' : '#000';
-    const bgColor = this.state.colorMode === 'dark' ? '#1e1f20' : '#fff';
-
-    const docBody = document.querySelector('body') as HTMLBodyElement;
-
-    docBody.style.backgroundColor = bgColor;
-    docBody.style.color = color;
-
-    if (this.state.connected === false) {
-      return (
-        <Layout
-          toggleColor={toggleColorMode}
-          mode={this.state.colorMode}
-          shown={this.state.showRUSure}
-        >
-          <Error404 />
-        </Layout>
-      );
-    }
-
-    if (this.state.userToken === undefined || this.state.connected === null) {
-      if (this.state.connected === null) {
-        checkConnection()
-          .then((res: connectionType) => {
-            this.setState({ connected: res[0] });
-          })
-          .catch((res: connectionType) => {
-            this.setState({ connected: res[0] });
-            console.log('Failed to connect to twitch', res[1]);
-          });
+    updateTheme();
+    chrome.storage.onChanged.addListener((changes, areaName) => {
+      if (areaName === 'local' && 'NowLive:Theme' in changes) {
+        updateTheme();
       }
-
-      return <Loading hidden={false} />;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (this.state.showRUSure) window.scrollTo(0, 0);
     });
+  }, []);
 
-    return (
-      <Layout
-        toggleColor={toggleColorMode}
-        mode={this.state.colorMode}
-        shown={this.state.showRUSure}
-      >
-        {this.state.userToken && this.state.tokenValid ? (
-          <>
-            {this.state.showRUSure ? (
-              <InvalidateToken
-                show={() => {
-                  document.body.style.overflow = '';
-                  this.setState({
-                    showRUSure: false,
-                  });
-                }}
-                invalidateToken={this.invalidateToken}
-              />
-            ) : (
-              <div>{null}</div>
-            )}
-            <Live color={color} />
-            <LogoutButton
-              ruSure={() => this.setState({ showRUSure: true })}
-              shown={this.state.showRUSure}
-            />
-          </>
-        ) : (
-          <NoAuthPage />
-        )}
-      </Layout>
-    );
+  const loadingContext = useMemo(
+    () => ({
+      isLoading: loading,
+      setLoading,
+    }),
+    [loading, setLoading],
+  );
+
+  if (!themeLoaded) {
+    // TODO: Add loading
+    return null;
   }
-}
 
-ReactDOM.render(<Main />, document.body);
+  return (
+    <LoadingContext.Provider value={loadingContext}>
+      <ThemeProvider theme={currentTheme}>
+        <Global />
+        <Main />
+      </ThemeProvider>
+    </LoadingContext.Provider>
+  );
+};
+
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const root = createRoot(document.getElementById('root')!);
+
+root.render(<App />);

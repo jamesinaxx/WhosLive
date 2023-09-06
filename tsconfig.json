@@ -1,8 +1,16 @@
 {
   "compilerOptions": {
+    "lib": ["ES2021", "DOM"],
+    "module": "CommonJS",
     "jsx": "react-jsx",
+    "downlevelIteration": true,
     "esModuleInterop": true,
     "strict": true,
-    "baseUrl": "./src"
+    "typeRoots": ["./src/types"],
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "rootDir": "./",
+    "importHelpers": true,
+    "removeComments": true
   }
 }

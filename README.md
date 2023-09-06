@@ -1,5 +1,15 @@
 # Now Live
 
-Who's Live Now? A simple chrome extension that checks who is online
+Easily check who is live on Twitch with 1 click!
 
-## NOTE: CURRENTLY IN BETA! THERE WILL BE BUGS AND MORE FEATURES ARE COMING SOON!
+<img title="" src="https://raw.githubusercontent.com/jewlexx/NowLive/staging/src/assets/screenshots/Dark.jpg" alt="" width="500">
+
+## Installation
+
+1. Install from the [Chrome Web Store](https://chrome.google.com/webstore/detail/now-live/fonhghodpbmhkkccljcjkpjjooehflpk)
+
+2. Login with Twitch
+
+3. Done
+
+**Developed with ❤️ by Juliette Cordor**

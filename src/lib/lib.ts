@@ -1,8 +1,4 @@
-import { getStorage, setStorage } from './chromeapi';
-
-export type connectionType = [boolean, any?];
-
-export const clientId = process.env.CLIENTID as string;
+export const clientId = process.env.CLIENT_ID;
 
 interface fetchOptions extends RequestInit {
   timeout?: number | undefined;
@@ -27,31 +23,21 @@ export async function fetchWithTimeout(
   return res;
 }
 
-export async function toggleColorMode() {
-  setStorage(
-    'NowLive:Storage:Color',
-    (await getStorage('NowLive:Storage:Color')) === 'light' ? 'dark' : 'light',
-  );
-}
-
-export async function checkConnection(): Promise<connectionType> {
+export async function checkConnection(): Promise<boolean> {
   try {
-    const fetchRes = await fetchWithTimeout('https://twitch.tv', {
+    await fetchWithTimeout('https://twitch.tv', {
       timeout: 10000,
     });
-    const res = fetchRes.json();
-    return [true, res];
+    return true;
   } catch (error) {
-    return [false, error];
+    return false;
   }
 }
 
 export function getTitle(oldTitle: string): string {
-  if (oldTitle.length > 25)
-    return `${oldTitle.substring(
-      0,
-      oldTitle.length - (oldTitle.length - 22),
-    )}...`;
+  if (oldTitle.length > 21) {
+    return `${oldTitle.substring(0, 18)}...`;
+  }
 
   return oldTitle;
 }
