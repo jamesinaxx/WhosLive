@@ -35,11 +35,8 @@ export async function checkConnection(): Promise<boolean> {
 }
 
 export function getTitle(oldTitle: string): string {
-  if (oldTitle.length > 25) {
-    return `${oldTitle.substring(
-      0,
-      oldTitle.length - (oldTitle.length - 22),
-    )}...`;
+  if (oldTitle.length > 21) {
+    return `${oldTitle.substring(0, 18)}...`;
   }
 
   return oldTitle;

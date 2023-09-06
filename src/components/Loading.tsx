@@ -45,8 +45,11 @@ const Loading = () => (
       initial="start"
       animate="end"
     >
-      {[null, null, null].map(() => (
+      {[null, null, null].map((_, i) => (
         <LoadingCircle
+          // There is nothing else I can use as a key ¯\_(ツ)_/¯
+          // eslint-disable-next-line react/no-array-index-key
+          key={i}
           variants={{
             start: {
               y: '0%',
