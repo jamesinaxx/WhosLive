@@ -11,7 +11,7 @@ interface ChoiceButtonProps {
   confirm: boolean;
 }
 
-const ChoiceButtonButton = styled.button<{ confirm: boolean }>`
+const ChoiceButtonButton = styled.button<{ $confirm: boolean }>`
   transition: background-color 100ms ease-in-out;
   width: 150px;
   height: 50px;
@@ -20,21 +20,19 @@ const ChoiceButtonButton = styled.button<{ confirm: boolean }>`
   color: white;
   font-size: 2em;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
+  border-radius: 1rem;
+
   &:hover {
     background-color: ${buttonHover};
   }
   &:active {
     background-color: ${buttonClicked};
   }
-  border-radius: ${(props) => {
-    if (props.confirm) {
-      return '100%, 0px, 0px, 100%';
-    }
 
-    return 'border-radius: 0px, 100%, 100%, 0px;';
-  }};
+  &:first-of-type {
+    margin-right: 1rem;
+  }
 `;
 
 const ChoiceButton: FunctionComponent<PropsWithChildren<ChoiceButtonProps>> = ({
@@ -43,9 +41,9 @@ const ChoiceButton: FunctionComponent<PropsWithChildren<ChoiceButtonProps>> = ({
   children,
 }) => (
   <ChoiceButtonButton
+    $confirm={confirm}
     onClick={() => onChoice(confirm)}
     type="button"
-    confirm={confirm}
   >
     {children}
   </ChoiceButtonButton>
