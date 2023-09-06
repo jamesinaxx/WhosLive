@@ -2,6 +2,7 @@
 import { FunctionComponent, PropsWithChildren, useRef } from 'react';
 import { FastAverageColorResult } from 'fast-average-color';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
@@ -23,7 +24,7 @@ const ChannelContainer = styled.div`
   position: relative;
 `;
 
-const ChannelSubcontainer = styled.button`
+const ChannelSubcontainer = styled(motion.button)`
   border-radius: 15px;
   width: 80vw;
   height: 120px;
@@ -33,11 +34,6 @@ const ChannelSubcontainer = styled.button`
   background: none;
 
   cursor: pointer;
-  transition: transform 100ms ease-in-out;
-
-  &:hover {
-    transform: scale(1.05);
-  }
 `;
 
 const Pfp = styled.img`
@@ -90,6 +86,12 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
         }}
         onClick={() => window.open(`https://twitch.tv/${user_login}`)}
         type="button"
+        whileHover={{
+          scale: 1.05,
+        }}
+        whileTap={{
+          scale: 0.95,
+        }}
       >
         <Pfp
           ref={imageRef}
