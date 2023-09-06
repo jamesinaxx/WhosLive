@@ -10,6 +10,7 @@ const config = {
   extends: [
     'plugin:compat/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:react/recommended',
     'eslint:recommended',
     'prettier',
@@ -44,7 +45,6 @@ const config = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint'],
   rules: {
     'operator-linebreak': ['off'],
     'react/jsx-filename-extension': [2, { extensions: ['.tsx'] }],

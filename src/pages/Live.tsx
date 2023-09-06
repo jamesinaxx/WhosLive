@@ -73,6 +73,7 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
       })}
       {channels
         .filter((channel) => !favoriteChannels.has(channel.user_id))
+        .sort()
         .map((channel) => (
           <Channel
             key={channel.id}
