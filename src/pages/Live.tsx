@@ -6,6 +6,7 @@ import {
   SetStateAction,
   useContext,
   PropsWithChildren,
+  useCallback,
 } from 'react';
 import Channel from '../components/Channel';
 import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
@@ -36,24 +37,17 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
     })();
   }, []);
 
-  const toggleFavorite = (userId: string) => {
+  const toggleFavorite = useCallback((userId: string) => {
     setFavoriteChannels((oldFaves) => {
       if (oldFaves.has(userId)) {
         oldFaves.delete(userId);
       } else {
         oldFaves.add(userId);
       }
-      setStorage('NowLive:Favorites', oldFaves);
+      setStorage('NowLive:Favorites', [...oldFaves]);
       return oldFaves;
     });
-    // } else {
-    //   setFavoriteChannels((oldFaves) => {
-    //     const newArray = [...oldFaves, userId];
-    //     setStorage('NowLive:Favorites', newArray);
-    //     return newArray;
-    //   });
-    // }
-  };
+  }, []);
 
   if (channels === undefined) {
     return null;
