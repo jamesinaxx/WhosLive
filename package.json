@@ -18,6 +18,7 @@
     "start:firefox": "web-ext run --source-dir ./dist/"
   },
   "dependencies": {
+    "@fontsource/noto-sans": "5.0.11",
     "fast-average-color": "9.4.0",
     "framer-motion": "10.16.4",
     "react": "18.2.0",

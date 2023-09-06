@@ -15,6 +15,7 @@ import { getStorageLocal } from './lib/chromeapi';
 import LoadingContext from './lib/LoadingContext';
 import Main from './pages/main';
 import Themes from './theme';
+import '@fontsource/noto-sans';
 
 const Global = createGlobalStyle`
   body, html {
@@ -83,10 +84,6 @@ const App: FunctionComponent<PropsWithChildren<unknown>> = () => {
     </LoadingContext.Provider>
   );
 };
-
-if (process.env.PRODUCTION) {
-  document.oncontextmenu = (e) => e.preventDefault();
-}
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(document.getElementById('root')!);
