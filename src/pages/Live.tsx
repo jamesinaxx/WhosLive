@@ -22,31 +22,37 @@ const updateChannels = async (
 
 const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
   const { isLoading } = useContext(LoadingContext);
-  const [favoriteChannels, setFavoriteChannels] = useState<string[]>([]);
+  const [favoriteChannels, setFavoriteChannels] = useState<Set<string>>(
+    new Set(),
+  );
   const [channels, setChannels] = useState<ChannelsType>(undefined);
 
   useEffect(() => {
     chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
     (async () => {
       setChannels(await getStorageLocal('NowLive:Channels'));
-      setFavoriteChannels((await getStorage('NowLive:Favorites')) || []);
+      const newFavoriteChannels = (await getStorage('NowLive:Favorites')) || [];
+      setFavoriteChannels(new Set(newFavoriteChannels));
     })();
   }, []);
 
-  const toggleFavorite = (wasFave: boolean, userId: string) => {
-    if (wasFave) {
-      setFavoriteChannels((oldFaves) => {
-        const newArray = oldFaves.filter((fav) => fav !== userId);
-        setStorage('NowLive:Favorites', newArray);
-        return newArray;
-      });
-    } else {
-      setFavoriteChannels((oldFaves) => {
-        const newArray = [...oldFaves, userId];
-        setStorage('NowLive:Favorites', newArray);
-        return newArray;
-      });
-    }
+  const toggleFavorite = (userId: string) => {
+    setFavoriteChannels((oldFaves) => {
+      if (oldFaves.has(userId)) {
+        oldFaves.delete(userId);
+      } else {
+        oldFaves.add(userId);
+      }
+      setStorage('NowLive:Favorites', oldFaves);
+      return oldFaves;
+    });
+    // } else {
+    //   setFavoriteChannels((oldFaves) => {
+    //     const newArray = [...oldFaves, userId];
+    //     setStorage('NowLive:Favorites', newArray);
+    //     return newArray;
+    //   });
+    // }
   };
 
   if (channels === undefined) {
@@ -56,7 +62,7 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
   return (
     <Container>
       {channels.length === 0 && <NoLiveChannels />}
-      {favoriteChannels.map((channelName) => {
+      {[...favoriteChannels].map((channelName) => {
         const channel = channels.find((c) => c.user_id === channelName);
 
         if (channel === undefined) return null;
@@ -67,18 +73,18 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
             data={channel}
             hidden={isLoading}
             favorite
-            setFavorites={(old) => toggleFavorite(old, channel.user_id)}
+            setFavorites={() => toggleFavorite(channel.user_id)}
           />
         );
       })}
       {channels
-        .filter((channel) => !favoriteChannels.includes(channel.user_id))
+        .filter((channel) => !favoriteChannels.has(channel.user_id))
         .map((channel) => (
           <Channel
             key={channel.id}
             data={channel}
             hidden={isLoading}
-            setFavorites={(old) => toggleFavorite(old, channel.user_id)}
+            setFavorites={() => toggleFavorite(channel.user_id)}
           />
         ))}
     </Container>
