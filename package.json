@@ -30,6 +30,7 @@
     "tslib": "2.6.2"
   },
   "devDependencies": {
+    "@parcel/config-default": "2.9.3",
     "@parcel/config-webextension": "2.9.3",
     "@parcel/transformer-inline-string": "^2.6.2",
     "@types/chrome": "0.0.245",

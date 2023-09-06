@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import { FunctionComponent, PropsWithChildren, useRef } from 'react';
 import { FastAverageColorResult } from 'fast-average-color';
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
@@ -24,27 +23,31 @@ const ChannelContainer = styled.div`
   position: relative;
 `;
 
-const ChannelSubcontainer = styled.div`
-  user-select: none;
-  padding: 10px;
+const ChannelSubcontainer = styled.button`
   border-radius: 15px;
-  width: 90vw;
+  width: 80vw;
   height: 120px;
   margin: 10px;
+
+  border: none;
+  background: none;
+
+  cursor: pointer;
+  transition: transform 100ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
-const Button = styled(motion.button)`
-  transition: transform 100ms ease-in-out;
+const Pfp = styled.img`
   background: none;
   border: none;
   margin: 10px;
   float: left;
-  cursor: pointer;
-  img {
-    border-radius: 15px;
-    width: 100px;
-    height: 100px;
-  }
+  border-radius: 15px;
+  width: 100px;
+  height: 100px;
 `;
 
 const InfoContainer = styled.div`
@@ -85,22 +88,15 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
             average_color ? parseRgba(average_color) : '#000'
           }`,
         }}
+        onClick={() => window.open(`https://twitch.tv/${user_login}`)}
+        type="button"
       >
-        <Button
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.8 }}
-          onClick={() => window.open(`https://twitch.tv/${user_login}`)}
-          type="button"
-        >
-          <img
-            ref={imageRef}
-            src={profile_image_url}
-            crossOrigin="anonymous"
-            alt={`${user_name} stream thumbnail`}
-            width={300}
-            height={300}
-          />
-        </Button>
+        <Pfp
+          ref={imageRef}
+          src={profile_image_url}
+          crossOrigin="anonymous"
+          alt={`${user_name} stream thumbnail`}
+        />
         <InfoContainer>
           <h1>{getTitle(title)}</h1>
           <p>
