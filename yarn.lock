@@ -1297,11 +1297,6 @@ ast-types-flow@^0.0.7:
   resolved "https://registry.yarnpkg.com/ast-types-flow/-/ast-types-flow-0.0.7.tgz#f70b735c6bca1a5c9c22d982c3e39e7feba3bdad"
   integrity sha512-eBvWn1lvIApYMhzQMsu9ciLfkBY499mFZlNqG+/9WR7PVlroQw0vG30cOQQbaKz3sCEc44TAOu2ykzqXSNnwag==
 
-avgcol@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/avgcol/-/avgcol-0.2.0.tgz#054009a97e98fb4c7ca99c557a615b1a22b5bb90"
-  integrity sha512-yK61E/T7ZYb0p7KrbJ8bu9RQzB+I32qOvUe1l9pQovWZ+6SHlP7N9fqsduIXXLGvyFeXHT4kX66EStXLalse/Q==
-
 axe-core@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.4.2.tgz#dcf7fb6dea866166c3eab33d68208afe4d5f670c"
