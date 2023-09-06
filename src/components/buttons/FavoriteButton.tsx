@@ -12,7 +12,7 @@ const Button = styled(motion.button)`
   transition: color 100ms ease-in-out;
   position: absolute;
   top: 10px;
-  right: 20px;
+  left: 15px;
   border: none;
   background: none;
   color: #ffd700;
