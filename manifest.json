@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Instantly check which of your favorite Twitch streamers are live right from your favorite browser",
   "name": "Now Live",
   "browser_action": {
