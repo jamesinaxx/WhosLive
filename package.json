@@ -6,7 +6,7 @@
   "description": "Instantly check which of your favorite Twitch streamers are live right from your favorite browser",
   "repository": "https://github.com/jewlexx/NowLive",
   "license": "MIT",
-  "author": "jewlexx",
+  "author": "Juliette Cordor",
   "scripts": {
     "build": "rimraf dist && parcel build manifest.json --no-source-maps",
     "dev": "parcel watch manifest.json",
