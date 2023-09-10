@@ -128,7 +128,6 @@ export async function getChannelInfo(): Promise<void> {
             width: 100,
             height: 100,
           });
-          console.log(col);
           const withImage: TwitchStream = {
             ...stream,
             profile_image_url: base64Url,
@@ -140,8 +139,6 @@ export async function getChannelInfo(): Promise<void> {
         return stream;
       }),
     );
-
-    console.log('parsed all colours');
 
     const streamingNow = Number(data.length.toString());
 

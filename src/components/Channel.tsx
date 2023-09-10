@@ -78,8 +78,6 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
     average_color,
   } = data;
 
-  console.log(average_color);
-
   return (
     <ChannelContainer title={title} hidden={hidden}>
       <ChannelSubcontainer
