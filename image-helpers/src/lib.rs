@@ -3,7 +3,7 @@ mod utils;
 use base64::prelude::*;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
+#[wasm_bindgen(js_name = downloadImage)]
 /// Downloads the specified image url and converts it into a base64 url
 pub async fn download_image(url: String) -> String {
     utils::set_panic_hook();
