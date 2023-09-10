@@ -33,7 +33,7 @@
   "devDependencies": {
     "@parcel/config-default": "2.9.3",
     "@parcel/config-webextension": "2.9.3",
-    "@parcel/transformer-inline-string": "^2.6.2",
+    "@parcel/transformer-inline-string": "2.6.2",
     "@types/chrome": "0.0.245",
     "@types/firefox-webext-browser": "111.0.1",
     "@types/node": "18.0.0",
@@ -59,6 +59,7 @@
     "rimraf": "5.0.1",
     "sharp": "0.32.5",
     "typescript": "5.2.2",
+    "wasm-pack": "0.12.1",
     "web-ext": "7.7.0"
   },
   "packageManager": "pnpm@8.7.3"
