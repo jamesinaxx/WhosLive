@@ -3,7 +3,6 @@ import { FunctionComponent, PropsWithChildren, useRef } from 'react';
 import { FastAverageColorResult } from 'fast-average-color';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { getTitle } from '../lib/lib';
 import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
 
@@ -56,6 +55,13 @@ const InfoContainer = styled.div`
   font-size: 2.3vw;
 `;
 
+const StreamTitle = styled.h1`
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
 const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
   data,
   hidden,
@@ -100,7 +106,7 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
           alt={`${user_name} stream thumbnail`}
         />
         <InfoContainer>
-          <h1>{getTitle(title)}</h1>
+          <StreamTitle>{title}</StreamTitle>
           <p>
             <b>{user_name}</b> is currently playing <b>{game_name}</b> for{' '}
             <b>
