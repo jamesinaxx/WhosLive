@@ -19,6 +19,9 @@ import '@fontsource/noto-sans';
 
 const Global = createGlobalStyle`
   body, html {
+    // The following properties only apply to Firefox browsers
+    scrollbar-width: 0.5em;
+    scrollbar-color: ${(props) => props.theme.colors.scrollbarColor} black;
     font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   }
 
