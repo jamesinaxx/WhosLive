@@ -8,7 +8,7 @@
   "license": "MIT",
   "author": "Juliette Cordor",
   "scripts": {
-    "build": "pnpm propegate:version && pnpm clean && parcel build manifest.json --no-source-maps",
+    "build": "pnpm build:wasm && pnpm propegate:version && pnpm clean && parcel build manifest.json --no-source-maps",
     "build:wasm": "cd image-helpers && wasm-pack build",
     "clean": "rimraf dist",
     "dev": "parcel watch manifest.json",
