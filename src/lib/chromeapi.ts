@@ -123,11 +123,16 @@ export async function getChannelInfo(): Promise<void> {
         const url = stream.profile_image_url;
         if (url.startsWith('https://static-cdn.jtvnw.net/')) {
           const blob = await (await fetch(stream.profile_image_url)).blob();
-
+          const base64Url = await blobToBase64(blob);
+          const col = await fac.getColorAsync(base64Url, {
+            width: 100,
+            height: 100,
+          });
+          console.log(col);
           const withImage: TwitchStream = {
             ...stream,
-            profile_image_url: await blobToBase64(blob),
-            average_color: await fac.getColorAsync(stream.profile_image_url),
+            profile_image_url: base64Url,
+            average_color: col,
           };
 
           return withImage;
@@ -135,6 +140,8 @@ export async function getChannelInfo(): Promise<void> {
         return stream;
       }),
     );
+
+    console.log('parsed all colours');
 
     const streamingNow = Number(data.length.toString());
 
