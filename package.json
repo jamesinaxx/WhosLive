@@ -8,13 +8,14 @@
   "license": "MIT",
   "author": "Juliette Cordor",
   "scripts": {
-    "build": "rimraf dist && parcel build manifest.json --no-source-maps",
+    "build": "pnpm propegate:version && rimraf dist && parcel build manifest.json --no-source-maps",
     "dev": "parcel watch manifest.json",
     "fmt": "prettier --write ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "fmt:check": "prettier --check ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "icons": "node scripts/icons.js",
     "lint": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "lint:fix": "eslint ./src/*/**.{ts,tsx} --ignore-path .gitignore --fix",
+    "propegate:version": "node scripts/update-version.js",
     "start:firefox": "web-ext run --source-dir ./dist/"
   },
   "dependencies": {
