@@ -1,4 +1,5 @@
 import { FastAverageColor } from 'fast-average-color';
+import { download_image } from 'image-helpers';
 import { clientId } from './lib';
 import { error } from './logger';
 import type { Local, Synced } from '../types/chrome';
