@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { FunctionComponent, PropsWithChildren, useRef } from 'react';
+import { FunctionComponent, PropsWithChildren } from 'react';
 import { FastAverageColorResult } from 'fast-average-color';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -68,8 +68,6 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
   favorite = false,
   setFavorites,
 }) => {
-  const imageRef = useRef<HTMLImageElement>(null);
-
   const {
     title,
     user_name,
@@ -100,7 +98,6 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
         }}
       >
         <Pfp
-          ref={imageRef}
           src={profile_image_url}
           crossOrigin="anonymous"
           alt={`${user_name} stream thumbnail`}
