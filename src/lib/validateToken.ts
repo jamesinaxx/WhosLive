@@ -1,6 +1,6 @@
 import { getStorage, setStorage } from './chromeapi';
 import { clientId } from './lib';
-import { error } from './logger';
+import { error, log } from './logger';
 
 export default async function validateToken(
   checkToken?: string | undefined,
@@ -8,7 +8,7 @@ export default async function validateToken(
   const token = checkToken || (await getStorage('NowLive:Token'));
 
   if (token === undefined) {
-    error('No token found');
+    log('No token found');
     return false;
   }
 
