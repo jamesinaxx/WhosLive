@@ -8,7 +8,8 @@
   "license": "MIT",
   "author": "Juliette Cordor",
   "scripts": {
-    "build": "pnpm propegate:version && rimraf dist && parcel build manifest.json --no-source-maps",
+    "build": "pnpm propegate:version && pnpm clean && parcel build manifest.json --no-source-maps",
+    "clean": "rimraf dist",
     "dev": "parcel watch manifest.json",
     "fmt": "prettier --write ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "fmt:check": "prettier --check ./src/*/**.{ts,tsx} --ignore-path .gitignore",
