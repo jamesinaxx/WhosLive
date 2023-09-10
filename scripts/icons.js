@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const fs = require('fs/promises');
 const path = require('path');
 const sharp = require('sharp');

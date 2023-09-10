@@ -9,7 +9,9 @@
     "default_title": "See who is live"
   },
   "background": {
-    "scripts": ["src/scripts/background.ts"]
+    "scripts": [
+      "src/scripts/background.ts"
+    ]
   },
   "icons": {
     "16": "src/assets/icons/16.png",
@@ -20,11 +22,19 @@
     "128": "src/assets/icons/128.png",
     "256": "src/assets/icons/256.png"
   },
-  "permissions": ["storage", "alarms", "*://*.twitch.tv/*"],
+  "permissions": [
+    "storage",
+    "alarms",
+    "*://*.twitch.tv/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["*://nowlive.jewelexx.com/auth/callback"],
-      "js": ["src/scripts/authcheck.ts"]
+      "matches": [
+        "*://nowlive.jewelexx.com/auth/callback"
+      ],
+      "js": [
+        "src/scripts/authcheck.ts"
+      ]
     }
   ]
 }
