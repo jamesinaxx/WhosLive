@@ -7,7 +7,7 @@ import { log } from '../lib/logger';
 import validateToken from '../lib/validateToken';
 
 chrome.alarms.create('NowLive:Refresh', {
-  delayInMinutes: 1,
+  // delayInMinutes: 1,
   periodInMinutes: 1,
 });
 
