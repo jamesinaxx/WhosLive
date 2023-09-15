@@ -84,24 +84,28 @@ impl Colour {
 
     fn sqrt_algorithm(image: DynamicImage) -> Self {
         let pixels = image.pixels();
-        let mut red_total: u32 = 0;
-        let mut green_total: u32 = 0;
-        let mut blue_total: u32 = 0;
-        let mut alpha_total: u32 = 0;
+        let mut red_total: f64 = 0.0;
+        let mut green_total: f64 = 0.0;
+        let mut blue_total: f64 = 0.0;
+        let mut alpha_total: f64 = 0.0;
         let count = image.width() * image.height();
 
         for pixel in pixels {
-            let [red, green, blue, alpha] = pixel.2 .0;
-            red_total += red as u32;
-            green_total += green as u32;
-            blue_total += blue as u32;
-            alpha_total += alpha as u32;
+            let [red, green, blue, alpha] = {
+                let [red, green, blue, alpha] = pixel.2 .0;
+                [red as f64, green as f64, blue as f64, alpha as f64]
+            };
+
+            red_total += red * red * alpha;
+            green_total += green * green * alpha;
+            blue_total += blue * blue * alpha;
+            alpha_total += alpha;
         }
 
-        let red = red_total / alpha_total;
-        let blue = blue_total / alpha_total;
-        let green = green_total / alpha_total;
-        let alpha = alpha_total / count;
+        let red = (red_total / alpha_total).sqrt().round();
+        let blue = (blue_total / alpha_total).sqrt().round();
+        let green = (green_total / alpha_total).sqrt().round();
+        let alpha = (alpha_total / count as f64).round();
 
         Self::new([red as u8, green as u8, blue as u8, alpha as u8])
     }

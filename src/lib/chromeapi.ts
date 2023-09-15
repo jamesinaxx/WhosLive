@@ -118,7 +118,16 @@ export async function getChannelInfo(): Promise<void> {
           const image = await Image.download_url(stream.profile_image_url);
           const base64Url = image.to_base64();
           const col = image.average_color();
-          console.log(base64Url);
+          console.log(col);
+          console.log({
+            // The `Colour` class uses wasm pointers,
+            // so we must get all the data from them and
+            // put it in a regular object to persist even when the wasm runtime leaves memory
+            red: col.red,
+            green: col.green,
+            blue: col.blue,
+            isLight: col.is_light(),
+          });
           // const blob = await (await fetch(stream.profile_image_url)).blob();
           // const base64Url = await blobToBase64(blob);
           // const col = await fac.getColorAsync(base64Url, {
@@ -129,7 +138,12 @@ export async function getChannelInfo(): Promise<void> {
             ...stream,
             profile_image_url: base64Url,
             average_color: {
-              ...col,
+              // The `Colour` class uses wasm pointers,
+              // so we must get all the data from them and
+              // put it in a regular object to persist even when the wasm runtime leaves memory
+              red: col.red,
+              green: col.green,
+              blue: col.blue,
               isLight: col.is_light(),
             },
           };
