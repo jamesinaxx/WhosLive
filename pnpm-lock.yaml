@@ -48,6 +48,9 @@ importers:
       '@parcel/transformer-inline-string':
         specifier: 2.9.3
         version: 2.9.3(@parcel/core@2.9.3)
+      '@parcel/transformer-raw':
+        specifier: 2.9.3
+        version: 2.9.3(@parcel/core@2.9.3)
       '@types/chrome':
         specifier: 0.0.246
         version: 0.0.246

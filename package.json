@@ -38,6 +38,7 @@
     "@parcel/config-default": "2.9.3",
     "@parcel/config-webextension": "2.9.3",
     "@parcel/transformer-inline-string": "2.9.3",
+    "@parcel/transformer-raw": "2.9.3",
     "@types/chrome": "0.0.246",
     "@types/firefox-webext-browser": "111.0.2",
     "@types/node": "18.0.0",
