@@ -21,6 +21,7 @@
     "propegate:version": "node scripts/update-version.js",
     "start:firefox": "web-ext run --source-dir ./dist/"
   },
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "dependencies": {
     "@fontsource/noto-sans": "5.0.12",
     "fast-average-color": "9.4.0",
@@ -45,7 +46,6 @@
     "@types/styled-components": "5.1.26",
     "@typescript-eslint/eslint-plugin": "6.6.0",
     "@typescript-eslint/parser": "6.6.0",
-    "browserslist": "4.21.10",
     "cross-env": "7.0.3",
     "eslint": "8.49.0",
     "eslint-config-airbnb": "19.0.4",
