@@ -16,10 +16,21 @@ pub fn initialize() {
     log!("Initialized wasm!");
 }
 
-#[wasm_bindgen(js_name = downloadImage)]
-/// Downloads the specified image url and converts it into a base64 url
-pub async fn download_image(url: String) -> String {
-    log!("Downloading {url}...");
-    let download = reqwest::get(url).await.unwrap().bytes().await.unwrap();
-    BASE64_URL_SAFE.encode(download)
+#[wasm_bindgen]
+pub struct Image {
+    bytes: bytes::Bytes,
+}
+
+#[wasm_bindgen]
+impl Image {
+    pub async fn download_url(url: String) -> Self {
+        log!("Downloading {url}...");
+        let bytes = reqwest::get(url).await.unwrap().bytes().await.unwrap();
+
+        Self { bytes }
+    }
+
+    pub fn to_base64(&self) -> String {
+        BASE64_URL_SAFE.encode(&self.bytes)
+    }
 }

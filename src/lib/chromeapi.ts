@@ -1,5 +1,5 @@
 import { FastAverageColor } from 'fast-average-color';
-import { downloadImage } from 'image-helpers';
+import { Image } from 'image-helpers';
 import { clientId } from './lib';
 import { error } from './logger';
 import type { Local, Synced } from '../types/chrome';
@@ -115,7 +115,8 @@ export async function getChannelInfo(): Promise<void> {
         const url = stream.profile_image_url;
         if (url.startsWith('https://static-cdn.jtvnw.net/')) {
           // TODO: Maybe move to wasm for some of this
-          const base64Url = await downloadImage(stream.profile_image_url);
+          const image = await Image.download_url(stream.profile_image_url);
+          const base64Url = image.to_base64();
           // const blob = await (await fetch(stream.profile_image_url)).blob();
           // const base64Url = await blobToBase64(blob);
           const col = await fac.getColorAsync(base64Url, {
