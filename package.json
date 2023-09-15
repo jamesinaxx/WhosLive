@@ -9,7 +9,7 @@
   "author": "Juliette Cordor",
   "scripts": {
     "build": "pnpm build:wasm && pnpm propegate:version && pnpm clean && parcel build manifest.json --no-source-maps",
-    "build:wasm": "cd image-helpers && wasm-pack build",
+    "build:wasm": "cd image-helpers && pnpm build",
     "cargo": "cd image-helpers && cargo",
     "clean": "rimraf dist",
     "dev": "parcel watch manifest.json",

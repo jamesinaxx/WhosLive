@@ -14,6 +14,7 @@
         "pkg/image_helpers.d.ts"
     ],
     "scripts": {
-        "postinstall": "wasm-pack build"
+        "build": "wasm-pack build --target web",
+        "postinstall": "pnpm build"
     }
 }

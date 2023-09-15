@@ -1,4 +1,4 @@
-import {} from 'image-helpers';
+import init, { initialize } from 'image-helpers';
 import {
   getChannelInfo,
   setStorageIfNull,
@@ -7,9 +7,10 @@ import {
 import { log } from '../lib/logger';
 import validateToken from '../lib/validateToken';
 
-// const initializeWasm = () => {
-
-// }
+const initializeWasm = async () => {
+  await init();
+  initialize();
+};
 
 chrome.alarms.create('NowLive:Refresh', {
   // delayInMinutes: 1,
@@ -52,10 +53,13 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
   return true;
 });
 
-getChannelInfo().then(() => {
+(async () => {
+  await initializeWasm();
+  await getChannelInfo();
+
   chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === 'NowLive:Refresh') {
       await getChannelInfo();
     }
   });
-});
+})();
