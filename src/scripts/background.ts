@@ -1,3 +1,4 @@
+import {} from 'image-helpers';
 import {
   getChannelInfo,
   setStorageIfNull,
@@ -5,6 +6,10 @@ import {
 } from '../lib/chromeapi';
 import { log } from '../lib/logger';
 import validateToken from '../lib/validateToken';
+
+// const initializeWasm = () => {
+
+// }
 
 chrome.alarms.create('NowLive:Refresh', {
   // delayInMinutes: 1,
