@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 mod utils;
 
 // TODO: Use the log crate and intercept that instead of this
@@ -17,6 +19,7 @@ pub fn initialize() {
     log!("Initialized wasm!");
 }
 
+#[derive(Debug, Serialize, Deserialize)]
 #[wasm_bindgen]
 pub struct Image {
     bytes: bytes::Bytes,
@@ -32,7 +35,11 @@ impl Image {
     }
 
     pub fn to_base64(&self) -> String {
-        BASE64_URL_SAFE.encode(&self.bytes)
+        let image_format = image::guess_format(&self.bytes).expect("valid image format");
+
+        let data = BASE64_STANDARD.encode(&self.bytes);
+
+        format!("data:{};base64,{data}", image_format.to_mime_type())
     }
 
     pub fn average_color(&self) -> Colour {
@@ -41,6 +48,7 @@ impl Image {
     }
 }
 
+#[derive(Debug, Serialize, Deserialize)]
 #[wasm_bindgen]
 pub struct Colour {
     pub red: u8,
@@ -49,8 +57,12 @@ pub struct Colour {
     pub alpha: u8,
 }
 
+#[wasm_bindgen]
 impl Colour {
-    pub fn new(colours: [u8; 4]) -> Self {
+    // #[wasm_bindgen]
+    // pub fn to_object(&self) -> JsValue {}
+
+    fn new(colours: [u8; 4]) -> Self {
         let [red, green, blue, alpha] = colours;
 
         Self {
@@ -59,6 +71,15 @@ impl Colour {
             blue,
             alpha,
         }
+    }
+
+    #[wasm_bindgen]
+    pub fn is_light(&self) -> bool {
+        // http://www.w3.org/TR/AERT#color-contrast
+        let result =
+            ((self.red as u32) * 299 + (self.green as u32) * 587 + (self.blue as u32) * 114) / 1000;
+
+        result < 128
     }
 
     fn sqrt_algorithm(image: DynamicImage) -> Self {

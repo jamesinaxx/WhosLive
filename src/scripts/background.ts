@@ -54,8 +54,9 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
 });
 
 (async () => {
+  console.log('initializaing');
   await initializeWasm();
-  await getChannelInfo();
+  console.log('initialized wasm');
 
   chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === 'NowLive:Refresh') {

@@ -1,4 +1,4 @@
-import { FastAverageColor } from 'fast-average-color';
+// import { FastAverageColor } from 'fast-average-color';
 import { Image } from 'image-helpers';
 import { clientId } from './lib';
 import { error } from './logger';
@@ -107,7 +107,7 @@ export async function getChannelInfo(): Promise<void> {
       return withicon;
     });
 
-    const fac = new FastAverageColor();
+    // const fac = new FastAverageColor();
 
     // Downloads the images and converts them into a base64 url
     const withImages = await Promise.all(
@@ -117,16 +117,21 @@ export async function getChannelInfo(): Promise<void> {
           // TODO: Maybe move to wasm for some of this
           const image = await Image.download_url(stream.profile_image_url);
           const base64Url = image.to_base64();
+          const col = image.average_color();
+          console.log(base64Url);
           // const blob = await (await fetch(stream.profile_image_url)).blob();
           // const base64Url = await blobToBase64(blob);
-          const col = await fac.getColorAsync(base64Url, {
-            width: 100,
-            height: 100,
-          });
+          // const col = await fac.getColorAsync(base64Url, {
+          //   width: 100,
+          //   height: 100,
+          // });
           const withImage: TwitchStream = {
             ...stream,
             profile_image_url: base64Url,
-            average_color: col,
+            average_color: {
+              ...col,
+              isLight: col.is_light(),
+            },
           };
 
           return withImage;

@@ -1,4 +1,3 @@
-import { FastAverageColorResult } from 'fast-average-color';
 /* eslint-disable camelcase */
 
 export interface TwitchUser {
@@ -12,6 +11,13 @@ export interface TwitchUser {
   type: 'staff' | 'admin' | 'global_mod' | '';
   view_count: number;
   created_at: string;
+}
+
+export interface TwitchColour {
+  red: number;
+  green: number;
+  blue: number;
+  isLight: boolean;
 }
 
 export interface TwitchStream {
@@ -29,5 +35,5 @@ export interface TwitchStream {
   user_name: string;
   viewer_count: number;
   profile_image_url: string;
-  average_color?: FastAverageColorResult;
+  average_color?: TwitchColour;
 }

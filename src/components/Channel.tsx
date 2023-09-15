@@ -1,13 +1,12 @@
 /* eslint-disable camelcase */
 import { FunctionComponent, PropsWithChildren } from 'react';
-import { FastAverageColorResult } from 'fast-average-color';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import type { TwitchStream } from '../types/twitch';
+import type { TwitchColour, TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
 
-const parseRgba = ({ value }: FastAverageColorResult) =>
-  `rgba(${value[0]},${value[1]},${value[2]},0.7)`;
+const parseRgba = (colour: TwitchColour) =>
+  `rgba(${colour.red},${colour.green},${colour.blue},0.7)`;
 
 interface ChannelProps {
   data: TwitchStream;
