@@ -72,6 +72,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: 6.6.0
         version: 6.6.0(eslint@8.49.0)(typescript@5.2.2)
+      browserslist:
+        specifier: 4.21.10
+        version: 4.21.10
       cross-env:
         specifier: 7.0.3
         version: 7.0.3
