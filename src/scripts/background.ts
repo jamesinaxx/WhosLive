@@ -24,11 +24,8 @@ chrome.runtime.onInstalled.addListener(async () => {
   log('Initialized Now Live');
 });
 
-chrome.storage.onChanged.addListener((changes) => {
-  if ('NowLive:Token' in changes) {
-    getChannelInfo();
-  }
-});
+// chrome.storage.onChanged.addListener((changes) => {
+// });
 
 chrome.runtime.onMessage.addListener((message, sender, res) => {
   if (!sender.url?.startsWith('https://nowlive.jewelexx.com/auth/callback')) {
@@ -43,6 +40,7 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
     validateToken(message.token).then((valid) => {
       if (valid) {
         res([`Received valid token: ${message.token}`, true]);
+        getChannelInfo();
       } else {
         res([`Received invalid token: ${message.token}`, false]);
       }
