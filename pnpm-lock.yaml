@@ -19,7 +19,7 @@ importers:
         version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
       image-helpers:
         specifier: workspace:*
-        version: link:image-helpers/pkg
+        version: link:image-helpers
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -130,7 +130,7 @@ importers:
         specifier: 7.7.0
         version: 7.7.0
 
-  image-helpers/pkg: {}
+  image-helpers: {}
 
 packages:
 
