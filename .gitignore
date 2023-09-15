@@ -5,6 +5,10 @@ web-ext-artifacts
 
 config.json
 
+/target
+**/*.rs.bk
+Cargo.lock
+
 # Logs
 logs
 *.log

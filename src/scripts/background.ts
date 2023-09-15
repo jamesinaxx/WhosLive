@@ -1,3 +1,4 @@
+import init, { initialize } from 'image-helpers';
 import {
   getChannelInfo,
   setStorageIfNull,
@@ -5,6 +6,11 @@ import {
 } from '../lib/chromeapi';
 import { log } from '../lib/logger';
 import validateToken from '../lib/validateToken';
+
+const initializeWasm = async () => {
+  await init();
+  initialize();
+};
 
 chrome.alarms.create('NowLive:Refresh', {
   // delayInMinutes: 1,
@@ -18,11 +24,8 @@ chrome.runtime.onInstalled.addListener(async () => {
   log('Initialized Now Live');
 });
 
-chrome.storage.onChanged.addListener((changes) => {
-  if ('NowLive:Token' in changes) {
-    getChannelInfo();
-  }
-});
+// chrome.storage.onChanged.addListener((changes) => {
+// });
 
 chrome.runtime.onMessage.addListener((message, sender, res) => {
   if (!sender.url?.startsWith('https://nowlive.jewelexx.com/auth/callback')) {
@@ -37,6 +40,7 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
     validateToken(message.token).then((valid) => {
       if (valid) {
         res([`Received valid token: ${message.token}`, true]);
+        getChannelInfo();
       } else {
         res([`Received invalid token: ${message.token}`, false]);
       }
@@ -47,10 +51,12 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
   return true;
 });
 
-getChannelInfo().then(() => {
+(async () => {
+  await initializeWasm();
+
   chrome.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === 'NowLive:Refresh') {
       await getChannelInfo();
     }
   });
-});
+})();
