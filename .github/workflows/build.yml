@@ -16,7 +16,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
 
       - name: Install dependencies
-        run: npm i
+        run: pnpm i
       - name: Test
         run: pnpm run test --if-present
       - name: Build
