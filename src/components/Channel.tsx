@@ -1,12 +1,16 @@
 /* eslint-disable camelcase */
-import { FunctionComponent, PropsWithChildren } from 'react';
+import { FunctionComponent, PropsWithChildren, useMemo, useState } from 'react';
+import {
+  FastAverageColor,
+  type FastAverageColorResult,
+} from 'fast-average-color';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import type { TwitchColour, TwitchStream } from '../types/twitch';
+import type { TwitchStream } from '../types/twitch';
 import FavoriteButton from './buttons/FavoriteButton';
 
-const parseRgba = (colour: TwitchColour) =>
-  `rgba(${colour.red},${colour.green},${colour.blue},0.7)`;
+const parseRgba = ({ value: [red, green, blue] }: FastAverageColorResult) =>
+  `rgba(${red},${green},${blue},0.7)`;
 
 interface ChannelProps {
   data: TwitchStream;
@@ -67,6 +71,8 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
   favorite = false,
   setFavorites,
 }) => {
+  const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
+
   const {
     title,
     user_name,
@@ -74,8 +80,18 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
     viewer_count,
     game_name,
     profile_image_url,
-    average_color,
   } = data;
+
+  const average_color = useMemo(() => {
+    const fac = new FastAverageColor();
+    if (imageRef === null) {
+      return null;
+    }
+    return fac.getColor(imageRef, {
+      width: 100,
+      height: 100,
+    });
+  }, [imageRef]);
 
   return (
     <ChannelContainer title={title} hidden={hidden}>
@@ -100,6 +116,7 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
           src={profile_image_url}
           crossOrigin="anonymous"
           alt={`${user_name} stream thumbnail`}
+          ref={setImageRef}
         />
         <InfoContainer>
           <StreamTitle>{title}</StreamTitle>
