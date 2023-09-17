@@ -1,5 +1,11 @@
 /* eslint-disable camelcase */
-import { FunctionComponent, PropsWithChildren, useMemo, useState } from 'react';
+import {
+  FunctionComponent,
+  PropsWithChildren,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 import {
   FastAverageColor,
   type FastAverageColorResult,
@@ -71,7 +77,9 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
   favorite = false,
   setFavorites,
 }) => {
-  const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
+  const [average_color, setAverageColor] =
+    useState<FastAverageColorResult | null>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const {
     title,
@@ -82,16 +90,17 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
     profile_image_url,
   } = data;
 
-  const average_color = useMemo(() => {
+  const updateColor = useCallback(() => {
     const fac = new FastAverageColor();
-    if (imageRef === null) {
-      return null;
+    if (imageRef.current !== null) {
+      setAverageColor(
+        fac.getColor(imageRef.current, {
+          width: 100,
+          height: 100,
+        }),
+      );
     }
-    return fac.getColor(imageRef, {
-      width: 100,
-      height: 100,
-    });
-  }, [imageRef]);
+  }, []);
 
   return (
     <ChannelContainer title={title} hidden={hidden}>
@@ -116,7 +125,8 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
           src={profile_image_url}
           crossOrigin="anonymous"
           alt={`${user_name} stream thumbnail`}
-          ref={setImageRef}
+          onLoad={updateColor}
+          ref={imageRef}
         />
         <InfoContainer>
           <StreamTitle>{title}</StreamTitle>
