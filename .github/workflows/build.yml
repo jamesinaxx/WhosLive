@@ -1,0 +1,27 @@
+name: Build Extension
+
+on:
+  push:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: node --version
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies
+        run: pnpm i
+      #   - name: Test
+      #     run: pnpm run test
+      - name: Build
+        run: pnpm run build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: built-extension
+          path: dist/
