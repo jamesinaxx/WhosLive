@@ -39,8 +39,6 @@ const Loading = () => (
     >
       {[null, null, null].map((_, i) => (
         <LoadingCircle
-          // There is nothing else I can use as a key ¯\_(ツ)_/¯
-          // eslint-disable-next-line react/no-array-index-key
           key={i}
           variants={{ start: { y: '0%' }, end: { y: '60%' } }}
           transition={{ duration: 0.4, yoyo: Infinity, ease: 'easeInOut' }}

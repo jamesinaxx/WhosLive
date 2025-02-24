@@ -7,6 +7,7 @@ import { fixupConfigRules } from '@eslint/compat';
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
 
+import pluginReact from 'eslint-plugin-react';
 import reactCompiler from 'eslint-plugin-react-compiler';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +23,10 @@ export default tseslint.config(
   tseslint.configs.strict,
   tseslint.configs.stylistic,
   reactCompiler.configs.recommended,
+  {
+    ...pluginReact.configs.flat.recommended,
+    settings: { react: { version: 'detect' } },
+  },
   ...fixupConfigRules(
     compat.extends(
       'plugin:compat/recommended',
@@ -29,6 +34,7 @@ export default tseslint.config(
       'prettier',
     ),
   ),
+  { rules: { 'react/react-in-jsx-scope': 'off' } },
   // {
   //   languageOptions: {
   //     globals: { ...globals.webextensions, ...globals.browser },
