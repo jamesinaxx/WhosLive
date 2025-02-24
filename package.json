@@ -11,8 +11,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "pnpm build:wasm && pnpm propegate:version && pnpm clean && parcel build manifest.json --no-source-maps",
-    "build:wasm": "cd image-helpers && pnpm build",
+    "build": "bun run build:wasm && bun run propegate:version && bun run clean && parcel build manifest.json --no-source-maps",
+    "build:wasm": "cd image-helpers && bun run build",
     "cargo": "cd image-helpers && cargo",
     "clean": "rimraf dist",
     "dev": "parcel watch manifest.json",
@@ -70,5 +70,12 @@
     "wasm-pack": "0.12.1",
     "web-ext": "7.7.0"
   },
-  "packageManager": "pnpm@8.7.3"
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "@swc/core",
+    "core-js",
+    "image-helpers",
+    "spawn-sync",
+    "wasm-pack"
+  ]
 }
