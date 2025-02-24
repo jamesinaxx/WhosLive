@@ -2,12 +2,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import tseslint from 'typescript-eslint';
 import { fixupConfigRules } from '@eslint/compat';
-import globals from 'globals';
-import tsParser from '@typescript-eslint/parser';
+// import globals from 'globals';
+// import tsParser from '@typescript-eslint/parser';
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
 
-import react from 'eslint-plugin-react';
 import reactCompiler from 'eslint-plugin-react-compiler';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -30,25 +29,25 @@ export default tseslint.config(
       'prettier',
     ),
   ),
-  {
-    languageOptions: {
-      globals: { ...globals.webextensions, ...globals.browser },
+  // {
+  //   languageOptions: {
+  //     globals: { ...globals.webextensions, ...globals.browser },
 
-      parser: tsParser,
-      ecmaVersion: 12,
-      sourceType: 'module',
+  //     parser: tsParser,
+  //     ecmaVersion: 12,
+  //     sourceType: 'module',
 
-      parserOptions: { ecmaFeatures: { jsx: true } },
-    },
-  },
-  {
-    files: ['**/*.ts', '**/*.tsx'],
+  //     parserOptions: { ecmaFeatures: { jsx: true } },
+  //   },
+  // },
+  // {
+  //   files: ['**/*.ts', '**/*.tsx'],
 
-    languageOptions: {
-      ecmaVersion: 5,
-      sourceType: 'script',
+  //   languageOptions: {
+  //     ecmaVersion: 5,
+  //     sourceType: 'script',
 
-      parserOptions: { project: ['./tsconfig.json'] },
-    },
-  },
+  //     parserOptions: { project: ['./tsconfig.json'] },
+  //   },
+  // },
 );

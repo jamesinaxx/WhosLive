@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 export interface TwitchUser {
   broadcaster_type: 'partner' | 'affiliate' | '';
   description: string;

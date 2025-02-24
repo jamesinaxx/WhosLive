@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { FunctionComponent, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -89,12 +88,8 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
         }}
         onClick={() => window.open(`https://twitch.tv/${user_login}`)}
         type="button"
-        whileHover={{
-          scale: 1.05,
-        }}
-        whileTap={{
-          scale: 0.95,
-        }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         <Pfp
           src={profile_image_url}

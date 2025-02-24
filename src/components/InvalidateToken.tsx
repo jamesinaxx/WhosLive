@@ -1,4 +1,8 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
+import {
+  useEffect,
+  type FunctionComponent,
+  type PropsWithChildren,
+} from 'react';
 import styled from 'styled-components';
 import { buttonClicked, buttonColor, buttonHover } from '../styleMixins';
 
@@ -65,7 +69,10 @@ const InvalidateTokenContainer = styled.div`
 const InvalidateToken: FunctionComponent<
   PropsWithChildren<InvalidateTokenProps>
 > = ({ onChoice }) => {
-  document.body.style.overflow = 'hidden';
+  useEffect(() => {
+    // TODO: Get rid of this
+    document.body.style.overflow = 'hidden';
+  }, []);
 
   return (
     <InvalidateTokenContainer>
