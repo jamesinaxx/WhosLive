@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "bun run build:wasm && bun run propegate:version && bun run clean && parcel build manifest.json --no-source-maps",
-    "build:wasm": "cd image-helpers && bun run build",
+    "build:wasm": "cd packages/image-helpers && bun run build",
     "cargo": "cd image-helpers && cargo",
     "clean": "rimraf dist",
     "dev": "parcel watch manifest.json",
