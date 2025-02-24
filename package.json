@@ -7,6 +7,9 @@
   "repository": "https://github.com/jewlexx/NowLive",
   "license": "MIT",
   "author": "Juliette Cordor",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "pnpm build:wasm && pnpm propegate:version && pnpm clean && parcel build manifest.json --no-source-maps",
     "build:wasm": "cd image-helpers && pnpm build",
