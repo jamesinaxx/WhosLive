@@ -1,5 +1,5 @@
 [workspace]
-members = ["image-helpers"]
+members = ["packages/*"]
 
 [profile.release]
 # Tell `rustc` to optimize for small code size.
