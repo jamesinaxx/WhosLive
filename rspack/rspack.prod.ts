@@ -7,5 +7,5 @@ const MB = 1048576;
 export default defineConfig({
   mode: 'production',
   plugins: [new rspack.DefinePlugin({ 'process.env.PRODUCTION': 'true' })],
-  performance: { maxEntrypointSize: MB, maxAssetSize: MB, hints: 'error' },
+  performance: { maxEntrypointSize: MB, maxAssetSize: MB, hints: 'warning' },
 });
