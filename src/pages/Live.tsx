@@ -11,7 +11,7 @@ import {
 import Channel from '../components/Channel';
 import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
 import NoLiveChannels from '../components/NoLiveChannels';
-import Container from '../components/Container';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import type { TwitchStream } from '../types/twitch';
 import LoadingContext from '../lib/LoadingContext';
 
@@ -27,6 +27,8 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
     new Set(),
   );
   const [channels, setChannels] = useState<ChannelsType>(undefined);
+
+  const [parent] = useAutoAnimate();
 
   useEffect(() => {
     chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
@@ -72,12 +74,12 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
     [favoriteChannels],
   );
 
-  if (channels === undefined) {
+  if (!channels) {
     return null;
   }
 
   return (
-    <Container>
+    <ul className="mb-[110px] text-center" ref={parent}>
       {channels.length === 0 ? (
         <NoLiveChannels />
       ) : (
@@ -93,7 +95,7 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
             />
           ))
       )}
-    </Container>
+    </ul>
   );
 };
 

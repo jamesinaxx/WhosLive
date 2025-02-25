@@ -27,6 +27,7 @@
   "browserslist": "last 2 Chrome versions, last 2 Firefox versions",
   "dependencies": {
     "@fontsource/noto-sans": "5.1.1",
+    "@formkit/auto-animate": "^0.8.2",
     "fast-average-color": "9.4.0",
     "framer-motion": "12.4.7",
     "image-helpers": "workspace:*",
