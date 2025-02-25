@@ -1,14 +1,14 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import tseslint from 'typescript-eslint';
-import { fixupConfigRules } from '@eslint/compat';
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import tseslint from "typescript-eslint";
+import { fixupConfigRules } from "@eslint/compat";
 // import globals from 'globals';
 // import tsParser from '@typescript-eslint/parser';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
 
-import pluginReact from 'eslint-plugin-react';
-import reactCompiler from 'eslint-plugin-react-compiler';
+import pluginReact from "eslint-plugin-react";
+import reactCompiler from "eslint-plugin-react-compiler";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,16 +25,16 @@ export default tseslint.config(
   reactCompiler.configs.recommended,
   {
     ...pluginReact.configs.flat.recommended,
-    settings: { react: { version: 'detect' } },
+    settings: { react: { version: "detect" } },
   },
   ...fixupConfigRules(
     compat.extends(
-      'plugin:compat/recommended',
-      'plugin:react-hooks/recommended',
-      'prettier',
+      "plugin:compat/recommended",
+      "plugin:react-hooks/recommended",
+      "prettier",
     ),
   ),
-  { rules: { 'react/react-in-jsx-scope': 'off' } },
+  { rules: { "react/react-in-jsx-scope": "off", "compat/compat": "off" } },
   // {
   //   languageOptions: {
   //     globals: { ...globals.webextensions, ...globals.browser },

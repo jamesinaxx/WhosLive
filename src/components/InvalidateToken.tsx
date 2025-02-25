@@ -1,14 +1,10 @@
-import {
-  useEffect,
-  useRef,
-  type FunctionComponent,
-  type PropsWithChildren,
-} from "react";
+import type { RefObject } from "react";
 import styled from "styled-components";
 import { buttonClicked, buttonColor, buttonHover } from "../styleMixins";
 
 interface InvalidateTokenProps {
   onChoice: (invalidate: boolean) => void;
+  ref: RefObject<HTMLDialogElement | null>;
 }
 
 const ChoiceButtonButton = styled.button`
@@ -35,21 +31,10 @@ const ChoiceButtonButton = styled.button`
   }
 `;
 
-function InvalidateToken({ onChoice }: InvalidateTokenProps) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    dialog.current?.showModal();
-
-    // TODO: Get rid of this
-    // document.body.style.overflow = "hidden";
-    return () => {
-      // document.body.style.overflow = "";
-    };
-  }, []);
-
+function InvalidateToken({ ref: dialogRef, onChoice }: InvalidateTokenProps) {
   return (
     <dialog
-      ref={dialog}
+      ref={dialogRef}
       className="fixed z-1 min-h-screen min-w-screen p-14 text-center backdrop-blur-md transition-opacity duration-100 ease-in-out"
     >
       <h1>
@@ -59,7 +44,6 @@ function InvalidateToken({ onChoice }: InvalidateTokenProps) {
       </h1>
       <ChoiceButtonButton
         onClick={() => {
-          dialog.current?.close();
           onChoice(true);
         }}
       >
@@ -67,7 +51,6 @@ function InvalidateToken({ onChoice }: InvalidateTokenProps) {
       </ChoiceButtonButton>
       <ChoiceButtonButton
         onClick={() => {
-          dialog.current?.close();
           onChoice(false);
         }}
       >

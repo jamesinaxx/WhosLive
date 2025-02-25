@@ -3,6 +3,7 @@ import {
   PropsWithChildren,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import Live from "./Live";
@@ -21,6 +22,7 @@ const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
   const [tokenValid, setTokenValid] = useState(false);
   const [showRUSure, setShowRUSure] = useState(false);
   const [connected, setConnected] = useState<boolean>(false);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
 
   const validateToken = async () => {
     const valid = await isValidToken();
@@ -62,40 +64,40 @@ const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
     return <Loading />;
   }
 
-  window.addEventListener("scroll", () => {
-    if (showRUSure) window.scrollTo(0, 0);
-  });
-
   return (
-    <Layout setShow={setShowRUSure} show={showRUSure}>
-      {showRUSure && (
-        <InvalidateToken
-          onChoice={async (invalidate) => {
-            if (invalidate) {
-              const token = (await getStorage("NowLive:Token")) || "";
-              try {
-                await fetch(
-                  `https://id.twitch.tv/oauth2/revoke${objToParams({
-                    clientId,
-                    token,
-                  })}`,
-                  { method: "POST" },
-                );
-              } catch (err) {
-                console.error(err);
-              }
-              await setStorage("NowLive:Token", "");
-
-              setShowRUSure(false);
-              setTokenValid(false);
-              return getChannelInfo();
+    <Layout
+      setShow={(show) => {
+        if (show.valueOf()) {
+          dialogRef.current?.showModal();
+        }
+      }}
+      show={showRUSure}
+    >
+      <InvalidateToken
+        ref={dialogRef}
+        onChoice={async (invalidate) => {
+          if (invalidate) {
+            const token = (await getStorage("NowLive:Token")) || "";
+            try {
+              await fetch(
+                `https://id.twitch.tv/oauth2/revoke${objToParams({
+                  clientId,
+                  token,
+                })}`,
+                { method: "POST" },
+              );
+            } catch (err) {
+              console.error(err);
             }
+            await setStorage("NowLive:Token", "");
 
-            document.body.style.overflow = "";
-            return setShowRUSure(false);
-          }}
-        />
-      )}
+            setTokenValid(false);
+            return getChannelInfo();
+          }
+
+          return dialogRef.current?.close();
+        }}
+      />
       <Live />
     </Layout>
   );
