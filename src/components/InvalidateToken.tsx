@@ -72,6 +72,9 @@ const InvalidateToken: FunctionComponent<
   useEffect(() => {
     // TODO: Get rid of this
     document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, []);
 
   return (
