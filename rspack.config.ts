@@ -1,59 +1,49 @@
-import { defineConfig } from '@rspack/cli';
-import { rspack } from '@rspack/core';
+import { RspackOptions } from '@rspack/core';
+import fs from 'fs';
 
-import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
+import path from 'path';
 
-const isDev = process.env.NODE_ENV === 'development';
+import commonConfig from './rspack/rspack.common';
+import devConfig from './rspack/rspack.dev';
+import prodConfig from './rspack/rspack.prod';
+import merge from 'webpack-merge';
 
-export default defineConfig({
-  mode: isDev ? 'development' : 'production',
-  resolve: {
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.html', '.wasm', '.svg'],
-  },
-  experiments: { css: true },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [{ loader: 'postcss-loader', options: { postcssOptions: {} } }],
-        type: 'css',
-      },
-      {
-        test: /\.(js|ts)$/,
-        exclude: [/[\\/]node_modules[\\/]/],
-        use: [
-          {
-            loader: 'builtin:swc-loader',
-            options: {
-              sourceMap: true,
-              jsc: { parser: { syntax: 'typescript' }, externalHelpers: true },
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(jsx|tsx)$/,
-        use: [
-          {
-            loader: 'builtin:swc-loader',
-            options: {
-              sourceMap: true,
-              jsc: {
-                parser: { syntax: 'typescript', tsx: true },
-                externalHelpers: true,
-                transform: { react: { runtime: 'automatic' } },
-              },
-            },
-          },
-          { loader: 'babel-loader' },
-        ],
-      },
-      { test: /\.(png|svg|jpg)$/, type: 'asset/resource' },
-    ],
-  },
-  plugins: [
-    new rspack.HtmlRspackPlugin({ template: './src/index.html' }),
-    isDev && new ReactRefreshPlugin(),
-    isDev && new rspack.HotModuleReplacementPlugin(),
-  ],
-});
+const distDir = path.resolve(__dirname, 'dist');
+
+interface CliConfigOptions {
+  config?: string | undefined;
+  mode?: RspackOptions['mode'] | undefined;
+  env?: string | undefined;
+  'config-register'?: string | undefined;
+  configRegister?: string | undefined;
+  'config-name'?: string | undefined;
+  configName?: string | undefined;
+}
+
+function factory(
+  env: string | Record<string, boolean | number | string> | undefined,
+  { mode }: CliConfigOptions,
+): RspackOptions {
+  if (mode === 'production') {
+    fs.rmSync(distDir, { recursive: true, force: true });
+  }
+
+  if (!fs.existsSync(distDir)) {
+    fs.mkdirSync(distDir);
+  }
+
+  fs.cpSync(
+    path.resolve(__dirname, 'src', 'assets', 'icons'),
+    path.resolve(distDir, 'icons'),
+    { recursive: true, force: true },
+  );
+
+  const config = merge(
+    commonConfig,
+    mode === 'production' ? prodConfig : devConfig,
+  );
+
+  return config;
+}
+
+export default factory;
