@@ -1,5 +1,5 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
-import styled from 'styled-components';
+import type { FunctionComponent, PropsWithChildren } from "react";
+import styled from "styled-components";
 
 const ContainerContainer = styled.div`
   margin-bottom: 110px;

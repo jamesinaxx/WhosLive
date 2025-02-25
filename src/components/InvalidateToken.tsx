@@ -1,6 +1,10 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
-import styled from 'styled-components';
-import { buttonClicked, buttonColor, buttonHover } from '../styleMixins';
+import {
+  useEffect,
+  type FunctionComponent,
+  type PropsWithChildren,
+} from "react";
+import styled from "styled-components";
+import { buttonClicked, buttonColor, buttonHover } from "../styleMixins";
 
 interface InvalidateTokenProps {
   onChoice: (invalidate: boolean) => void;
@@ -65,7 +69,13 @@ const InvalidateTokenContainer = styled.div`
 const InvalidateToken: FunctionComponent<
   PropsWithChildren<InvalidateTokenProps>
 > = ({ onChoice }) => {
-  document.body.style.overflow = 'hidden';
+  useEffect(() => {
+    // TODO: Get rid of this
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   return (
     <InvalidateTokenContainer>

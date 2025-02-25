@@ -1,9 +1,8 @@
-/* eslint-disable camelcase */
-import { FunctionComponent, PropsWithChildren } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import type { TwitchColour, TwitchStream } from '../types/twitch';
-import FavoriteButton from './buttons/FavoriteButton';
+import { FunctionComponent, PropsWithChildren } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import type { TwitchColour, TwitchStream } from "../types/twitch";
+import FavoriteButton from "./buttons/FavoriteButton";
 
 const parseRgba = (colour: TwitchColour) =>
   `rgba(${colour.red},${colour.green},${colour.blue},0.7)`;
@@ -81,20 +80,16 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
     <ChannelContainer title={title} hidden={hidden}>
       <ChannelSubcontainer
         style={{
-          backgroundColor: average_color ? parseRgba(average_color) : '#000',
-          color: average_color?.isLight ? '#000' : '#FFF',
+          backgroundColor: average_color ? parseRgba(average_color) : "#000",
+          color: average_color?.isLight ? "#000" : "#FFF",
           boxShadow: `0 0 10px ${
-            average_color ? parseRgba(average_color) : '#000'
+            average_color ? parseRgba(average_color) : "#000"
           }`,
         }}
         onClick={() => window.open(`https://twitch.tv/${user_login}`)}
         type="button"
-        whileHover={{
-          scale: 1.05,
-        }}
-        whileTap={{
-          scale: 0.95,
-        }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         <Pfp
           src={profile_image_url}
@@ -104,10 +99,10 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
         <InfoContainer>
           <StreamTitle>{title}</StreamTitle>
           <p>
-            <b>{user_name}</b> is currently playing <b>{game_name}</b> for{' '}
+            <b>{user_name}</b> is currently playing <b>{game_name}</b> for{" "}
             <b>
               {new Intl.NumberFormat(navigator.language).format(viewer_count)}
-            </b>{' '}
+            </b>{" "}
             viewers
           </p>
         </InfoContainer>

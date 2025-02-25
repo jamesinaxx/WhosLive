@@ -1,6 +1,6 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
-import styled from 'styled-components';
-import { smolText } from '../styleMixins';
+import type { FunctionComponent, PropsWithChildren } from "react";
+import styled from "styled-components";
+import { smolText } from "../styleMixins";
 
 const NoAuthText = styled.small`
   text-align: center;
@@ -23,7 +23,7 @@ const NoAuthText = styled.small`
 
 const NoAuth: FunctionComponent<PropsWithChildren<unknown>> = () => (
   <NoAuthText>
-    You are not logged in to Twitch! Please go to{' '}
+    You are not logged in to Twitch! Please go to{" "}
     <a
       href="https://nowlive.jewelexx.com/auth/"
       target="_blank"

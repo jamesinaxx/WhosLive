@@ -1,18 +1,15 @@
-const authEl = document.getElementById('NowLiveAuthText');
+const authEl = document.getElementById("NowLiveAuthText");
 const hash = window.location.hash.substring(1);
-const hashResult = hash.split('&').reduce(
-  (previous: { [key: string]: unknown }, item) => ({
+const hashResult = hash.split("&").reduce(
+  (previous: Record<string, unknown>, item) => ({
     ...previous,
-    [item.split('=')[0]]: item.split('=')[1],
+    [item.split("=")[0]]: item.split("=")[1],
   }),
   {},
 );
 
 chrome.runtime.sendMessage(
-  {
-    name: 'NowLive:Token',
-    token: hashResult.access_token,
-  },
+  { name: "NowLive:Token", token: hashResult.access_token },
   (res: [string, boolean]) => {
     const success = res[1];
     if (authEl !== null && authEl !== undefined && !success) {

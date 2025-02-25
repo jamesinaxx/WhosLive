@@ -16,6 +16,7 @@ import LoadingContext from './lib/LoadingContext';
 import Main from './pages/main';
 import Themes from './theme';
 import '@fontsource/noto-sans';
+import './index.css';
 
 const Global = createGlobalStyle`
   body, html {
@@ -66,10 +67,7 @@ const App: FunctionComponent<PropsWithChildren<unknown>> = () => {
   }, []);
 
   const loadingContext = useMemo(
-    () => ({
-      isLoading: loading,
-      setLoading,
-    }),
+    () => ({ isLoading: loading, setLoading }),
     [loading, setLoading],
   );
 

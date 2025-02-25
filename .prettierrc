@@ -1,0 +1,10 @@
+{
+  "endOfLine": "lf",
+  "trailingComma": "all",
+  "singleQuote": false,
+  "arrowParens": "always",
+  "jsxSingleQuote": false,
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ]
+}

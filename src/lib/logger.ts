@@ -1,9 +1,7 @@
-/* eslint-disable no-console */
-
 export function log(...data: unknown[]): void {
-    console.log(...data);
+  console.log(...data);
 }
 
 export function error(...data: unknown[]): void {
-    console.error(...data);
+  console.error(...data);
 }

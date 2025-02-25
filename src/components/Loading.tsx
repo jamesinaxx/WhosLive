@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-import { buttonColor } from '../styleMixins';
+import { motion } from "framer-motion";
+import styled from "styled-components";
+import { buttonColor } from "../styleMixins";
 
 const ScreenContainer = styled.div`
   width: 100vw;
@@ -31,38 +31,17 @@ const Loading = () => (
   <ScreenContainer>
     <LoadingContainer
       variants={{
-        start: {
-          transition: {
-            staggerChildren: 0.2,
-          },
-        },
-        end: {
-          transition: {
-            staggerChildren: 0.2,
-          },
-        },
+        start: { transition: { staggerChildren: 0.2 } },
+        end: { transition: { staggerChildren: 0.2 } },
       }}
       initial="start"
       animate="end"
     >
       {[null, null, null].map((_, i) => (
         <LoadingCircle
-          // There is nothing else I can use as a key ¯\_(ツ)_/¯
-          // eslint-disable-next-line react/no-array-index-key
           key={i}
-          variants={{
-            start: {
-              y: '0%',
-            },
-            end: {
-              y: '60%',
-            },
-          }}
-          transition={{
-            duration: 0.4,
-            yoyo: Infinity,
-            ease: 'easeInOut',
-          }}
+          variants={{ start: { y: "0%" }, end: { y: "60%" } }}
+          transition={{ duration: 0.4, yoyo: Infinity, ease: "easeInOut" }}
         />
       ))}
     </LoadingContainer>
