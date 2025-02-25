@@ -4,7 +4,6 @@ import {
   setStorageIfNull,
   setStorageLocalIfNull,
 } from '../lib/chromeapi';
-import { log } from '../lib/logger';
 import validateToken from '../lib/validateToken';
 
 const initializeWasm = async () => {
@@ -21,7 +20,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   await setStorageLocalIfNull('NowLive:Theme', 'dark');
   await setStorageIfNull('NowLive:Favorites', []);
   await getChannelInfo();
-  log('Initialized Now Live');
+  console.log('Initialized Now Live');
 });
 
 // chrome.storage.onChanged.addListener((changes) => {

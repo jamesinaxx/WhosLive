@@ -14,7 +14,6 @@ import Error from './Error';
 import InvalidateToken from '../components/InvalidateToken';
 import { clientId, checkConnection, objToParams } from '../lib/lib';
 import Layout from '../components/Layout';
-import { error } from '../lib/logger';
 import LoadingContext from '../lib/LoadingContext';
 
 const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
@@ -80,12 +79,10 @@ const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
                     clientId,
                     token,
                   })}`,
-                  {
-                    method: 'POST',
-                  },
+                  { method: 'POST' },
                 );
               } catch (err) {
-                error(err);
+                console.error(err);
               }
               await setStorage('NowLive:Token', '');
 

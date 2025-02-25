@@ -1,7 +1,6 @@
 // import { FastAverageColor } from 'fast-average-color';
 import { Image } from 'image-helpers';
 import { clientId } from './lib';
-import { error } from './logger';
 import type { Local, Synced } from '../types/chrome';
 import type { TwitchStream, TwitchUser } from '../types/twitch';
 
@@ -63,9 +62,7 @@ export async function setStorageLocalIfNull(
 export async function getChannelInfo(): Promise<void> {
   const token = await getStorage('NowLive:Token');
   if (!token) {
-    await chrome.browserAction.setTitle({
-      title: 'Please verify Now Live',
-    });
+    await chrome.browserAction.setTitle({ title: 'Please verify Now Live' });
     await chrome.browserAction.setBadgeText({ text: '' });
     return;
   }
@@ -76,10 +73,7 @@ export async function getChannelInfo(): Promise<void> {
       await fetch(
         `https://api.twitch.tv/helix/streams/followed?user_id=${userId}`,
         {
-          headers: {
-            'Client-Id': clientId,
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { 'Client-Id': clientId, Authorization: `Bearer ${token}` },
         },
       )
     ).json();
@@ -88,12 +82,7 @@ export async function getChannelInfo(): Promise<void> {
       `https://api.twitch.tv/helix/users?id=${data
         .map((stream) => stream.user_id)
         .join('&id=')}`,
-      {
-        headers: {
-          'Client-Id': clientId,
-          Authorization: `Bearer ${token}`,
-        },
-      },
+      { headers: { 'Client-Id': clientId, Authorization: `Bearer ${token}` } },
     ).then((res) => res.json());
 
     const withicons = data.map((stream) => {
@@ -162,6 +151,6 @@ export async function getChannelInfo(): Promise<void> {
 
     await setStorageLocal('NowLive:Channels', withImages);
   } catch (err) {
-    error(err);
+    console.error(err);
   }
 }
