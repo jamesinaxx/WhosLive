@@ -1,8 +1,7 @@
-import { browserslist } from './package.json';
-
 export default {
   plugins: {
     '@tailwindcss/postcss': {},
-    'postcss-preset-env': { browsers: browserslist },
+    // TODO: Re-enable
+    // 'postcss-preset-env': { browsers: 'last 2 versions' },
   },
 };
