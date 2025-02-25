@@ -11,11 +11,6 @@ interface InvalidateTokenProps {
   onChoice: (invalidate: boolean) => void;
 }
 
-interface ChoiceButtonProps {
-  onChoice: (confirm: boolean) => void;
-  confirm: boolean;
-}
-
 const ChoiceButtonButton = styled.button`
   transition: background-color 100ms ease-in-out;
   width: 150px;
@@ -40,22 +35,7 @@ const ChoiceButtonButton = styled.button`
   }
 `;
 
-const InvalidateTokenContainer = styled.div`
-  z-index: 1;
-  transition: opacity 100ms ease-in-out;
-  position: fixed;
-  width: 550px;
-  height: 550px;
-  padding: 50px;
-  backdrop-filter: blur(10px);
-  text-align: center;
-  left: -40px;
-  top: -50px;
-`;
-
-const InvalidateToken: FunctionComponent<
-  PropsWithChildren<InvalidateTokenProps>
-> = ({ onChoice }) => {
+function InvalidateToken({ onChoice }: InvalidateTokenProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     dialog.current?.showModal();
@@ -95,6 +75,6 @@ const InvalidateToken: FunctionComponent<
       </ChoiceButtonButton>
     </dialog>
   );
-};
+}
 
 export default InvalidateToken;

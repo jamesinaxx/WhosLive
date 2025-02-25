@@ -1,9 +1,9 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
-import styled from 'styled-components';
+import type { FunctionComponent, PropsWithChildren } from "react";
+import styled from "styled-components";
 
-export const buttonColor = '#724cf9';
-export const buttonHover = '#6b4ecf';
-export const buttonClicked = '#573eb0';
+export const buttonColor = "#724cf9";
+export const buttonHover = "#6b4ecf";
+export const buttonClicked = "#573eb0";
 
 export const confirmButton = /* css */ `
   transition: background-color 100ms ease-in-out;
@@ -104,7 +104,6 @@ const AnchorStyled = styled.a<{ hoverColor: string }>`
 
 export const Anchor: FunctionComponent<PropsWithChildren<AnchorType>> = (
   props,
-  // eslint-disable-next-line react/jsx-props-no-spreading
 ) => <AnchorStyled {...props}>{props.children}</AnchorStyled>;
 
 const FooterStyled = styled.footer`
