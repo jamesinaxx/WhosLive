@@ -71,6 +71,16 @@
       "name": "image-helpers",
       "version": "0.1.0",
     },
+    "packages/rspack-plugin-web-ext": {
+      "name": "rspack-plugin-web-ext",
+      "devDependencies": {
+        "@rspack/core": "^1.2.5",
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
   },
   "trustedDependencies": [
     "spawn-sync",
@@ -558,6 +568,8 @@
 
     "@types/bonjour": ["@types/bonjour@3.5.13", "", { "dependencies": { "@types/node": "*" } }, "sha512-z9fJ5Im06zvUL548KvYNecEVlA7cVDkGUi6kZusb04mpyEFKCIZJvloCcmpmLaIahDpOQGHaHmG6imtPMmPXGQ=="],
 
+    "@types/bun": ["@types/bun@1.2.3", "", { "dependencies": { "bun-types": "1.2.3" } }, "sha512-054h79ipETRfjtsCW9qJK8Ipof67Pw9bodFWmkfkaUaRiIQ1dIV2VTlheshlBx3mpKr0KeK8VqnMMCtgN9rQtw=="],
+
     "@types/chrome": ["@types/chrome@0.0.306", "", { "dependencies": { "@types/filesystem": "*", "@types/har-format": "*" } }, "sha512-95kgcqvTNcaZCXmx/kIKY6uo83IaRNT3cuPxYqlB2Iu+HzKDCP4t7TUe7KhJijTdibcvn+SzziIcfSLIlgRnhQ=="],
 
     "@types/connect": ["@types/connect@3.4.38", "", { "dependencies": { "@types/node": "*" } }, "sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug=="],
@@ -803,6 +815,8 @@
     "buffer-crc32": ["buffer-crc32@0.2.13", "", {}, "sha512-VO9Ht/+p3SN7SKWqcrgEzjGbRSJYTx+Q1pTQC0wrWqHx0vpJraQ6GtHx8tvcg1rlK1byhU5gccxgOgj7B0TDkQ=="],
 
     "buffer-from": ["buffer-from@1.1.2", "", {}, "sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ=="],
+
+    "bun-types": ["bun-types@1.2.3", "", { "dependencies": { "@types/node": "*", "@types/ws": "~8.5.10" } }, "sha512-P7AeyTseLKAvgaZqQrvp3RqFM3yN9PlcLuSTe7SoJOfZkER73mLdT2vEQi8U64S1YvM/ldcNiQjn0Sn7H9lGgg=="],
 
     "bundle-name": ["bundle-name@3.0.0", "", { "dependencies": { "run-applescript": "^5.0.0" } }, "sha512-PKA4BeSvBpQKQ8iPOGCSiell+N8P+Tf1DlwqmYhpe2gAhKPHn8EYOxVT+ShuGmhg8lN8XiSlS80yiExKXrURlw=="],
 
@@ -1709,6 +1723,8 @@
     "reusify": ["reusify@1.0.4", "", {}, "sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw=="],
 
     "rimraf": ["rimraf@6.0.1", "", { "dependencies": { "glob": "^11.0.0", "package-json-from-dist": "^1.0.0" }, "bin": { "rimraf": "dist/esm/bin.mjs" } }, "sha512-9dkvaxAsk/xNXSJzMgFqqMCuFgt2+KsOFek3TMLfo8NCPfWpBmqwyNn5Y+NX56QUYfCtsyhF3ayiboEoUmJk/A=="],
+
+    "rspack-plugin-web-ext": ["rspack-plugin-web-ext@workspace:packages/rspack-plugin-web-ext"],
 
     "run-applescript": ["run-applescript@5.0.0", "", { "dependencies": { "execa": "^5.0.0" } }, "sha512-XcT5rBksx1QdIhlFOCtgZkB99ZEouFZ1E2Kc2LHqNW13U3/74YGdkQRmThTwxy4QIyookibDKYZOPqX//6BlAg=="],
 

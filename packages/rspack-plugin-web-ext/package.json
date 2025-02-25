@@ -1,0 +1,13 @@
+{
+  "name": "rspack-plugin-web-ext",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@rspack/core": "^1.2.5",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
