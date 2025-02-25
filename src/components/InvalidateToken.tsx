@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useRef,
   type FunctionComponent,
   type PropsWithChildren,
 } from "react";
@@ -15,7 +16,7 @@ interface ChoiceButtonProps {
   confirm: boolean;
 }
 
-const ChoiceButtonButton = styled.button<{ $confirm: boolean }>`
+const ChoiceButtonButton = styled.button`
   transition: background-color 100ms ease-in-out;
   width: 150px;
   height: 50px;
@@ -39,20 +40,6 @@ const ChoiceButtonButton = styled.button<{ $confirm: boolean }>`
   }
 `;
 
-const ChoiceButton: FunctionComponent<PropsWithChildren<ChoiceButtonProps>> = ({
-  onChoice,
-  confirm,
-  children,
-}) => (
-  <ChoiceButtonButton
-    $confirm={confirm}
-    onClick={() => onChoice(confirm)}
-    type="button"
-  >
-    {children}
-  </ChoiceButtonButton>
-);
-
 const InvalidateTokenContainer = styled.div`
   z-index: 1;
   transition: opacity 100ms ease-in-out;
@@ -69,28 +56,44 @@ const InvalidateTokenContainer = styled.div`
 const InvalidateToken: FunctionComponent<
   PropsWithChildren<InvalidateTokenProps>
 > = ({ onChoice }) => {
+  const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
+    dialog.current?.showModal();
+
     // TODO: Get rid of this
-    document.body.style.overflow = "hidden";
+    // document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = "";
+      // document.body.style.overflow = "";
     };
   }, []);
 
   return (
-    <InvalidateTokenContainer>
+    <dialog
+      ref={dialog}
+      className="fixed z-1 min-h-screen min-w-screen p-14 text-center backdrop-blur-md transition-opacity duration-100 ease-in-out"
+    >
       <h1>
         Are you sure you want to sign out?
         <br />
         To continue using Now Live you will have to log in again
       </h1>
-      <ChoiceButton onChoice={onChoice} confirm>
+      <ChoiceButtonButton
+        onClick={() => {
+          dialog.current?.close();
+          onChoice(true);
+        }}
+      >
         Yes
-      </ChoiceButton>
-      <ChoiceButton onChoice={onChoice} confirm={false}>
+      </ChoiceButtonButton>
+      <ChoiceButtonButton
+        onClick={() => {
+          dialog.current?.close();
+          onChoice(false);
+        }}
+      >
         No
-      </ChoiceButton>
-    </InvalidateTokenContainer>
+      </ChoiceButtonButton>
+    </dialog>
   );
 };
 
