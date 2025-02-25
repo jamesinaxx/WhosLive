@@ -1,6 +1,6 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
-import { FaGithub } from 'react-icons/fa';
-import styled from 'styled-components';
+import type { FunctionComponent, PropsWithChildren } from "react";
+import { FaGithub } from "react-icons/fa";
+import styled from "styled-components";
 
 const ErrorContainer = styled.div`
   text-align: center;
@@ -29,7 +29,7 @@ const Error: FunctionComponent<PropsWithChildren<unknown>> = () => (
     <ErrorHeader>Failed to connect to Twitch</ErrorHeader>
     <ErrorParagraph>
       Please try to troubleshoot your connection and if everything seems okay,
-      try going to{' '}
+      try going to{" "}
       <a href="https://twitch.tv" target="_blank" rel="noreferrer">
         Twitch
       </a>
@@ -37,15 +37,15 @@ const Error: FunctionComponent<PropsWithChildren<unknown>> = () => (
       <br />
       <br />
       If Twitch loads fine, then there is a bug with Now Live. Please report
-      this{' '}
+      this{" "}
       <a href="https://github.com/jewlexx/NowLive/issues">
-        here{' '}
+        here{" "}
         <FaGithub
           style={{
             color:
-              document.body.style.backgroundColor === 'rgb(255, 255, 255)'
-                ? '#000'
-                : '#fff',
+              document.body.style.backgroundColor === "rgb(255, 255, 255)"
+                ? "#000"
+                : "#fff",
           }}
         />
       </a>

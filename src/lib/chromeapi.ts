@@ -1,17 +1,17 @@
 // import { FastAverageColor } from 'fast-average-color';
-import { Image } from 'image-helpers';
-import { clientId } from './lib';
-import type { Local, Synced } from '../types/chrome';
-import type { TwitchStream, TwitchUser } from '../types/twitch';
+import { Image } from "image-helpers";
+import { clientId } from "./lib";
+import type { Local, Synced } from "../types/chrome";
+import type { TwitchStream, TwitchUser } from "../types/twitch";
 
 export function setStorage(key: Synced, value: unknown): Promise<void> {
   return chrome.storage.local.set({ [key]: value });
 }
 
 export function getStorage(
-  key: 'NowLive:Favorites',
+  key: "NowLive:Favorites",
 ): Promise<string[] | undefined>;
-export function getStorage(key: 'NowLive:Token'): Promise<string | undefined>;
+export function getStorage(key: "NowLive:Token"): Promise<string | undefined>;
 export function getStorage(key: Synced): Promise<unknown>;
 export function getStorage<T>(key: Synced): Promise<T | undefined> {
   return new Promise((resolve, reject) => {
@@ -30,11 +30,11 @@ export function setStorageLocal(key: Local, value: unknown): Promise<void> {
 }
 
 export function getStorageLocal(
-  key: 'NowLive:Channels',
+  key: "NowLive:Channels",
 ): Promise<TwitchStream[] | undefined>;
 export function getStorageLocal(
-  key: 'NowLive:Theme',
-): Promise<'light' | 'dark'>;
+  key: "NowLive:Theme",
+): Promise<"light" | "dark">;
 export function getStorageLocal<T>(key: Local): Promise<T> {
   return new Promise((resolve) => {
     chrome.storage.local.get(key, (res) => resolve(res[key]));
@@ -60,20 +60,20 @@ export async function setStorageLocalIfNull(
 }
 
 export async function getChannelInfo(): Promise<void> {
-  const token = await getStorage('NowLive:Token');
+  const token = await getStorage("NowLive:Token");
   if (!token) {
-    await chrome.browserAction.setTitle({ title: 'Please verify Now Live' });
-    await chrome.browserAction.setBadgeText({ text: '' });
+    await chrome.browserAction.setTitle({ title: "Please verify Now Live" });
+    await chrome.browserAction.setBadgeText({ text: "" });
     return;
   }
   try {
-    const userId = await getStorage('NowLive:UserId');
+    const userId = await getStorage("NowLive:UserId");
 
     const { data }: { data: TwitchStream[] } = await (
       await fetch(
         `https://api.twitch.tv/helix/streams/followed?user_id=${userId}`,
         {
-          headers: { 'Client-Id': clientId, Authorization: `Bearer ${token}` },
+          headers: { "Client-Id": clientId, Authorization: `Bearer ${token}` },
         },
       )
     ).json();
@@ -81,8 +81,8 @@ export async function getChannelInfo(): Promise<void> {
     const users: { data: TwitchUser[] } = await fetch(
       `https://api.twitch.tv/helix/users?id=${data
         .map((stream) => stream.user_id)
-        .join('&id=')}`,
-      { headers: { 'Client-Id': clientId, Authorization: `Bearer ${token}` } },
+        .join("&id=")}`,
+      { headers: { "Client-Id": clientId, Authorization: `Bearer ${token}` } },
     ).then((res) => res.json());
 
     const withicons = data.map((stream) => {
@@ -90,7 +90,7 @@ export async function getChannelInfo(): Promise<void> {
         ...stream,
         profile_image_url:
           users.data.find((user: TwitchUser) => user.id === stream.user_id)
-            ?.profile_image_url || '',
+            ?.profile_image_url || "",
       };
 
       return withicon;
@@ -102,7 +102,7 @@ export async function getChannelInfo(): Promise<void> {
     const withImages = await Promise.all(
       withicons.map(async (stream) => {
         const url = stream.profile_image_url;
-        if (url.startsWith('https://static-cdn.jtvnw.net/')) {
+        if (url.startsWith("https://static-cdn.jtvnw.net/")) {
           // TODO: Maybe move to wasm for some of this
           const image = await Image.download_url(stream.profile_image_url);
           const base64Url = image.to_base64();
@@ -144,12 +144,12 @@ export async function getChannelInfo(): Promise<void> {
       });
     } else {
       await chrome.browserAction.setTitle({
-        title: 'There is nobody streaming right now',
+        title: "There is nobody streaming right now",
       });
-      await chrome.browserAction.setBadgeText({ text: '' });
+      await chrome.browserAction.setBadgeText({ text: "" });
     }
 
-    await setStorageLocal('NowLive:Channels', withImages);
+    await setStorageLocal("NowLive:Channels", withImages);
   } catch (err) {
     console.error(err);
   }

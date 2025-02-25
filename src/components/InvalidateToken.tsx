@@ -2,9 +2,9 @@ import {
   useEffect,
   type FunctionComponent,
   type PropsWithChildren,
-} from 'react';
-import styled from 'styled-components';
-import { buttonClicked, buttonColor, buttonHover } from '../styleMixins';
+} from "react";
+import styled from "styled-components";
+import { buttonClicked, buttonColor, buttonHover } from "../styleMixins";
 
 interface InvalidateTokenProps {
   onChoice: (invalidate: boolean) => void;
@@ -71,7 +71,7 @@ const InvalidateToken: FunctionComponent<
 > = ({ onChoice }) => {
   useEffect(() => {
     // TODO: Get rid of this
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   }, []);
 
   return (

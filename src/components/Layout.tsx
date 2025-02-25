@@ -2,8 +2,8 @@ import type {
   FunctionComponent,
   PropsWithChildren,
   SetStateAction,
-} from 'react';
-import ConfigButtons from './buttons/ConfigButtons';
+} from "react";
+import ConfigButtons from "./buttons/ConfigButtons";
 
 interface LayoutProps {
   setShow: (value: SetStateAction<boolean>) => void;

@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-import { buttonColor } from '../styleMixins';
+import { motion } from "framer-motion";
+import styled from "styled-components";
+import { buttonColor } from "../styleMixins";
 
 const ScreenContainer = styled.div`
   width: 100vw;
@@ -40,8 +40,8 @@ const Loading = () => (
       {[null, null, null].map((_, i) => (
         <LoadingCircle
           key={i}
-          variants={{ start: { y: '0%' }, end: { y: '60%' } }}
-          transition={{ duration: 0.4, yoyo: Infinity, ease: 'easeInOut' }}
+          variants={{ start: { y: "0%" }, end: { y: "60%" } }}
+          transition={{ duration: 0.4, yoyo: Infinity, ease: "easeInOut" }}
         />
       ))}
     </LoadingContainer>

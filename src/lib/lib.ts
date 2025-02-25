@@ -25,7 +25,7 @@ export async function fetchWithTimeout(
 
 export async function checkConnection(): Promise<boolean> {
   try {
-    await fetchWithTimeout('https://twitch.tv', { timeout: 10000 });
+    await fetchWithTimeout("https://twitch.tv", { timeout: 10000 });
     return true;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
@@ -44,5 +44,5 @@ export function getTitle(oldTitle: string): string {
 export function objToParams(obj: Record<string, string>): string {
   return `?${Object.entries(obj)
     .map(([key, value]) => `${key}=${value}`)
-    .join('&')}`;
+    .join("&")}`;
 }

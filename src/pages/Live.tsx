@@ -7,19 +7,19 @@ import {
   useContext,
   PropsWithChildren,
   useCallback,
-} from 'react';
-import Channel from '../components/Channel';
-import { getStorage, getStorageLocal, setStorage } from '../lib/chromeapi';
-import NoLiveChannels from '../components/NoLiveChannels';
-import { useAutoAnimate } from '@formkit/auto-animate/react';
-import type { TwitchStream } from '../types/twitch';
-import LoadingContext from '../lib/LoadingContext';
+} from "react";
+import Channel from "../components/Channel";
+import { getStorage, getStorageLocal, setStorage } from "../lib/chromeapi";
+import NoLiveChannels from "../components/NoLiveChannels";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import type { TwitchStream } from "../types/twitch";
+import LoadingContext from "../lib/LoadingContext";
 
 type ChannelsType = TwitchStream[] | undefined;
 
 const updateChannels = async (
   setChannels: Dispatch<SetStateAction<ChannelsType>>,
-) => setChannels(await getStorageLocal('NowLive:Channels'));
+) => setChannels(await getStorageLocal("NowLive:Channels"));
 
 const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
   const { isLoading } = useContext(LoadingContext);
@@ -33,8 +33,8 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
   useEffect(() => {
     chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
     (async () => {
-      setChannels(await getStorageLocal('NowLive:Channels'));
-      const newFavoriteChannels = (await getStorage('NowLive:Favorites')) || [];
+      setChannels(await getStorageLocal("NowLive:Channels"));
+      const newFavoriteChannels = (await getStorage("NowLive:Favorites")) || [];
       setFavoriteChannels(new Set(newFavoriteChannels));
     })();
   }, []);
@@ -46,7 +46,7 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
       } else {
         oldFaves.add(userId);
       }
-      setStorage('NowLive:Favorites', [...oldFaves]);
+      setStorage("NowLive:Favorites", [...oldFaves]);
       return oldFaves;
     });
   }, []);

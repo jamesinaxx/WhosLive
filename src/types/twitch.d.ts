@@ -1,12 +1,12 @@
 export interface TwitchUser {
-  broadcaster_type: 'partner' | 'affiliate' | '';
+  broadcaster_type: "partner" | "affiliate" | "";
   description: string;
   display_name: string;
   id: string;
   login: string;
   offline_image_url: string;
   profile_image_url: string;
-  type: 'staff' | 'admin' | 'global_mod' | '';
+  type: "staff" | "admin" | "global_mod" | "";
   view_count: number;
   created_at: string;
 }
@@ -27,7 +27,7 @@ export interface TwitchStream {
   tag_ids: string[];
   thumbnail_url: string;
   title: string;
-  type: 'live' | '';
+  type: "live" | "";
   user_id: string;
   user_login: string;
   user_name: string;
