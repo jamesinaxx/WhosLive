@@ -1,6 +1,7 @@
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import { RspackManifestPlugin } from 'rspack-manifest-plugin';
+import WebpackDotenvPlugin from 'dotenv-webpack';
 import path from 'path';
 
 import rules from './rspack.rules';
@@ -29,6 +30,7 @@ export default defineConfig({
       inject: true,
       chunks: ['index'],
     }),
+    new WebpackDotenvPlugin({ path: path.resolve(__dirname, '..', '.env') }),
     new RspackManifestPlugin({
       generate: (_seed, files) => {
         const baseManifest = {
@@ -37,7 +39,7 @@ export default defineConfig({
           description,
           name: displayName,
           browser_action: {
-            default_popup: 'src/index.html',
+            default_popup: 'index.html',
             default_title: 'See who is live',
           },
           background: { scripts: ['BACKGROUND_SCRIPT'] },
@@ -71,10 +73,10 @@ export default defineConfig({
         }
 
         baseManifest.background.scripts = [
-          backgroundJs.path.replace('auto', ''),
+          backgroundJs.path.replace('auto/', ''),
         ];
         baseManifest.content_scripts[0].js = [
-          authcheckJs.path.replace('auto', ''),
+          authcheckJs.path.replace('auto/', ''),
         ];
 
         return { ...baseManifest };
