@@ -58,6 +58,7 @@
         "process": "0.11.10",
         "react-refresh": "^0.16.0",
         "rimraf": "6.0.1",
+        "rspack-manifest-plugin": "^5.0.3",
         "sharp": "0.33.5",
         "tailwindcss": "^4.0.8",
         "ts-node": "^10.9.2",
@@ -73,8 +74,8 @@
       "name": "image-helpers",
       "version": "0.1.0",
     },
-    "packages/rspack-plugin-web-ext": {
-      "name": "rspack-plugin-web-ext",
+    "packages/rspack-plugin-manifest": {
+      "name": "rspack-plugin-manifest",
       "devDependencies": {
         "@rspack/core": "^1.2.5",
         "@types/bun": "latest",
@@ -1736,7 +1737,9 @@
 
     "rimraf": ["rimraf@6.0.1", "", { "dependencies": { "glob": "^11.0.0", "package-json-from-dist": "^1.0.0" }, "bin": { "rimraf": "dist/esm/bin.mjs" } }, "sha512-9dkvaxAsk/xNXSJzMgFqqMCuFgt2+KsOFek3TMLfo8NCPfWpBmqwyNn5Y+NX56QUYfCtsyhF3ayiboEoUmJk/A=="],
 
-    "rspack-plugin-web-ext": ["rspack-plugin-web-ext@workspace:packages/rspack-plugin-web-ext"],
+    "rspack-manifest-plugin": ["rspack-manifest-plugin@5.0.3", "", { "dependencies": { "@rspack/lite-tapable": "^1.0.1" }, "peerDependencies": { "@rspack/core": "0.x || 1.x" }, "optionalPeers": ["@rspack/core"] }, "sha512-DCLSu5KE/ReIOhK2JTCQSI0JIgJ40E2i+2noqINtfhu12+UsK29dgMITEHIpYNR0JggcmmgZIDxPxm9dOV/2vQ=="],
+
+    "rspack-plugin-manifest": ["rspack-plugin-manifest@workspace:packages/rspack-plugin-manifest"],
 
     "run-applescript": ["run-applescript@5.0.0", "", { "dependencies": { "execa": "^5.0.0" } }, "sha512-XcT5rBksx1QdIhlFOCtgZkB99ZEouFZ1E2Kc2LHqNW13U3/74YGdkQRmThTwxy4QIyookibDKYZOPqX//6BlAg=="],
 

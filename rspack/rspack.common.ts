@@ -1,6 +1,6 @@
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
-import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
+import { RspackManifestPlugin } from 'rspack-manifest-plugin';
 import path from 'path';
 
 import rules from './rspack.rules';
@@ -22,13 +22,14 @@ export default defineConfig({
   experiments: { css: true },
   module: { rules },
   plugins: [
+    new rspack.ProgressPlugin(),
     new rspack.HtmlRspackPlugin({
       template: './src/index.html',
       minify: true,
       inject: true,
       chunks: ['index'],
     }),
-    new WebpackManifestPlugin({
+    new RspackManifestPlugin({
       generate: (_seed, files) => {
         const baseManifest = {
           manifest_version: 2,
@@ -69,8 +70,12 @@ export default defineConfig({
           throw new Error('authcheck.js not found');
         }
 
-        baseManifest.background.scripts = [backgroundJs.path];
-        baseManifest.content_scripts[0].js = [authcheckJs.path];
+        baseManifest.background.scripts = [
+          backgroundJs.path.replace('auto', ''),
+        ];
+        baseManifest.content_scripts[0].js = [
+          authcheckJs.path.replace('auto', ''),
+        ];
 
         return { ...baseManifest };
       },
