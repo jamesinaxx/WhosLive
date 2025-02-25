@@ -1,6 +1,6 @@
 {
-  "name": "rspack-plugin-web-ext",
-  "module": "index.ts",
+  "name": "rspack-plugin-manifest",
+  "module": "src/Manifest.ts",
   "type": "module",
   "private": true,
   "devDependencies": {

@@ -4,6 +4,11 @@ import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
 
 export default defineConfig({
   mode: 'development',
-
-  plugins: [new ReactRefreshPlugin(), new rspack.HotModuleReplacementPlugin()],
+  watch: true,
+  devtool: 'inline-source-map',
+  plugins: [
+    new ReactRefreshPlugin(),
+    new rspack.HotModuleReplacementPlugin(),
+    new rspack.DefinePlugin({ 'process.env.PRODUCTION': 'false' }),
+  ],
 });
