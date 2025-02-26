@@ -1,12 +1,12 @@
 import { createContext } from "react";
 
 interface LoadingContextProps {
-  isLoading: boolean;
+  loading: boolean;
   setLoading: (isLoading: boolean) => void;
 }
 
 const LoadingContext = createContext<LoadingContextProps>({
-  isLoading: true,
+  loading: true,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setLoading() {},
 });
