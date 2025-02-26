@@ -18,7 +18,7 @@
     "dev": "rspack build --mode development",
     "fmt": "prettier --write ./src/*/**.{ts,tsx} --ignore-path .gitignore",
     "fmt:check": "prettier --check ./src/*/**.{ts,tsx} --ignore-path .gitignore",
-    "icons": "node scripts/icons.js",
+    "icons": "bun scripts/icons.ts",
     "lint": "eslint ./src/*/**.{ts,tsx}",
     "lint:fix": "eslint ./src/*/**.{ts,tsx} --fix",
     "propegate:version": "node scripts/update-version.js",
