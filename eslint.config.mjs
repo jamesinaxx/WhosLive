@@ -28,13 +28,9 @@ export default tseslint.config(
     settings: { react: { version: "detect" } },
   },
   ...fixupConfigRules(
-    compat.extends(
-      "plugin:compat/recommended",
-      "plugin:react-hooks/recommended",
-      "prettier",
-    ),
+    compat.extends("plugin:react-hooks/recommended", "prettier"),
   ),
-  { rules: { "react/react-in-jsx-scope": "off", "compat/compat": "off" } },
+  { rules: { "react/react-in-jsx-scope": "off" } },
   // {
   //   languageOptions: {
   //     globals: { ...globals.webextensions, ...globals.browser },
