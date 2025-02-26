@@ -1,6 +1,7 @@
 import {
   FunctionComponent,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -24,13 +25,13 @@ const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
   const [connected, setConnected] = useState<boolean>(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
 
-  const validateToken = async () => {
+  const validateToken = useCallback(async () => {
     const valid = await isValidToken();
 
     setTokenValid(valid);
     setConnected(valid);
     setLoading(false);
-  };
+  }, [setLoading]);
 
   useEffect(() => {
     (async () => {
@@ -42,7 +43,7 @@ const Main: FunctionComponent<PropsWithChildren<unknown>> = () => {
         }
       });
     })();
-  });
+  }, [validateToken]);
 
   if (showRUSure) window.scrollTo(0, 0);
 

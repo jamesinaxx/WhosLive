@@ -1,32 +1,39 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { FaSun, FaMoon } from 'react-icons/fa';
-import { controlButton } from '../../styleMixins';
-import { setStorageLocal } from '../../lib/chromeapi';
+import {
+  useEffect,
+  type FunctionComponent,
+  type PropsWithChildren,
+} from "react";
+import { FaSun, FaMoon } from "react-icons/fa";
+import { useStorageLocal } from "../../lib/chromeapi";
+import { themeChange } from "theme-change";
 
 interface ColorToggleProps {
   shown: boolean;
 }
 
-const ColorToggleButton = styled.button`
-  ${controlButton(5)}
-`;
-
 const ColorToggle: FunctionComponent<PropsWithChildren<ColorToggleProps>> = ({
   shown,
 }) => {
-  const { type } = useTheme();
+  const [theme, setTheme] = useStorageLocal<"cupcake" | "forest">(
+    "NowLive:Theme",
+  );
+  useEffect(() => {
+    themeChange(false);
+  }, []);
 
   return (
-    <ColorToggleButton
-      type="button"
+    <button
+      className="btn btn-secondary"
+      style={{ opacity: shown ? "0%" : "100%" }}
+      data-toggle-theme="forest,cupcake"
+      data-act-class="ACTIVECLASS"
+      data-key="NowLive:Theme"
       onClick={() =>
-        setStorageLocal('NowLive:Theme', type === 'light' ? 'dark' : 'light')
+        setTheme((theme) => (theme === "cupcake" ? "forest" : "cupcake"))
       }
-      style={{ opacity: shown ? '0%' : '100%' }}
     >
-      {type === 'light' ? <FaSun /> : <FaMoon />}
-    </ColorToggleButton>
+      {theme === "cupcake" ? <FaSun /> : <FaMoon />}
+    </button>
   );
 };
 

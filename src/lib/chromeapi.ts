@@ -1,8 +1,50 @@
-// import { FastAverageColor } from 'fast-average-color';
 import { Image } from "image-helpers";
 import { clientId } from "./lib";
 import type { Local, Synced } from "../types/chrome";
 import type { TwitchStream, TwitchUser } from "../types/twitch";
+import { useCallback, useEffect, useState } from "react";
+
+export type ResolveNew<T> = T | ((prevState: T) => T);
+
+export function useStorageLocal<T>(
+  key: Local,
+): [T | undefined, (newValue: ResolveNew<T>) => void] {
+  const [value, setValue] = useState<T | undefined>(undefined);
+
+  const onChanged = useCallback(
+    (changes: Record<string, chrome.storage.StorageChange>) => {
+      console.log(changes);
+      if (key in changes) {
+        setValue(changes[key].newValue);
+      }
+    },
+    [key],
+  );
+
+  const setValueLocal = useCallback(
+    (newValue: ResolveNew<T>) => {
+      if (typeof newValue === "function") {
+        chrome.storage.local.get(key, (res) => {
+          const updatedValue = (newValue as (prevState: T) => T)(res[key]);
+          chrome.storage.local.set({ [key]: updatedValue });
+        });
+      } else {
+        chrome.storage.local.set({ [key]: newValue });
+      }
+    },
+    [key],
+  );
+
+  useEffect(() => {
+    chrome.storage.local.get(key, (res) => setValue(res[key]));
+
+    chrome.storage.local.onChanged.addListener(onChanged);
+
+    return () => chrome.storage.local.onChanged.removeListener(onChanged);
+  }, [key, onChanged]);
+
+  return [value, setValueLocal];
+}
 
 export function setStorage(key: Synced, value: unknown): Promise<void> {
   return chrome.storage.local.set({ [key]: value });
