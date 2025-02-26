@@ -9,14 +9,11 @@
     "downlevelIteration": true,
     "esModuleInterop": true,
     "strict": true,
-    "typeRoots": [
-      "./src/types"
-    ],
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "rootDir": "./",
     "importHelpers": true,
-    "removeComments": true
+    "removeComments": true,
   },
   "ts-node": {
     "compilerOptions": {

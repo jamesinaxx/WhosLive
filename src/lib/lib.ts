@@ -43,6 +43,9 @@ export function getTitle(oldTitle: string): string {
 
 export function objToParams(obj: Record<string, string>): string {
   return `?${Object.entries(obj)
-    .map(([key, value]) => `${key}=${value}`)
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+    )
     .join("&")}`;
 }

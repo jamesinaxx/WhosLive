@@ -1,15 +1,13 @@
 import {
-  FunctionComponent,
   useEffect,
   useState,
   Dispatch,
   SetStateAction,
   useContext,
-  PropsWithChildren,
   useCallback,
 } from "react";
 import Channel from "../components/Channel";
-import { getStorage, getStorageLocal, setStorage } from "../lib/chromeapi";
+import { getStorage, setStorage } from "../lib/chromeapi";
 import NoLiveChannels from "../components/NoLiveChannels";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { TwitchStream } from "../types/twitch";
@@ -17,12 +15,14 @@ import LoadingContext from "../lib/LoadingContext";
 
 type ChannelsType = TwitchStream[] | undefined;
 
-const updateChannels = async (
+async function updateChannels(
   setChannels: Dispatch<SetStateAction<ChannelsType>>,
-) => setChannels(await getStorageLocal("NowLive:Channels"));
+) {
+  return setChannels(await getStorage("NowLive:Channels"));
+}
 
-const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
-  const { isLoading } = useContext(LoadingContext);
+function Live() {
+  const { loading } = useContext(LoadingContext);
   const [favoriteChannels, setFavoriteChannels] = useState<Set<string>>(
     new Set(),
   );
@@ -31,12 +31,18 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
   const [parent] = useAutoAnimate();
 
   useEffect(() => {
-    chrome.storage.onChanged.addListener(() => updateChannels(setChannels));
+    const listener = () => updateChannels(setChannels);
+    browser.storage.onChanged.addListener(listener);
+
     (async () => {
-      setChannels(await getStorageLocal("NowLive:Channels"));
+      setChannels(await getStorage("NowLive:Channels"));
       const newFavoriteChannels = (await getStorage("NowLive:Favorites")) || [];
       setFavoriteChannels(new Set(newFavoriteChannels));
     })();
+
+    return () => {
+      browser.storage.onChanged.removeListener(listener);
+    };
   }, []);
 
   const toggleFavorite = useCallback((userId: string) => {
@@ -89,7 +95,7 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
             <Channel
               key={channel.id}
               data={channel}
-              hidden={isLoading}
+              hidden={loading}
               favorite={favoriteChannels.has(channel.user_id)}
               setFavorites={() => toggleFavorite(channel.user_id)}
             />
@@ -97,6 +103,6 @@ const Live: FunctionComponent<PropsWithChildren<unknown>> = () => {
       )}
     </ul>
   );
-};
+}
 
 export default Live;

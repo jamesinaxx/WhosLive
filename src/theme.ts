@@ -1,26 +1,14 @@
-import type { DefaultTheme } from 'styled-components';
+type ValueOf<T> = T[keyof T];
 
-const light: DefaultTheme = {
-  type: 'light',
-  colors: {
-    backgroundColor: '#FCFCFC',
-    color: '#000',
-    scrollbarColor: '#735bc7',
-  },
-};
+export type Theme = ValueOf<typeof knownThemes>;
 
-const dark: DefaultTheme = {
-  type: 'dark',
-  colors: {
-    backgroundColor: '#1e1f20',
-    color: '#FFF',
-    scrollbarColor: '#44357a',
-  },
-};
+export const knownThemes = {
+  dark: "abyss",
+  light: "pastel",
+} as const;
 
-const Themes = {
-  light,
-  dark,
-};
+export const themeToggleList = Object.values(knownThemes).join(",");
 
-export default Themes;
+export function toggleTheme(theme: Theme): Theme {
+  return theme === knownThemes.light ? knownThemes.dark : knownThemes.light;
+}

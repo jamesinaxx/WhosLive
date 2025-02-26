@@ -1,92 +1,69 @@
-import {
-  FunctionComponent,
-  PropsWithChildren,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { createRoot } from 'react-dom/client';
-import {
-  type DefaultTheme,
-  ThemeProvider,
-  createGlobalStyle,
-} from 'styled-components';
-import { getStorageLocal } from './lib/chromeapi';
-import LoadingContext from './lib/LoadingContext';
-import Main from './pages/main';
-import Themes from './theme';
-import '@fontsource/noto-sans';
-import './index.css';
+import { useRef, useState } from "react";
+import { createRoot } from "react-dom/client";
+import LoadingContext from "./lib/LoadingContext";
+import Main from "./pages/main";
+import "@fontsource/inter";
+import "./index.css";
+import InvalidateToken from "./components/InvalidateToken";
+import { getChannelInfo, getStorage, setStorage } from "./lib/chromeapi";
+import { clientId, objToParams } from "./lib/lib";
+import TokenContext from "./lib/TokenContext";
+import Layout from "./components/Layout";
 
-const Global = createGlobalStyle`
-  body, html {
-    // The following properties only apply to Firefox browsers
-    scrollbar-width: 0.5em;
-    scrollbar-color: ${(props) => props.theme.colors.scrollbarColor} black;
-    font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  }
-
-  body::-webkit-scrollbar {
-    width: 0.5em;
-  }
-
-  body::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.colors.scrollbarColor};
-    border-radius: 25px;
-  }
-
-  body {
-    background-color: ${(props) => props.theme.colors.backgroundColor};
-    transition: background-color 100ms ease-in-out;
-    color: ${(props) => props.theme.colors.color};
-    width: 550px;
-    height: 550px;
-  }
-`;
-
-// TODO Add support for multiple pages of live streams
-const App: FunctionComponent<PropsWithChildren<unknown>> = () => {
-  const [currentTheme, setCurrentTheme] = useState<DefaultTheme>(Themes.light);
-  const [themeLoaded, setThemeLoaded] = useState<boolean>(false);
+// TODO: Add support for multiple pages of live streams
+function App() {
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const updateTheme = async () => {
-      const theme = Themes[(await getStorageLocal('NowLive:Theme')) || 'light'];
-
-      setCurrentTheme(theme);
-      setThemeLoaded(true);
-    };
-
-    updateTheme();
-    chrome.storage.onChanged.addListener((changes, areaName) => {
-      if (areaName === 'local' && 'NowLive:Theme' in changes) {
-        updateTheme();
-      }
-    });
-  }, []);
-
-  const loadingContext = useMemo(
-    () => ({ isLoading: loading, setLoading }),
-    [loading, setLoading],
-  );
-
-  if (!themeLoaded) {
-    // TODO: Add loading
-    return null;
-  }
+  const [tokenValid, setTokenValid] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
 
   return (
-    <LoadingContext.Provider value={loadingContext}>
-      <ThemeProvider theme={currentTheme}>
-        <Global />
-        <Main />
-      </ThemeProvider>
+    <LoadingContext.Provider value={{ loading, setLoading }}>
+      <TokenContext.Provider value={{ tokenValid, setTokenValid }}>
+        <Layout
+          setShow={(show) => {
+            if (show.valueOf()) {
+              dialogRef.current?.showModal();
+            }
+          }}
+        >
+          <InvalidateToken
+            ref={dialogRef}
+            onChoice={async (invalidate) => {
+              if (invalidate) {
+                const token = (await getStorage("NowLive:Token")) || "";
+                try {
+                  await fetch(
+                    `https://id.twitch.tv/oauth2/revoke${objToParams({
+                      clientId,
+                      token,
+                    })}`,
+                    { method: "POST" },
+                  );
+                } catch (err) {
+                  console.error(err);
+                }
+                await setStorage("NowLive:Token", "");
+
+                setTokenValid(false);
+                return getChannelInfo();
+              }
+
+              return dialogRef.current?.close();
+            }}
+          />
+          <Main />
+        </Layout>
+      </TokenContext.Provider>
     </LoadingContext.Provider>
   );
-};
+}
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = createRoot(document.getElementById('root')!);
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("Root element not found");
+}
+
+const root = createRoot(rootElement);
 
 root.render(<App />);

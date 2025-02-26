@@ -1,31 +1,11 @@
-import type { FunctionComponent, PropsWithChildren } from 'react';
-import { FaSignOutAlt } from 'react-icons/fa';
-import styled from 'styled-components';
-import { controlButton } from '../../styleMixins';
+import { FaSignOutAlt } from "react-icons/fa";
 
-interface LogoutButtonProps {
-  onClick: () => void;
-  shown: boolean;
+function LogoutButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button className="btn btn-primary btn-circle" onClick={onClick}>
+      <FaSignOutAlt />
+    </button>
+  );
 }
-
-const Button = styled.button`
-  ${controlButton(40)}
-`;
-
-const LogoutButton: FunctionComponent<PropsWithChildren<LogoutButtonProps>> = ({
-  onClick,
-  shown,
-}) => (
-  <Button
-    type="button"
-    onClick={onClick}
-    style={{
-      opacity: shown ? '0%' : '100%',
-      color: '#fff',
-    }}
-  >
-    <FaSignOutAlt />
-  </Button>
-);
 
 export default LogoutButton;

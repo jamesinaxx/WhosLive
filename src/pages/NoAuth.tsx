@@ -1,38 +1,17 @@
-import type { FunctionComponent, PropsWithChildren } from "react";
-import styled from "styled-components";
-import { smolText } from "../styleMixins";
-
-const NoAuthText = styled.small`
-  text-align: center;
-  a {
-    transition: color 100ms ease-in-out;
-    color: #05d1d1;
-    text-decoration: none;
-    &:hover {
-      color: #048585;
-    }
-  }
-  form {
-    margin-top: 15px;
-    button {
-      margin-top: 15px;
-    }
-  }
-  ${smolText}
-`;
-
-const NoAuth: FunctionComponent<PropsWithChildren<unknown>> = () => (
-  <NoAuthText>
-    You are not logged in to Twitch! Please go to{" "}
-    <a
-      href="https://nowlive.jewelexx.com/auth/"
-      target="_blank"
-      rel="noreferrer"
-    >
-      this page
-    </a>
-    , log in with Twitch, and then come back here.
-  </NoAuthText>
-);
+function NoAuth() {
+  return (
+    <p className="text-sad-gray sad-text absolute top-[50%] left-[50%] m-0 -translate-x-1/2 -translate-y-1/2 transform text-center text-3xl">
+      You are not logged in to Twitch! Please go to{" "}
+      <a
+        href="https://nowlive.jewelexx.com/auth/"
+        target="_blank"
+        rel="noreferrer"
+      >
+        this page
+      </a>
+      , log in with Twitch, and then come back here.
+    </p>
+  );
+}
 
 export default NoAuth;

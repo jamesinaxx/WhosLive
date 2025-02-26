@@ -1,69 +1,87 @@
-// import { FastAverageColor } from 'fast-average-color';
 import { Image } from "image-helpers";
 import { clientId } from "./lib";
-import type { Local, Synced } from "../types/chrome";
+import type { Key } from "../types/chrome";
 import type { TwitchStream, TwitchUser } from "../types/twitch";
+import { useCallback, useEffect, useState } from "react";
+import { Theme } from "../theme";
 
-export function setStorage(key: Synced, value: unknown): Promise<void> {
-  return chrome.storage.local.set({ [key]: value });
+export type ResolveNew<T> = T | ((prevState: T) => T);
+
+export function useStorage<T>(
+  key: Key,
+): [T | undefined, (newValue: ResolveNew<T>) => void] {
+  const [value, setValue] = useState<T | undefined>(undefined);
+
+  const onChanged = useCallback(
+    (changes: Record<string, browser.storage.StorageChange>) => {
+      if (key in changes) {
+        setValue(changes[key].newValue);
+      }
+    },
+    [key],
+  );
+
+  const setValueLocal = useCallback(
+    (newValue: ResolveNew<T>) => {
+      if (typeof newValue === "function") {
+        browser.storage.local.get(key).then((res) => {
+          const updatedValue = (newValue as (prevState: T) => T)(res[key]);
+          browser.storage.local.set({ [key]: updatedValue });
+        });
+      } else {
+        browser.storage.local.set({ [key]: newValue });
+      }
+    },
+    [key],
+  );
+
+  useEffect(() => {
+    browser.storage.local.get(key).then((res) => setValue(res[key]));
+
+    browser.storage.local.onChanged.addListener(onChanged);
+
+    return () => browser.storage.local.onChanged.removeListener(onChanged);
+  }, [key, onChanged]);
+
+  return [value, setValueLocal];
+}
+
+export function setStorage(key: Key, value: unknown): Promise<void> {
+  return browser.storage.local.set({ [key]: value });
 }
 
 export function getStorage(
   key: "NowLive:Favorites",
 ): Promise<string[] | undefined>;
 export function getStorage(key: "NowLive:Token"): Promise<string | undefined>;
-export function getStorage(key: Synced): Promise<unknown>;
-export function getStorage<T>(key: Synced): Promise<T | undefined> {
-  return new Promise((resolve, reject) => {
-    try {
-      chrome.storage.local.get(key, (res) => {
-        resolve(res[key]);
-      });
-    } catch (e) {
-      reject(e);
-    }
-  });
-}
-
-export function setStorageLocal(key: Local, value: unknown): Promise<void> {
-  return chrome.storage.local.set({ [key]: value });
-}
-
-export function getStorageLocal(
+export function getStorage(key: "NowLive:Theme"): Promise<Theme | undefined>;
+export function getStorage(
   key: "NowLive:Channels",
 ): Promise<TwitchStream[] | undefined>;
-export function getStorageLocal(
-  key: "NowLive:Theme",
-): Promise<"light" | "dark">;
-export function getStorageLocal<T>(key: Local): Promise<T> {
-  return new Promise((resolve) => {
-    chrome.storage.local.get(key, (res) => resolve(res[key]));
-  });
+export function getStorage(key: Key): Promise<unknown>;
+export async function getStorage<T>(key: Key): Promise<T | undefined> {
+  const res = await browser.storage.local.get(key);
+  return res[key];
 }
 
 export async function setStorageIfNull(
-  key: Synced,
+  key: Key,
   value: unknown,
 ): Promise<void> {
   if ((await getStorage(key)) === undefined) {
-    setStorage(key, value);
+    await setStorage(key, value);
   }
 }
 
-export async function setStorageLocalIfNull(
-  key: Synced,
-  value: unknown,
-): Promise<void> {
-  if ((await getStorage(key)) === undefined) {
-    setStorage(key, value);
-  }
-}
+export const setStorageLocal = setStorage;
+export const getStorageLocal = getStorage;
+export const setStorageLocalIfNull = setStorageIfNull;
 
 export async function getChannelInfo(): Promise<void> {
   const token = await getStorage("NowLive:Token");
   if (!token) {
-    await chrome.browserAction.setTitle({ title: "Please verify Now Live" });
-    await chrome.browserAction.setBadgeText({ text: "" });
+    await browser.browserAction.setTitle({ title: "Please verify Now Live" });
+    await browser.browserAction.setBadgeText({ text: "" });
     return;
   }
   try {
@@ -136,17 +154,17 @@ export async function getChannelInfo(): Promise<void> {
     const streamingNow = Number(data.length.toString());
 
     if (streamingNow !== 0) {
-      await chrome.browserAction.setTitle({
+      await browser.browserAction.setTitle({
         title: `There are ${streamingNow} people streaming right now`,
       });
-      await chrome.browserAction.setBadgeText({
+      await browser.browserAction.setBadgeText({
         text: streamingNow.toString(),
       });
     } else {
-      await chrome.browserAction.setTitle({
+      await browser.browserAction.setTitle({
         title: "There is nobody streaming right now",
       });
-      await chrome.browserAction.setBadgeText({ text: "" });
+      await browser.browserAction.setBadgeText({ text: "" });
     }
 
     await setStorageLocal("NowLive:Channels", withImages);
