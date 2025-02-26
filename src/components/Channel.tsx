@@ -1,4 +1,3 @@
-import { FunctionComponent, PropsWithChildren } from "react";
 import { motion } from "framer-motion";
 import type { TwitchColour, TwitchStream } from "../types/twitch";
 import FavoriteButton from "./buttons/FavoriteButton";
@@ -13,12 +12,12 @@ interface ChannelProps {
   setFavorites: (old: boolean) => void;
 }
 
-const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
+function Channel({
   data,
   hidden,
   favorite = false,
   setFavorites,
-}) => {
+}: ChannelProps) {
   const {
     title,
     user_name,
@@ -40,9 +39,7 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
         style={{
           backgroundColor: average_color ? parseRgba(average_color) : "#000",
           color: average_color?.isLight ? "#000" : "#FFF",
-          boxShadow: `0 0 10px ${
-            average_color ? parseRgba(average_color) : "#000"
-          }`,
+          boxShadow: `0 0 10px ${average_color ? parseRgba(average_color) : "#000"}`,
         }}
         onClick={() => window.open(`https://twitch.tv/${user_login}`)}
         type="button"
@@ -55,8 +52,8 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
           crossOrigin="anonymous"
           alt={`${user_name} stream thumbnail`}
         />
-        <div className="left-32 block h-full max-w-sm items-center justify-between text-[2.3vw]">
-          <h1 className="overflow-hidden">{title}</h1>
+        <div className="prose left-32 flex h-full max-w-sm flex-col items-center justify-center text-[2.3vw]">
+          <h1 className="overflow-hidden text-sm">{title}</h1>
           <p>
             <b>{user_name}</b> is currently playing <b>{game_name}</b> for{" "}
             <b>
@@ -69,6 +66,6 @@ const Channel: FunctionComponent<PropsWithChildren<ChannelProps>> = ({
       <FavoriteButton favorite={favorite} toggleFavorite={setFavorites} />
     </div>
   );
-};
+}
 
 export default Channel;
