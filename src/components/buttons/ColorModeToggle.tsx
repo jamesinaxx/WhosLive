@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { useStorage } from "../../lib/chromeapi";
 import { themeChange } from "theme-change";
+import { knownThemes, Theme, themeToggleList, toggleTheme } from "../../theme";
 
 function ColorToggle() {
-  const [theme, setTheme] = useStorage<"cupcake" | "forest">("NowLive:Theme");
+  const [theme, setTheme] = useStorage<Theme>("NowLive:Theme");
   useEffect(() => {
     themeChange(false);
   }, []);
@@ -12,14 +13,12 @@ function ColorToggle() {
   return (
     <button
       className="btn btn-secondary btn-circle"
-      data-toggle-theme="forest,cupcake"
+      data-toggle-theme={themeToggleList}
       data-act-class="ACTIVECLASS"
       data-key="NowLive:Theme"
-      onClick={() =>
-        setTheme((theme) => (theme === "cupcake" ? "forest" : "cupcake"))
-      }
+      onClick={() => setTheme(toggleTheme)}
     >
-      {theme === "cupcake" ? <FaSun /> : <FaMoon />}
+      {theme === knownThemes.light ? <FaSun /> : <FaMoon />}
     </button>
   );
 }

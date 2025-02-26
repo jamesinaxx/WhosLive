@@ -3,6 +3,7 @@ import { clientId } from "./lib";
 import type { Key } from "../types/chrome";
 import type { TwitchStream, TwitchUser } from "../types/twitch";
 import { useCallback, useEffect, useState } from "react";
+import { Theme } from "../theme";
 
 export type ResolveNew<T> = T | ((prevState: T) => T);
 
@@ -54,9 +55,7 @@ export function getStorage(
   key: "NowLive:Favorites",
 ): Promise<string[] | undefined>;
 export function getStorage(key: "NowLive:Token"): Promise<string | undefined>;
-export function getStorage(
-  key: "NowLive:Theme",
-): Promise<"cupcake" | "forest" | undefined>;
+export function getStorage(key: "NowLive:Theme"): Promise<Theme | undefined>;
 export function getStorage(key: Key): Promise<unknown>;
 export async function getStorage<T>(key: Key): Promise<T | undefined> {
   const res = await browser.storage.local.get(key);

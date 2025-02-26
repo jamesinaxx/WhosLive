@@ -11,9 +11,7 @@
 }
 
 @plugin "daisyui" {
-  themes:
-    cupcake --default,
-    forest --prefersdark;
+  themes: abyss, pastel;
 }
 
 @plugin "@tailwindcss/typography";
