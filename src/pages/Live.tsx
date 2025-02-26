@@ -31,12 +31,18 @@ function Live() {
   const [parent] = useAutoAnimate();
 
   useEffect(() => {
-    browser.storage.onChanged.addListener(() => updateChannels(setChannels));
+    const listener = () => updateChannels(setChannels);
+    browser.storage.onChanged.addListener(listener);
+
     (async () => {
       setChannels(await getStorage("NowLive:Channels"));
       const newFavoriteChannels = (await getStorage("NowLive:Favorites")) || [];
       setFavoriteChannels(new Set(newFavoriteChannels));
     })();
+
+    return () => {
+      browser.storage.onChanged.removeListener(listener);
+    };
   }, []);
 
   const toggleFavorite = useCallback((userId: string) => {

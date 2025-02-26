@@ -8,12 +8,14 @@ const hashResult = hash.split("&").reduce(
   {},
 );
 
-chrome.runtime.sendMessage(
-  { name: "NowLive:Token", token: hashResult.access_token },
-  (res: [string, boolean]) => {
+browser.runtime
+  .sendMessage({
+    name: "NowLive:Token",
+    token: hashResult.access_token,
+  })
+  .then((res) => {
     const success = res[1];
     if (authEl !== null && authEl !== undefined && !success) {
       authEl.innerHTML = `<p style="color: red">We tried to send the token, but something went wrong... Please let me know <a href="https://github.com/jewlexx/NowLive/issues" style="color: #05d1d1">here</a> and include ${res[0]}</p>`;
     }
-  },
-);
+  });

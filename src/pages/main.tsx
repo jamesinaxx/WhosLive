@@ -25,11 +25,17 @@ function Main() {
     (async () => {
       await validateToken();
 
-      chrome.storage.onChanged.addListener(async (changes, area) => {
+      const listener = async (
+        changes: Record<string, browser.storage.StorageChange>,
+        area: string,
+      ): Promise<void> => {
         if (area === "sync" && "NowLive:Token" in changes) {
           await validateToken();
         }
-      });
+      };
+
+      browser.storage.onChanged.addListener(listener);
+      return () => browser.storage.onChanged.removeListener(listener);
     })();
   }, [validateToken]);
 
