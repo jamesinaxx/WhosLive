@@ -14,7 +14,7 @@ interface ConfigButtonsProps {
 const ConfigButtons: FunctionComponent<
   PropsWithChildren<ConfigButtonsProps>
 > = ({ setShow, show }) => (
-  <div className="fixed top-5 right-5">
+  <div className="fixed top-1 right-1 flex gap-1">
     <ColorModeToggle shown={show} />
     <LogoutButton onClick={() => setShow(true)} shown={show} />
   </div>
