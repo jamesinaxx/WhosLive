@@ -14,7 +14,6 @@ export function useStorage<T>(
 
   const onChanged = useCallback(
     (changes: Record<string, browser.storage.StorageChange>) => {
-      console.log(changes);
       if (key in changes) {
         setValue(changes[key].newValue);
       }

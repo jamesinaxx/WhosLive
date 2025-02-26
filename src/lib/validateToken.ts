@@ -7,7 +7,7 @@ export default async function validateToken(
   const token = checkToken || (await getStorage("NowLive:Token"));
 
   if (token === undefined) {
-    console.log("No token found");
+    console.error("No token found");
     return false;
   }
 
