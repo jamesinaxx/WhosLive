@@ -4,6 +4,10 @@
   --color-button: #724cf9;
   --color-button-hover: #6b4ecf;
   --color-button-clicked: #573eb0;
+
+  --color-sad-gray: rgb(179, 179, 179);
+
+  --color-error-red: rgb(199, 33, 33);
 }
 
 @plugin "daisyui" {
@@ -15,6 +19,15 @@
 @plugin "@tailwindcss/typography";
 
 @layer components {
+  .sad-text {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: xx-large;
+    color: rgb(179, 179, 179);
+  }
 }
 
 body,

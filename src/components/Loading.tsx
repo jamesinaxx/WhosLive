@@ -1,35 +1,9 @@
 import { motion } from "framer-motion";
-import styled from "styled-components";
-import { buttonColor } from "../styleMixins";
-
-const ScreenContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  padding: 0px;
-  margin: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const LoadingContainer = styled(motion.div)`
-  width: 4rem;
-  height: 4rem;
-  display: flex;
-  justify-content: space-around;
-`;
-
-const LoadingCircle = styled(motion.span)`
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  background-color: ${buttonColor};
-  border-radius: 0.5rem;
-`;
 
 const Loading = () => (
-  <ScreenContainer>
-    <LoadingContainer
+  <div className="m-0 flex h-screen w-screen items-center justify-center p-0">
+    <motion.div
+      className="flex h-16 w-16 justify-around"
       variants={{
         start: { transition: { staggerChildren: 0.2 } },
         end: { transition: { staggerChildren: 0.2 } },
@@ -38,14 +12,15 @@ const Loading = () => (
       animate="end"
     >
       {[null, null, null].map((_, i) => (
-        <LoadingCircle
+        <motion.span
+          className="bg-button block h-4 w-4 rounded-2xl"
           key={i}
           variants={{ start: { y: "0%" }, end: { y: "60%" } }}
           transition={{ duration: 0.4, yoyo: Infinity, ease: "easeInOut" }}
         />
       ))}
-    </LoadingContainer>
-  </ScreenContainer>
+    </motion.div>
+  </div>
 );
 
 export default Loading;
