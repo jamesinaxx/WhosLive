@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
-import { useStorageLocal } from "../../lib/chromeapi";
+import { useStorage } from "../../lib/chromeapi";
 import { themeChange } from "theme-change";
 
 function ColorToggle() {
-  const [theme, setTheme] = useStorageLocal<"cupcake" | "forest">(
-    "NowLive:Theme",
-  );
+  const [theme, setTheme] = useStorage<"cupcake" | "forest">("NowLive:Theme");
   useEffect(() => {
     themeChange(false);
   }, []);
