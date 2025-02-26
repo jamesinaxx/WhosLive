@@ -56,6 +56,9 @@ export function getStorage(
 ): Promise<string[] | undefined>;
 export function getStorage(key: "NowLive:Token"): Promise<string | undefined>;
 export function getStorage(key: "NowLive:Theme"): Promise<Theme | undefined>;
+export function getStorage(
+  key: "NowLive:Channels",
+): Promise<TwitchStream[] | undefined>;
 export function getStorage(key: Key): Promise<unknown>;
 export async function getStorage<T>(key: Key): Promise<T | undefined> {
   const res = await browser.storage.local.get(key);
