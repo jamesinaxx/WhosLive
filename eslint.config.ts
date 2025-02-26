@@ -2,8 +2,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import tseslint from "typescript-eslint";
 import { fixupConfigRules } from "@eslint/compat";
-// import globals from 'globals';
-// import tsParser from '@typescript-eslint/parser';
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
 
@@ -31,25 +29,4 @@ export default tseslint.config(
     compat.extends("plugin:react-hooks/recommended", "prettier"),
   ),
   { rules: { "react/react-in-jsx-scope": "off" } },
-  // {
-  //   languageOptions: {
-  //     globals: { ...globals.webextensions, ...globals.browser },
-
-  //     parser: tsParser,
-  //     ecmaVersion: 12,
-  //     sourceType: 'module',
-
-  //     parserOptions: { ecmaFeatures: { jsx: true } },
-  //   },
-  // },
-  // {
-  //   files: ['**/*.ts', '**/*.tsx'],
-
-  //   languageOptions: {
-  //     ecmaVersion: 5,
-  //     sourceType: 'script',
-
-  //     parserOptions: { project: ['./tsconfig.json'] },
-  //   },
-  // },
 );
