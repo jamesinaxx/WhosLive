@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import type { TwitchColour, TwitchStream } from "../types/twitch";
 import FavoriteButton from "./buttons/FavoriteButton";
+import { useMemo } from "react";
 
 const parseRgba = (colour: TwitchColour) =>
   `rgba(${colour.red},${colour.green},${colour.blue},0.7)`;
@@ -28,6 +29,15 @@ function Channel({
     average_color,
   } = data;
 
+  const truncatedTitle = useMemo(() => {
+    const truncationLength = 66;
+    if (title.length > truncationLength) {
+      return `${title.substring(0, truncationLength - 3)}...`;
+    }
+
+    return title;
+  }, [title]);
+
   return (
     <div
       title={title}
@@ -53,7 +63,7 @@ function Channel({
           alt={`${user_name} stream thumbnail`}
         />
         <div className="prose left-32 flex h-full max-w-sm flex-col items-center justify-center text-[2.3vw]">
-          <h1 className="overflow-hidden text-sm">{title}</h1>
+          <h1 className="overflow-hidden text-sm">{truncatedTitle}</h1>
           <p>
             <b>{user_name}</b> is currently playing <b>{game_name}</b> for{" "}
             <b>
