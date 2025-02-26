@@ -1,19 +1,9 @@
-import {
-  useEffect,
-  type FunctionComponent,
-  type PropsWithChildren,
-} from "react";
+import { useEffect } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { useStorageLocal } from "../../lib/chromeapi";
 import { themeChange } from "theme-change";
 
-interface ColorToggleProps {
-  shown: boolean;
-}
-
-const ColorToggle: FunctionComponent<PropsWithChildren<ColorToggleProps>> = ({
-  shown,
-}) => {
+function ColorToggle() {
   const [theme, setTheme] = useStorageLocal<"cupcake" | "forest">(
     "NowLive:Theme",
   );
@@ -24,7 +14,6 @@ const ColorToggle: FunctionComponent<PropsWithChildren<ColorToggleProps>> = ({
   return (
     <button
       className="btn btn-secondary"
-      style={{ opacity: shown ? "0%" : "100%" }}
       data-toggle-theme="forest,cupcake"
       data-act-class="ACTIVECLASS"
       data-key="NowLive:Theme"
@@ -35,6 +24,6 @@ const ColorToggle: FunctionComponent<PropsWithChildren<ColorToggleProps>> = ({
       {theme === "cupcake" ? <FaSun /> : <FaMoon />}
     </button>
   );
-};
+}
 
 export default ColorToggle;

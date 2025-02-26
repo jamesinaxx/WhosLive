@@ -1,25 +1,11 @@
-import type { FunctionComponent, PropsWithChildren } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 
-interface LogoutButtonProps {
-  onClick: () => void;
-  shown: boolean;
+function LogoutButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button className="btn btn-primary" onClick={onClick}>
+      <FaSignOutAlt />
+    </button>
+  );
 }
-
-const LogoutButton: FunctionComponent<PropsWithChildren<LogoutButtonProps>> = ({
-  onClick,
-  shown,
-}) => (
-  <button
-    className="btn btn-primary"
-    onClick={onClick}
-    style={{
-      opacity: shown ? "0%" : "100%",
-      color: "#fff",
-    }}
-  >
-    <FaSignOutAlt />
-  </button>
-);
 
 export default LogoutButton;
