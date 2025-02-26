@@ -15,9 +15,11 @@ import LoadingContext from "../lib/LoadingContext";
 
 type ChannelsType = TwitchStream[] | undefined;
 
-const updateChannels = async (
+async function updateChannels(
   setChannels: Dispatch<SetStateAction<ChannelsType>>,
-) => setChannels(await getStorage("NowLive:Channels"));
+) {
+  return setChannels(await getStorage("NowLive:Channels"));
+}
 
 function Live() {
   const { loading } = useContext(LoadingContext);

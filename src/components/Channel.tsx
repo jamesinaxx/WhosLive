@@ -3,8 +3,9 @@ import type { TwitchColour, TwitchStream } from "../types/twitch";
 import FavoriteButton from "./buttons/FavoriteButton";
 import { useMemo } from "react";
 
-const parseRgba = (colour: TwitchColour) =>
-  `rgba(${colour.red},${colour.green},${colour.blue},0.7)`;
+function parseRgba(colour: TwitchColour) {
+  return `rgba(${colour.red},${colour.green},${colour.blue},0.7)`;
+}
 
 interface ChannelProps {
   data: TwitchStream;

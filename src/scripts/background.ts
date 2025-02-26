@@ -6,27 +6,24 @@ import {
 } from "../lib/chromeapi";
 import validateToken from "../lib/validateToken";
 
-const initializeWasm = async () => {
+async function initializeWasm() {
   await init();
   initialize();
-};
+}
 
-chrome.alarms.create("NowLive:Refresh", {
+browser.alarms.create("NowLive:Refresh", {
   // delayInMinutes: 1,
   periodInMinutes: 1,
 });
 
-chrome.runtime.onInstalled.addListener(async () => {
+browser.runtime.onInstalled.addListener(async () => {
   await setStorageLocalIfNull("NowLive:Theme", "dark");
   await setStorageIfNull("NowLive:Favorites", []);
   await getChannelInfo();
   console.log("Initialized Now Live");
 });
 
-// chrome.storage.onChanged.addListener((changes) => {
-// });
-
-chrome.runtime.onMessage.addListener((message, sender, res) => {
+browser.runtime.onMessage.addListener((message, sender, res) => {
   if (!sender.url?.startsWith("https://nowlive.jewelexx.com/auth/callback")) {
     return false;
   }
@@ -53,7 +50,7 @@ chrome.runtime.onMessage.addListener((message, sender, res) => {
 (async () => {
   await initializeWasm();
 
-  chrome.alarms.onAlarm.addListener(async (alarm) => {
+  browser.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === "NowLive:Refresh") {
       await getChannelInfo();
     }
