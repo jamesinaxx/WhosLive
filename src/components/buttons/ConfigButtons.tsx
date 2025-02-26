@@ -8,7 +8,7 @@ interface ConfigButtonsProps {
 
 function ConfigButtons({ setShow }: ConfigButtonsProps) {
   return (
-    <div className="fixed top-1 right-1 flex gap-1">
+    <div className="fixed top-1 right-1 flex flex-col gap-1">
       <ColorModeToggle />
       <LogoutButton onClick={() => setShow(true)} />
     </div>

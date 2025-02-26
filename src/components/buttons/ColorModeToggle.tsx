@@ -11,7 +11,7 @@ function ColorToggle() {
 
   return (
     <button
-      className="btn btn-secondary"
+      className="btn btn-secondary btn-circle"
       data-toggle-theme="forest,cupcake"
       data-act-class="ACTIVECLASS"
       data-key="NowLive:Theme"

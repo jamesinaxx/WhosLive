@@ -26,10 +26,10 @@
   },
   "browserslist": "last 2 versions",
   "dependencies": {
-    "@fontsource/noto-sans": "5.1.1",
+    "@fontsource/inter": "^5.1.1",
     "@formkit/auto-animate": "^0.8.2",
-    "motion": "12.4.7",
     "image-helpers": "workspace:*",
+    "motion": "12.4.7",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-icons": "5.5.0",

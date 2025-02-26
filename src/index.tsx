@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import LoadingContext from "./lib/LoadingContext";
 import Main from "./pages/main";
-import "@fontsource/noto-sans";
+import "@fontsource/inter";
 import "./index.css";
 import InvalidateToken from "./components/InvalidateToken";
 import { getChannelInfo, getStorage, setStorage } from "./lib/chromeapi";
